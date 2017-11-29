@@ -1,0 +1,169 @@
+/**
+ * mixin
+ */
+$hd: 1px; // 基本单位
+
+// 色彩
+// ---
+// 全局/品牌色
+$brand-primary: #ec4747;
+$brand-primary-tap: #E74545;
+$brand-success: #6abf47;
+$brand-warning: #ffc600;
+$brand-error: #f4333c;
+$brand-important: #ff5b05;  // 用于小红点
+$brand-wait: #ec4747;
+
+// 边框色
+$border-color-base: #ddd;
+// 文字色
+$color-text-base: #333;                  // 基本
+$color-text-secondary: #666;          // 辅助色
+$color-text-thirdly: #999;          // 辅助色
+$color-text-placeholder: #bbb;           // 文本框提示
+$color-text-disabled: #bbb;              // 失效
+$color-text-caption: #888;               // 辅助描述
+$color-link: $brand-primary;             // 链接
+$color-highlight: $brand-primary;             // 高亮
+// 背景色
+$fill-base: #fff;                           // 组件默认背景
+$fill-body: #f5f5f9;                        // 页面背景
+$fill-tap: #ddd;                            // 组件默认背景 - 按下
+$fill-disabled: #ddd;                       // 通用失效背景
+$fill-mask: rgba(0, 0, 0, 0.4);              // 遮罩背景
+$color-icon-base: #ccc;                      // 许多小图标的背景，比如一些小圆点，加减号
+$fill-grey: #f7f7f7;
+
+// 透明度
+$opacity-disabled: 0.3;   // switch checkbox radio 等组件禁用的透明度
+
+// 字体尺寸
+$font-size-icontext: 10 * $hd;
+$font-size-caption-sm: 12 * $hd;
+$font-size-base: 14 * $hd;
+$font-size-subhead: 15 * $hd;
+$font-size-caption: 16 * $hd;
+$font-size-heading: 17 * $hd;
+
+// 圆角
+$radius-xs: 2 * $hd;
+$radius-sm: 3 * $hd;
+$radius-md: 5 * $hd;
+$radius-lg: 7 * $hd;
+$radius-circle: 50%;
+
+//字体
+$font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+
+//$px为需要转换的字号
+@function toRem($px) {
+  @return $px / 75px * 1rem;
+}
+
+@mixin wh($width,$height) {
+  width: toRem($width);
+  height: toRem($height);
+}
+
+@mixin square($size) {
+  @include wh($size, $size);
+}
+
+@mixin ht-lineHt($height) {
+  height: toRem($height);
+  line-height: toRem($height);
+}
+
+@mixin font-size($font-size) {
+  font-size: toRem($font-size);
+}
+
+// 边框圆角
+@mixin borderRadius($radius:$radius-md) {
+  -webkit-border-radius: toRem($radius);
+  -moz-border-radius: toRem($radius);
+  -ms-border-radius: toRem($radius);
+  -o-border-radius: toRem($radius);
+  border-radius: toRem($radius);
+}
+
+@mixin opacity($opacity:1) {
+  opacity: $opacity;
+  -moz-opacity: $opacity;
+  -khtml-opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+/*font-dpr*/
+@mixin font-dpr($font-size:12px) {
+  font-size: $font-size;
+  [data-dpr="2"] & {
+    font-size: $font-size*2;
+  }
+  [data-dpr="3"] & {
+    font-size: $font-size * 3;
+  }
+}
+
+//过渡
+@mixin transition($pro:all,$dur:0.3s,$fn:ease-in,$delay:0s) {
+  -webkit-transition-property: $pro;
+  -moz-transition-property: $pro;
+  -o-transition-property: $pro;
+  transition-property: $pro;
+
+  -webkit-transition-duration: $dur;
+  -moz-transition-duration: $dur;
+  -o-transition-duration: $dur;
+  transition-duration: $dur;
+
+  -webkit-transition-timing-function: $fn;
+  -moz-transition-timing-function: $fn;
+  -o-transition-timing-function: $fn;
+  transition-timing-function: $fn;
+
+  -webkit-transition-delay: $delay;
+  -moz-transition-delay: $delay;
+  -o-transition-delay: $delay;
+  transition-delay: $delay;
+}
+
+// 左浮动
+%pull-left {
+  float: left !important;
+}
+
+// 右浮动
+%pull-right {
+  float: right !important;
+}
+
+// 清除浮动
+%clearFix {
+  zoom: 1;
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+    height: 0;
+  }
+}
+
+/*超出显示...*/
+%ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+//base边框
+%border-base {
+  border: 1px solid $border-color-base;
+}
+
