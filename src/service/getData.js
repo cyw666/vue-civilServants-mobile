@@ -27,3 +27,32 @@ export const GetLink = (data) => fetch.post(Api.GetLink.url, {...Api.GetLink.dat
  */
 export const GetCourseInfoList = (data) => fetch.post(Api.GetCourseInfoList.url, {...Api.GetCourseInfoList.data, ...data});
 
+/**
+ * 课程分类
+ */
+export const GetChannelInfoList = (data) => fetch.post(Api.GetChannelInfoList.url, {...Api.GetChannelInfoList.data, ...data});
+
+/**
+ * 考试分类
+ */
+export const GetExamType = (data) => fetch.post(Api.GetExamType.url, {...Api.GetExamType.data, ...data});
+
+/**
+ * 考试列表
+ */
+export const GetExamList = (data) => fetch.post(Api.GetExamList.url, {...Api.GetExamList.data, ...data});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

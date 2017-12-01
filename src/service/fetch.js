@@ -32,7 +32,7 @@ function checkStatus(response) {
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
     // console.log(response);
     if (response.data.Type == 401) {
-      alert("您的账号在其他设备登录，即将退出登录");
+      alert("您的账号已掉线，请重新登录！");
       window.localStorage.removeItem('ASPXAUTH');
       window.location = "/#/login";
     }

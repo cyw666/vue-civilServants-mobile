@@ -68,6 +68,9 @@ a {
   outline: none;
   color: $color-text-base;
 }
+a:hover{
+  text-decoration: none;
+}
 
 // Headers
 h1, h2, h3, h4, h5, h6 {
@@ -105,27 +108,35 @@ label {
 //没有数据
 .no-data {
   width: 100%;
-  position: relative;
-  left: 0;
-  top: toRem(-40px);
-  margin-bottom: toRem(60px);
   text-align: center;
   color: #999;
-  @include font-size(50px);
+  @include font-size(28px);
+  padding: toRem(15px) 0;
+}
+
+.noDataBg {
+  display: block;
+  width: toRem(750px);
+  height: toRem(900px);
+  text-align: center;
+  background: url(../assets/no_data.png) no-repeat center center;
+  background-size: toRem(255px) toRem(425px);
 }
 
 //高亮
 .highlight {
   color: $color-highlight;
 }
+
 //容器
-.container{
-  &::after{
+.container {
+  &::after {
     content: '';
     display: block;
     height: toRem(105px);
   }
 }
+
 //表单
 .form-group {
   @include font-size(34px);
@@ -189,7 +200,7 @@ label {
 }
 
 .mint-button--small {
-  @include font-size(56px);
+  @include font-size(28px);
   height: toRem(44px);
 }
 
@@ -211,6 +222,24 @@ label {
 
 .fade-enter, .fade-leave-active {
   opacity: 0;
+}
+//slide
+.slide-enter-active {
+  height: auto;
+  transition: height 0.5s;
+}
+.slide-leave-active {
+  height: 0;
+  transition: height 0.5s;
+}
+
+.slide-enter{
+  height: 0;
+  transition: height 0.5s;
+}
+.slide-leave-active {
+  height: auto;
+  transition: height 0.5s;
 }
 
 //MessageBox

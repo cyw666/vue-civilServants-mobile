@@ -1,0 +1,73 @@
+/**
+* header组件
+*/
+<template>
+  <header class="header" :class="{ 'is-fixed': fixed }">
+    <div class="header_left">
+      <slot name="left"></slot>
+    </div>
+    <h1 class="header_title" v-text="title"></h1>
+    <div class="header_right">
+      <slot name="right"></slot>
+    </div>
+  </header>
+</template>
+<script>
+  export default {
+    name:"header",
+    data() {
+      return {}
+    },
+    created() {
+      
+    },
+    mounted() {
+      
+    },
+    props: {
+      title:String,
+      fixed:Boolean
+    },
+    components: {},
+    computed: {},
+    updated() {
+      
+    },
+    methods: {},
+    watch: {}
+    
+  }
+</script>
+
+<style lang="scss" rel="stylesheet/scss">
+  @import "../style/mixin";
+  .header {
+    @include flex();
+    @include ht-lineHt(92px);
+    background-color: $brand-primary;
+    text-align: center;
+    font-size: toRem(36px);
+    color: #fff;
+    padding: 0 toRem(20px);
+    &.is-fixed {
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+    .header_left{
+      flex: 1;
+      text-align: left;
+    }
+    .header_title{
+      flex: 2;
+      @extend %ellipsis;
+      color: #fff;
+    }
+    .header_right{
+      flex: 1;
+      text-align: right;
+    }
+  }
+</style>

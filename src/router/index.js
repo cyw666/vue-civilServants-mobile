@@ -1,10 +1,12 @@
 /*路由*/
 import App from '../App.vue'
 
-const HelloWorld = r => require.ensure([], () => r(require('../components/HelloWorld.vue')), 'helloWorld')
 const Home = r => require.ensure([], () => r(require('../page/home/home.vue')), 'home')
 const Login = r => require.ensure([], () => r(require('../page/home/login.vue')), 'login')
 const Error = r => require.ensure([], () => r(require('../page/error.vue')), 'error')
+const CourseCenter = r => require.ensure([], () => r(require('../page/courseCenter.vue')), 'courseCenter')
+const CourseSearch = r => require.ensure([], () => r(require('../page/courseSearch.vue')), 'courseSearch')
+const ExamCenter = r => require.ensure([], () => r(require('../page/examCenter.vue')), 'examCenter')
 
 const routes  = [
   {
@@ -17,18 +19,33 @@ const routes  = [
       },
       //登陆
       {
+        name:'login',
         path: '/login',
         component: Login
       },
       //首页
       {
+        name:'home',
         path: '/home',
         component: Home
       },
-      //HelloWorld
+      //课程中心
       {
-        path: '/hello',
-        component: HelloWorld
+        name:'courseCenter',
+        path: '/courseCenter',
+        component: CourseCenter
+      },
+      //课程搜索
+      {
+        name:'courseSearch',
+        path: '/courseSearch',
+        component: CourseSearch
+      },
+      //考试中心
+      {
+        name:'examCenter',
+        path: '/examCenter',
+        component: ExamCenter
       },
       //error
       {

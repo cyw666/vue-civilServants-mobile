@@ -1,11 +1,12 @@
 <template>
   <div class="home">
-    <header class="header">
-      <router-link to="/messageList"><img class="message" src="../../assets/message.png" alt="消息"></router-link>
-      <span class="header-title">主页</span>
-      <img src="../../assets/info_show.png" @click="toggleModel" alt="用户信息" class="info_show">
-      <router-link to="/history"><img class="history" src="../../assets/history.png" alt="历史记录"></router-link>
-    </header>
+    <Header-fix title="主页" fixed>
+      <router-link slot="left" to="/messageList"><img class="message" src="../../assets/message.png" alt="消息"></router-link>
+      <div slot="right">
+        <img src="../../assets/info_show.png" @click="toggleModel" alt="用户信息" class="info_show">
+        <router-link to="/history"><img class="history" src="../../assets/history.png" alt="历史记录"></router-link>
+      </div>
+    </Header-fix>
     <div class="container">
       <mt-swipe :auto="4000">
         <mt-swipe-item v-for="item in swipeData" key="$index">
@@ -53,8 +54,8 @@
           <ul>
             <li v-for="item in recommendCourseData" :key="item.Id">
               <div class="recommend_course_item">
-                <a href="">
-                  <error-img :src="item.CourseImg" :errorSrc="noCourse"></error-img>
+                <a @click="toPlay(item.CourseType,item.CourseId)">
+                  <error-img :src="item.CourseImg" :error-src="noCourse"></error-img>
                   <p class="course_title">{{item.CourseName}}</p>
                 </a>
                 <p class="clearFix"><span class="teacher pull-left">讲师：{{item.TeacherName}}</span><span
@@ -65,10 +66,10 @@
         </div>
       </section>
     </div>
-    <footer-fix selected="home"></footer-fix>
+    <Footer-fix selected="home"></Footer-fix>
     <transition name="fade">
       <div class="info" v-if="showModel">
-        <div class="container">
+        <div class="info_content">
           <div class="info_layer_avatar">
             <img src="../../assets/user_avatar.png" alt="用户头像" class="avatar">
             <img src="../../assets/cancel.png" @click="toggleModel" alt="关闭" class="cancel">
@@ -85,9 +86,11 @@
 
 </template>
 <script>
+  import { Indicator } from 'mint-ui';
   import {GetCourseInfoList, GetLink, GetUserInfo} from '../../service/getData'
-  import footerFix from '../../components/footerFix.vue'
+  import FooterFix from '../../components/footerFix.vue'
   import errorImg from '../../components/errorImg.vue'
+  import HeaderFix from '../../components/header.vue'
   import noCourse from '../../assets/noCourse.png'
   export default {
     name: 'home',
@@ -101,8 +104,9 @@
       }
     },
     components: {
-      footerFix,
+      FooterFix,
       errorImg,
+      HeaderFix,
     },
     mounted() {
       this.getUserInfor();
@@ -149,6 +153,13 @@
             break;
         }
         this.$router.push({path, query: {id}})
+      },
+      toPlay(type,id){
+        if(type == "Mp4"){
+          this.$router.push({path:'/playMp4',query:{id}})
+        }else if(type == "JYAicc"){
+          this.$router.push({path:'/playJYAicc',query:{id}})
+        }
       }
     }
   }
@@ -157,35 +168,15 @@
   @import "../../style/mixin";
 
   .home {
-    .header {
-      width: 100%;
-      @include ht-lineHt(92px);
-      background-color: $brand-primary;
-      text-align: center;
-      font-size: toRem(36px);
-      color: #fff;
-      position: fixed;
-      z-index: 2000;
-      top: 0;
-      left: 0;
-      .message {
-        position: absolute;
-        width: toRem(50px);
-        left: toRem(28px);
-        top: toRem(25px);
-      }
-      .info_show {
-        position: absolute;
-        width: toRem(50px);
-        right: toRem(108px);
-        top: toRem(16px);
-      }
-      .history {
-        position: absolute;
-        width: toRem(50px);
-        right: toRem(30px);
-        top: toRem(18px);
-      }
+    .message {
+      width: toRem(50px);
+    }
+    .info_show {
+      width: toRem(50px);
+      margin-right:toRem(15px);
+    }
+    .history {
+      width: toRem(50px);
     }
     .info {
       width: 100%;
@@ -195,7 +186,7 @@
       top: 0;
       z-index: 1000;
       background-color: $fill-mask;
-      .container {
+      .info_content {
         position: relative;
         @include wh(580px, 533px);
         margin: toRem(250px) auto;
@@ -208,11 +199,13 @@
         }
         .avatar {
           margin-top: toRem(18px);
+          @include square(117px);
         }
         .cancel {
           position: absolute;
           right: toRem(20px);
           top: toRem(20px);
+          @include square(26px);
         }
         .info_detail {
           text-align: center;

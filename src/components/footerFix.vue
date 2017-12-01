@@ -11,7 +11,7 @@
         <img v-else slot="icon" src="../assets/course_ico1.png">
         课程
       </mt-tab-item>
-      <mt-tab-item id="exam" href="#/exam">
+      <mt-tab-item id="examCenter" href="#/examCenter">
         <img v-if="selected == 'exam'" slot="icon" src="../assets/exam_ico2.png">
         <img v-else slot="icon" src="../assets/exam_ico1.png">
         考试
@@ -27,23 +27,7 @@
 <script>
   export default {
     name:'footerFix',
-    data() {
-      return {}
-    },
-    created() {
-
-    },
-    mounted() {
-
-    },
     props: ['selected'],
-    components: {},
-    computed: {},
-    updated() {
-
-    },
-    methods: {},
-    watch: {}
   }
 </script>
 <style lang="scss" rel="stylesheet/scss">
