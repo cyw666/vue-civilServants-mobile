@@ -152,13 +152,17 @@
         this.typeId = data.TypeId;
         this.examTitle = data.Name;
         this.showSlide = false;
+        this.showFilter = false;
         this.examData = [];
         this.getExamList();
       },
       //点击筛选搜索
       filterExam(type){
+        this.page = 1;
         this.showFilter = false;
+        this.showSlide = false;
         this.examType = type;
+        this.examData = [];
         this.getExamList();
       }
     },

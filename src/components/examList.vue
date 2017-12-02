@@ -9,15 +9,15 @@
         <img src="../assets/exam_ico.png" alt="">
       </div>
       <div class="exam_desc">
-        <div class="exam_name" @click="toPlay">{{item.ExamTitle}}</div>
-        <div class="exam_date">考试截止时间：{{item.EndTime}}</div>
+        <div class="exam_name" @click="checkAttempt">{{item.ExamTitle}}</div>
+        <div class="exam_date">考试截止时间：{{item.EndTime | dateFilter('yyyy.MM.dd')}}</div>
         <div class="exam_num">
-          <span class="exam_tip_num">题数:{{item.ThemeCount}}题</span>
-          <span class="highlight">{{item.ExamCredit.toFixed(1)}}学分</span>
+          <span class="exam_tip_num">题数：{{item.ThemeCount}}题</span>
+          <span class="highlight pull-right">{{item.ExamCredit.toFixed(1)}}学分</span>
         </div>
         <div class="bottom">
-          <span class="exam_time">{{item.TimeLimit}}分钟</span>
-          <span class="pull-left" v-if="item.Status=='Finish'">最好成绩：<span class="green">{{(item.HighScore).toFixed(1)}}</span></span>
+          <span class="exam_time">考试时间：{{item.TimeLimit}}分钟</span>
+          <span class="pull-right" v-if="item.Status=='Finish'">最好成绩：<span class="green">{{(item.HighScore).toFixed(1)}}</span></span>
           <span class="highlight pull-right" v-if="item.Status=='UnFinish'">不合格</span>
           <span class="pull-right" v-if="item.Status=='UnJoin'">未考</span></div>
       </div>
@@ -27,9 +27,13 @@
   </div>
 </template>
 <script>
+  import {MessageBox,Toast } from 'mint-ui';
+  import {dateFilter} from '../service/filter'
   export default {
     data() {
-      return {}
+      return {
+        message:''
+      }
     },
     props: {
       examData: Array,
@@ -44,8 +48,32 @@
     },
     components: {},
     methods: {
-      checkAttempt() {
-        this.$router.push({path: '/exam', query: {id}})
+      checkAttempt(id, total, current, endTime) {
+        var dateEnd = new Date(endTime).getTime();
+        var dateNow = new Date().getTime();
+        if (dateNow < dateEnd) {
+          if (current < total) {
+            let count = total - current;
+            MessageBox.confirm(`当前考试剩余${count}次考试机会，是否继续考试`).then(action => {
+              this.$router.push({path:'/exam',query:{id}})
+            });
+
+          } else {
+            this.message = "考试次数已用完";
+            Toast({
+              message: this.message,
+              position: 'bottom',
+              duration: 2000
+            });
+          }
+        } else {
+          this.message = "考试截止时间已过";
+          Toast({
+            message: this.message,
+            position: 'bottom',
+            duration: 2000
+          });
+        }
       }
     },
   }
@@ -100,6 +128,9 @@
       }
       .highlight {
 
+      }
+      .green{
+        color: $brand-success;
       }
     }
   }

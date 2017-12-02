@@ -10,7 +10,7 @@ body {
   font-family: $font-family;
   font-size: $font-size-base;
   color: $color-text-base;
-  background-color: $fill-body;
+  background-color: #fff;
 }
 
 img {
@@ -56,6 +56,7 @@ input::-ms-clear, input::-ms-reveal {
 input[type=checkbox], input[type=radio] {
   margin: 4px 0 0;
   line-height: normal;
+  @include square(30px);
 }
 
 *:focus {
@@ -191,7 +192,7 @@ label {
 
 .mint-button {
   height: toRem(90px);
-  @include font-size(36px);
+  @include font-size(32px);
   @include borderRadius(8px)
 }
 
@@ -242,8 +243,9 @@ label {
   transition: height 0.5s;
 }
 
-//MessageBox
+
 body {
+  //MessageBox
   .mint-msgbox {
     font-size: toRem(32px);
   }
@@ -256,6 +258,15 @@ body {
   }
   .mint-msgbox-content {
     padding: toRem(10px) toRem(70px) toRem(60px);
+  }
+  //toast
+  .mint-toast{
+    .mint-toast-text {
+      font-size: toRem(28px);
+    }
+    &.is-placebottom{
+      bottom: toRem(115px);
+    }
   }
 }
 
@@ -272,4 +283,7 @@ body {
   margin-right: toRem(20px);
   background-color: $brand-primary;
 }
+
+
+
 

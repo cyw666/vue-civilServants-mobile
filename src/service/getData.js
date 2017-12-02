@@ -42,6 +42,16 @@ export const GetExamType = (data) => fetch.post(Api.GetExamType.url, {...Api.Get
  */
 export const GetExamList = (data) => fetch.post(Api.GetExamList.url, {...Api.GetExamList.data, ...data});
 
+/**
+ * 获取考试题
+ */
+export const GetExam = (data) => fetch.post(Api.GetExam.url, {...Api.GetExam.data, ...data});
+
+/**
+ * 提交考试题
+ */
+export const UpdateUserExam = (data) => fetch.post(Api.UpdateUserExam.url, {...Api.UpdateUserExam.data, ...data});
+
 
 
 

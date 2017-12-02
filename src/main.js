@@ -5,13 +5,17 @@ import './plugins/flexible'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+
 import 'vue-awesome/dist/vue-awesome';
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
+
 import './style/base.scss'
-import 'mint-ui/lib/style.css'
-import routes  from './router'
+import routes from './router'
 import store from './store/'
+import {setStore} from './plugins/utils'
+
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(MintUI);
@@ -22,11 +26,13 @@ const router = new VueRouter({
 })
 /*router.beforeEach((to, from, next) => {
   // console.log(to,from)
-  if(to.path=='/userLogin') {next();return}
-  if(to.path=='/'){next();return}
-  if(to.path=='/home'){next();return}
+
   next();
 })*/
+router.afterEach((to, from) => {
+  let currentUrl = window.location.href;
+  setStore("currentUrl",currentUrl);
+})
 
 new Vue({
   router,

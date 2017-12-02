@@ -1,10 +1,10 @@
 <template>
   <div class="home">
     <Header-fix title="主页" fixed>
-      <router-link slot="left" to="/messageList"><img class="message" src="../../assets/message.png" alt="消息"></router-link>
+      <router-link slot="left" to="/messageList"><img class="message" src="../assets/message.png" alt="消息"></router-link>
       <div slot="right">
-        <img src="../../assets/info_show.png" @click="toggleModel" alt="用户信息" class="info_show">
-        <router-link to="/history"><img class="history" src="../../assets/history.png" alt="历史记录"></router-link>
+        <img src="../assets/info_show.png" @click="toggleModel" alt="用户信息" class="info_show">
+        <router-link to="/history"><img class="history" src="../assets/history.png" alt="历史记录"></router-link>
       </div>
     </Header-fix>
     <div class="container">
@@ -18,31 +18,31 @@
       <section class="guide_list">
         <div class="guide_item">
           <router-link to="/myCourse">
-            <img src="../../assets/my_course.png" alt="我的课程">
+            <img src="../assets/my_course.png" alt="我的课程">
             <p>我的课程</p>
           </router-link>
         </div>
         <div class="guide_item">
           <router-link to="/newsCenter">
-            <img src="../../assets/news_ico.png" alt="资讯中心">
+            <img src="../assets/news_ico.png" alt="资讯中心">
             <p>资讯中心</p>
           </router-link>
         </div>
         <div class="guide_item">
           <router-link to="/rankList">
-            <img src="../../assets/rank_ico.png" alt="排行榜">
+            <img src="../assets/rank_ico.png" alt="排行榜">
             <p>排行榜</p>
           </router-link>
         </div>
         <div class="guide_item">
           <router-link to="/classGarden">
-            <img src="../../assets/class_ico.png" alt="班级园地">
+            <img src="../assets/class_ico.png" alt="班级园地">
             <p>班级园地</p>
           </router-link>
         </div>
         <div class="guide_item">
           <router-link to="/ebookList">
-            <img src="../../assets/ebook_ico.png" alt="电子书">
+            <img src="../assets/ebook_ico.png" alt="电子书">
             <p>电子书</p>
           </router-link>
         </div>
@@ -71,8 +71,8 @@
       <div class="info" v-if="showModel">
         <div class="info_content">
           <div class="info_layer_avatar">
-            <img src="../../assets/user_avatar.png" alt="用户头像" class="avatar">
-            <img src="../../assets/cancel.png" @click="toggleModel" alt="关闭" class="cancel">
+            <img src="../assets/user_avatar.png" alt="用户头像" class="avatar">
+            <img src="../assets/cancel.png" @click="toggleModel" alt="关闭" class="cancel">
             <p>{{userInformation.Username}}</p>
           </div>
           <div class="info_detail">
@@ -87,11 +87,11 @@
 </template>
 <script>
   import { Indicator } from 'mint-ui';
-  import {GetCourseInfoList, GetLink, GetUserInfo} from '../../service/getData'
-  import FooterFix from '../../components/footerFix.vue'
-  import errorImg from '../../components/errorImg.vue'
-  import HeaderFix from '../../components/header.vue'
-  import noCourse from '../../assets/noCourse.png'
+  import {GetCourseInfoList, GetLink, GetUserInfo} from '../service/getData'
+  import FooterFix from '../components/footerFix.vue'
+  import errorImg from '../components/errorImg.vue'
+  import HeaderFix from '../components/header.vue'
+  import noCourse from '../assets/noCourse.png'
   export default {
     name: 'home',
     data() {
@@ -165,7 +165,7 @@
   }
 </script>
 <style lang="scss" scoped rel="stylesheet/scss">
-  @import "../../style/mixin";
+  @import "../style/mixin";
 
   .home {
     .message {
@@ -190,7 +190,7 @@
         position: relative;
         @include wh(580px, 533px);
         margin: toRem(250px) auto;
-        background: url(../../assets/info_bg.png) no-repeat center center;
+        background: url(../assets/info_bg.png) no-repeat center center;
         background-size: 100% 100%;
         .info_layer_avatar {
           text-align: center;

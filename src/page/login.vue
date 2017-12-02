@@ -1,7 +1,7 @@
 <template>
   <div class="userLogin">
     <div class="login_banner">
-      <img src="../../assets/login_ico.png">
+      <img src="../assets/login_ico.png">
     </div>
     <div class="user_login">
       <form class="form-horizontal">
@@ -36,8 +36,8 @@
   import CryptoJS from 'crypto-js'
   import {mapState, mapActions} from 'vuex'
   import {MessageBox} from 'mint-ui'
-  import {Login} from '../../service/getData'
-  import {getStore, setStore, removeStore} from '../../plugins/utils'
+  import {Login} from '../service/getData'
+  import {getStore, setStore, removeStore} from '../plugins/utils'
 
   export default {
     name: 'login',
@@ -47,6 +47,7 @@
         Password: '',
         Remember: true,
         Code: '',
+        backUrl: '',
         key: "jy365jy365jy365y",
         iv: "0392039203920300",
         pwError: false,
@@ -55,6 +56,7 @@
     },
     mounted() {
       this.Code = this.$route.query.code || '';
+      this.backUrl = this.$route.query.currentUrl || '/#/';
       this.Account = this.decrypt(localStorage.getItem('a_app'));
       this.Password = this.decrypt(localStorage.getItem('p_app'));
       this.Remember = getStore("remember");
@@ -92,10 +94,7 @@
             this.encrypt("p_app", "");
             setStore("remember", false);
           }
-          let path = this.$route.query.path || '/';
-          let params = this.$route.query.params;
-          let query = params&&JSON.parse(params);
-          this.$router.push({path, query});
+          window.location = this.backUrl;
         } else if (res.Type == 0) {
           alert(res.Message);
         }
@@ -122,8 +121,8 @@
       toRegister() {
         this.$router.push("/register")
       },
-      showForgetMessage(){
-        MessageBox.alert("如果忘记密码，请联系本单位联络员或客服0571-28990788","温馨提示");
+      showForgetMessage() {
+        MessageBox.alert("如果忘记密码，请联系本单位联络员或客服0571-28990788", "温馨提示");
       }
     },
     watch: {
@@ -152,11 +151,11 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  @import '../../style/mixin';
+  @import '../style/mixin';
 
   .userLogin {
     height: 100vh;
-    background: url("../../assets/login_bg.png") no-repeat center bottom;
+    background: url("../assets/login_bg.png") no-repeat center bottom;
     background-size: 100% 100%;
     .login_banner {
       width: 100%;

@@ -1,5 +1,5 @@
 /**
- * Created by admin on 2017/6/30.
+ * filter
  */
 import Vue from 'vue'
 import {formatDate} from '../plugins/utils'
@@ -28,27 +28,17 @@ Vue.filter('dateFilter2', function(value,formate) {
   return formatDate(date,formate);
 
 })
-Vue.filter('formatSeconds', function(value,formate) {
-  if (!value) return
-  var theTime = parseInt(value*60);// 秒
-  var theTime1 = 0;// 分
-  var theTime2 = 0;// 小时
-  if (theTime > 60) {
-    theTime1 = parseInt(theTime / 60);
-    theTime = parseInt(theTime % 60);
-    if (theTime1 > 60) {
-      theTime2 = parseInt(theTime1 / 60);
-      theTime1 = parseInt(theTime1 % 60);
-    }
+Vue.filter('formatTime', function(a) {
+  var mm = parseInt(a / 60);
+  if (mm < 10) mm = "0" + mm;
+  var ss = parseInt((a - mm * 60) % 60);
+  if (ss < 10) ss = "0" + ss;
+  var length = mm + ":" + ss;
+  if (a > 0) {
+    return length;
+  } else {
+    return "NaN";
   }
-  var result = "" + parseInt(theTime) + "秒";
-  if (theTime1 > 0) {
-    result = "" + parseInt(theTime1) + "分" + result;
-  }
-  if (theTime2 > 0) {
-    result = "" + parseInt(theTime2) + "小时" + result;
-  }
-  return result;
 
 })
 
@@ -56,4 +46,4 @@ Vue.filter('formatSeconds', function(value,formate) {
 export const wordLimit = Vue.filter('wordLimit');
 export const dateFilter = Vue.filter('dateFilter');
 export const dateFilter2 = Vue.filter('dateFilter2');
-export const formatSeconds = Vue.filter('formatSeconds');
+export const formatTime = Vue.filter('formatSeconds');

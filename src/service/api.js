@@ -45,4 +45,14 @@ export default {
     url:API_URL+Platform+'/GetExamList',
     data: {ExamType: 'All', TypeId: '', Keyword: '', Page: 1, Rows: 10}
   },
+  //获取考试题
+  GetExam:{
+    url:API_URL+Platform+'/GetExam',
+    data: {Id:''}
+  },
+  //提交考试题
+  UpdateUserExam:{
+    url:API_URL+Platform+'/UpdateUserExam',
+    data: {ExamId:'',Data:null}
+  },
 };

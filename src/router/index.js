@@ -1,12 +1,14 @@
 /*路由*/
 import App from '../App.vue'
 
-const Home = r => require.ensure([], () => r(require('../page/home/home.vue')), 'home')
-const Login = r => require.ensure([], () => r(require('../page/home/login.vue')), 'login')
+const Home = r => require.ensure([], () => r(require('../page/home.vue')), 'home')
+const Login = r => require.ensure([], () => r(require('../page/login.vue')), 'login')
 const Error = r => require.ensure([], () => r(require('../page/error.vue')), 'error')
 const CourseCenter = r => require.ensure([], () => r(require('../page/courseCenter.vue')), 'courseCenter')
 const CourseSearch = r => require.ensure([], () => r(require('../page/courseSearch.vue')), 'courseSearch')
 const ExamCenter = r => require.ensure([], () => r(require('../page/examCenter.vue')), 'examCenter')
+const Exam = r => require.ensure([], () => r(require('../page/exam.vue')), 'exam')
+const ExamResult = r => require.ensure([], () => r(require('../page/examResult.vue')), 'examResult')
 
 const routes  = [
   {
@@ -46,6 +48,18 @@ const routes  = [
         name:'examCenter',
         path: '/examCenter',
         component: ExamCenter
+      },
+      //考试
+      {
+        name:'exam',
+        path: '/exam',
+        component: Exam
+      },
+      //考试结果
+      {
+        name:'examResult',
+        path: '/examResult',
+        component: ExamResult
       },
       //error
       {

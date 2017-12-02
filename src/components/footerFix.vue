@@ -12,7 +12,7 @@
         课程
       </mt-tab-item>
       <mt-tab-item id="examCenter" href="#/examCenter">
-        <img v-if="selected == 'exam'" slot="icon" src="../assets/exam_ico2.png">
+        <img v-if="selected == 'examCenter'" slot="icon" src="../assets/exam_ico2.png">
         <img v-else slot="icon" src="../assets/exam_ico1.png">
         考试
       </mt-tab-item>

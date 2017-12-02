@@ -5,6 +5,7 @@
 
 import axios from 'axios'
 import qs from 'qs'
+import { getStore } from '../plugins/utils'
 // axios.defaults.baseURL = 'http://test10.jy365.net';
 axios.defaults.timeout = 10000;
 axios.defaults.withCredentials = true;
@@ -33,8 +34,9 @@ function checkStatus(response) {
     // console.log(response);
     if (response.data.Type == 401) {
       alert("您的账号已掉线，请重新登录！");
+      var currentUrl = getStore("currentUrl");
       window.localStorage.removeItem('ASPXAUTH');
-      window.location = "/#/login";
+      window.location = "/#/login?currentUrl="+encodeURIComponent(currentUrl);
     }
     //存储aspxauth身份验证
     if (response.headers.aspxauth) {
