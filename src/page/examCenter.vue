@@ -37,7 +37,7 @@
     </div>
     <div class="filter_layer" v-if="showFilter"  @click="toggleFilter"></div>
     <div class="filter_list" :class="{'show':showFilter}">
-      <p class="filter_item"><span>筛选条件</span></p>
+      <p class="filter_item filter_title"><span>筛选条件</span></p>
       <p class="filter_item" @click="filterExam('All')">
         <img src="../assets/default.png" alt="">
         <span>默认</span>
@@ -220,7 +220,6 @@
       top: toRem(92px);
       z-index: 100;
       background-color: $fill-base;
-      padding: 0 toRem(30px);
       font-size: toRem(30px);
       transition: max-height ease 0.5s;
       &.show{
@@ -229,6 +228,7 @@
     }
     .filter_item{
       @include ht-lineHt(86px);
+      padding: 0 toRem(30px);
       span{
         margin-left: toRem(30px);
       }
@@ -239,6 +239,13 @@
         width: toRem(26px);
         @extend %pull-right;
         margin-top: toRem(32px);
+      }
+      &.filter_title{
+        background-color: $fill-grey;
+        padding: 0;
+        span{
+          margin-left: toRem(30px);
+        }
       }
     }
   }

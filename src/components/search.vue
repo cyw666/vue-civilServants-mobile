@@ -55,7 +55,7 @@
         line-height: toRem(60px);
         padding-left: toRem(20px);
         margin-right: toRem(30px);
-        background: $fill-tap;
+        background: $fill-body;
         font-size: toRem(28px);
         @include borderRadius(10px);
       }

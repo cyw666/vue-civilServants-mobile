@@ -6,10 +6,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-
-import 'vue-awesome/dist/vue-awesome';
+import './service/filter'
+/*import 'vue-awesome/dist/vue-awesome';
 import 'vue-awesome/icons'
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue-awesome/components/Icon'*/
 
 import './style/base.scss'
 import routes from './router'
@@ -19,7 +19,7 @@ import {setStore} from './plugins/utils'
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(MintUI);
-Vue.component('icon', Icon);
+// Vue.component('icon', Icon);
 
 const router = new VueRouter({
   routes

@@ -55,4 +55,24 @@ export default {
     url:API_URL+Platform+'/UpdateUserExam',
     data: {ExamId:'',Data:null}
   },
+  //退出登录
+  LoginOut:{
+    url:API_URL+Platform+'/LoginOut',
+    data: {Mac:''}
+  },
+  //消息中心
+  GetMessageCenter:{
+    url:API_URL+Platform+'/GetMessageCenter',
+    data: {Page:1,Rows:10,Keyword:''}
+  },
+  //通知内容
+  GetNoticeInfoContent:{
+    url:API_URL+Platform+'/GetNoticeInfoContent',
+    data: {}
+  },
+  //课程详情
+  GetCourseDetail:{
+    url:API_URL+Platform+'/GetCourseDetail',
+    data: {Id:''}
+  },
 };

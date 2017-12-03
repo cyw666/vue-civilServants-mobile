@@ -69,6 +69,7 @@
     .course_item {
       margin: toRem(15px) 0;
       @extend %clearFix;
+      background-color: $fill-base;
     }
     .course_img {
       @extend %pull-left;

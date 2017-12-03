@@ -19,10 +19,10 @@
       return {}
     },
     created() {
-      
+
     },
     mounted() {
-      
+
     },
     props: {
       title:String,
@@ -31,11 +31,11 @@
     components: {},
     computed: {},
     updated() {
-      
+
     },
     methods: {},
     watch: {}
-    
+
   }
 </script>
 
@@ -68,6 +68,9 @@
     .header_right{
       flex: 1;
       text-align: right;
+    }
+    .back_img{
+      width: toRem(18px);
     }
   }
 </style>

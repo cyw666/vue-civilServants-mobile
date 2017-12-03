@@ -51,6 +51,30 @@ export const GetExam = (data) => fetch.post(Api.GetExam.url, {...Api.GetExam.dat
  * 提交考试题
  */
 export const UpdateUserExam = (data) => fetch.post(Api.UpdateUserExam.url, {...Api.UpdateUserExam.data, ...data});
+/**
+ * 退出登录
+ */
+export const LoginOut = (data) => fetch.post(Api.LoginOut.url, {...Api.LoginOut.data, ...data});
+
+/**
+ * 消息中心
+ */
+export const GetMessageCenter = (data) => fetch.post(Api.GetMessageCenter.url, {...Api.GetMessageCenter.data, ...data});
+
+/**
+ * 通知内容
+ */
+export const GetNoticeInfoContent = (data) => fetch.post(Api.GetNoticeInfoContent.url+'/'+data.Id, {...Api.GetNoticeInfoContent.data, ...data});
+
+/**
+ * 课程详情
+ */
+export const GetCourseDetail = (data) => fetch.post(Api.GetCourseDetail.url, {...Api.GetCourseDetail.data, ...data});
+
+
+
+
+
 
 
 

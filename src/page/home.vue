@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Header-fix title="主页" fixed>
-      <router-link slot="left" to="/messageList"><img class="message" src="../assets/message.png" alt="消息"></router-link>
+      <router-link slot="left" to="/message"><img class="message" src="../assets/message.png" alt="消息"></router-link>
       <div slot="right">
         <img src="../assets/info_show.png" @click="toggleModel" alt="用户信息" class="info_show">
         <router-link to="/history"><img class="history" src="../assets/history.png" alt="历史记录"></router-link>

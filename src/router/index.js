@@ -9,6 +9,10 @@ const CourseSearch = r => require.ensure([], () => r(require('../page/courseSear
 const ExamCenter = r => require.ensure([], () => r(require('../page/examCenter.vue')), 'examCenter')
 const Exam = r => require.ensure([], () => r(require('../page/exam.vue')), 'exam')
 const ExamResult = r => require.ensure([], () => r(require('../page/examResult.vue')), 'examResult')
+const ExamSearch = r => require.ensure([], () => r(require('../page/examSearch.vue')), 'examSearch')
+const PersonalCenter = r => require.ensure([], () => r(require('../page/personalCenter.vue')), 'personalCenter')
+const Message = r => require.ensure([], () => r(require('../page/message.vue')), 'message')
+const MessageDetail = r => require.ensure([], () => r(require('../page/messageDetail.vue')), 'messageDetail')
 
 const routes  = [
   {
@@ -60,6 +64,30 @@ const routes  = [
         name:'examResult',
         path: '/examResult',
         component: ExamResult
+      },
+      //搜索考试
+      {
+        name:'examSearch',
+        path: '/examSearch',
+        component: ExamSearch
+      },
+      //个人中心
+      {
+        name:'personalCenter',
+        path: '/personalCenter',
+        component: PersonalCenter
+      },
+      //消息中心
+      {
+        name:'message',
+        path: '/message',
+        component: Message
+      },
+      //通知内容
+      {
+        name:'messageDetail',
+        path: '/messageDetail',
+        component: MessageDetail
       },
       //error
       {

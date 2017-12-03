@@ -2,22 +2,21 @@
 * 课程搜索
 */
 <template>
-  <div class="courseSearch">
+  <div class="examSearch">
     <!--头部-->
     <Header-fix title="搜索" fixed>
       <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
     </Header-fix>
     <div class="pad_top">
       <search v-model="keyword" :search="clickSearch">
-        <section slot v-infinite-scroll="getCourseList"
+        <section v-infinite-scroll="getExamList"
                  infinite-scroll-immediate-check="immediate"
                  infinite-scroll-disabled="loading"
                  infinite-scroll-distance="5">
-          <course-list :course-data="courseData"
-                       :no-data-bg="noDataBg"
-                       :no-data="noData"
-                       :loading="loading">
-          </course-list>
+          <exam-list :exam-data="examData"
+                     :no-data-bg="noDataBg"
+                     :no-data="noData">
+          </exam-list>
         </section>
       </search>
     </div>
@@ -27,16 +26,17 @@
   import {Indicator} from 'mint-ui';
   import HeaderFix from '../components/header.vue'
   import search from '../components/search.vue'
-  import courseList from '../components/courseList.vue'
-  import {GetCourseInfoList} from '../service/getData'
+  import examList from '../components/examList.vue'
+  import {GetExamList} from '../service/getData'
   import { goBack } from '../service/mixins'
   export default {
     mixins:[goBack],
     data() {
       return {
         keyword: '',
-        channelId: 0,
-        courseData: [],
+        typeId: 0,
+        examType:'All',
+        examData: [],
         loading: false,
         immediate: false,
         page: 1,
@@ -50,19 +50,19 @@
     props: [],
     components: {
       search,
-      courseList,
+      examList,
       HeaderFix,
     },
-    methods: {
-      async getCourseList() {
+    methods: {//考试列表
+      async getExamList() {
         this.noData = false;
         this.noDataBg = false;
         this.loading = true;
         Indicator.open();
-        let data = await GetCourseInfoList({Keyword: this.keyword, ChannelId: this.channelId, Page: this.page});
+        let data = await GetExamList({Keyword:this.keyword,ExamType:this.examType,TypeId: this.typeId, Page: this.page});
+        Indicator.close();
         if (data.Type == 1) {
           let list = data.Data.List;
-          Indicator.close();
           if (list.length == 0 && this.page > 1) {
             this.noData = true;
             return;
@@ -71,15 +71,16 @@
             this.noDataBg = true;
             return;
           }
-          this.courseData = this.courseData.concat(list);
+          this.examData = this.examData.concat(list);
           this.loading = false;
           this.page += 1;
         }
       },
+
       clickSearch() {
-        this.courseData = [];
+        this.examData = [];
         this.page = 1;
-        this.getCourseList();
+        this.getExamList();
       }
     },
     watch: {}
@@ -88,7 +89,7 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .courseSearch {
+  .examSearch {
     height: 100vh;
     background-color: $fill-body;
     .pad_top{

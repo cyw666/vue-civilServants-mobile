@@ -40,7 +40,6 @@
   import mbChecklist from '../components/mbChecklist .vue'
   import mbRadio from '../components/mbRadio.vue'
   import {GetExam, UpdateUserExam} from '../service/getData'
-  import MtButton from "../../node_modules/mint-ui/packages/button/src/button.vue";
 
   export default {
     data() {
@@ -67,7 +66,6 @@
     },
     props: [],
     components: {
-      MtButton,
       HeaderFix,
       mbChecklist,
       mbRadio

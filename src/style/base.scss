@@ -193,7 +193,7 @@ label {
 .mint-button {
   height: toRem(90px);
   @include font-size(32px);
-  @include borderRadius(8px)
+  @include borderRadius(12px);
 }
 
 .mint-button--normal, .mint-button--small {
@@ -202,9 +202,11 @@ label {
 
 .mint-button--small {
   @include font-size(28px);
-  height: toRem(44px);
+  height: toRem(70px);
 }
-
+.mint-button--large{
+  @include borderRadius(15px);
+}
 .mint-button--primary {
   color: #fff;
   background-color: $brand-primary;
@@ -282,6 +284,25 @@ body {
   height: toRem(28px);
   margin-right: toRem(20px);
   background-color: $brand-primary;
+}
+
+//cell
+.mint-cell{
+  @include ht-lineHt(88px);
+  border-bottom: 2px solid $border-color-base;
+  .mint-cell-wrapper{
+    line-height: toRem(88px);
+    font-size: toRem(28px);
+  }
+  img{
+    @include square(26px);
+  }
+  .mint-cell-text{
+    margin-left: toRem(30px);
+  }
+  .mint-cell-allow-right::after{
+    @include square(15px);
+  }
 }
 
 

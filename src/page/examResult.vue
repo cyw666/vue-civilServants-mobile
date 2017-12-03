@@ -25,8 +25,6 @@
 </template>
 <script>
   import HeaderFix from '../components/header.vue'
-  import {formatTime} from '../service/filter'
-
   export default {
     data() {
       return {

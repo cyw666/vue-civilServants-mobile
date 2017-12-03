@@ -15,6 +15,9 @@ Vue.filter('wordLimit', function(value,num) {
 })
 Vue.filter('dateFilter', function(value,formate) {
   if (!value) { return ''}
+  if (!formate) {
+    formate = 'yyyy.MM.dd';
+  }
   let timeNum =  value;
   let date = new Date(timeNum);
   return formatDate(date,formate);
@@ -42,8 +45,3 @@ Vue.filter('formatTime', function(a) {
 
 })
 
-
-export const wordLimit = Vue.filter('wordLimit');
-export const dateFilter = Vue.filter('dateFilter');
-export const dateFilter2 = Vue.filter('dateFilter2');
-export const formatTime = Vue.filter('formatSeconds');

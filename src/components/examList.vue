@@ -28,7 +28,6 @@
 </template>
 <script>
   import {MessageBox,Toast } from 'mint-ui';
-  import {dateFilter} from '../service/filter'
   export default {
     data() {
       return {
