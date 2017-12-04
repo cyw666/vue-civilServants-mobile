@@ -1,12 +1,12 @@
 <template>
   <div class="home">
-    <Header-fix title="主页" fixed>
+    <header-fix title="主页" fixed>
       <router-link slot="left" to="/message"><img class="message" src="../assets/message.png" alt="消息"></router-link>
       <div slot="right">
         <img src="../assets/info_show.png" @click="toggleModel" alt="用户信息" class="info_show">
         <router-link to="/history"><img class="history" src="../assets/history.png" alt="历史记录"></router-link>
       </div>
-    </Header-fix>
+    </header-fix>
     <div class="container">
       <mt-swipe :auto="4000">
         <mt-swipe-item v-for="item in swipeData" key="$index">
@@ -53,8 +53,8 @@
         <div class="recommend_course_list">
           <ul>
             <li v-for="item in recommendCourseData" :key="item.Id">
-              <div class="recommend_course_item">
-                <a @click="toPlay(item.CourseType,item.CourseId)">
+              <div class="recommend_course_item" @click="toPlay(item.CourseType,item.CourseId)">
+                <a>
                   <error-img :src="item.CourseImg" :error-src="noCourse"></error-img>
                   <p class="course_title">{{item.CourseName}}</p>
                 </a>
@@ -66,37 +66,49 @@
         </div>
       </section>
     </div>
-    <Footer-fix selected="home"></Footer-fix>
-    <transition name="fade">
-      <div class="info" v-if="showModel">
-        <div class="info_content">
-          <div class="info_layer_avatar">
-            <img src="../assets/user_avatar.png" alt="用户头像" class="avatar">
-            <img src="../assets/cancel.png" @click="toggleModel" alt="关闭" class="cancel">
-            <p>{{userInformation.Username}}</p>
-          </div>
-          <div class="info_detail">
-            <h4>您好，欢迎来到干部教育网络学院学习平台</h4>
-            <p><span>已获{{userInformation.TotalCredit}}学分，排名第{{userInformation.ScoreRank}}名</span></p>
-          </div>
+    <footer-fix selected="home"></footer-fix>
+    <mb-model :isShow.sync="showModel">
+      <div class="info_content" slot>
+        <div class="info_layer_avatar">
+          <img class="avatar" src="../assets/user_avatar.png" alt="用户头像">
+          <p>{{userInfo.Username}}</p>
+        </div>
+        <div class="info_detail">
+          <h4>您好，欢迎来到干部教育网络学院学习平台</h4>
+          <p><span>已获{{userInfo.TotalCredit}}学分，排名第{{userInfo.ScoreRank}}名</span></p>
         </div>
       </div>
+    </mb-model>
+    <!--<transition name="fade">
+      <div v-if="showModel" class="info_content">
+        <div class="info_layer_avatar">
+            <img src="../assets/user_avatar.png" alt="用户头像" class="avatar">
+            <img src="../assets/cancel.png" @click="toggleModel" alt="关闭" class="cancel">
+            <p>{{userInfo.Username}}</p>
+          </div>
+        <div class="info_detail">
+            <h4>您好，欢迎来到干部教育网络学院学习平台</h4>
+            <p><span>已获{{userInfo.TotalCredit}}学分，排名第{{userInfo.ScoreRank}}名</span></p>
+          </div>
+      </div>
     </transition>
+    <div v-if="showModel" class="mb-model" @click="toggleModel"></div>-->
   </div>
 
 </template>
 <script>
-  import { Indicator } from 'mint-ui';
-  import {GetCourseInfoList, GetLink, GetUserInfo} from '../service/getData'
-  import FooterFix from '../components/footerFix.vue'
-  import errorImg from '../components/errorImg.vue'
-  import HeaderFix from '../components/header.vue'
+  import {mapState, mapActions} from 'vuex'
+  import {Indicator} from 'mint-ui';
+  import {headerFix, errorImg, footerFix, mbModel} from '../components'
+  import {GetCourseInfoList, GetLink} from '../service/getData'
+  import {toPlay} from '../service/mixins'
   import noCourse from '../assets/noCourse.png'
+
   export default {
     name: 'home',
+    mixins: [toPlay],
     data() {
       return {
-        userInformation: null,
         showModel: false,
         swipeData: [],
         recommendCourseData: [],
@@ -104,27 +116,23 @@
       }
     },
     components: {
-      FooterFix,
+      footerFix,
       errorImg,
-      HeaderFix,
+      headerFix,
+      mbModel,
     },
     mounted() {
-      this.getUserInfor();
       this.getRecommendCourse();
       this.getSwipeData();
+      this.getUserInformation();
     },
-    computed: {},
+    computed: {
+      ...mapState(["userInfo"])
+    },
     methods: {
-      async getUserInfor() {
-        let data = await GetUserInfo();
-        if (data.Type == 1) {
-          this.userInformation = data.Data;
-        } else if (data.Type != 401) {
-          alert(data.Message);
-        }
-      },
+      ...mapActions(["getUserInformation"]),
       async getRecommendCourse() {
-        let data = await GetCourseInfoList({ChannelId:-3});
+        let data = await GetCourseInfoList({ChannelId: -3});
         this.recommendCourseData = data.Data.List;
       },
       async getSwipeData() {
@@ -153,13 +161,6 @@
             break;
         }
         this.$router.push({path, query: {id}})
-      },
-      toPlay(type,id){
-        if(type == "Mp4"){
-          this.$router.push({path:'/playMp4',query:{id}})
-        }else if(type == "JYAicc"){
-          this.$router.push({path:'/playJYAicc',query:{id}})
-        }
       }
     }
   }
@@ -173,54 +174,38 @@
     }
     .info_show {
       width: toRem(50px);
-      margin-right:toRem(15px);
+      margin-right: toRem(15px);
     }
     .history {
       width: toRem(50px);
     }
-    .info {
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      left: 0;
-      top: 0;
-      z-index: 1000;
-      background-color: $fill-mask;
-      .info_content {
-        position: relative;
-        @include wh(580px, 533px);
-        margin: toRem(250px) auto;
-        background: url(../assets/info_bg.png) no-repeat center center;
-        background-size: 100% 100%;
-        .info_layer_avatar {
-          text-align: center;
-          line-height: toRem(60px);
-          font-size: toRem(24px);
+    .info_content {
+      background: url(../assets/info_bg.png) no-repeat center center;
+      background-size: 100% 100%;
+      height: toRem(533px);
+      .info_layer_avatar {
+        text-align: center;
+        line-height: toRem(60px);
+        font-size: toRem(24px);
+      }
+      .avatar {
+        margin-top: toRem(18px);
+        @include square(117px);
+      }
+      .info_detail {
+        text-align: center;
+        padding: toRem(100px) toRem(10px) 0 toRem(10px);
+        h4 {
+          font-size: toRem(28px);
         }
-        .avatar {
-          margin-top: toRem(18px);
-          @include square(117px);
-        }
-        .cancel {
-          position: absolute;
-          right: toRem(20px);
-          top: toRem(20px);
-          @include square(26px);
-        }
-        .info_detail {
-          text-align: center;
-          padding: toRem(100px) toRem(10px) 0 toRem(10px);
-          h4 {
-            font-size: toRem(28px);
-          }
-          p {
-            margin-top: toRem(40px);
-            color: $color-text-secondary;
-            font-size: toRem(26px);
-          }
+        p {
+          margin-top: toRem(40px);
+          color: $color-text-secondary;
+          font-size: toRem(26px);
         }
       }
     }
+
     .mint-swipe {
       margin-top: toRem(90px);
       height: toRem(360px);
@@ -271,8 +256,8 @@
             padding-right: toRem(25px);
           }
           img {
-            width: 100%;
-            height: toRem(240px);
+            width: toRem(335px);
+            height: toRem(178px);
           }
           .course_title {
             width: 100%;
@@ -280,7 +265,7 @@
             text-align: left;
             line-height: toRem(40px);
           }
-          .clearFix{
+          .clearFix {
             line-height: toRem(40px);
           }
           .teacher {

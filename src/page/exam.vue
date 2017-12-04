@@ -1,10 +1,10 @@
 <template>
   <div class="exam">
     <!--头部-->
-    <Header-fix :title="examTitle" fixed>
+    <header-fix :title="examTitle" fixed>
       <router-link to="/" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></router-link>
       <router-link slot="right" to="/courseSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
-    </Header-fix>
+    </header-fix>
     <div class="exam_header">
       <img src="../assets/time_ico.png" alt="">
       <span>剩余时间：{{timeLimit ? timeLimt + "分钟" : "不限时"}}</span>
@@ -36,9 +36,7 @@
 </template>
 <script>
   import {MessageBox} from 'mint-ui';
-  import HeaderFix from '../components/header.vue'
-  import mbChecklist from '../components/mbChecklist .vue'
-  import mbRadio from '../components/mbRadio.vue'
+  import {headerFix, mbChecklist, mbRadio} from '../components'
   import {GetExam, UpdateUserExam} from '../service/getData'
 
   export default {
@@ -66,7 +64,7 @@
     },
     props: [],
     components: {
-      HeaderFix,
+      headerFix,
       mbChecklist,
       mbRadio
     },
@@ -207,8 +205,8 @@
       text-align: center;
       left: 0;
       line-height: 73px;
-      .mint-button{
-        @include wh(120px,73px);
+      .mint-button {
+        @include wh(120px, 73px);
         padding: 0;
       }
       .prev {

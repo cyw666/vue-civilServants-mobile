@@ -72,6 +72,37 @@ export const GetNoticeInfoContent = (data) => fetch.post(Api.GetNoticeInfoConten
 export const GetCourseDetail = (data) => fetch.post(Api.GetCourseDetail.url, {...Api.GetCourseDetail.data, ...data});
 
 
+/**
+ *  历史记录 Type => All:表示所有， Today:表示今天记录，Earlier:表示更早
+ */
+export const GetHistoryCourse = (data) => fetch.post(Api.GetHistoryCourse.url, {...Api.GetHistoryCourse.data, ...data});
+
+/**
+ *  用户课程列表 Finish => 1：完成课程，0：未完成课程 ,2：表示全部
+ */
+export const GetUserCourseInfoList = (data) => fetch.post(Api.GetUserCourseInfoList.url, {...Api.GetUserCourseInfoList.data, ...data});
+
+/**
+ *  文章频道
+ */
+export const GetArticleChannelInfoList = (data) => fetch.post(Api.GetArticleChannelInfoList.url, {...Api.GetArticleChannelInfoList.data, ...data});
+
+/**
+ *  文章列表
+ */
+export const GetArticleInfoList = (data) => fetch.post(Api.GetArticleInfoList.url, {...Api.GetArticleInfoList.data, ...data});
+
+/**
+ *  文章详情
+ */
+export const ArticleDetail = (data) => fetch.post(Api.ArticleDetail.url, {...Api.ArticleDetail.data, ...data});
+
+
+
+
+
+
+
 
 
 

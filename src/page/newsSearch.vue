@@ -2,21 +2,18 @@
 * 课程搜索
 */
 <template>
-  <div class="examSearch">
+  <div class="newsSearch">
     <!--头部-->
     <header-fix title="搜索" fixed>
       <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
     </header-fix>
     <div class="pad_top">
       <search v-model="keyword" :search="clickSearch">
-        <section v-infinite-scroll="getExamList"
+        <section slot v-infinite-scroll="getArticleList"
                  infinite-scroll-immediate-check="immediate"
                  infinite-scroll-disabled="loading"
                  infinite-scroll-distance="5">
-          <exam-list :exam-data="examData"
-                     :no-data-bg="noDataBg"
-                     :no-data="noData">
-          </exam-list>
+          <news-list :news-data="articleData" :no-data-bg="noDataBg" :no-data="noData"></news-list>
         </section>
       </search>
     </div>
@@ -24,8 +21,8 @@
 </template>
 <script>
   import {Indicator} from 'mint-ui';
-  import {headerFix, search, examList} from '../components'
-  import {GetExamList} from '../service/getData'
+  import {headerFix, search, courseList, newsList} from '../components'
+  import {GetArticleInfoList} from '../service/getData'
   import {goBack} from '../service/mixins'
 
   export default {
@@ -34,9 +31,8 @@
       return {
         keyword: '',
         oldKeyword: '',
-        typeId: 0,
-        examType: 'All',
-        examData: [],
+        categoryId: 0,
+        articleData: [],
         loading: false,
         immediate: false,
         page: 1,
@@ -44,27 +40,26 @@
         noDataBg: false,
       }
     },
+    mounted() {
+
+    },
+    props: [],
     components: {
       search,
-      examList,
       headerFix,
+      newsList,
     },
-    methods: {//考试列表
-      async getExamList() {
+    methods: {
+      async getArticleList() {
         this.noData = false;
         this.noDataBg = false;
         this.loading = true;
         this.oldKeyword = this.keyword; //记录搜索keyword
         Indicator.open();
-        let data = await GetExamList({
-          Keyword: this.keyword,
-          ExamType: this.examType,
-          TypeId: this.typeId,
-          Page: this.page
-        });
-        Indicator.close();
+        let data = await GetArticleInfoList({Keyword: this.keyword, CategoryId: this.categoryId, Page: this.page});
         if (data.Type == 1) {
           let list = data.Data.List;
+          Indicator.close();
           if (list.length == 0 && this.page > 1) {
             this.noData = true;
             return;
@@ -73,17 +68,16 @@
             this.noDataBg = true;
             return;
           }
-          this.examData = this.examData.concat(list);
+          this.articleData = this.articleData.concat(list);
           this.loading = false;
           this.page += 1;
         }
       },
-
       clickSearch() {
         if (this.keyword != this.oldKeyword) {
-          this.examData = [];
+          this.articleData = [];
           this.page = 1;
-          this.getExamList();
+          this.getArticleList();
         }
       }
     },
@@ -93,7 +87,7 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
 
-  .examSearch {
+  .newsSearch {
     height: 100vh;
     background-color: $fill-body;
     .pad_top {

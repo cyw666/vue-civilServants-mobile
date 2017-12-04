@@ -25,21 +25,12 @@
         open: false,
       }
     },
-    created() {
-      
-    },
-    mounted() {
-      
-    },
     props: ["dataList","onSelect"],
     components: {},
     computed: {
       hasNodes: function () {
         return this.dataList.Nodes && this.dataList.Nodes.length;
       }
-    },
-    updated() {
-      
     },
     methods: {
       toggle() {
@@ -52,8 +43,6 @@
         this.onSelect(data);
       }
     },
-    watch: {}
-    
   }
 </script>
 

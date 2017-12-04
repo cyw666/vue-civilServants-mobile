@@ -3,7 +3,7 @@
 */
 <template>
   <div class="examCenter">
-    <Header-fix :title="examTitle" fixed>
+    <header-fix :title="examTitle" fixed>
       <a slot="left" @click="toggleNav"><img class="slide" src="../assets/slide.png"></a>
       <div slot="right" class="clearFix">
         <a class="filter" @click="toggleFilter">
@@ -15,7 +15,7 @@
           <img class="search" src="../assets/search.png" alt=""/>
         </router-link>
       </div>
-    </Header-fix>
+    </header-fix>
     <div class="container">
       <nav-slide :show="showSlide" @showChange="showChange">
         <div slot="left" class="category">
@@ -35,7 +35,7 @@
         </div>
       </nav-slide>
     </div>
-    <div class="filter_layer" v-if="showFilter"  @click="toggleFilter"></div>
+    <div class="filter_layer" v-if="showFilter" @click="toggleFilter"></div>
     <div class="filter_list" :class="{'show':showFilter}">
       <p class="filter_item filter_title"><span>筛选条件</span></p>
       <p class="filter_item" @click="filterExam('All')">
@@ -53,22 +53,18 @@
         <span>未过</span>
         <img v-if="examType=='UnFinish'" src="../assets/gou.png" alt="" class="gou">
       </p>
-      <p class="filter_item" @click="filterExam('UnJoin')" >
+      <p class="filter_item" @click="filterExam('UnJoin')">
         <img src="../assets/unexam.png" alt="">
         <span>未考</span>
         <img v-if="examType=='UnJoin'" src="../assets/gou.png" alt="" class="gou">
       </p>
     </div>
-    <Footer-fix selected="examCenter"></Footer-fix>
+    <footer-fix selected="examCenter"></footer-fix>
   </div>
 </template>
 <script>
   import {Indicator} from 'mint-ui';
-  import HeaderFix from '../components/header.vue'
-  import FooterFix from '../components/footerFix.vue'
-  import NavSlide from '../components/navSlide.vue'
-  import tree from '../components/tree.vue'
-  import examList from '../components/examList.vue'
+  import {headerFix, footerFix, navSlide, tree, examList} from '../components'
   import {GetExamType, GetExamList} from '../service/getData'
 
   export default {
@@ -93,9 +89,9 @@
 //      this.getExamList();
     },
     components: {
-      HeaderFix,
-      FooterFix,
-      NavSlide,
+      headerFix,
+      footerFix,
+      navSlide,
       tree,
       examList,
     },
@@ -117,8 +113,8 @@
         let data = await GetExamType();
         if (data.Type == 1) {
           let list = data.Data.List;
-          let category = list.map((item,index)=>{
-            return {...item,...{Name:item.TypeName,Nodes:null}}
+          let category = list.map((item, index) => {
+            return {...item, ...{Name: item.TypeName, Nodes: null}}
           })
           this.examCategory = category;
         }
@@ -129,7 +125,7 @@
         this.noDataBg = false;
         this.loading = true;
         Indicator.open();
-        let data = await GetExamList({ExamType:this.examType,TypeId: this.typeId, Page: this.page});
+        let data = await GetExamList({ExamType: this.examType, TypeId: this.typeId, Page: this.page});
         Indicator.close();
         if (data.Type == 1) {
           let list = data.Data.List;
@@ -157,7 +153,7 @@
         this.getExamList();
       },
       //点击筛选搜索
-      filterExam(type){
+      filterExam(type) {
         this.page = 1;
         this.showFilter = false;
         this.showSlide = false;
@@ -207,11 +203,11 @@
       top: toRem(92px);
       left: 0;
       right: 0;
-      height:  toRem(1137px);
-      background-color: rgba(0,0,0,.4);
+      height: toRem(1137px);
+      background-color: rgba(0, 0, 0, .4);
       z-index: 50;
     }
-    .filter_list{
+    .filter_list {
       position: absolute;
       max-height: 0;
       overflow: hidden;
@@ -222,28 +218,28 @@
       background-color: $fill-base;
       font-size: toRem(30px);
       transition: max-height ease 0.5s;
-      &.show{
+      &.show {
         max-height: toRem(430px);
       }
     }
-    .filter_item{
+    .filter_item {
       @include ht-lineHt(86px);
       padding: 0 toRem(30px);
-      span{
+      span {
         margin-left: toRem(30px);
       }
-      img{
+      img {
         width: toRem(28px);
       }
-      .gou{
+      .gou {
         width: toRem(26px);
         @extend %pull-right;
         margin-top: toRem(32px);
       }
-      &.filter_title{
+      &.filter_title {
         background-color: $fill-grey;
         padding: 0;
-        span{
+        span {
           margin-left: toRem(30px);
         }
       }

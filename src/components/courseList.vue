@@ -17,8 +17,8 @@
         <div class="course_teacher">讲师：{{item.TeacherName}}</div>
         <div class="course_bottom">
           <span class="highlight">{{item.Credit}}学分</span>
-          <span class="choose_status"
-                :class="item.SelectFlag=='已选'&&'course_selected'">{{item.SelectFlag}}</span>
+          <span v-if="!myCourse" class="choose_status" :class="item.SelectFlag=='已选'&&'course_selected'">{{item.SelectFlag}}</span>
+          <span v-if="myCourse" class="progress">进度：{{parseInt(item.BrowseScore)}}%</span>
         </div>
       </div>
     </div>
@@ -29,7 +29,10 @@
 <script>
   import noCourse from '../assets/noCourse.png'
   import errorImg from '../components/errorImg.vue'
+  import {goBack, toPlay} from '../service/mixins'
+
   export default {
+    mixins: [toPlay],
     data() {
       return {
         noCourse
@@ -45,18 +48,12 @@
         type: Boolean,
         default: false
       },
+      myCourse: Boolean,
     },
     components: {
       errorImg
     },
     methods: {
-      toPlay(type, id) {
-        if (type == "Mp4") {
-          this.$router.push({path: '/playMp4', query: {id}})
-        } else if (type == "JYAicc") {
-          this.$router.push({path: '/playJYAicc', query: {id}})
-        }
-      }
     },
   }
 </script>
@@ -113,6 +110,10 @@
     }
     .course_selected {
       background-color: #00b4ff;
+    }
+    .progress {
+      @extend %pull-right;
+      color: $color-text-base;
     }
   }
 </style>

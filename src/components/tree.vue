@@ -9,15 +9,6 @@
 <script>
   import treeNode from './treeNode.vue'
   export default {
-    data() {
-      return {}
-    },
-    created() {
-      
-    },
-    mounted() {
-      
-    },
     props: {
       data:Array,
       onSelect:Function,
@@ -25,17 +16,11 @@
     components: {
       treeNode,
     },
-    computed: {},
-    updated() {
-      
-    },
     methods: {
       selectedNode(data){
         this.onSelect(data);
       }
     },
-    watch: {}
-    
   }
 </script>
 

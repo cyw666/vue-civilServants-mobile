@@ -4,14 +4,14 @@
 <template>
   <div class="exam_result">
     <!--头部-->
-    <Header-fix title="考试结果" fixed></Header-fix>
+    <header-fix title="考试结果" fixed></header-fix>
     <div class="result_top">
       <div class="result_icon" v-if="result.PassFlag"><img src="../assets/happy.png" alt=""><span>恭喜您！</span></div>
       <div class="result_icon" v-if="!result.PassFlag"><img src="../assets/unHappy.png" alt=""><span>很遗憾！</span></div>
       <p class="get_score">您的得分：{{result.Score}}分</p>
     </div>
     <div class="result_body">
-      <p><span>用时：</span><span class="pull-right">{{parseInt(result.usedTime/1000) | formatTime}}</span></p>
+      <p><span>用时：</span><span class="pull-right">{{parseInt(result.usedTime / 1000) | formatTime}}</span></p>
       <p><span>总题数：</span><span class="pull-right">{{result.TotalCount}}题</span></p>
       <p><span>正确：</span><span class="pull-right">{{result.RightCount}}题</span></p>
       <p><span>错误：</span><span class="pull-right">{{result.TotalCount - result.RightCount}}题</span></p>
@@ -24,7 +24,8 @@
 
 </template>
 <script>
-  import HeaderFix from '../components/header.vue'
+  import {headerFix} from '../components'
+
   export default {
     data() {
       return {
@@ -33,19 +34,19 @@
     },
     props: {},
     components: {
-      HeaderFix
+      headerFix
     },
     created() {
       this.result = JSON.parse(this.$route.query.data);
     },
     mounted() {
     },
-    methods:{
-      back(){
+    methods: {
+      back() {
         this.$router.push('/examCenter');
       },
-      oneMore(){
-        this.$router.push({path:'exam',query:{id:this.result.examId}})
+      oneMore() {
+        this.$router.push({path: 'exam', query: {id: this.result.examId}})
       }
     },
     watch: {}
@@ -85,18 +86,18 @@
         border-top: 2px solid $border-color-base;
       }
     }
-    .result_footer{
+    .result_footer {
       margin-top: toRem(100px);
       @extend %clearFix;
-      .back{
+      .back {
         @extend %pull-left;
-        @include wh(300px,80px);
+        @include wh(300px, 80px);
         @include borderRadius(20px);
         margin-left: toRem(40px);
       }
-      .oneMore{
+      .oneMore {
         @extend %pull-right;
-        @include wh(300px,80px);
+        @include wh(300px, 80px);
         @include borderRadius(20px);
         margin-right: toRem(40px);
       }

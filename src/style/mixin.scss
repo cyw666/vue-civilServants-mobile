@@ -87,7 +87,26 @@ $font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans 
   -o-border-radius: toRem($radius);
   border-radius: toRem($radius);
 }
+//圆角
+@mixin border-top-radius($radius) {
+  border-top-right-radius: toRem($radius);
+  border-top-left-radius: toRem($radius);
+}
 
+@mixin border-right-radius($radius) {
+  border-bottom-right-radius: toRem($radius);
+  border-top-right-radius: toRem($radius);
+}
+
+@mixin border-bottom-radius($radius) {
+  border-bottom-right-radius: toRem($radius);
+  border-bottom-left-radius: toRem($radius);
+}
+
+@mixin border-left-radius($radius) {
+  border-bottom-left-radius: toRem($radius);
+  border-top-left-radius: toRem($radius);
+}
 @mixin opacity($opacity:1) {
   opacity: $opacity;
   -moz-opacity: $opacity;

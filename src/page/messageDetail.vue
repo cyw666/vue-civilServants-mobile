@@ -4,36 +4,38 @@
 <template>
   <div class="message_detail">
     <!--头部-->
-    <Header-fix title="消息详情" fixed>
+    <header-fix title="消息详情" fixed>
       <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
-    </Header-fix>
+    </header-fix>
     <div class="articleDet" v-html="messageContent"></div>
   </div>
 </template>
 <script>
-  import HeaderFix from '../components/header.vue'
+  import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
+  import noCourse from '../assets/noCourse.png'
   import {GetNoticeInfoContent} from '../service/getData'
+
   export default {
     mixins: [goBack],
     data() {
       return {
-        messageContent:'',
-        messageId:''
+        messageContent: '',
+        messageId: ''
       }
     },
     created() {
-      this.messageId = this.$route.query.id||'';
+      this.messageId = this.$route.query.id || '';
     },
     mounted() {
       this.getMessageContent(this.messageId);
     },
     props: [],
     components: {
-      HeaderFix
+      headerFix
     },
     methods: {
-      async getMessageContent(Id){
+      async getMessageContent(Id) {
         let data = await GetNoticeInfoContent({Id});
 //        let reg = /<body>(.*)<\/body>/g;
 //        let message = reg.exec(data.toString());
@@ -47,7 +49,8 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .articleDet{
+
+  .articleDet {
     font-size: toRem(32px);
     text-indent: 2em;
     padding: toRem(20px);

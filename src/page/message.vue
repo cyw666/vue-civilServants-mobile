@@ -4,9 +4,9 @@
 <template>
   <div class="message">
     <!--头部-->
-    <Header-fix title="消息中心" fixed>
+    <header-fix title="消息中心" fixed>
       <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
-    </Header-fix>
+    </header-fix>
     <section v-infinite-scroll="getMessageList"
              infinite-scroll-immediate-check="immediate"
              infinite-scroll-disabled="loading"
@@ -27,9 +27,9 @@
 </template>
 <script>
   import {Indicator} from 'mint-ui'
-  import HeaderFix from '../components/header.vue'
+  import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
-  import {GetMessageCenter,GetCourseDetail} from '../service/getData'
+  import {GetMessageCenter, GetCourseDetail} from '../service/getData'
 
   export default {
     mixins: [goBack],
@@ -52,7 +52,7 @@
     },
     props: [],
     components: {
-      HeaderFix
+      headerFix
     },
     methods: {
       //获取消息列表
@@ -78,19 +78,19 @@
           this.page += 1;
         }
       },
-      async getCourseDetail(Id){
+      async getCourseDetail(Id) {
         let data = await GetCourseDetail({Id});
-        if(data.Type == 1){
+        if (data.Type == 1) {
           if (data.Data.CourseType == 'Mp4') {
-            this.$router.push({path:'/play',query:{id:Id}})
+            this.$router.push({path: '/play', query: {id: Id}})
           } else {
-            this.$router.push({path:'/playJy',query:{id:Id}})
+            this.$router.push({path: '/playJy', query: {id: Id}})
           }
         }
       },
       linkTo: function (type, id) {
         if (type == 'Notice') {
-          this.$router.push({path:'/messageDetail',query:{id}})
+          this.$router.push({path: '/messageDetail', query: {id}})
         } else {
           this.getCourseDetail(id);
         }

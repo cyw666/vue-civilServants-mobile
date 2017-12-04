@@ -4,9 +4,9 @@
 <template>
   <div class="courseSearch">
     <!--头部-->
-    <Header-fix title="搜索" fixed>
+    <header-fix title="搜索" fixed>
       <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
-    </Header-fix>
+    </header-fix>
     <div class="pad_top">
       <search v-model="keyword" :search="clickSearch">
         <section slot v-infinite-scroll="getCourseList"
@@ -25,16 +25,16 @@
 </template>
 <script>
   import {Indicator} from 'mint-ui';
-  import HeaderFix from '../components/header.vue'
-  import search from '../components/search.vue'
-  import courseList from '../components/courseList.vue'
+  import {headerFix, search, courseList} from '../components'
   import {GetCourseInfoList} from '../service/getData'
-  import { goBack } from '../service/mixins'
+  import {goBack} from '../service/mixins'
+
   export default {
-    mixins:[goBack],
+    mixins: [goBack],
     data() {
       return {
         keyword: '',
+        oldKeyword: '',
         channelId: 0,
         courseData: [],
         loading: false,
@@ -51,13 +51,14 @@
     components: {
       search,
       courseList,
-      HeaderFix,
+      headerFix,
     },
     methods: {
       async getCourseList() {
         this.noData = false;
         this.noDataBg = false;
         this.loading = true;
+        this.oldKeyword = this.keyword; //记录搜索keyword
         Indicator.open();
         let data = await GetCourseInfoList({Keyword: this.keyword, ChannelId: this.channelId, Page: this.page});
         if (data.Type == 1) {
@@ -77,9 +78,11 @@
         }
       },
       clickSearch() {
-        this.courseData = [];
-        this.page = 1;
-        this.getCourseList();
+        if (this.keyword != this.oldKeyword) {
+          this.courseData = [];
+          this.page = 1;
+          this.getCourseList();
+        }
       }
     },
     watch: {}
@@ -88,10 +91,11 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
+
   .courseSearch {
     height: 100vh;
     background-color: $fill-body;
-    .pad_top{
+    .pad_top {
       padding-top: toRem(92px);
     }
   }

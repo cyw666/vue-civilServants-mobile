@@ -6,7 +6,9 @@
     <div class="header_left">
       <slot name="left"></slot>
     </div>
-    <h1 class="header_title" v-text="title"></h1>
+    <slot name="title">
+      <h1 class="header_title" v-text="title"></h1>
+    </slot>
     <div class="header_right">
       <slot name="right"></slot>
     </div>
@@ -14,7 +16,7 @@
 </template>
 <script>
   export default {
-    name:"header",
+    name:"header-fix",
     data() {
       return {}
     },

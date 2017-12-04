@@ -13,6 +13,11 @@ const ExamSearch = r => require.ensure([], () => r(require('../page/examSearch.v
 const PersonalCenter = r => require.ensure([], () => r(require('../page/personalCenter.vue')), 'personalCenter')
 const Message = r => require.ensure([], () => r(require('../page/message.vue')), 'message')
 const MessageDetail = r => require.ensure([], () => r(require('../page/messageDetail.vue')), 'messageDetail')
+const History = r => require.ensure([], () => r(require('../page/history.vue')), 'history')
+const MyCourse = r => require.ensure([], () => r(require('../page/myCourse.vue')), 'myCourse')
+const NewsCenter = r => require.ensure([], () => r(require('../page/newsCenter.vue')), 'newsCenter')
+const NewsSearch = r => require.ensure([], () => r(require('../page/newsSearch.vue')), 'newsSearch')
+const NewsDetails = r => require.ensure([], () => r(require('../page/newsDetails.vue')), 'newsDetails')
 
 const routes  = [
   {
@@ -88,6 +93,36 @@ const routes  = [
         name:'messageDetail',
         path: '/messageDetail',
         component: MessageDetail
+      },
+      //历史记录
+      {
+        name:'history',
+        path: '/history',
+        component: History
+      },
+      //我的课程
+      {
+        name:'myCourse',
+        path: '/myCourse',
+        component: MyCourse
+      },
+      //新闻中心
+      {
+        name:'newsCenter',
+        path: '/newsCenter',
+        component: NewsCenter
+      },
+      //新闻搜索
+      {
+        name:'newsSearch',
+        path: '/newsSearch',
+        component: NewsSearch
+      },
+      //新闻详情
+      {
+        name:'newsDetails',
+        path: '/newsDetails',
+        component: NewsDetails
       },
       //error
       {

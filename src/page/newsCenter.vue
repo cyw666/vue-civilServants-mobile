@@ -1,43 +1,46 @@
 /**
-* 课程中心
+* 新闻中心
 */
 <template>
-  <div class="courseCenter">
-    <header-fix :title="courseTitle" fixed>
-      <a slot="left" @click="toggleNav"><img class="slide" src="../assets/slide.png"></a>
-      <router-link slot="right" to="/courseSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
+  <div class="newsCenter">
+    <header-fix :title="articleTitle" fixed>
+      <div slot="left">
+        <a @click="goBack"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+        <a @click="toggleNav"><img class="slide" src="../assets/slide.png"></a>
+      </div>
+      <router-link slot="right" to="/newsSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
     </header-fix>
-    <div class="container">
+    <div class="news_container">
       <nav-slide :show="showSlide" @showChange="showChange">
         <div slot="left" class="category">
-          <tree :data="courseCategory" :on-select="searchCourse"></tree>
+          <tree :data="articleCategory" :on-select="searchArticle"></tree>
         </div>
         <div slot="right">
-          <section v-infinite-scroll="getCourseList"
+          <section v-infinite-scroll="getArticleList"
                    infinite-scroll-immediate-check="immediate"
                    infinite-scroll-disabled="loading"
                    infinite-scroll-distance="5">
-            <course-list :course-data="courseData" :no-data-bg="noDataBg" :no-data="noData"></course-list>
+            <news-list :news-data="articleData" :no-data-bg="noDataBg" :no-data="noData"></news-list>
           </section>
         </div>
       </nav-slide>
     </div>
-    <footer-fix selected="courseCenter"></footer-fix>
   </div>
 </template>
 <script>
   import {Indicator} from 'mint-ui';
-  import {headerFix, footerFix, navSlide, tree, courseList} from '../components'
-  import {GetChannelInfoList, GetCourseInfoList} from '../service/getData'
-
+  import {headerFix, navSlide, tree, newsList} from '../components'
+  import {GetArticleChannelInfoList,GetArticleInfoList} from '../service/getData'
+  import {goBack} from '../service/mixins'
   export default {
+    mixins:[goBack],
     data() {
       return {
-        courseTitle: "课程中心",
+        articleTitle: "咨询中心",
         showSlide: false,
-        courseCategory: [],
-        channelId: 0,
-        courseData: [],
+        articleCategory: [],
+        categoryId: 0,
+        articleData: [],
         loading: false,
         immediate: true,
         page: 1,
@@ -46,15 +49,14 @@
       }
     },
     mounted() {
-      this.getChannelInfoList();
+      this.getArticleCategory();
 //      this.getCourseList();
     },
     components: {
       headerFix,
-      footerFix,
       navSlide,
       tree,
-      courseList,
+      newsList,
     },
     methods: {
       toggleNav() {
@@ -63,20 +65,20 @@
       showChange(val) {
         this.showSlide = val;
       },
-      //课程分类
-      async getChannelInfoList() {
-        let data = await GetChannelInfoList();
+      //文章分类
+      async getArticleCategory() {
+        let data = await GetArticleChannelInfoList();
         if (data.Type == 1) {
-          this.courseCategory = data.Data.CourseCategoryResult;
+          this.articleCategory = data.Data.ArticleCategoryResult;
         }
       },
-      //课程列表
-      async getCourseList() {
+      //文章列表
+      async getArticleList() {
         this.noData = false;
         this.noDataBg = false;
         this.loading = true;
         Indicator.open();
-        let data = await GetCourseInfoList({ChannelId: this.channelId, Page: this.page});
+        let data = await GetArticleInfoList({CategoryId: this.categoryId, Page: this.page});
         Indicator.close();
         if (data.Type == 1) {
           let list = data.Data.List;
@@ -88,18 +90,18 @@
             this.noDataBg = true;
             return;
           }
-          this.courseData = this.courseData.concat(list);
+          this.articleData = this.articleData.concat(list);
           this.loading = false;
           this.page += 1;
         }
       },
-      searchCourse(data) {
+      searchArticle(data) {
         this.page = 1;
-        this.channelId = data.Id;
-        this.courseTitle = data.Name;
+        this.categoryId = data.Id;
+        this.articleTitle = data.Name;
         this.showSlide = false;
-        this.courseData = [];
-        this.getCourseList();
+        this.articleData = [];
+        this.getArticleList();
       },
     },
   }
@@ -108,18 +110,19 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
 
-  .courseCenter {
+  .newsCenter {
     .slide {
       width: toRem(35px);
+      margin-left: toRem(30px);
     }
     .search {
       width: toRem(39px);
     }
-    .container {
+    .news_container {
       padding-top: toRem(92px);
       width: 100%;
-      height: toRem(1137px);
-      overflow: hidden;
+      height: 93vh;
+      overflow: scroll;
     }
     .category {
       padding: toRem(20px) 0;

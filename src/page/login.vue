@@ -62,20 +62,15 @@
       this.Remember = getStore("remember");
 //      this.getUserInformation();
     },
-    props: [],
-    components: {},
     computed: {
       ...mapState([])
-    },
-    updated() {
-
     },
     methods: {
       ...mapActions(["getUserInformation"]),
       async clickLogin() {
         if (!this.Account || !this.Password) {
           alert('用户名或密码不能为空！');
-          return
+          return;
         }
         let loginParams = {
           Account: this.Account,

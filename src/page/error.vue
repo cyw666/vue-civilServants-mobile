@@ -13,11 +13,12 @@
 
 <style lang="scss" scoped rel="stylesheet/scss">
   @import "../style/mixin";
-  .error{
+
+  .error {
     width: 100vw;
     height: 100vh;
     margin: 0 auto;
-    h1{
+    h1 {
       padding: toRem(150px) toRem(20px);
       font-size: toRem(50px);
       text-align: center;
