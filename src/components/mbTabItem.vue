@@ -22,9 +22,9 @@
     display: inline-block;
     @include ht-lineHt(56px);
     text-align: center;
-    border-top: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    border-left: 2px solid #fff;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    border-left: 1px solid #fff;
     padding: 0 toRem(25px);
     background-color: $brand-primary;
     color: $color-text-reverse;

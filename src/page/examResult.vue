@@ -83,7 +83,7 @@
       margin-top: toRem(20px);
       p {
         @include ht-lineHt(82px);
-        border-top: 2px solid $border-color-base;
+        border-top: 1px solid $border-color-base;
       }
     }
     .result_footer {

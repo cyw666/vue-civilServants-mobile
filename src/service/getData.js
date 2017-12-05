@@ -97,10 +97,40 @@ export const GetArticleInfoList = (data) => fetch.post(Api.GetArticleInfoList.ur
  */
 export const ArticleDetail = (data) => fetch.post(Api.ArticleDetail.url, {...Api.ArticleDetail.data, ...data});
 
+/**
+ *  排行榜 RankType => 1：学时， 2：课程，3：单位
+ */
+export const GetRankInfoList = (data) => fetch.post(Api.GetRankInfoList.url, {...Api.GetRankInfoList.data, ...data});
 
+/**
+ *  培训班分类
+ */
+export const GetTrainingTypeList = (data) => fetch.post(Api.GetTrainingTypeList.url, {...Api.GetTrainingTypeList.data, ...data});
 
+/**
+ *  培训班列表 JoinStatus => Join：参加； UnJoin：未参加 ；UnAudit：审核中；
+ */
+export const GetTrainingClass = (data) => fetch.post(Api.GetTrainingClass.url, {...Api.GetTrainingClass.data, ...data});
 
+/**
+ *  培训班详情
+ */
+export const GetTrainingDetail = (data) => fetch.post(Api.GetTrainingDetail.url, {...Api.GetTrainingDetail.data, ...data});
 
+/**
+ *  签到列表
+ */
+export const GetClassUserSignList = (data) => fetch.post(Api.GetClassUserSignList.url, {...Api.GetClassUserSignList.data, ...data});
+
+/**
+ *  取消报名
+ */
+export const UpdateTrainingStudentdown = (data) => fetch.post(Api.UpdateTrainingStudentdown.url, {...Api.UpdateTrainingStudentdown.data, ...data});
+
+/**
+ *  报名培训班
+ */
+export const UpdateTrainingStudentup = (data) => fetch.post(Api.UpdateTrainingStudentup.url, {...Api.UpdateTrainingStudentup.data, ...data});
 
 
 

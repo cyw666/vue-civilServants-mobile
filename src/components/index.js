@@ -13,6 +13,8 @@ import tree from './tree.vue'
 import treeNode from './treeNode.vue'
 import mbModel from './mbModel.vue'
 import newsList from './newsList.vue'
+import classList from './classList.vue'
+import mbTag from './mbTag.vue'
 
 export {
   courseList,
@@ -30,4 +32,6 @@ export {
   treeNode,
   mbModel,
   newsList,
+  classList,
+  mbTag,
 }

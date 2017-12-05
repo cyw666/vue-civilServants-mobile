@@ -16,7 +16,7 @@
         <span class="article_details_resource">来源：{{articleDetails.Resource}}</span>
       </div>
     </section>
-    <article class="article_details_content" v-html="articleDetails.Content"></article>
+    <article class="article_details_content" v-html="content"></article>
   </div>
 </template>
 <script>
@@ -31,7 +31,8 @@
         articleId:'',
         articleDetails:{
 
-        }
+        },
+        content:''
       }
     },
     created() {
@@ -49,11 +50,19 @@
       
     },
     methods: {
-      //文章分类
+      //文章内容
       async getArticleDetail() {
         let data = await ArticleDetail({Id:this.articleId});
         if (data.Type == 1) {
           this.articleDetails = data.Data;
+          let content = data.Data.Content;
+          /*let html = document.getElementsByTagName("html")[0];
+          let dpr = html.getAttribute("data-dpr");
+          if(dpr == "2"){
+            let content1=content.replace(/font-size:\s18px/ig,"font-size: 36px").replace(/font-size:\s16px/ig,"font-size: 32px").replace(/font-size:\s14px/ig,"font-size: 28px").replace(/font-size:\s24px/ig,"font-size: 48px").replace(/font-size:\s12px/ig,"font-size: 24px").replace(/line-height:\s+\d+px/ig,"line-height: 50px");
+            this.content=content1;
+          }*/
+          this.content=content;
         }
       },
     },

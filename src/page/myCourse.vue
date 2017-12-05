@@ -116,36 +116,11 @@
   @import "../style/mixin";
 
   .my_course {
+    .search{
+      @include square(39px);
+    }
   }
-
   .my_course_container {
     padding-top: toRem(92px);
-  }
-
-  .tab {
-    @include flex(flex-start);
-    align-items: center;
-    .tab_item {
-      display: inline-block;
-      @include ht-lineHt(56px);
-      text-align: center;
-      border-top: 2px solid #fff;
-      border-bottom: 2px solid #fff;
-      padding: 0 toRem(25px);
-      &.active {
-        background-color: #fff;
-        color: $brand-primary;
-      }
-    }
-    :first-child {
-      @include border-left-radius(10px);
-      border-left: 2px solid #fff;
-      border-right: 2px solid #fff;
-    }
-    :last-child {
-      @include border-right-radius(10px);
-      border-left: 2px solid #fff;
-      border-right: 2px solid #fff;
-    }
   }
 </style>

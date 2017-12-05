@@ -69,7 +69,8 @@ a {
   outline: none;
   color: $color-text-base;
 }
-a:hover{
+
+a:hover {
   text-decoration: none;
 }
 
@@ -204,9 +205,11 @@ label {
   @include font-size(28px);
   height: toRem(70px);
 }
-.mint-button--large{
+
+.mint-button--large {
   @include borderRadius(15px);
 }
+
 .mint-button--primary {
   color: #fff;
   background-color: $brand-primary;
@@ -226,25 +229,27 @@ label {
 .fade-enter, .fade-leave-active {
   opacity: 0;
 }
+
 //slide
 .slide-enter-active {
   height: auto;
   transition: height 0.5s;
 }
+
 .slide-leave-active {
   height: 0;
   transition: height 0.5s;
 }
 
-.slide-enter{
+.slide-enter {
   height: 0;
   transition: height 0.5s;
 }
+
 .slide-leave-active {
   height: auto;
   transition: height 0.5s;
 }
-
 
 body {
   //MessageBox
@@ -262,13 +267,18 @@ body {
     padding: toRem(10px) toRem(70px) toRem(60px);
   }
   //toast
-  .mint-toast{
+  .mint-toast {
     .mint-toast-text {
       font-size: toRem(28px);
     }
-    &.is-placebottom{
+    &.is-placebottom {
       bottom: toRem(115px);
     }
+  }
+  //loading
+  .mint-indicator-mask {
+    opacity: 0.4;
+    background: #000;
   }
 }
 
@@ -287,26 +297,26 @@ body {
 }
 
 //cell
-.mint-cell{
+.mint-cell {
   @include ht-lineHt(88px);
-  border-bottom: 2px solid $border-color-base;
-  .mint-cell-wrapper{
+  border-bottom: 1px solid $border-color-base;
+  .mint-cell-wrapper {
     line-height: toRem(88px);
     font-size: toRem(28px);
   }
-  img{
+  img {
     @include square(26px);
   }
-  .mint-cell-text{
+  .mint-cell-text {
     margin-left: toRem(30px);
   }
-  .mint-cell-allow-right::after{
+  .mint-cell-allow-right::after {
     @include square(15px);
   }
 }
 
 //遮罩层
-.mb-model{
+.mb-model {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -316,7 +326,52 @@ body {
   background-color: $fill-mask;
 }
 
+//.mint-navbar 选项卡
+.mint-navbar {
+  .mint-tab-item {
+    padding: toRem(34px) 0;
+    font-size: toRem(32px);
+    &.is-selected {
+      border-bottom: toRem(6px) solid $brand-primary;
+      color: $brand-primary;
+      margin-bottom: toRem(6px);
+    }
+  }
+}
 
+.mint-tab-item-label {
+  font-size: toRem(32px);
+}
 
+.mint-tab-item-icon {
+  width: toRem(48px);
+  height: toRem(48px);
+  margin: 0 auto toRem(5px);
+}
+
+//table 表格
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.table {
+  margin-bottom: toRem(36px);
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+  border-top: 1px solid #ddd;
+}
+//排行榜前三背景
+.rank_bg_one {
+  background: url(../assets/gold.png) no-repeat center center;
+  background-size: toRem(33px),toRem(35px);
+}
+.rank_bg_two {
+  background: url(../assets/silver.png) no-repeat center center;
+  background-size: toRem(33px),toRem(35px);
+}
+.rank_bg_three {
+  background: url(../assets/copper.png) no-repeat center center;
+  background-size: toRem(33px),toRem(35px);
+}
 
 

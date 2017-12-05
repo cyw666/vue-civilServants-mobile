@@ -18,6 +18,10 @@ const MyCourse = r => require.ensure([], () => r(require('../page/myCourse.vue')
 const NewsCenter = r => require.ensure([], () => r(require('../page/newsCenter.vue')), 'newsCenter')
 const NewsSearch = r => require.ensure([], () => r(require('../page/newsSearch.vue')), 'newsSearch')
 const NewsDetails = r => require.ensure([], () => r(require('../page/newsDetails.vue')), 'newsDetails')
+const RankList = r => require.ensure([], () => r(require('../page/rankList.vue')), 'rankList')
+const ClassGarden = r => require.ensure([], () => r(require('../page/classGarden.vue')), 'classGarden')
+const ClassSearch = r => require.ensure([], () => r(require('../page/classSearch.vue')), 'classSearch')
+const ClassDetail = r => require.ensure([], () => r(require('../page/classDetail.vue')), 'classDetail')
 
 const routes  = [
   {
@@ -123,6 +127,30 @@ const routes  = [
         name:'newsDetails',
         path: '/newsDetails',
         component: NewsDetails
+      },
+      //排行榜
+      {
+        name:'rankList',
+        path: '/rankList',
+        component: RankList
+      },
+      //班级园地
+      {
+        name:'classGarden',
+        path: '/classGarden',
+        component: ClassGarden
+      },
+      //班级搜索
+      {
+        name:'classSearch',
+        path: '/classSearch',
+        component: ClassSearch
+      },
+      //班级搜索
+      {
+        name:'classDetail',
+        path: '/classDetail',
+        component: ClassDetail
       },
       //error
       {

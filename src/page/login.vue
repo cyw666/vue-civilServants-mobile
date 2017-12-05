@@ -162,7 +162,7 @@
       }
     }
     .user_login {
-      border-top: 2px solid #ddd;
+      border-top: 1px solid #ddd;
       padding-left: toRem(20px);
       padding-right: toRem(20px);
       .form-horizontal {
@@ -172,7 +172,7 @@
         border: none;
       }
       .form-group {
-        border-bottom: 2px solid $border-color-base;
+        border-bottom: 1px solid $border-color-base;
         position: relative;
         label {
           width: toRem(120px);

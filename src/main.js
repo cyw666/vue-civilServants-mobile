@@ -16,6 +16,11 @@ import routes from './router'
 import store from './store/'
 import {setStore} from './plugins/utils'
 
+//注册全局组件
+/*import mbTag from './components/mbTag.vue'
+Vue.component(mbTag.name, mbTag);*/
+
+
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(MintUI);
@@ -34,7 +39,7 @@ router.afterEach((to, from) => {
   setStore("currentUrl",currentUrl);
 })
 
-new Vue({
+var vm = new Vue({
   router,
   store
 }).$mount('#app')

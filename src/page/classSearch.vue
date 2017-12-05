@@ -1,19 +1,19 @@
 /**
-* 课程搜索
+* 班级搜索
 */
 <template>
-  <div class="newsSearch">
+  <div class="classSearch">
     <!--头部-->
-    <header-fix title="排行榜" fixed>
+    <header-fix title="搜索" fixed>
       <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
     </header-fix>
     <div class="pad_top">
       <search v-model="keyword" :search="clickSearch">
-        <section slot v-infinite-scroll="getArticleList"
+        <section v-infinite-scroll="getClassList"
                  infinite-scroll-immediate-check="immediate"
                  infinite-scroll-disabled="loading"
                  infinite-scroll-distance="5">
-          <news-list :news-data="articleData" :no-data-bg="noDataBg" :no-data="noData"></news-list>
+          <class-list :data="classData" :no-data-bg="noDataBg"></class-list>
         </section>
       </search>
     </div>
@@ -21,8 +21,8 @@
 </template>
 <script>
   import {Indicator} from 'mint-ui';
-  import {headerFix, search, courseList, newsList} from '../components'
-  import {GetArticleInfoList} from '../service/getData'
+  import {headerFix, search, classList} from '../components'
+  import {GetTrainingClass} from '../service/getData'
   import {goBack} from '../service/mixins'
 
   export default {
@@ -31,53 +31,45 @@
       return {
         keyword: '',
         oldKeyword: '',
-        categoryId: 0,
-        articleData: [],
+        classData: [],
         loading: false,
         immediate: false,
         page: 1,
-        noData: false,
         noDataBg: false,
       }
     },
-    mounted() {
-
-    },
-    props: [],
     components: {
       search,
       headerFix,
-      newsList,
+      classList,
     },
     methods: {
-      async getArticleList() {
-        this.noData = false;
+      async getClassList() {
         this.noDataBg = false;
         this.loading = true;
         this.oldKeyword = this.keyword; //记录搜索keyword
         Indicator.open();
-        let data = await GetArticleInfoList({Keyword: this.keyword, CategoryId: this.categoryId, Page: this.page});
+        let data = await GetTrainingClass({
+          TrainName: this.keyword,
+          Page: this.page
+        });
+        Indicator.close();
         if (data.Type == 1) {
           let list = data.Data.List;
-          Indicator.close();
-          if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
-          }
           if (list.length == 0 && this.page == 1) {
             this.noDataBg = true;
             return;
           }
-          this.articleData = this.articleData.concat(list);
+          this.classData = this.classData.concat(list);
           this.loading = false;
           this.page += 1;
         }
       },
       clickSearch() {
         if (this.keyword != this.oldKeyword) {
-          this.articleData = [];
+          this.classData = [];
           this.page = 1;
-          this.getArticleList();
+          this.getClassList();
         }
       }
     },
@@ -87,7 +79,7 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
 
-  .newsSearch {
+  .classSearch {
     height: 100vh;
     background-color: $fill-body;
     .pad_top {

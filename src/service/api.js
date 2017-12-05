@@ -100,4 +100,39 @@ export default {
     url: API_URL + Platform + '/ArticleDetail',
     data: {Id:''}
   },
+  //排行榜 RankType => 1：学时， 2：课程，3：单位
+  GetRankInfoList: {
+    url: API_URL + Platform + '/GetRankInfoList',
+    data: {RankType:'',TotalCount:'20'}
+  },
+  //培训班分类
+  GetTrainingTypeList: {
+    url: API_URL + Platform + '/GetTrainingTypeList',
+    data: {}
+  },
+  //培训班列表 JoinStatus => Join：参加； UnJoin：未参加 ；UnAudit：审核中；
+  GetTrainingClass: {
+    url: API_URL + Platform + '/GetTrainingClass',
+    data: {TypeId: '', TrainName: '', JoinStatus: '', Page: '1', Rows: '20'}
+  },
+  //培训班详情
+  GetTrainingDetail: {
+    url: API_URL + Platform + '/GetTrainingDetail',
+    data: {Id: ''}
+  },
+  //签到列表
+  GetClassUserSignList: {
+    url: API_URL + Platform + '/GetClassUserSignList',
+    data: {TrainingId: '', TodayFlag: '', Order: 'desc', Page: '1', Rows: '20'}
+  },
+  //取消报名培训班
+  UpdateTrainingStudentdown: {
+    url: API_URL + Platform + '/UpdateTrainingStudentdown',
+    data: {Id: ''}
+  },
+  //报名培训班
+  UpdateTrainingStudentup: {
+    url: API_URL + Platform + '/UpdateTrainingStudentup',
+    data: {Id: ''}
+  },
 };

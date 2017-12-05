@@ -64,7 +64,7 @@
   .course_list {
     padding: 0 toRem(30px);
     .course_item {
-      margin: toRem(15px) 0;
+      margin: toRem(30px) 0;
       @extend %clearFix;
       background-color: $fill-base;
     }

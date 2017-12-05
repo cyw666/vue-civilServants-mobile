@@ -23,11 +23,10 @@
     align-items:center;
     :first-child{
       @include border-left-radius(10px);
-      border-left: 2px solid #fff;
     }
     :last-child{
       @include border-right-radius(10px);
-      border-right: 2px solid #fff;
+      border-right: 1px solid #fff;
     }
   }
 
