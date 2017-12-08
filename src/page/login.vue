@@ -56,7 +56,7 @@
     },
     mounted() {
       this.Code = this.$route.query.code || '';
-      this.backUrl = this.$route.query.currentUrl || '/#/';
+      this.backUrl = (this.$route.query.currentUrl).split("#")[1] || '/#/';
       this.Account = this.decrypt(localStorage.getItem('a_app'));
       this.Password = this.decrypt(localStorage.getItem('p_app'));
       this.Remember = getStore("remember");
@@ -89,7 +89,10 @@
             this.encrypt("p_app", "");
             setStore("remember", false);
           }
-          window.location = this.backUrl;
+          /*window.history.replaceState(null, "replace", this.backUrl);
+          window.location.reload();*/
+          this.$router.replace(this.backUrl);
+//          window.location = this.backUrl;
         } else if (res.Type == 0) {
           alert(res.Message);
         }

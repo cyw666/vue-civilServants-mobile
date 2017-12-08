@@ -2,7 +2,7 @@
 * 搜索
 */
 <template>
-  <div class="search">
+  <div class="search_com">
     <div class="search_bar">
       <input type="text" v-model="currentValue" @keyup.13="search" :placeholder="placeholder"/>
       <mt-button size="small" type="primary" @click.native="search">
@@ -42,7 +42,7 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .search{
+  .search_com{
     .search_bar {
       height: 0.8rem;
       padding: 0.266667rem 0.4rem;

@@ -1,15 +1,18 @@
 <template>
   <div class="mbRadio" @change="$emit('change', currentValue)">
     <div class="radioList" v-for="option in options">
-      <label class="radiolist-label">
-        <input
-          class="radio-input"
-          type="radio"
-          v-model="currentValue"
-          :disabled="option.disabled"
-          :value="option.ThemeItemFlag || option"/>
-        {{option.ThemeItemFlag+'.'+option.ThemeItemTitle}}
-        <!--<span class="radio-label" v-text="option.ThemeItemFlag+'.'+option.ThemeItemTitle || option"></span>-->
+      <label class="mint-radiolist-label">
+        <span class="mint-radio">
+          <input
+              class="mint-radio-input"
+              type="radio"
+              v-model="currentValue"
+              :disabled="option.disabled"
+              :value="option.ThemeItemFlag || option"/>
+          <span class="mint-radio-core"></span>
+        </span>
+        <!--&nbsp;&nbsp;{{option.ThemeItemFlag+'.'+option.ThemeItemTitle}}-->
+        <span class="mint-radio-label" v-text="option.ThemeItemFlag+'.'+option.ThemeItemTitle"></span>
       </label>
   </div>
   </div>
@@ -29,9 +32,10 @@
     },
     props: {
       options: {
+        type:Array,
         required: true
       },
-      value: ''
+      value: String
     },
     components: {},
     computed: {
@@ -66,21 +70,13 @@
       .radio-input:focus {
         outline: none;
       }
-      .radiolist-label {
-        display: inline-block;
-        width: 100%;
-        font-size: toRem(32px);
-        height: toRem(84px);
-        line-height: toRem(84px);
-        /*.radio-input{
-          width: toRem(30px);
-          height: toRem(30px);
-        }*/
+      .mint-radiolist-label{
+        display: block;
+        padding: 0 toRem(20px);
+        @include ht-lineHt(84px);
+        font-size: toRem(28px);
       }
       padding: 0 toRem(20px);
-      &:last-child {
-        border-bottom: none;
-      }
     }
   }
 

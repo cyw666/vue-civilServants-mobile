@@ -12,7 +12,7 @@
         <section v-infinite-scroll="getExamList"
                  infinite-scroll-immediate-check="immediate"
                  infinite-scroll-disabled="loading"
-                 infinite-scroll-distance="5">
+                 infinite-scroll-distance="10">
           <exam-list :exam-data="examData"
                      :no-data-bg="noDataBg"
                      :no-data="noData">

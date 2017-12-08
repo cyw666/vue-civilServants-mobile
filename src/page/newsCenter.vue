@@ -19,7 +19,7 @@
           <section v-infinite-scroll="getArticleList"
                    infinite-scroll-immediate-check="immediate"
                    infinite-scroll-disabled="loading"
-                   infinite-scroll-distance="5">
+                   infinite-scroll-distance="10">
             <news-list :news-data="articleData" :no-data-bg="noDataBg" :no-data="noData"></news-list>
           </section>
         </div>

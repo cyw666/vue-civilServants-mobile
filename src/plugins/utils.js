@@ -6,9 +6,7 @@
  */
 export const setStore = (name, content) => {
   if (!name) return;
-  if (typeof content !== 'string') {
-    content = JSON.stringify(content);
-  }
+  content = JSON.stringify(content);
   window.localStorage.setItem(name, content);
 }
 
@@ -18,9 +16,7 @@ export const setStore = (name, content) => {
 export const getStore = name => {
   if (!name) return;
   let value = window.localStorage.getItem(name);
-  if (typeof value !== 'string') {
-    value = JSON.parse(value);
-  }
+  value = JSON.parse(value);
   return value;
 }
 
@@ -60,7 +56,7 @@ export const loadMore = (element, callback) => {
   let marginBottom;
   let requestFram;
   let oldScrollTop;
-
+  
   document.body.addEventListener('scroll', () => {
     loadMore();
   }, false)
@@ -71,18 +67,18 @@ export const loadMore = (element, callback) => {
     paddingBottom = getStyle(element, 'paddingBottom');
     marginBottom = getStyle(element, 'marginBottom');
   }, {passive: true})
-
+  
   //运动过程中保持监听 scrollTop 的值判断是否到达底部
   element.addEventListener('touchmove', () => {
     loadMore();
   }, {passive: true})
-
+  
   //运动结束时判断是否有惯性运动，惯性运动结束判断是非到达底部
   element.addEventListener('touchend', () => {
     oldScrollTop = document.body.scrollTop;
     moveEnd();
   }, {passive: true})
-
+  
   const moveEnd = () => {
     requestFram = requestAnimationFrame(() => {
       if (document.body.scrollTop != oldScrollTop) {
@@ -97,18 +93,19 @@ export const loadMore = (element, callback) => {
       }
     })
   }
-
+  
   const loadMore = () => {
     if (document.body.scrollTop + windowHeight >= height + setTop + paddingBottom + marginBottom) {
       callback();
     }
   }
 }
+
 /**
  * 格式化日期
  */
 export function formatDate(date, fmt) {
-  if (!date)  return
+  if (!date) return
   if (/(y+)/.test(fmt)) {
     fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
   }
@@ -131,6 +128,7 @@ export function formatDate(date, fmt) {
 function padLeftZero(str) {
   return ('00' + str).substr(str.length);
 }
+
 /**
  * 播放全屏
  */

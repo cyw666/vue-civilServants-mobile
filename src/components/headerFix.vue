@@ -45,10 +45,11 @@
   @import "../style/mixin";
   .header {
     @include flex();
+    align-items:center;
     @include ht-lineHt(92px);
     background-color: $brand-primary;
     text-align: center;
-    font-size: toRem(36px);
+    font-size: toRem(32px);
     color: #fff;
     padding: 0 toRem(20px);
     &.is-fixed {

@@ -22,6 +22,17 @@ const RankList = r => require.ensure([], () => r(require('../page/rankList.vue')
 const ClassGarden = r => require.ensure([], () => r(require('../page/classGarden.vue')), 'classGarden')
 const ClassSearch = r => require.ensure([], () => r(require('../page/classSearch.vue')), 'classSearch')
 const ClassDetail = r => require.ensure([], () => r(require('../page/classDetail.vue')), 'classDetail')
+const SignDetail = r => require.ensure([], () => r(require('../page/signDetail.vue')), 'signDetail')
+const Ebook = r => require.ensure([], () => r(require('../page/ebook.vue')), 'ebook')
+const EbookSearch = r => require.ensure([], () => r(require('../page/ebookSearch.vue')), 'ebookSearch')
+const EbookChapterList = r => require.ensure([], () => r(require('../page/ebookChapterList.vue')), 'ebookChapterList')
+const EbookDetail = r => require.ensure([], () => r(require('../page/ebookDetail.vue')), 'ebookDetail')
+const MyCredit = r => require.ensure([], () => r(require('../page/myCredit.vue')), 'myCredit')
+const Advise = r => require.ensure([], () => r(require('../page/advise.vue')), 'advise')
+const Setting = r => require.ensure([], () => r(require('../page/setting.vue')), 'setting')
+const UserInfoEdit = r => require.ensure([], () => r(require('../page/userInfoEdit.vue')), 'userInfoEdit')
+const ChangeMobile = r => require.ensure([], () => r(require('../page/changeMobile.vue')), 'changeMobile')
+const ChangePwd = r => require.ensure([], () => r(require('../page/changePwd.vue')), 'changePwd')
 
 const routes  = [
   {
@@ -151,6 +162,72 @@ const routes  = [
         name:'classDetail',
         path: '/classDetail',
         component: ClassDetail
+      },
+      //签到详情
+      {
+        name:'signDetail',
+        path: '/signDetail',
+        component: SignDetail
+      },
+      //电子书
+      {
+        name:'ebook',
+        path: '/ebook',
+        component: Ebook
+      },
+      //电子书搜索
+      {
+        name:'ebookSearch',
+        path: '/ebookSearch',
+        component: EbookSearch
+      },
+      //电子书章节
+      {
+        name:'ebookChapterList',
+        path: '/ebookChapterList',
+        component: EbookChapterList
+      },
+      //电子书章节内容
+      {
+        name:'ebookDetail',
+        path: 'ebookDetail',
+        component: EbookDetail
+      },
+      //我的学分
+      {
+        name:'myCredit',
+        path: 'myCredit',
+        component: MyCredit
+      },
+      //反馈中心
+      {
+        name:'advise',
+        path: 'advise',
+        component: Advise
+      },
+      //设置中心
+      {
+        name:'setting',
+        path: 'setting',
+        component: Setting
+      },
+      //个人信息修改
+      {
+        name:'userInfoEdit',
+        path: 'userInfoEdit',
+        component: UserInfoEdit
+      },
+      //修改手机号码
+      {
+        name:'changeMobile',
+        path: 'changeMobile',
+        component: ChangeMobile
+      },
+      //修改密码
+      {
+        name:'changePwd',
+        path: 'changePwd',
+        component: ChangePwd
       },
       //error
       {

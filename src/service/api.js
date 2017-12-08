@@ -135,4 +135,79 @@ export default {
     url: API_URL + Platform + '/UpdateTrainingStudentup',
     data: {Id: ''}
   },
+  //电子书
+  GetBookInfoList: {
+    url: API_URL + Platform + '/GetBookInfoList',
+    data: {Keyword: "", BookTypeId: "", BookTypeCode: "", Page: '1', Rows: '10'}
+  },
+  //电子书章节
+  GetBookChapterInfoList: {
+    url: API_URL + Platform + '/GetBookChapterInfoList',
+    data: {BookId: "", Page: '1', Rows: '20'}
+  },
+  //电子书章节内容
+  GetBookChapterContent: {
+    url: API_URL + Platform + '/GetBookChapterContent',
+    data: {Id: ""}
+  },
+  //留言类型
+  CommentType: {
+    url: API_URL + Platform + '/CommentType',
+    data: {}
+  },
+  //添加留言
+  AddMessage: {
+    url: API_URL + Platform + '/AddMessage',
+    data: {MainId: "", ParentId: "", Title: "", Content: '', ClassCode: ''}
+  },
+  //修改用户信息
+  /*
+  * {
+  *   "Account": "sample string 1",
+      "Name": "sample string 2",
+      "DepartmentName": "sample string 3",
+      "GroupId": 4,
+      "IdCard": "sample string 5",
+      "Email": "sample string 6",
+      "Grade": 7,
+      "Business": "sample string 8",
+      "Sex": "sample string 9",
+      "Nation": "sample string 10",
+      "Degree": 11,
+      "Party": "sample string 12",
+      "Birthday": "2017-12-07 14:11:25",
+      "Tel": "sample string 14",
+      "Mobile": "sample string 15",
+      "SmgCode": "sample string 16"
+  * }
+  * */
+  UpdateUserInfo: {
+    url: API_URL + Platform + '/UpdateUserInfo',
+    data: {}
+  },
+  //获取职级列表
+  GetGradeList: {
+    url: API_URL + Platform + '/GetGradeList',
+    data: {}
+  },
+  //获取学历列表
+  GetDegreeList: {
+    url: API_URL + Platform + '/GetDegreeList',
+    data: {}
+  },
+  //修改手机号
+  UpdateMobile: {
+    url: API_URL + Platform + '/UpdateMobile',
+    data: {OldMobile:'',NewMobile:'',SmgCode:''}
+  },
+  //发送验证码
+  SendMsg: {
+    url: API_URL + Platform + '/SendMsg',
+    data: {MobileNo:''}
+  },
+  //修改密码
+  SetUserPassword: {
+    url: API_URL + Platform + '/SetUserPassword',
+    data: {OldPassword:'',Password:''}
+  },
 };

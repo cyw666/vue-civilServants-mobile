@@ -130,15 +130,6 @@ label {
   color: $color-highlight;
 }
 
-//容器
-.container {
-  &::after {
-    content: '';
-    display: block;
-    height: toRem(105px);
-  }
-}
-
 //表单
 .form-group {
   @include font-size(34px);
@@ -193,7 +184,7 @@ label {
 
 .mint-button {
   height: toRem(90px);
-  @include font-size(32px);
+  @include font-size(28px);
   @include borderRadius(12px);
 }
 
@@ -202,7 +193,7 @@ label {
 }
 
 .mint-button--small {
-  @include font-size(28px);
+  @include font-size(24px);
   height: toRem(70px);
 }
 
@@ -296,13 +287,19 @@ body {
   background-color: $brand-primary;
 }
 
+//搜索
+.search {
+  width: toRem(39px);
+}
+
 //cell
 .mint-cell {
   @include ht-lineHt(88px);
-  border-bottom: 1px solid $border-color-base;
   .mint-cell-wrapper {
     line-height: toRem(88px);
     font-size: toRem(28px);
+    background: none;
+    border-bottom: 1px solid $border-color-base;
   }
   img {
     @include square(26px);
@@ -313,7 +310,18 @@ body {
   .mint-cell-allow-right::after {
     @include square(15px);
   }
+  &:last-child {
+    background:none;
+    border-bottom: none;
+    background-color: #fff;
+    .mint-cell-wrapper {
+      background:none;
+      border-bottom: none;
+      background-color: #fff;
+    }
+  }
 }
+
 
 //遮罩层
 .mb-model {
@@ -373,5 +381,22 @@ table {
   background: url(../assets/copper.png) no-repeat center center;
   background-size: toRem(33px),toRem(35px);
 }
+//radio
+.mint-radio-input:checked+.mint-radio-core {
+  background-color: $brand-primary;
+  border-color: $brand-primary;
+}
+.mint-radio-label{
+  margin-left: toRem(6px);
+}
+//checkbox
+.mint-checkbox-input:checked+.mint-checkbox-core {
+  background-color: $brand-primary;
+  border-color: $brand-primary;
+}
+.mint-checklist-label{
+  margin-left: toRem(6px);
+}
+
 
 

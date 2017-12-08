@@ -28,6 +28,7 @@
     padding: 0 toRem(25px);
     background-color: $brand-primary;
     color: $color-text-reverse;
+    font-size: toRem(28px);
     &.active {
       background-color: $color-text-reverse;
       color: $brand-primary;

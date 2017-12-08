@@ -153,7 +153,7 @@
       top: toRem(92px);
       left: 0;
       right: 0;
-      height: toRem(1137px);
+      height: 100vh;
       background-color: rgba(0, 0, 0, .4);
       z-index: 50;
     }

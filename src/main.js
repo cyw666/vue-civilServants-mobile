@@ -16,7 +16,7 @@ import routes from './router'
 import store from './store/'
 import {setStore} from './plugins/utils'
 
-//注册全局组件
+//注册全局组建
 /*import mbTag from './components/mbTag.vue'
 Vue.component(mbTag.name, mbTag);*/
 

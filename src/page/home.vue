@@ -41,7 +41,7 @@
           </router-link>
         </div>
         <div class="guide_item">
-          <router-link to="/ebookList">
+          <router-link to="/ebook">
             <img src="../assets/ebook_ico.png" alt="电子书">
             <p>电子书</p>
           </router-link>
@@ -79,20 +79,6 @@
         </div>
       </div>
     </mb-model>
-    <!--<transition name="fade">
-      <div v-if="showModel" class="info_content">
-        <div class="info_layer_avatar">
-            <img src="../assets/user_avatar.png" alt="用户头像" class="avatar">
-            <img src="../assets/cancel.png" @click="toggleModel" alt="关闭" class="cancel">
-            <p>{{userInfo.Username}}</p>
-          </div>
-        <div class="info_detail">
-            <h4>您好，欢迎来到干部教育网络学院学习平台</h4>
-            <p><span>已获{{userInfo.TotalCredit}}学分，排名第{{userInfo.ScoreRank}}名</span></p>
-          </div>
-      </div>
-    </transition>
-    <div v-if="showModel" class="mb-model" @click="toggleModel"></div>-->
   </div>
 
 </template>
@@ -169,6 +155,10 @@
   @import "../style/mixin";
 
   .home {
+    padding-top: toRem(92px);
+    .container{
+      padding-bottom: toRem(110px);
+    }
     .message {
       width: toRem(50px);
     }
@@ -207,7 +197,6 @@
     }
 
     .mint-swipe {
-      margin-top: toRem(90px);
       height: toRem(360px);
       img {
         width: 100%;
@@ -237,7 +226,7 @@
       background-color: #ebf1f1;
     }
     .recommend_course {
-      padding: toRem(30px) 0 toRem(30px) toRem(25px);
+      padding: toRem(30px) 0 toRem(20px) toRem(25px);
       background-color: #fff;
       .recommend_title {
         font-size: toRem(36px);

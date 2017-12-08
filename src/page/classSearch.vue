@@ -12,7 +12,7 @@
         <section v-infinite-scroll="getClassList"
                  infinite-scroll-immediate-check="immediate"
                  infinite-scroll-disabled="loading"
-                 infinite-scroll-distance="5">
+                 infinite-scroll-distance="10">
           <class-list :data="classData" :no-data-bg="noDataBg"></class-list>
         </section>
       </search>

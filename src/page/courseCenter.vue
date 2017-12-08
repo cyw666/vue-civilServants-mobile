@@ -16,7 +16,7 @@
           <section v-infinite-scroll="getCourseList"
                    infinite-scroll-immediate-check="immediate"
                    infinite-scroll-disabled="loading"
-                   infinite-scroll-distance="5">
+                   infinite-scroll-distance="10">
             <course-list :course-data="courseData" :no-data-bg="noDataBg" :no-data="noData"></course-list>
           </section>
         </div>
@@ -117,8 +117,9 @@
     }
     .container {
       padding-top: toRem(92px);
+      padding-bottom: toRem(110px);
       width: 100%;
-      height: toRem(1137px);
+      height: 85vh;
       overflow: hidden;
     }
     .category {

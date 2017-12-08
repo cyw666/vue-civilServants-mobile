@@ -12,19 +12,23 @@
       <router-link slot="right" to="/courseSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
     </header-fix>
     <div class="my_course_container">
-      <section v-if="tabType=='0'" v-infinite-scroll="getMyUnFinishCourse"
-               infinite-scroll-disabled="loading"
-               infinite-scroll-immediate-check="immediate"
-               infinite-scroll-distance="5">
-        <course-list :course-data="courseUnFinishData" :no-data-bg="noUfDataBg" :no-data="noUfData"
-                     my-course></course-list>
-      </section>
-      <section v-if="tabType=='1'" v-infinite-scroll="getMyFinishCourse"
-               infinite-scroll-disabled="loading"
-               infinite-scroll-immediate-check="immediate"
-               infinite-scroll-distance="5">
-        <course-list :course-data="courseFinishData" :no-data-bg="noFDataBg" :no-data="noFData" my-course></course-list>
-      </section>
+      <transition name="fade">
+        <section v-if="tabType=='0'" v-infinite-scroll="getMyUnFinishCourse"
+                 infinite-scroll-disabled="loading"
+                 infinite-scroll-immediate-check="immediate"
+                 infinite-scroll-distance="10">
+          <course-list :course-data="courseUnFinishData" :no-data-bg="noUfDataBg" :no-data="noUfData"
+                       my-course></course-list>
+        </section>
+      </transition>
+      <transition name="fade">
+        <section v-if="tabType=='1'" v-infinite-scroll="getMyFinishCourse"
+                 infinite-scroll-disabled="loading"
+                 infinite-scroll-immediate-check="immediate"
+                 infinite-scroll-distance="10">
+          <course-list :course-data="courseFinishData" :no-data-bg="noFDataBg" :no-data="noFData" my-course></course-list>
+        </section>
+      </transition>
     </div>
   </div>
 </template>
@@ -49,11 +53,31 @@
         immediate: false,
         unFinishPage: 1,
         finishPage: 1,
+        startX: 0,
+        endX: 0,
       }
     },
     mounted() {
       this.getMyFinishCourse();
       this.getMyUnFinishCourse();
+      var element = this.$el;
+      element.addEventListener('touchstart', (event) => {
+        if (this.prevent) event.preventDefault();
+        if (this.stopPropagation) event.stopPropagation();
+        this.doOnTouchStart(event);
+      });
+
+      element.addEventListener('touchmove', (event) => {
+        if (this.prevent) event.preventDefault();
+        if (this.stopPropagation) event.stopPropagation();
+        this.doOnTouchMove(event);
+      });
+
+      element.addEventListener('touchend', (event) => {
+        if (this.prevent) event.preventDefault();
+        if (this.stopPropagation) event.stopPropagation();
+        this.doOnTouchEnd(event);
+      });
     },
     components: {
       headerFix,
@@ -108,6 +132,34 @@
           this.unFinishPage += 1;
         }
       },
+      doOnTouchStart(event) {
+        /*let touches=event.touches;
+        let targetTouches=event.targetTouches;
+        let changeTouches=event.changeTouches;*/
+        let pageX = event.targetTouches[0].pageX;
+        let pageY = event.targetTouches[0].pageY;
+        this.startX = pageX;
+//        console.log("TouchStart" + pageX, pageY);
+      },
+      doOnTouchMove(event) {
+        let pageX = event.targetTouches[0].pageX;
+        let pageY = event.targetTouches[0].pageY;
+//        console.log("TouchMove" + pageX, pageY);
+      },
+      doOnTouchEnd(event) {
+        let pageX = event.changedTouches[0].pageX;
+        let pageY = event.changedTouches[0].pageY;
+        this.endX = pageX;
+//        console.log("TouchEnd" + pageX, pageY);
+        //左滑
+        if (this.endX < this.startX - 10) {
+          this.tabType = "1";
+        }
+        //右滑
+        if (this.endX > this.startX + 10) {
+          this.tabType = "0";
+        }
+      },
     },
   }
 </script>
@@ -116,10 +168,11 @@
   @import "../style/mixin";
 
   .my_course {
-    .search{
+    .search {
       @include square(39px);
     }
   }
+
   .my_course_container {
     padding-top: toRem(92px);
   }

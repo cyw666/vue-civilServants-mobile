@@ -10,7 +10,7 @@
     <section v-infinite-scroll="getMessageList"
              infinite-scroll-immediate-check="immediate"
              infinite-scroll-disabled="loading"
-             infinite-scroll-distance="5">
+             infinite-scroll-distance="10">
       <div class="message_list">
         <div class="message_item" v-for="item in messageData" @click.stop="linkTo(item.Type,item.Id)">
           <div class="message_title" :class="{'read':item.ReadFlag}">{{item.Title}}</div>
@@ -121,6 +121,9 @@
     }
     .message_info {
       color: $color-text-secondary;
+      img{
+        width: toRem(33px);
+      }
     }
   }
 </style>

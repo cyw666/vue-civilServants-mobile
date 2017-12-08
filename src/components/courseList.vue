@@ -53,8 +53,6 @@
     components: {
       errorImg
     },
-    methods: {
-    },
   }
 </script>
 

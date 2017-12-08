@@ -132,17 +132,60 @@ export const UpdateTrainingStudentdown = (data) => fetch.post(Api.UpdateTraining
  */
 export const UpdateTrainingStudentup = (data) => fetch.post(Api.UpdateTrainingStudentup.url, {...Api.UpdateTrainingStudentup.data, ...data});
 
+/**
+ *  电子书
+ */
+export const GetBookInfoList = (data) => fetch.post(Api.GetBookInfoList.url, {...Api.GetBookInfoList.data, ...data});
 
+/**
+ *  电子书章节
+ */
+export const GetBookChapterInfoList = (data) => fetch.post(Api.GetBookChapterInfoList.url, {...Api.GetBookChapterInfoList.data, ...data});
 
+/**
+ *  电子书章节内容
+ */
+export const GetBookChapterContent = (data) => fetch.post(Api.GetBookChapterContent.url, {...Api.GetBookChapterContent.data, ...data});
 
+/**
+ *  留言类型
+ */
+export const CommentType = (data) => fetch.post(Api.CommentType.url, {...Api.CommentType.data, ...data});
 
+/**
+ *  添加留言
+ */
+export const AddMessage = (data) => fetch.post(Api.AddMessage.url, {...Api.AddMessage.data, ...data});
 
+/**
+ *  修改用户信息
+ */
+export const UpdateUserInfo = (data) => fetch.post(Api.UpdateUserInfo.url, {...Api.UpdateUserInfo.data, ...data});
 
+/**
+ *  获取职级列表
+ */
+export const GetGradeList = (data) => fetch.post(Api.GetGradeList.url, {...Api.GetGradeList.data, ...data});
 
+/**
+ *  获取学历列表
+ */
+export const GetDegreeList = (data) => fetch.post(Api.GetDegreeList.url, {...Api.GetDegreeList.data, ...data});
 
+/**
+ *  修改手机号
+ */
+export const UpdateMobile = (data) => fetch.post(Api.UpdateMobile.url, {...Api.UpdateMobile.data, ...data});
 
+/**
+ *  发送验证码
+ */
+export const SendMsg = (data) => fetch.post(Api.SendMsg.url, {...Api.SendMsg.data, ...data});
 
-
+/**
+ *  修改密码
+ */
+export const SetUserPassword = (data) => fetch.post(Api.SetUserPassword.url, {...Api.SetUserPassword.data, ...data});
 
 
 

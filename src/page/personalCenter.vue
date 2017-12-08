@@ -74,47 +74,46 @@
   .personalCenter {
     height: 100vh;
     background-color: $fill-body;
-  }
-
-  .person_top {
-    width: 10rem;
-    height: toRem(390px);
-    background: url("../assets/person_center_bg.png") no-repeat center;
-    background-size: 10rem toRem(390px);
-    @include flex(center);
-    align-items: center;
-    img {
-      @include square(128px);
-      margin-top: toRem(65px);
-    }
-    .my_info {
-      padding: 0 toRem(30px);
-      color: $color-text-reverse;
-      margin-top: toRem(65px);
-      h4 {
-        font-size: toRem(32px);
+    .person_top {
+      width: 10rem;
+      height: toRem(390px);
+      background: url("../assets/person_center_bg.png") no-repeat center;
+      background-size: 10rem toRem(390px);
+      @include flex(center);
+      align-items: center;
+      img {
+        @include square(128px);
+        margin-top: toRem(65px);
+      }
+      .my_info {
+        padding: 0 toRem(30px);
         color: $color-text-reverse;
-        margin-bottom: toRem(30px);
-      }
-      p {
-        font-size: toRem(28px);
-      }
-      .shuxian {
-        margin: 0 toRem(30px);
+        margin-top: toRem(65px);
+        h4 {
+          font-size: toRem(32px);
+          color: $color-text-reverse;
+          margin-bottom: toRem(30px);
+        }
+        p {
+          font-size: toRem(28px);
+        }
+        .shuxian {
+          margin: 0 toRem(30px);
+        }
       }
     }
-  }
 
-  .cell_list_one, .cell_list_two, .cell_list_three {
-    padding: 0 toRem(30px);
-    background-color: $fill-base;
-  }
+    .cell_list_one, .cell_list_two, .cell_list_three {
+      padding: 0 toRem(30px);
+      background-color: $fill-base;
+    }
 
-  .cell_list_two {
-    margin: toRem(30px) 0;
-  }
+    .cell_list_two {
+      margin: toRem(30px) 0;
+    }
 
-  .exit {
-    margin: toRem(60px) toRem(30px) 0 toRem(40px);
+    .exit {
+      margin: toRem(60px) toRem(30px) 0 toRem(40px);
+    }
   }
 </style>

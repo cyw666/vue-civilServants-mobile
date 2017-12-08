@@ -33,32 +33,9 @@
       <div class="sign_title">
         <span class="red_line"></span>
         <span>签到情况</span>
-        <a class="see_sign">(查看所有签到)</a>
+        <router-link class="see_sign" :to="{path:'/signDetail',query:{Id:classId}}">(查看所有签到)</router-link>
       </div>
-      <ul>
-        <li v-for="item in signData">
-          <div>
-            <span>上午</span>
-            <span class="class_on_off">(上课)</span>
-            <span class="sign_or_not sign_in" v-if="item.AmSignIn.SignFlag == true">已签</span>
-            <span class="sign_or_not" v-if="item.AmSignIn.SignFlag == false">未签</span>
-            <span class="mar_left_96">上午</span>
-            <span class="class_on_off">(下课)</span>
-            <span class="sign_or_not sign_in" v-if="item.AmSignOut.SignFlag == true">已签</span>
-            <span class="sign_or_not" v-if="item.AmSignOut.SignFlag == false">未签</span>
-          </div>
-          <div>
-            <span>下午</span>
-            <span class="class_on_off">(上课)</span>
-            <span class="sign_or_not sign_in" v-if="item.PmSignIn.SignFlag == true">已签</span>
-            <span class="sign_or_not" v-if="item.PmSignIn.SignFlag == false">未签</span>
-            <span class="mar_left_96">下午</span>
-            <span class="class_on_off">(下课)</span>
-            <span class="sign_or_not sign_in" v-if="item.PmSignOut.SignFlag == true">已签</span>
-            <span class="sign_or_not" v-if="item.PmSignOut.SignFlag == false">未签</span>
-          </div>
-        </li>
-      </ul>
+      <sign-list></sign-list>
     </div>
     <div class="class_desc">
       <div class="sign_title">
@@ -76,6 +53,7 @@
   </div>
 </template>
 <script>
+  import {signList} from '../components'
   import {goBack} from '../service/mixins'
   import {GetTrainingDetail,GetClassUserSignList,UpdateTrainingStudentdown,UpdateTrainingStudentup} from '../service/getData'
 
@@ -96,6 +74,9 @@
     mounted() {
       this.getClassDetail();
       this.getSignList();
+    },
+    components: {
+      signList
     },
     methods: {
       //班级详情
@@ -154,15 +135,16 @@
       .arrow {
         position: absolute;
         @include wh(18px, 33px);
-        left: toRem(30px);
-        top: toRem(20px);
+        padding: toRem(20px);
+        left: 0;
+        top: 0;
       }
       .scan {
         position: absolute;
         @include wh(36px, 36px);
-        right: toRem(30px);
-        top: toRem(20px);
-
+        padding: toRem(20px);
+        right: 0;
+        top: 0;
       }
     }
     .class_detail_cont {
@@ -217,6 +199,7 @@
     }
     .cancel{
       margin-top: toRem(50px);
+      padding: 0 toRem(10px) toRem(20px) toRem(10px);
     }
 
   }

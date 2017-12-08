@@ -15,6 +15,8 @@ import mbModel from './mbModel.vue'
 import newsList from './newsList.vue'
 import classList from './classList.vue'
 import mbTag from './mbTag.vue'
+import signList from './signList.vue'
+import ebookList from './ebookList.vue'
 
 export {
   courseList,
@@ -34,4 +36,6 @@ export {
   newsList,
   classList,
   mbTag,
+  signList,
+  ebookList,
 }

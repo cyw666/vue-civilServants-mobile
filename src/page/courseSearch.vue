@@ -12,11 +12,10 @@
         <section slot v-infinite-scroll="getCourseList"
                  infinite-scroll-immediate-check="immediate"
                  infinite-scroll-disabled="loading"
-                 infinite-scroll-distance="5">
+                 infinite-scroll-distance="10">
           <course-list :course-data="courseData"
                        :no-data-bg="noDataBg"
-                       :no-data="noData"
-                       :loading="loading">
+                       :no-data="noData">
           </course-list>
         </section>
       </search>
