@@ -18,6 +18,13 @@ module.exports = {
         pathRewrite: {
           '^/api': '/api'
         }
+      },
+      '/lessionnew': {
+        target: 'http://test10.jy365.net',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/lessionnew': '/lessionnew'
+        }
       }
     },
 

@@ -3,7 +3,7 @@
 */
 <template>
   <div class="play_h5">
-    <iframe :src="'/static'+courseDetails.OnlineUrl"
+    <iframe :src="courseDetails.OnlineUrl"
             frameborder="0"
             allowtransparency="false"
             class="play_iframe"

@@ -8,7 +8,7 @@
       <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
     </header-fix>
     <div class="player">
-      <video id="myVideo" preload="meta" :src="'/static'+courseDetails.OnlineUrl" controls="" x5-video-player-type="h5"
+      <video id="myVideo" preload="meta" :src="courseDetails.OnlineUrl" controls="" x5-video-player-type="h5"
              webkit-playsinline="true"
              playsinline="true" x-webkit-airplay="allow" x5-video-player-fullscreen="true"
              x5-video-orientation="portraint">
