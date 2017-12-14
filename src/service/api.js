@@ -210,4 +210,44 @@ export default {
     url: API_URL + Platform + '/SetUserPassword',
     data: {OldPassword:'',Password:''}
   },
+  //单位列表
+  GetGroupList: {
+    url: API_URL + Platform + '/GetGroupList',
+    data: {ParentId:'1'}
+  },
+  //注册
+  Register: {
+    url: API_URL + Platform + '/Register',
+    data: {Account: "", Password: "", Name: "", GroupId: "", IdCard: "", Grade: "", Mobile: "", SmgCode: "", PortalId: 1,}
+  },
+  //讨论列表
+  DiscussList: {
+    url: API_URL + Platform + '/DiscussList',
+    data: {MainId: "0", Sort: "CreateDate", Order: "desc", Page: "1", Rows: "10"}
+  },
+  //添加讨论
+  AddDiscuss: {
+    url: API_URL + Platform + '/AddDiscuss',
+    data: {MainId: "0", ParentId: "0", Content: ""}
+  },
+  //课程评论
+  getCourseCommentList: {
+    url: API_URL + Platform + '/getCourseCommentList',
+    data: {CourseId: "", Keyword: "", Page: "1", Rows:'10'}
+  },
+  //添加课程评论
+  AddCourseComment: {
+    url: API_URL + Platform + '/AddCourseComment',
+    data: {CourseId: "", Content: "", Score: ""}
+  },
+  //提交精品课程进度
+  SyncUserStudyData: {
+    url: API_URL + Platform + '/SyncUserStudyData',
+    data: {CourseId: "", Data: {NodeId:'',Time:'',Status:''}}
+  },
+  //提交Mp4课程进度
+  UploadTimeNode: {
+    url: API_URL + Platform + '/UploadTimeNode',
+    data: {CourseId: "", TimeNode: ""}
+  },
 };

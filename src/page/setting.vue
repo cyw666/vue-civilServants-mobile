@@ -25,26 +25,9 @@
 
   export default {
     mixins: [goBack],
-    data() {
-      return {}
-    },
-    created() {
-      
-    },
-    mounted() {
-      
-    },
-    props: [],
     components: {
       headerFix
     },
-    computed: {},
-    updated() {
-      
-    },
-    methods: {},
-    watch: {}
-    
   }
 </script>
 

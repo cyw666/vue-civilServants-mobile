@@ -36,7 +36,7 @@
     mixins:[goBack],
     data() {
       return {
-        articleTitle: "咨询中心",
+        articleTitle: "资讯中心",
         showSlide: false,
         articleCategory: [],
         categoryId: 0,

@@ -53,6 +53,7 @@
   </div>
 </template>
 <script>
+  import {Toast, MessageBox} from 'mint-ui'
   import {signList} from '../components'
   import {goBack} from '../service/mixins'
   import {GetTrainingDetail,GetClassUserSignList,UpdateTrainingStudentdown,UpdateTrainingStudentup} from '../service/getData'
@@ -103,9 +104,9 @@
         let data = await UpdateTrainingStudentup({Id: this.classId});
         if (data.Type == 1) {
           this.isJoinClass = true;
-          alert(data.Message);
+          Toast({message: data.Message, position: 'bottom'});
         }else if(data.Type != 401){
-          alert(data.Message);
+          MessageBox('警告', data.Message);
         }
       },
       //取消报名
@@ -113,9 +114,9 @@
         let data = await UpdateTrainingStudentdown({Id: this.classId});
         if (data.Type == 1) {
           this.isJoinClass = false;
-          alert(data.Message);
+          Toast({message: data.Message, position: 'bottom'});
         }else if(data.Type != 401){
-          alert(data.Message);
+          MessageBox('警告', data.Message);
         }
       },
     },

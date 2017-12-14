@@ -22,9 +22,9 @@
         </label>
         <a class="forget" @click="showForgetMessage">忘记密码？</a>
       </div>
-      <mt-button size="large" type="primary" @click="clickLogin">确定</mt-button>
+      <mt-button size="large" type="primary" @click.native="clickLogin">确定</mt-button>
       <div class="register">
-        <mt-button size="normal" type="primary" @click="toRegister" plain>
+        <mt-button size="normal" type="primary" @click.native="toRegister" plain>
           注册账号
         </mt-button>
         <!--<router-link :to="{ path: '/login', query: { path: '/home',params:JSON.stringify({id:10})}}">Register</router-link>-->
@@ -35,7 +35,7 @@
 <script>
   import CryptoJS from 'crypto-js'
   import {mapState, mapActions} from 'vuex'
-  import {MessageBox} from 'mint-ui'
+  import {MessageBox,Toast} from 'mint-ui'
   import {Login} from '../service/getData'
   import {getStore, setStore, removeStore} from '../plugins/utils'
 
@@ -56,11 +56,15 @@
     },
     mounted() {
       this.Code = this.$route.query.code || '';
-      this.backUrl = (this.$route.query.currentUrl).split("#")[1] || '/#/';
+      let backUrl = this.$route.query.currentUrl;
+      if(backUrl){
+        this.backUrl = backUrl.split("#")[1];
+      }else {
+        this.backUrl = '/';
+      }
       this.Account = this.decrypt(localStorage.getItem('a_app'));
       this.Password = this.decrypt(localStorage.getItem('p_app'));
       this.Remember = getStore("remember");
-//      this.getUserInformation();
     },
     computed: {
       ...mapState([])
@@ -69,7 +73,7 @@
       ...mapActions(["getUserInformation"]),
       async clickLogin() {
         if (!this.Account || !this.Password) {
-          alert('用户名或密码不能为空！');
+          Toast({message: '用户名或密码不能为空！', position: 'bottom'});
           return;
         }
         let loginParams = {
@@ -89,15 +93,12 @@
             this.encrypt("p_app", "");
             setStore("remember", false);
           }
-          /*window.history.replaceState(null, "replace", this.backUrl);
-          window.location.reload();*/
           this.$router.replace(this.backUrl);
-//          window.location = this.backUrl;
         } else if (res.Type == 0) {
-          alert(res.Message);
+          MessageBox('警告', res.Message);
         }
         else {
-          alert('登陆失败！');
+          MessageBox('警告', "登陆失败!");
         }
       },
       encrypt(name, value) {
@@ -125,6 +126,7 @@
     },
     watch: {
       Password(val) {
+        if (!val) return;
         let flag = false;
         let length = val.length;
         if (length < 6 || length > 16) {
@@ -133,6 +135,7 @@
         this.pwError = flag;
       },
       Account(val) {
+        if (!val) return;
         let flag = 0;
         let reg = /^[\u4e00-\u9fa5]+$/;
         let arr = val.split('');

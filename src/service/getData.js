@@ -187,6 +187,52 @@ export const SendMsg = (data) => fetch.post(Api.SendMsg.url, {...Api.SendMsg.dat
  */
 export const SetUserPassword = (data) => fetch.post(Api.SetUserPassword.url, {...Api.SetUserPassword.data, ...data});
 
+/**
+ *  单位列表
+ */
+export const GetGroupList = (data) => fetch.post(Api.GetGroupList.url, {...Api.GetGroupList.data, ...data});
+
+/**
+ *  注册
+ */
+export const Register = (data) => fetch.post(Api.Register.url, {...Api.Register.data, ...data});
+
+/**
+ *  讨论列表
+ */
+export const DiscussList = (data) => fetch.post(Api.DiscussList.url, {...Api.DiscussList.data, ...data});
+
+/**
+ *  添加讨论
+ */
+export const AddDiscuss = (data) => fetch.post(Api.AddDiscuss.url, {...Api.AddDiscuss.data, ...data});
+
+/**
+ *  课程评论
+ */
+export const getCourseCommentList = (data) => fetch.post(Api.getCourseCommentList.url, {...Api.getCourseCommentList.data, ...data});
+
+/**
+ *  添加课程评论
+ */
+export const AddCourseComment = (data) => fetch.post(Api.AddCourseComment.url, {...Api.AddCourseComment.data, ...data});
+
+/**
+ *  提交精品课程进度
+ */
+export const SyncUserStudyData = (data) => fetch.post(Api.SyncUserStudyData.url, {...Api.SyncUserStudyData.data, ...data});
+
+/**
+ *  提交Mp4课程进度
+ */
+export const UploadTimeNode = (data) => fetch.post(Api.UploadTimeNode.url, {...Api.UploadTimeNode.data, ...data});
+
+
+
+
+
+
+
 
 
 

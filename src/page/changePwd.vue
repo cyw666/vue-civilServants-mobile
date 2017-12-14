@@ -47,17 +47,17 @@
     methods: {
       async updatePwd() {
         if (!this.sendData.OldPassword) {
-          MessageBox('警告', '输入旧密码！');
+          Toast({message: "输入旧密码！", position: 'bottom'});
         } else if (!this.sendData.Password) {
-          MessageBox('警告', '请输入新密码！');
+          Toast({message: "请输入新密码！", position: 'bottom'});
         } else if (!this.isPassConfirm) {
-          MessageBox('警告', '两次输入新密码不一致！');
+          Toast({message: "两次输入新密码不一致！", position: 'bottom'});
         } else if (this.sendData.OldPassword == this.sendData.Password) {
-          MessageBox('警告', '新密码与旧密码不能一致！');
+          Toast({message: "新密码与旧密码不能一致！", position: 'bottom'});
         } else {
           let data = await SetUserPassword(this.sendData);
           if (data.Type == 1) {
-            Toast({message: "修改成功！", position: 'bottom', duration: 2000});
+            Toast({message: "修改成功！", position: 'bottom'});
           } else if (data.Type != 401) {
             MessageBox('警告', data.Message);
           }

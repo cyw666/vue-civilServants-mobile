@@ -17,6 +17,10 @@ import classList from './classList.vue'
 import mbTag from './mbTag.vue'
 import signList from './signList.vue'
 import ebookList from './ebookList.vue'
+import star from './star.vue'
+import courseIntroduce from './courseIntroduce.vue'
+import courseCatalogue from './courseCatalogue.vue'
+import courseComment from './courseComment.vue'
 
 export {
   courseList,
@@ -38,4 +42,8 @@ export {
   mbTag,
   signList,
   ebookList,
+  star,
+  courseIntroduce,
+  courseCatalogue,
+  courseComment,
 }

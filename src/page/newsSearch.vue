@@ -1,10 +1,10 @@
 /**
-* 课程搜索
+* 新闻搜索
 */
 <template>
   <div class="newsSearch">
     <!--头部-->
-    <header-fix title="排行榜" fixed>
+    <header-fix title="搜索" fixed>
       <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
     </header-fix>
     <div class="pad_top">
@@ -43,7 +43,6 @@
     mounted() {
 
     },
-    props: [],
     components: {
       search,
       headerFix,

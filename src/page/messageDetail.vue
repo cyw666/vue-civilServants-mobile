@@ -11,6 +11,7 @@
   </div>
 </template>
 <script>
+  import {Indicator} from 'mint-ui'
   import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
   import noCourse from '../assets/noCourse.png'
@@ -30,20 +31,18 @@
     mounted() {
       this.getMessageContent(this.messageId);
     },
-    props: [],
     components: {
       headerFix
     },
     methods: {
       async getMessageContent(Id) {
+        Indicator.open();
         let data = await GetNoticeInfoContent({Id});
-//        let reg = /<body>(.*)<\/body>/g;
-//        let message = reg.exec(data.toString());
+        Indicator.close();
         let message = data.toString().split("<body>")[1].split("</body>");
         this.messageContent = message[0];
       },
     },
-    watch: {}
   }
 </script>
 

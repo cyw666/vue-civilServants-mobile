@@ -102,7 +102,7 @@
         Indicator.close();
         if (data.Type == 1) {
           let list = data.Data.List;
-          if(list.length == 0){
+          if (list.length == 0) {
             this.noDataBg = true;
           }
           this.classGardenData = list;

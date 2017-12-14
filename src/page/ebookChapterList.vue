@@ -49,7 +49,6 @@
     mounted() {
       this.getChapter();
     },
-    props: [],
     components: {
       headerFix
     },
@@ -78,8 +77,6 @@
         }
       },
     },
-    watch: {}
-    
   }
 </script>
 

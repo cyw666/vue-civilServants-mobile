@@ -33,6 +33,12 @@ const Setting = r => require.ensure([], () => r(require('../page/setting.vue')),
 const UserInfoEdit = r => require.ensure([], () => r(require('../page/userInfoEdit.vue')), 'userInfoEdit')
 const ChangeMobile = r => require.ensure([], () => r(require('../page/changeMobile.vue')), 'changeMobile')
 const ChangePwd = r => require.ensure([], () => r(require('../page/changePwd.vue')), 'changePwd')
+const Register = r => require.ensure([], () => r(require('../page/register.vue')), 'register')
+const Communication = r => require.ensure([], () => r(require('../page/communication.vue')), 'communication')
+const AddCommunication = r => require.ensure([], () => r(require('../page/addCommunication.vue')), 'addCommunication')
+const PlayMp4 = r => require.ensure([], () => r(require('../page/playMp4.vue')), 'playMp4')
+const PlayJYAicc = r => require.ensure([], () => r(require('../page/playJYAicc.vue')), 'playJYAicc')
+const PlayH5 = r => require.ensure([], () => r(require('../page/playH5.vue')), 'playH5')
 
 const routes  = [
   {
@@ -95,7 +101,8 @@ const routes  = [
       {
         name:'personalCenter',
         path: '/personalCenter',
-        component: PersonalCenter
+        component: PersonalCenter,
+        meta: { keepAlive: true }
       },
       //消息中心
       {
@@ -143,7 +150,8 @@ const routes  = [
       {
         name:'rankList',
         path: '/rankList',
-        component: RankList
+        component: RankList,
+        meta: { keepAlive: true }
       },
       //班级园地
       {
@@ -173,7 +181,8 @@ const routes  = [
       {
         name:'ebook',
         path: '/ebook',
-        component: Ebook
+        component: Ebook,
+        meta: { keepAlive: true }
       },
       //电子书搜索
       {
@@ -185,7 +194,8 @@ const routes  = [
       {
         name:'ebookChapterList',
         path: '/ebookChapterList',
-        component: EbookChapterList
+        component: EbookChapterList,
+        meta: { keepAlive: true }
       },
       //电子书章节内容
       {
@@ -197,7 +207,8 @@ const routes  = [
       {
         name:'myCredit',
         path: 'myCredit',
-        component: MyCredit
+        component: MyCredit,
+        meta: { keepAlive: true }
       },
       //反馈中心
       {
@@ -209,7 +220,8 @@ const routes  = [
       {
         name:'setting',
         path: 'setting',
-        component: Setting
+        component: Setting,
+        meta: { keepAlive: true }
       },
       //个人信息修改
       {
@@ -229,11 +241,48 @@ const routes  = [
         path: 'changePwd',
         component: ChangePwd
       },
+      //注册
+      {
+        name:'register',
+        path: 'register',
+        component: Register
+      },
+      //交流评论
+      {
+        name:'addCommunication',
+        path: 'addCommunication',
+        component: AddCommunication
+      },
+      //添加评论
+      {
+        name:'communication',
+        path: 'communication',
+        component: Communication
+      },
+      //mp4播放
+      {
+        name:'playMp4',
+        path: 'playMp4',
+        component: PlayMp4
+      },
+      //JYAicc播放页
+      {
+        name:'playJYAicc',
+        path: 'playJYAicc',
+        component: PlayJYAicc
+      },
+      //h5播放
+      {
+        name:'playH5',
+        path: 'playH5',
+        component: PlayH5
+      },
       //error
       {
         name:'error',
         path: '/error',
-        component: Error
+        component: Error,
+        meta: { keepAlive: true }
       },
     ]
   },

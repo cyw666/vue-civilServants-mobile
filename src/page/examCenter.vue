@@ -162,8 +162,6 @@
         this.getExamList();
       }
     },
-    watch: {}
-
   }
 </script>
 

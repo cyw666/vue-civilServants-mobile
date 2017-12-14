@@ -26,6 +26,7 @@
   </div>
 </template>
 <script>
+  import {MessageBox, Toast} from 'mint-ui'
   import {headerFix} from '../components'
   import {CommentType, AddMessage} from '../service/getData'
   import {goBack} from '../service/mixins'
@@ -40,19 +41,11 @@
         typeData: []
       }
     },
-    created() {
-      
-    },
     mounted() {
       this.getAdviseType();
     },
-    props: [],
     components: {
       headerFix
-    },
-    computed: {},
-    updated() {
-      
     },
     methods: {
       //留言类型
@@ -64,23 +57,21 @@
       },
       //添加留言
       async addAdvise() {
-        if(!this.adviseTitle){alert("标题不能为空！");return;}
-        if(!this.adviseContent){alert("反馈内容不能为空！");return;}
-        if(!this.adviseType){alert("请选择反馈类型！");return;}
+        if(!this.adviseTitle){Toast({message: "标题不能为空！", position: 'bottom'});return;}
+        if(!this.adviseContent){Toast({message: "反馈内容不能为空！", position: 'bottom'});return;}
+        if(!this.adviseType){Toast({message: "请选择反馈类型！", position: 'bottom'});return;}
         let data = await AddMessage({Title: this.adviseTitle, Content: this.adviseContent, ClassCode: this.adviseType});
         if (data.Type == 1) {
-          alert('提交成功');
+          Toast({message: "提交成功！", position: 'bottom'});
           this.$router.push('personalCenter');
         }else if(data.Type != 401){
-          alert(data.Message);
+          MessageBox('警告', data.Message);
         }
       },
       changeType(type) {
         this.adviseType = type;
       }
     },
-    watch: {}
-    
   }
 </script>
 

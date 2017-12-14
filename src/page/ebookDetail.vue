@@ -52,6 +52,7 @@
   </div>
 </template>
 <script>
+  import {Toast} from 'mint-ui'
   import {GetBookChapterContent} from '../service/getData'
   import {setStore, getStore} from '../plugins/utils'
 
@@ -87,12 +88,6 @@
     mounted() {
       this.getChapterContent();
     },
-    props: [],
-    components: {},
-    computed: {},
-    updated() {
-      
-    },
     methods: {
       //图书章节
       async getChapterContent() {
@@ -119,9 +114,9 @@
       changeFontSize(step) {
         let newFontSize = this.fontSize + step;
         if (newFontSize < 0.3) {
-          alert("字体已最小！");
+          Toast({message: "字体已最小！", position: 'bottom'});
         } else if (newFontSize > 0.7) {
-          alert("字体已最大！");
+          Toast({message: "字体已最大！", position: 'bottom'});
         } else {
           this.fontSize = newFontSize;
         }

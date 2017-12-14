@@ -41,13 +41,8 @@
     mounted() {
       this.getArticleDetail();
     },
-    props: [],
     components: {
       headerFix
-    },
-    computed: {},
-    updated() {
-      
     },
     methods: {
       //文章内容
@@ -56,18 +51,10 @@
         if (data.Type == 1) {
           this.articleDetails = data.Data;
           let content = data.Data.Content;
-          /*let html = document.getElementsByTagName("html")[0];
-          let dpr = html.getAttribute("data-dpr");
-          if(dpr == "2"){
-            let content1=content.replace(/font-size:\s18px/ig,"font-size: 36px").replace(/font-size:\s16px/ig,"font-size: 32px").replace(/font-size:\s14px/ig,"font-size: 28px").replace(/font-size:\s24px/ig,"font-size: 48px").replace(/font-size:\s12px/ig,"font-size: 24px").replace(/line-height:\s+\d+px/ig,"line-height: 50px");
-            this.content=content1;
-          }*/
           this.content=content;
         }
       },
     },
-    watch: {}
-    
   }
 </script>
 

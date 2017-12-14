@@ -36,6 +36,7 @@
   </div>
 </template>
 <script>
+  import {Indicator} from 'mint-ui'
   import {headerFix, errorImg} from '../components'
   import {goBack, toPlay} from '../service/mixins'
   import noCourse from '../assets/noCourse.png'
@@ -69,7 +70,9 @@
     methods: {
       //今天历史记录
       async getTodayHistory() {
+        Indicator.open();
         let data = await GetHistoryCourse({Type: 'Today'});
+        Indicator.close();
         if (data.Type == 1) {
           let list = data.Data.List;
           this.todayHistory = list;
@@ -84,8 +87,6 @@
         }
       },
     },
-    watch: {}
-    
   }
 </script>
 

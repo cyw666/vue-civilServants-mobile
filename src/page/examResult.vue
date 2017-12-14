@@ -32,7 +32,6 @@
         result: null
       }
     },
-    props: {},
     components: {
       headerFix
     },
@@ -49,7 +48,6 @@
         this.$router.push({path: 'exam', query: {id: this.result.examId}})
       }
     },
-    watch: {}
   }
 </script>
 

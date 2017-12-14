@@ -3,13 +3,12 @@
 */
 <template>
   <div class="exam_list">
-    <div class="exam_item" v-for="item in examData"
-         @click="checkAttempt(item.ExamId,item.TriesLimit,item.LattemptNumber,item.EndTime)">
+    <div class="exam_item" v-for="item in examData" @click.stop="checkAttempt(item.ExamId,item.TriesLimit,item.LattemptNumber,item.EndTime)">
       <div class="exam_img">
         <img src="../assets/exam_ico.png" alt="">
       </div>
       <div class="exam_desc">
-        <div class="exam_name" @click="checkAttempt">{{item.ExamTitle}}</div>
+        <div class="exam_name">{{item.ExamTitle}}</div>
         <div class="exam_date">考试截止时间：{{item.EndTime | dateFilter('yyyy.MM.dd')}}</div>
         <div class="exam_num">
           <span class="exam_tip_num">题数：{{item.ThemeCount}}题</span>
@@ -59,19 +58,11 @@
 
           } else {
             this.message = "考试次数已用完";
-            Toast({
-              message: this.message,
-              position: 'bottom',
-              duration: 2000
-            });
+            Toast({message: this.message, position: 'bottom'});
           }
         } else {
           this.message = "考试截止时间已过";
-          Toast({
-            message: this.message,
-            position: 'bottom',
-            duration: 2000
-          });
+          Toast({message: this.message, position: 'bottom'});
         }
       }
     },

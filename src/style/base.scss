@@ -11,6 +11,8 @@ body {
   font-size: $font-size-base;
   color: $color-text-base;
   background-color: #fff;
+  height: 100vh;
+  width: 100%;
 }
 
 img {
@@ -221,25 +223,51 @@ label {
   opacity: 0;
 }
 
-//slide
-.slide-enter-active {
-  height: auto;
-  transition: height 0.5s;
+//向左滑动
+.slide-left-enter-active, .slide-left-leave-active {
+  transition: all 0.5s;
 }
 
-.slide-leave-active {
-  height: 0;
-  transition: height 0.5s;
+.slide-left-enter, .slide-left-leave-active {
+  opacity: 0;
 }
 
-.slide-enter {
-  height: 0;
-  transition: height 0.5s;
+.slide-left-enter {
+  transform: translateX(10rem);
 }
 
-.slide-leave-active {
-  height: auto;
-  transition: height 0.5s;
+.slide-left-leave-active {
+  transform: translateX(-10rem);
+}
+
+//向右滑动
+.slide-right-enter-active, .slide-right-leave-active {
+  transition: all 0.5s;
+}
+
+.slide-right-enter, .slide-right-leave-active {
+  transform: translateX(-10rem);
+  opacity: 0;
+}
+
+//向下滑动
+.slide-bottom-enter-active, .slide-bottom-leave-active {
+  transition: all 0.5s;
+}
+
+.slide-bottom-enter, .slide-bottom-leave-to {
+  transform: translateY(100vh);
+  opacity: 0;
+}
+
+//向上滑动
+.slide-top-enter-active, .slide-top-leave-active {
+  transition: all 0.5s;
+}
+
+.slide-top-enter, .slide-top-leave-to {
+  transform: translateY(100vh);
+  opacity: 0;
 }
 
 body {
@@ -311,17 +339,16 @@ body {
     @include square(15px);
   }
   &:last-child {
-    background:none;
+    background: none;
     border-bottom: none;
     background-color: #fff;
     .mint-cell-wrapper {
-      background:none;
+      background: none;
       border-bottom: none;
       background-color: #fff;
     }
   }
 }
-
 
 //遮罩层
 .mb-model {
@@ -362,39 +389,48 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 .table {
   margin-bottom: toRem(36px);
 }
-.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
   border-top: 1px solid #ddd;
 }
+
 //排行榜前三背景
 .rank_bg_one {
   background: url(../assets/gold.png) no-repeat center center;
-  background-size: toRem(33px),toRem(35px);
+  background-size: toRem(33px), toRem(35px);
 }
+
 .rank_bg_two {
   background: url(../assets/silver.png) no-repeat center center;
-  background-size: toRem(33px),toRem(35px);
+  background-size: toRem(33px), toRem(35px);
 }
+
 .rank_bg_three {
   background: url(../assets/copper.png) no-repeat center center;
-  background-size: toRem(33px),toRem(35px);
+  background-size: toRem(33px), toRem(35px);
 }
+
 //radio
-.mint-radio-input:checked+.mint-radio-core {
+.mint-radio-input:checked + .mint-radio-core {
   background-color: $brand-primary;
   border-color: $brand-primary;
 }
-.mint-radio-label{
+
+.mint-radio-label {
   margin-left: toRem(6px);
 }
+
 //checkbox
-.mint-checkbox-input:checked+.mint-checkbox-core {
+.mint-checkbox-input:checked + .mint-checkbox-core {
   background-color: $brand-primary;
   border-color: $brand-primary;
 }
-.mint-checklist-label{
+
+.mint-checklist-label {
   margin-left: toRem(6px);
 }
 

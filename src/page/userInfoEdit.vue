@@ -265,7 +265,7 @@
             SmgCode: ''
           };
         } else if (data.Type != 401) {
-          alert(data.Message);
+          MessageBox('警告', data.Message);
         }
       },
       async getGradeList() {
@@ -287,15 +287,15 @@
         if (this.isPassIdCard && this.isPassEmail) {
           let data = await UpdateUserInfo(this.infoSend);
           if (data.Type == 1) {
-            Toast({message: "修改成功！", position: 'bottom', duration: 2000});
+            Toast({message: "修改成功！", position: 'bottom'});
             this.$router.push('setting');
           } else if (data.Type != 401) {
-            Toast({message: data.Message, position: 'bottom', duration: 2000});
+            MessageBox('警告', data.Message);
           }
         } else if (!this.isPassIdCard) {
-          MessageBox('警告', '请输入18位有效身份证号！');
+          Toast({message: "请输入18位有效身份证号！", position: 'bottom'});
         } else if (!this.isPassEmail) {
-          MessageBox('警告', '邮箱格式错误！');
+          Toast({message: "邮箱格式错误！", position: 'bottom'});
         }
       },
 

@@ -59,7 +59,7 @@
           this.userInfo = data.Data;
           this.sendData.OldMobile = data.Data.Mobile;
         } else if (data.Type != 401) {
-          alert(data.Message);
+          MessageBox('警告', data.Message);
         }
       },
       async sendMsg() {
@@ -70,18 +70,18 @@
         }else {
           let data = await SendMsg({MobileNo:this.sendData.NewMobile});
           if (data.Type == 1) {
-            Toast({message: "发送成功！", position: 'bottom', duration: 2000});
+            Toast({message: "发送成功！", position: 'bottom'});
             this.countDown();
           }
         }
       },
       async updateMobile (){
         if(!this.sendData.NewMobile){
-          MessageBox('警告', '请填写新手机号码！');
+          Toast({message: "请填写新手机号码！", position: 'bottom'});
         }else if(!this.isPassMobile){
-          MessageBox('警告', '新手机号码格式有误！');
+          Toast({message: "新手机号码格式有误！", position: 'bottom'});
         }else if(!this.sendData.SmgCode){
-          MessageBox('警告', '请填写验证码！');
+          Toast({message: "请填写验证码！", position: 'bottom'});
         }else {
           let data = await UpdateMobile(this.sendData);
           if (data.Type == 1) {

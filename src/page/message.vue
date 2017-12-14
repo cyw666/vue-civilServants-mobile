@@ -44,13 +44,9 @@
         noDataBg: false,
       }
     },
-    created() {
-
-    },
     mounted() {
       this.getMessageList();
     },
-    props: [],
     components: {
       headerFix
     },
@@ -94,10 +90,8 @@
         } else {
           this.getCourseDetail(id);
         }
-
       },
     },
-    watch: {}
   }
 </script>
 

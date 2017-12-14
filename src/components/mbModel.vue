@@ -1,12 +1,14 @@
 /**
-* Created by admin on 2017/12/4.
+* 模态框
 */
 <template>
   <div class="mb-model_container">
     <transition name="fade">
       <div v-if="showModel" class="mb-model_content">
         <img class="cancel" src="../assets/cancel.png" @click="close" alt="关闭">
-        <slot></slot>
+        <div class="slot_content">
+          <slot></slot>
+        </div>
       </div>
     </transition>
     <div v-if="showModel" class="mb-model" @click="close"></div>
@@ -53,23 +55,27 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
   .mb-model_container{
-    background-color: $fill-body;
+    background-color: $fill-base;
   }
   .mb-model_content{
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate3d(-50%, -50%, 0);
+    transform: translate(-50%, -50%);
     z-index: 1200;
     @include borderRadius(10px);
     min-height: toRem(60px);
     width: toRem(580px);
     overflow: hidden;
+    background-color: $fill-base;
     .cancel {
       position: absolute;
       right: toRem(20px);
       top: toRem(20px);
       @include square(26px);
+    }
+    .slot_content{
+      margin-top: toRem(30px);
     }
   }
 </style>

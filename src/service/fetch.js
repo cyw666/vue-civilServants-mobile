@@ -1,8 +1,8 @@
 /**
- * Created by admin on 2017/6/28.
+ * ajax请求
  */
 'use strict'
-
+import {MessageBox} from 'mint-ui'
 import axios from 'axios'
 import qs from 'qs'
 import {getStore} from '../plugins/utils'
@@ -37,18 +37,18 @@ function checkStatus(response) {
     if (response.data.Type == 401) {
       if(tip){
         tip = false;
-        alert("您的账号已掉线，请重新登录！");
-        var currentUrl = getStore("currentUrl");
-        window.localStorage.removeItem('ASPXAUTH');
-        var loginUrl = "/#/login?currentUrl=" + encodeURIComponent(currentUrl);
-        window.location.href = loginUrl;
-        var timer = setTimeout(function () {
-          tip = true;
-          clearTimeout(timer);
-          timer = null;
-        },2000);
+        MessageBox.alert('您的账号已掉线，请重新登录！').then(() => {
+          var currentUrl = getStore("currentUrl");
+          window.localStorage.removeItem('ASPXAUTH');
+          var loginUrl = "/#/login?currentUrl=" + encodeURIComponent(currentUrl);
+          window.location.href = loginUrl;
+          var timer = setTimeout(function () {
+            tip = true;
+            clearTimeout(timer);
+            timer = null;
+          },2000);
+        });
       }
-      
     }
     //存储aspxauth身份验证
     if (response.headers.aspxauth) {
