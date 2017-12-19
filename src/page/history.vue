@@ -5,38 +5,39 @@
   <div class="history">
     <!--头部-->
     <header-fix title="历史记录" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
-    <div class="history_container">
-      <div class="history_course">
-        <div class="history_title"><span class="red_line"></span><span>今天</span></div>
-        <div class="history_content" v-for="item in todayHistory" @click.stop="toPlay(item.CourseType,item.CourseId)">
-          <div class="left_img">
-            <error-img :src="item.CourseImg" :error-src="noCourse"></error-img>
+    <mt-loadmore :top-method="loadTop" @top-status-change="handleTopChange" ref="loadmore">
+      <div class="history_container">
+        <div class="history_course">
+          <div class="history_title"><span class="red_line"></span><span>今天</span></div>
+          <div class="history_content" v-for="item in todayHistory" @click.stop="toPlay(item.CourseType,item.CourseId)">
+            <div class="left_img">
+              <error-img :src="item.CourseImg" :error-src="noCourse"></error-img>
+            </div>
+            <div class="right_content">
+              <h4>{{item.CourseName}}</h4>
+              <span>已看{{item.BrowseScore}}%，剩余{{item.Remainder}}分钟</span>
+            </div>
           </div>
-          <div class="right_content">
-            <h4>{{item.CourseName}}</h4>
-            <span>已看{{item.BrowseScore}}%，剩余{{item.Remainder}}分钟</span>
+        </div>
+        <div class="history_course">
+          <div class="history_title"><span class="red_line"></span><span>更早</span></div>
+          <div class="history_content" v-for="item in earlyHistory" @click.stop="toPlay(item.CourseType,item.CourseId)">
+            <div class="left_img">
+              <error-img :src="item.CourseImg" :error-src="noCourse"></error-img>
+            </div>
+            <div class="right_content">
+              <h4>{{item.CourseName}}</h4>
+              <span>已看{{item.BrowseScore}}%，剩余{{item.Remainder}}分钟</span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="history_course">
-        <div class="history_title"><span class="red_line"></span><span>更早</span></div>
-        <div class="history_content" v-for="item in earlyHistory">
-          <div class="left_img">
-            <error-img :src="item.CourseImg" :error-src="noCourse"></error-img>
-          </div>
-          <div class="right_content">
-            <h4>{{item.CourseName}}</h4>
-            <span>已看{{item.BrowseScore}}%，剩余{{item.Remainder}}分钟</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    </mt-loadmore>
   </div>
 </template>
 <script>
-  import {Indicator} from 'mint-ui'
   import {headerFix, errorImg} from '../components'
   import {goBack, toPlay} from '../service/mixins'
   import noCourse from '../assets/noCourse.png'
@@ -46,6 +47,7 @@
     mixins: [goBack, toPlay],
     data() {
       return {
+        topStatus: '',
         noCourse,
         todayHistory: [],
         earlyHistory: []
@@ -68,11 +70,18 @@
       
     },
     methods: {
+      loadTop() {
+        this.getTodayHistory();
+        this.getEarlierHistory();
+        this.$refs.loadmore.onTopLoaded();
+      },
+      handleTopChange(status) {
+        this.topStatus = status;
+        console.log(status);
+      },
       //今天历史记录
       async getTodayHistory() {
-        Indicator.open();
         let data = await GetHistoryCourse({Type: 'Today'});
-        Indicator.close();
         if (data.Type == 1) {
           let list = data.Data.List;
           this.todayHistory = list;
@@ -94,15 +103,15 @@
   @import "../style/mixin";
 
   .history {
+    padding-top: toRem(92px);
     .history_container {
-      margin-top: toRem(92px);
+      /*margin-top: toRem(92px);*/
     }
     .history_course {
-      margin-top: toRem(20px);
       padding: toRem(20px) toRem(30px);
     }
     .history_title {
-      font-size: toRem(30px);
+      font-size: 15px;
       padding: toRem(15px) 0;
     }
     .history_content {
@@ -120,12 +129,12 @@
         @extend %pull-right;
         width: toRem(425px);
         h4 {
-          font-size: toRem(28px);
+          font-size: 14px;
           margin-bottom: toRem(45px);
           @include ellipsis_two;
         }
         span {
-          font-size: toRem(24px);
+          font-size: 12px;
           color: $color-text-secondary;
         }
       }

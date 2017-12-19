@@ -5,7 +5,7 @@
   <div class="article_container">
     <!--头部-->
     <header-fix title="文章详情" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
       <span slot="right" class="read_count">{{articleDetails.Click}}阅读</span>
     </header-fix>
     <section class="article_details_title">
@@ -24,15 +24,14 @@
   import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
   import {ArticleDetail} from '../service/getData'
+
   export default {
     mixins: [goBack],
     data() {
       return {
-        articleId:'',
-        articleDetails:{
-
-        },
-        content:''
+        articleId: '',
+        articleDetails: {},
+        content: ''
       }
     },
     created() {
@@ -47,11 +46,11 @@
     methods: {
       //文章内容
       async getArticleDetail() {
-        let data = await ArticleDetail({Id:this.articleId});
+        let data = await ArticleDetail({Id: this.articleId});
         if (data.Type == 1) {
           this.articleDetails = data.Data;
           let content = data.Data.Content;
-          this.content=content;
+          this.content = content;
         }
       },
     },
@@ -60,34 +59,37 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .article_container{
+
+  .article_container {
     padding: toRem(92px) toRem(30px) toRem(30px) toRem(30px);
-    .read_count{
+    .read_count {
       display: inline-block;
-      @include wh(104px,40px);
+      @include wh(104px, 40px);
       line-height: toRem(40px);
       text-align: center;
       @include border-left-radius(20px);
       @include border-right-radius(20px);
       background-color: #fff;
       color: $brand-primary;
-      font-size: toRem(24px);
+      font-size: 12px;
     }
   }
-  .article_details_title{
+
+  .article_details_title {
     text-align: center;
     color: $color-text-secondary;
     border-bottom: 1px dashed $border-color-base;
-    h2{
+    h2 {
       font-weight: 500;
-      font-size: toRem(38px);
+      font-size: 18px;
       color: $color-text-base;
     }
-    span{
+    span {
       margin-right: toRem(25px);
     }
   }
-  .article_details_content{
+
+  .article_details_content {
     padding-top: toRem(20px);
   }
 </style>

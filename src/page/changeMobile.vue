@@ -5,7 +5,7 @@
   <div class="change_mobile">
     <!--头部-->
     <header-fix title="修改手机号码" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="change_mobile_list">
       <div class="change_mobile_item">
@@ -13,7 +13,8 @@
       </div>
       <div class="change_mobile_item">
         <input class="new_mobile" v-model="sendData.NewMobile" type="text" placeholder="输入新的手机号码"/>
-        <mt-button type="primary" :disabled="disabledSend" size="small" @click.native="sendMsg">{{messageTitle}}</mt-button>
+        <mt-button type="primary" :disabled="disabledSend" size="small" @click.native="sendMsg">{{messageTitle}}
+        </mt-button>
       </div>
       <div class="change_mobile_item">
         <input class="code" v-model="sendData.SmgCode" type="text" placeholder="输入验证码"/>
@@ -25,7 +26,7 @@
   </div>
 </template>
 <script>
-  import {MessageBox,Toast} from 'mint-ui'
+  import {MessageBox, Toast} from 'mint-ui'
   import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
   import {UpdateMobile, GetUserInfo, SendMsg} from '../service/getData'
@@ -41,9 +42,9 @@
           SmgCode: '',
         },
         isPassMobile: false,
-        messageTitle:'获取验证码',
-        disabledSend:false,
-        timePromise:null
+        messageTitle: '获取验证码',
+        disabledSend: false,
+        timePromise: null
       }
     },
     mounted() {
@@ -63,26 +64,26 @@
         }
       },
       async sendMsg() {
-        if(!this.sendData.NewMobile){
+        if (!this.sendData.NewMobile) {
           MessageBox('警告', '请填写新手机号码！');
-        }else if(!this.isPassMobile){
+        } else if (!this.isPassMobile) {
           MessageBox('警告', '新手机号码格式有误！');
-        }else {
-          let data = await SendMsg({MobileNo:this.sendData.NewMobile});
+        } else {
+          let data = await SendMsg({MobileNo: this.sendData.NewMobile});
           if (data.Type == 1) {
             Toast({message: "发送成功！", position: 'bottom'});
             this.countDown();
           }
         }
       },
-      async updateMobile (){
-        if(!this.sendData.NewMobile){
+      async updateMobile() {
+        if (!this.sendData.NewMobile) {
           Toast({message: "请填写新手机号码！", position: 'bottom'});
-        }else if(!this.isPassMobile){
+        } else if (!this.isPassMobile) {
           Toast({message: "新手机号码格式有误！", position: 'bottom'});
-        }else if(!this.sendData.SmgCode){
+        } else if (!this.sendData.SmgCode) {
           Toast({message: "请填写验证码！", position: 'bottom'});
-        }else {
+        } else {
           let data = await UpdateMobile(this.sendData);
           if (data.Type == 1) {
             Toast({message: "修改成功！", position: 'bottom', duration: 2000});
@@ -92,22 +93,22 @@
         }
       },
       //倒计时
-      countDown(){
+      countDown() {
         let second = 60;
         let t = this;
-        t.timePromise = setInterval(function(){
-          if(second<=0){
+        t.timePromise = setInterval(function () {
+          if (second <= 0) {
             t.disabledSend = false;
             clearInterval(t.timePromise);
             t.timePromise = null;
             t.messageTitle = "获取验证码";
             return;
-          }else{
+          } else {
             t.disabledSend = true;
             t.messageTitle = second + "秒";
             second--;
           }
-        },1000,100);
+        }, 1000, 100);
       }
     },
     watch: {
@@ -136,21 +137,21 @@
     .change_mobile_item {
       background-color: $fill-base;
       margin-top: toRem(20px);
-      .mint-button{
+      .mint-button {
         width: toRem(190px);
       }
       input {
         display: inline-block;
-        width: 70%;
-        @include ht-lineHt(88px);
-        padding-left: toRem(20px);
-        font-size: toRem(28px);
+        width: 65%;
+        line-height: 1.2em;
+        padding: toRem(20px);
+        font-size: 14px;
       }
     }
-    .old_mobile{
+    .old_mobile {
       color: $color-text-thirdly;
     }
-    .new_mobile{
+    .new_mobile {
 
     }
     .submit_edit {

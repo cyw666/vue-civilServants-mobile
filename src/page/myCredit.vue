@@ -5,7 +5,7 @@
   <div class="my_credit">
     <!--头部-->
     <header-fix title="我的学分" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="cell_list_one">
       <mt-cell title="用户名" :value="userInfo.Username"></mt-cell>
@@ -33,6 +33,7 @@
 <script>
   import {mapState, mapActions} from 'vuex'
   import {headerFix} from '../components'
+
   export default {
     data() {
       return {}

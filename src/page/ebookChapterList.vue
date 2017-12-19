@@ -5,7 +5,7 @@
   <div class="ebook_chapter">
     <!--头部-->
     <header-fix :title="bookName" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <section v-infinite-scroll="getChapter"
              infinite-scroll-immediate-check="immediate"
@@ -13,7 +13,8 @@
              infinite-scroll-distance="10">
       <ul class="ebook_chapter_list">
         <li class="ebook_chapter_item" v-for="(item,index) in bookChapterData" :key="index">
-          <router-link :to="{path:'/ebookDetail',query:{id:item.BookTitelId,index:index+1}}">{{item.Title}}</router-link>
+          <router-link :to="{path:'/ebookDetail',query:{id:item.BookTitelId,index:index+1}}">{{item.Title}}
+          </router-link>
         </li>
       </ul>
     </section>
@@ -91,7 +92,7 @@
     .ebook_chapter_item {
       line-height: toRem(90px);
       border-bottom: 1px solid $border-color-base;
-      font-size: toRem(28px);
+      font-size: 14px;
     }
   }
 </style>

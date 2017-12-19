@@ -16,7 +16,7 @@
 </template>
 <script>
   export default {
-    name:"header-fix",
+    name: "header-fix",
     data() {
       return {}
     },
@@ -27,8 +27,8 @@
 
     },
     props: {
-      title:String,
-      fixed:Boolean
+      title: String,
+      fixed: Boolean
     },
     components: {},
     computed: {},
@@ -43,13 +43,14 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
+
   .header {
     @include flex();
-    align-items:center;
+    align-items: center;
     @include ht-lineHt(92px);
     background-color: $brand-primary;
     text-align: center;
-    font-size: toRem(32px);
+    font-size: 16px;
     color: #fff;
     padding: 0 toRem(20px);
     &.is-fixed {
@@ -59,21 +60,27 @@
       left: 0;
       right: 0;
     }
-    .header_left{
+    .header_left {
       flex: 1;
       text-align: left;
     }
-    .header_title{
+    .header_title {
       flex: 2;
       @extend %ellipsis;
       color: #fff;
     }
-    .header_right{
+    .header_right {
       flex: 1;
       text-align: right;
     }
-    .back_img{
-      width: toRem(18px);
+    .webapp-back {
+      font-size: 22px;
+    }
+    .webapp-search{
+      font-size: 19px;
+    }
+    .webapp-category{
+      font-size: 20px;
     }
   }
 </style>

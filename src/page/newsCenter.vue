@@ -30,10 +30,11 @@
 <script>
   import {Indicator} from 'mint-ui';
   import {headerFix, navSlide, tree, newsList} from '../components'
-  import {GetArticleChannelInfoList,GetArticleInfoList} from '../service/getData'
+  import {GetArticleChannelInfoList, GetArticleInfoList} from '../service/getData'
   import {goBack} from '../service/mixins'
+
   export default {
-    mixins:[goBack],
+    mixins: [goBack],
     data() {
       return {
         articleTitle: "资讯中心",
@@ -48,9 +49,11 @@
         noDataBg: false,
       }
     },
+    created() {
+      this.categoryId = this.$route.query.id;
+    },
     mounted() {
       this.getArticleCategory();
-//      this.getCourseList();
     },
     components: {
       headerFix,

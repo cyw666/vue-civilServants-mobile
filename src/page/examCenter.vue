@@ -4,15 +4,17 @@
 <template>
   <div class="examCenter">
     <header-fix :title="examTitle" fixed>
-      <a slot="left" @click="toggleNav"><img class="slide" src="../assets/slide.png"></a>
+      <a slot="left" @click="toggleNav">
+        <i class="webapp webapp-category"></i>
+      </a>
       <div slot="right" class="clearFix">
         <a class="filter" @click="toggleFilter">
           <span>筛选</span>
-          <img v-if="showFilter" src="../assets/pullup.png" alt=""/>
-          <img v-if="!showFilter" src="../assets/dropdown.png" alt=""/>
+          <i v-if="showFilter" class="webapp webapp-less"></i>
+          <i v-if="!showFilter" class="webapp webapp-moreunfold"></i>
         </a>
         <router-link class="pull-right" to="/examSearch">
-          <img class="search" src="../assets/search.png" alt=""/>
+          <i class="webapp webapp-search"></i>
         </router-link>
       </div>
     </header-fix>
@@ -39,24 +41,24 @@
     <div class="filter_list" :class="{'show':showFilter}">
       <p class="filter_item filter_title"><span>筛选条件</span></p>
       <p class="filter_item" @click="filterExam('All')">
-        <img src="../assets/default.png" alt="">
+        <i class="webapp webapp-order" style="color: #00aeff;"></i>
         <span>默认</span>
-        <img v-if="examType=='All'" src="../assets/gou.png" alt="" class="gou">
+        <i v-if="examType=='All'" class="webapp webapp-selected" style="color: #ee3f3f;"></i>
       </p>
       <p class="filter_item" @click="filterExam('Finish')">
-        <img src="../assets/pass.png" alt="">
+        <i class="webapp webapp-smile" style="color: #5fbe81;"></i>
         <span>已过</span>
-        <img v-if="examType=='Finish'" src="../assets/gou.png" alt="" class="gou">
+        <i v-if="examType=='Finish'" class="webapp webapp-selected" style="color: #ee3f3f;"></i>
       </p>
       <p class="filter_item" @click="filterExam('UnFinish')">
-        <img src="../assets/unpass.png" alt="">
+        <i class="webapp webapp-cry" style="color: #ee3f3f;"></i>
         <span>未过</span>
-        <img v-if="examType=='UnFinish'" src="../assets/gou.png" alt="" class="gou">
+        <i v-if="examType=='UnFinish'" class="webapp webapp-selected" style="color: #ee3f3f;"></i>
       </p>
       <p class="filter_item" @click="filterExam('UnJoin')">
-        <img src="../assets/unexam.png" alt="">
+        <i class="webapp webapp-cry" style="color: #999999;"></i>
         <span>未考</span>
-        <img v-if="examType=='UnJoin'" src="../assets/gou.png" alt="" class="gou">
+        <i v-if="examType=='UnJoin'" class="webapp webapp-selected" style="color: #ee3f3f;"></i>
       </p>
     </div>
     <footer-fix selected="examCenter"></footer-fix>
@@ -175,13 +177,14 @@
     .filter {
       @extend %pull-left;
       color: $color-text-reverse;
-      font-size: toRem(28px);
+      font-size: 14px;
       margin-right: toRem(10px);
       width: toRem(110px);
       height: toRem(92px);
-      line-height: toRem(92px);
-      img {
-        width: toRem(32px);
+      @include flex();
+      align-items: center;
+      .webapp {
+        font-size: 20px;
       }
     }
     .search {
@@ -215,7 +218,7 @@
       top: toRem(92px);
       z-index: 100;
       background-color: $fill-base;
-      font-size: toRem(30px);
+      font-size: 15px;
       transition: max-height ease 0.5s;
       &.show {
         max-height: toRem(430px);
@@ -230,10 +233,9 @@
       img {
         width: toRem(28px);
       }
-      .gou {
-        width: toRem(26px);
+      .webapp-selected {
         @extend %pull-right;
-        margin-top: toRem(32px);
+        font-size: 25px;
       }
       &.filter_title {
         background-color: $fill-grey;

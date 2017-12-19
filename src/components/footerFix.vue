@@ -26,7 +26,7 @@
 </template>
 <script>
   export default {
-    name:'footerFix',
+    name: 'footerFix',
     props: ['selected'],
   }
 </script>
@@ -34,6 +34,9 @@
   @import "../style/mixin";
 
   .footerFix {
+    .webapp {
+      font-size: toRem(48px);
+    }
     .mint-tabbar > .mint-tab-item.is-selected {
       background-color: #eaeaea;
       color: $brand-primary;
@@ -46,8 +49,8 @@
       height: toRem(48px);
       margin: 0 auto toRem(5px);
     }
-    .mint-tab-item-label{
-      font-size: toRem(24px);
+    .mint-tab-item-label {
+      font-size: 12px;
     }
   }
 </style>

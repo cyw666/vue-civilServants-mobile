@@ -1,33 +1,32 @@
 <template>
-  <img  class="errorImg" :src="imageSrc" ref="img"/>
+  <img class="errorImg" :src="imageSrc" ref="img"/>
 </template>
 <script>
-    import baseErrorSrc from '../assets/notFound.jpeg'
-    export default {
-        data () {
-            return {
-              imageSrc: this.src,
-              imgErrorSrc:this.errorSrc
-            }
-        },
-        created(){
+  import baseErrorSrc from '../assets/notFound.jpg'
 
-        },
-        mounted(){
-          this.$refs.img.onerror = () => {
-            this.imageSrc = this.imgErrorSrc||baseErrorSrc
-          }
-        },
-        props: ['src','errorSrc'],
-        components: {},
-        computed: {
-        },
-        updated(){
+  export default {
+    data() {
+      return {
+        imageSrc: this.src,
+        imgErrorSrc: this.errorSrc
+      }
+    },
+    created() {
 
-        },
-        methods: {
-        },
-        watch: {}
+    },
+    mounted() {
+      this.$refs.img.onerror = () => {
+        this.imageSrc = this.imgErrorSrc || baseErrorSrc
+      }
+    },
+    props: ['src', 'errorSrc'],
+    components: {},
+    computed: {},
+    updated() {
 
-    }
+    },
+    methods: {},
+    watch: {}
+
+  }
 </script>

@@ -5,8 +5,10 @@
   <div class="communication">
     <!--头部-->
     <header-fix title="交流评论" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
-      <router-link slot="right" to="/addCommunication"><img class="add_com" src="../assets/write.png" alt="">
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
+      <router-link slot="right" to="/addCommunication">
+        <i class="webapp webapp-edit"></i>
+        <!--<img class="add_com" src="../assets/write.png" alt="">-->
       </router-link>
     </header-fix>
     <section v-infinite-scroll="getDiscussList"
@@ -14,13 +16,16 @@
              infinite-scroll-disabled="loading"
              infinite-scroll-distance="10">
       <ul class="info_content">
-        <li class="info_item" v-for="(item,index) in discussList" :key="index"  @click="closeWrite">
+        <li class="info_item" v-for="(item,index) in discussList" :key="index" @click="closeWrite">
           <div class="left_avatar"><img src="../assets/male.png" alt=""></div>
           <div class="right_content">
             <p class="author_name">{{item.UserName}}</p>
             <p class="date">{{item.CreateDate | dateFilter}}</p>
             <p class="content">{{item.Content}}</p>
-            <img class="comment_img" @click.stop="openWrite(item.Id)" src="../assets/comment.png" alt=""/>
+            <a class="comment_img" @click.stop="openWrite(item.Id)">
+              <i class="webapp webapp-comments" style="color: #89d4ff;"></i>
+            </a>
+            <!--<img class="comment_img" @click.stop="openWrite(item.Id)" src="../assets/comment.png" alt=""/>-->
             <ul class="comment">
               <li v-for="(item,index) in item.List" :key="index"><span
                   class="name">{{item.UserName}}：</span>{{item.Content}}
@@ -45,19 +50,19 @@
   import {Toast, MessageBox, Indicator} from 'mint-ui'
   import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
-  import {DiscussList,AddDiscuss} from '../service/getData'
+  import {DiscussList, AddDiscuss} from '../service/getData'
 
   export default {
     mixins: [goBack],
     data() {
       return {
         discussList: [],
-        isShowWrite:false,
-        content:'',
-        mainId:'',
-        parentId:'',
-        immediate:true,
-        loading:false,
+        isShowWrite: false,
+        content: '',
+        mainId: '',
+        parentId: '',
+        immediate: true,
+        loading: false,
         page: 1,
         noData: false,
         noDataBg: false,
@@ -84,7 +89,7 @@
         this.noDataBg = false;
         this.loading = true;
         Indicator.open();
-        let data = await DiscussList({Page:this.page});
+        let data = await DiscussList({Page: this.page});
         Indicator.close();
         if (data.Type == 1) {
           let list = data.Data.List;
@@ -105,24 +110,25 @@
       },
       //回复
       async addDiscuss() {
-        if(!this.content){
+        if (!this.content) {
           MessageBox('警告', "请填写评论内容");
-        }else {
-          let data = await AddDiscuss({MainId: this.mainId, ParentId: this.parentId,Content:this.content});
+        } else {
+          let data = await AddDiscuss({MainId: this.mainId, ParentId: this.parentId, Content: this.content});
           if (data.Type == 1) {
             Toast({message: data.Message, position: 'bottom'});
-            this.content="";
+            this.content = "";
+            this.getDiscussList();
           } else if (data.Type != 401) {
             MessageBox('警告', data.Message);
           }
         }
       },
-      openWrite(id){
+      openWrite(id) {
         this.isShowWrite = true;
         this.mainId = id;
         this.parentId = id;
       },
-      closeWrite(){
+      closeWrite() {
         this.isShowWrite = false;
       },
     },
@@ -186,14 +192,14 @@
         }
       }
     }
-    .write_comment{
+    .write_comment {
       width: 10rem;
       position: fixed;
       bottom: 0;
       left: 0;
       background: $fill-body;
       padding-top: toRem(30px);
-      textarea{
+      textarea {
         display: block;
         resize: none;
         width: 9.2rem;

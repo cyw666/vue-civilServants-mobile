@@ -18,7 +18,7 @@
   export default {
     data() {
       return {
-        showLayer:this.show
+        showLayer: this.show
       }
     },
     created() {
@@ -28,7 +28,7 @@
       
     },
     props: {
-      show:Boolean
+      show: Boolean
     },
     components: {},
     computed: {},
@@ -36,9 +36,9 @@
       
     },
     methods: {
-      closeLayer(){
+      closeLayer() {
         this.showLayer = false;
-        this.$emit("showChange",false);
+        this.$emit("showChange", false);
       }
     },
     watch: {
@@ -52,36 +52,37 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .nav_slide{
+
+  .nav_slide {
     width: 100%;
     height: 100%;
     position: relative;
-    .nav_left{
+    .nav_left {
       background-color: #fff;
       position: absolute;
       left: 0;
-      top:0;
+      top: 0;
       width: toRem(545px);
       overflow-y: auto;
       height: 100%;
       transform: translateX(- toRem(545px));
       transition: transform 0.5s;
-      &.show{
+      &.show {
         transform: translateX(0);
       }
     }
-    .nav_right{
+    .nav_right {
       position: absolute;
       width: 100%;
       height: 100%;
       overflow-y: scroll;
       transform: translateX(0);
       transition: transform 0.5s;
-      &.show{
+      &.show {
         transform: translateX(toRem(545px));
       }
     }
-    .layer{
+    .layer {
       position: absolute;
       left: toRem(545px);
       right: 0;

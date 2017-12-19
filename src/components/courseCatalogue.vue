@@ -25,7 +25,7 @@
       
     },
     props: {
-      value:[Object],
+      value: [Object],
       dataList: Array,
       active: [String, Number]
     },
@@ -34,7 +34,7 @@
       activeNode: function () {
         let dataList = this.dataList;
         let node;
-        dataList&&dataList.forEach((item, index) => {
+        dataList && dataList.forEach((item, index) => {
           if (this.active == item.NodeId) {
             node = item;
             return;
@@ -48,8 +48,8 @@
     },
     methods: {},
     watch: {
-      activeNode:function (val) {
-        this.$emit('input',val);
+      activeNode: function (val) {
+        this.$emit('input', val);
       }
     }
     

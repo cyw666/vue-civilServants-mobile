@@ -19,15 +19,15 @@
 </template>
 <script>
   export default {
-    data () {
+    data() {
       return {
         currentValue: this.value
       }
     },
-    created(){
+    created() {
 
     },
-    mounted(){
+    mounted() {
 
     },
     props: {
@@ -38,7 +38,7 @@
     },
     components: {},
     computed: {},
-    updated(){
+    updated() {
 
     },
     methods: {},
@@ -56,6 +56,7 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import '../style/mixin';
+
   .mbChecklist {
     .checkList {
       @extend %border-base;
@@ -69,7 +70,7 @@
         display: block;
         padding: 0 toRem(20px);
         @include ht-lineHt(84px);
-        font-size: toRem(28px);
+        font-size: 14px;
       }
       padding: 0 toRem(20px);
     }

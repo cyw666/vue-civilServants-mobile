@@ -5,7 +5,7 @@
   <div class="user_info_edit">
     <!--头部-->
     <header-fix title="个人信息修改" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="setting_1">
       <div class="setting_item">
@@ -261,7 +261,7 @@
             Party: data.Data.Party,
             Birthday: data.Data.Birthday,
             Tel: data.Data.Tel,
-            Mobile: data.Data.Mobile,
+//            Mobile: data.Data.Mobile,
             SmgCode: ''
           };
         } else if (data.Type != 401) {
@@ -335,7 +335,7 @@
       height: toRem(82px);
       line-height: toRem(82px);
       border-bottom: 1px solid $border-color-base;
-      font-size: toRem(28px);
+      font-size: 14px;
       &:last-child {
         border-bottom: transparent;
       }
@@ -349,7 +349,8 @@
       text-align: right;
       input {
         text-align: right;
-        padding-right: toRem(20px);
+        line-height: 1.2em;
+        padding: toRem(10px) toRem(20px);
       }
     }
     .user, .department {
@@ -364,7 +365,7 @@
     .picker-toolbar {
       background-color: $brand-primary;
       color: $color-text-reverse;
-      font-size: toRem(32px);
+      font-size: 16px;
       .btn {
         display: inline-block;
         @include ht-lineHt(80px);

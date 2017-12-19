@@ -29,6 +29,7 @@
 </template>
 <script>
   import star from './star.vue'
+
   export default {
     mixins: [],
     data() {
@@ -56,7 +57,8 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .course_introduce{
+
+  .course_introduce {
     .course_detail_name {
       margin: 0 toRem(30px);
       border-bottom: 1px solid $border-color-base;

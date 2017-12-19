@@ -162,7 +162,7 @@
       margin: 0 toRem(30px);
       border-bottom: 1px solid $border-color-base;
       text-align: center;
-      font-size: toRem(32px);
+      font-size: 16px;
       line-height: toRem(62px);
       img {
         width: toRem(29px);
@@ -173,7 +173,7 @@
       .exam_name {
         margin: toRem(30px) 0 toRem(100px) 0;
         span {
-          font-size: toRem(32px);
+          font-size: 16px;
         }
         .red {
           color: $brand-primary;
@@ -191,7 +191,7 @@
           label {
             display: inline-block;
             width: 85%;
-            font-size: toRem(32px);
+            font-size: 16px;
           }
           padding: 0 toRem(20px);
         }
@@ -214,7 +214,7 @@
       .itemNum {
         display: inline-block;
         width: toRem(350px);
-        font-size: toRem(30px);
+        font-size: 15px;
         line-height: toRem(73px);
       }
       .next {

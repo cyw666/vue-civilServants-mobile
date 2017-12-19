@@ -5,7 +5,7 @@
   <div class="courseSearch">
     <!--头部-->
     <header-fix title="搜索" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="pad_top">
       <search v-model="keyword" :search="clickSearch">
@@ -92,7 +92,8 @@
   @import "../style/mixin";
 
   .courseSearch {
-    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
     background-color: $fill-body;
     .pad_top {
       padding-top: toRem(92px);

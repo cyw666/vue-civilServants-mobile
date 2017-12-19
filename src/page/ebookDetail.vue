@@ -2,15 +2,22 @@
 * 图书内容详情
 */
 <template>
-  <div class="ebook_detail" @click="toggleShowConfig">
-    <div class="bg_container" :style="{background: bgColor }">
+  <div class="ebook_detail">
+    <!--头部-->
+    <transition name="fade">
+      <header-fix :title="bookName" fixed v-if="showConfig">
+        <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
+      </header-fix>
+    </transition>
+    <div class="bg_container" :style="{background: bgColor }" @click.stop="toggleShowConfig">
       <div class="content" :style="{fontSize: fontSize + 'rem' }" v-html="detailData.Content"></div>
       <div class="ebook_footer">
         <mt-button v-if="index>1" class="prev" type="primary" size="small" @click.native.stop="prevChapter()">上一章节
         </mt-button>
         <mt-button class="next" type="primary" size="small" @click.native.stop="nextChapter()">下一章节</mt-button>
       </div>
-
+    </div>
+    <transition name="fade">
       <div v-if="showStyleSetting" class="style_setting">
         <div class="font_setting">
           <em>字体</em>
@@ -26,38 +33,41 @@
           <span class="bg_4" @click.stop="changeBgColor('#e0a5b4')"></span>
         </div>
       </div>
-
+    </transition>
+    <transition name="fade">
       <div v-if="showConfig" class="ebook_config">
         <mt-tabbar fixed :class="{'night':isNight}">
           <mt-tab-item id="ebookChapterList" :href="'#/ebookChapterList?id='+detailData.BookContentId">
-            <img slot="icon" src="../assets/icon_shelf.png"/>
+            <i slot="icon" class="webapp webapp-bookmark" style="color: #838484;"></i>
             目录
           </mt-tab-item>
           <mt-tab-item id="ebook" href="#/ebook">
-            <img slot="icon" src="../assets/icon_shelf.png"/>
+            <i slot="icon" class="webapp webapp-book" style="color: #838484;"></i>
             电子书
           </mt-tab-item>
           <mt-tab-item id="setting" @click.native.stop="toggleStyleSetting">
-            <img slot="icon" src="../assets/icon_cfg.png"/>
+            <i slot="icon" class="webapp webapp-set" style="color: #838484;"></i>
             设置
           </mt-tab-item>
           <mt-tab-item id="night" @click.native.stop="toggleNight">
-            <img slot="icon" src="../assets/icon_moon.png"/>
+            <i v-if="isNight" slot="icon" class="webapp webapp-moon" style="color: #838484;"></i>
+            <i v-if="!isNight" slot="icon" class="webapp webapp-sun" style="color: #838484;"></i>
             {{isNight ? "白天" : "夜间"}}
           </mt-tab-item>
         </mt-tabbar>
       </div>
-    </div>
-
+    </transition>
   </div>
 </template>
 <script>
   import {Toast} from 'mint-ui'
+  import {headerFix} from '../components'
   import {GetBookChapterContent} from '../service/getData'
   import {setStore, getStore} from '../plugins/utils'
+  import {goBack} from '../service/mixins'
 
   export default {
-    mixins: [],
+    mixins: [goBack],
     data() {
       return {
         detailId: '',
@@ -72,6 +82,9 @@
         nextId: "",
         nextIndex: "",
       }
+    },
+    components: {
+      headerFix
     },
     created() {
       //初始化设置
@@ -164,8 +177,13 @@
   @import "../style/mixin";
 
   .ebook_detail {
+    height: 100vh;
+    .header {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
     .bg_container {
       padding: toRem(30px);
+      min-height: 95%;
     }
     .ebook_footer {
       padding-top: toRem(20px);
@@ -195,7 +213,7 @@
         margin: 0 auto toRem(5px);
       }
       .mint-tab-item-label {
-        font-size: toRem(24px);
+        font-size: 12px;
       }
     }
     .content {
@@ -211,7 +229,7 @@
       .font_setting {
         padding: toRem(15px) 0 toRem(15px) toRem(15px);
         border-bottom: 1px solid #444;
-        font-size: toRem(28px);
+        font-size: 14px;
         span {
           display: inline-block;
           width: toRem(150px);
@@ -225,7 +243,7 @@
       .bg_setting {
         padding: toRem(15px) 0 toRem(15px) toRem(15px);
         border-bottom: 1px solid #444;
-        font-size: toRem(28px);
+        font-size: 14px;
         line-height: toRem(75px);
         :first-child {
           margin: 0;

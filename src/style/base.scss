@@ -11,7 +11,7 @@ body {
   font-size: $font-size-base;
   color: $color-text-base;
   background-color: #fff;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
 }
 
@@ -72,8 +72,19 @@ a {
   color: $color-text-base;
 }
 
-a:hover {
-  text-decoration: none;
+a{
+  &:hover{
+    text-decoration: none;
+  }
+  &:focus {
+    text-decoration: none;
+  }
+  &:active {
+    text-decoration: none;
+  }
+  &:visited {
+    text-decoration: none;
+  }
 }
 
 // Headers
@@ -114,19 +125,22 @@ label {
   width: 100%;
   text-align: center;
   color: #999;
-  @include font-size(28px);
+  font-size: 14px;
   padding: toRem(15px) 0;
 }
 
 .noDataBg {
   display: block;
-  width: toRem(750px);
+  //width: toRem(750px);
   height: toRem(900px);
   text-align: center;
   background: url(../assets/no_data.png) no-repeat center center;
   background-size: toRem(255px) toRem(425px);
 }
-
+//iconfont
+.webapp{
+  color: $color-text-reverse;
+}
 //高亮
 .highlight {
   color: $color-highlight;
@@ -134,15 +148,15 @@ label {
 
 //表单
 .form-group {
-  @include font-size(34px);
+  font-size: 16px;
 }
 
 .form-control {
   display: block;
   width: 100%;
-  @include ht-lineHt(70px);
-  padding: toRem(10px) toRem(20px);
-  @include font-size(34px);
+  line-height: toRem(50px);
+  padding: toRem(15px) toRem(20px);
+  font-size: 17px;
   color: #555;
   background-color: #fff;
   @extend %border-base;
@@ -186,7 +200,7 @@ label {
 
 .mint-button {
   height: toRem(90px);
-  @include font-size(28px);
+  font-size: 14px;
   @include borderRadius(12px);
 }
 
@@ -195,7 +209,7 @@ label {
 }
 
 .mint-button--small {
-  @include font-size(24px);
+  font-size: 12px;
   height: toRem(70px);
 }
 
@@ -273,10 +287,10 @@ label {
 body {
   //MessageBox
   .mint-msgbox {
-    font-size: toRem(32px);
+    font-size: 16px;
   }
   .mint-msgbox-title {
-    font-size: toRem(32px);
+    font-size: 16px;
     line-height: toRem(120px);
   }
   .mint-msgbox-btns {
@@ -288,7 +302,7 @@ body {
   //toast
   .mint-toast {
     .mint-toast-text {
-      font-size: toRem(28px);
+      font-size: 14px;
     }
     &.is-placebottom {
       bottom: toRem(115px);
@@ -296,14 +310,17 @@ body {
   }
   //loading
   .mint-indicator-mask {
-    opacity: 0.4;
+    opacity: 0;
     background: #000;
   }
 }
 
 //轮播
 .mint-swipe-indicator {
-  @include square(16px);
+  &.is-active{
+    background: $brand-primary;
+    opacity: 0.9;
+  }
 }
 
 //红线
@@ -325,7 +342,7 @@ body {
   @include ht-lineHt(88px);
   .mint-cell-wrapper {
     line-height: toRem(88px);
-    font-size: toRem(28px);
+    font-size: 14px;
     background: none;
     border-bottom: 1px solid $border-color-base;
   }
@@ -334,6 +351,10 @@ body {
   }
   .mint-cell-text {
     margin-left: toRem(30px);
+  }
+  .mint-cell-title{
+    @include flex(flex-start);
+    align-items: center;
   }
   .mint-cell-allow-right::after {
     @include square(15px);
@@ -365,7 +386,7 @@ body {
 .mint-navbar {
   .mint-tab-item {
     padding: toRem(34px) 0;
-    font-size: toRem(32px);
+    font-size: 16px;
     &.is-selected {
       border-bottom: toRem(6px) solid $brand-primary;
       color: $brand-primary;
@@ -375,7 +396,7 @@ body {
 }
 
 .mint-tab-item-label {
-  font-size: toRem(32px);
+  font-size: 16px;
 }
 
 .mint-tab-item-icon {

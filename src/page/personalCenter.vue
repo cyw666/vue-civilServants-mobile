@@ -12,23 +12,23 @@
     </div>
     <div class="cell_list_one">
       <mt-cell title="我的学分" is-link to="/myCredit">
-        <img slot="icon" src="../assets/credit.png">
+        <i slot="icon" class="webapp webapp-flower" style="color: #fde58b;"></i>
       </mt-cell>
       <mt-cell title="我的课程" is-link to="/myCourse">
-        <img slot="icon" src="../assets/course.png">
+        <i slot="icon" class="webapp webapp-kecheng" style="color: #ffb5aa;"></i>
       </mt-cell>
     </div>
     <div class="cell_list_two">
       <mt-cell title="我的考试" is-link to="/examCenter">
-        <img slot="icon" src="../assets/exam.png">
+        <i slot="icon" class="webapp webapp-exam" style="color: #c0e5a2;"></i>
       </mt-cell>
       <mt-cell title="信息反馈" is-link to="/advise">
-        <img slot="icon" src="../assets/advise.png">
+        <i slot="icon" class="webapp webapp-advise" style="color: #cebcf0;"></i>
       </mt-cell>
     </div>
     <div class="cell_list_three">
       <mt-cell title="设置" is-link to="/setting">
-        <img slot="icon" src="../assets/setting.png">
+        <i slot="icon" class="webapp webapp-set" style="color: #ecc1dd;"></i>
       </mt-cell>
     </div>
     <div class="exit">
@@ -44,8 +44,7 @@
 
   export default {
     data() {
-      return {
-      }
+      return {}
     },
     mounted() {
       this.getUserInformation();
@@ -90,12 +89,12 @@
         color: $color-text-reverse;
         margin-top: toRem(65px);
         h4 {
-          font-size: toRem(32px);
+          font-size: 16px;
           color: $color-text-reverse;
           margin-bottom: toRem(30px);
         }
         p {
-          font-size: toRem(28px);
+          font-size: 14px;
         }
         .shuxian {
           margin: 0 toRem(30px);
@@ -113,7 +112,14 @@
     }
 
     .exit {
+      padding-bottom: toRem(110px);
       margin: toRem(60px) toRem(30px) 0 toRem(40px);
+    }
+    .webapp{
+      font-size: toRem(32px);
+    }
+    .flower{
+      color: #fde58b;
     }
   }
 </style>

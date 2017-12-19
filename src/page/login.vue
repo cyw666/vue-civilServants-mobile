@@ -11,7 +11,7 @@
           <span class="acError" v-if="acError">用户名不能包含汉子</span>
         </div>
         <div class="form-group">
-          <label for="userPassword" class="control-label">密 码</label>
+          <label for="userPassword" class="control-label">密 &nbsp;&nbsp;码</label>
           <input v-model="Password" class="form-control" id="userPassword" type="password" placeholder="请输入密码">
           <span class="pwError" v-if="pwError">密码长度6~16位</span>
         </div>
@@ -23,11 +23,10 @@
         <a class="forget" @click="showForgetMessage">忘记密码？</a>
       </div>
       <mt-button size="large" type="primary" @click.native="clickLogin">确定</mt-button>
-      <div class="register">
+      <div class="register_btn">
         <mt-button size="normal" type="primary" @click.native="toRegister" plain>
           注册账号
         </mt-button>
-        <!--<router-link :to="{ path: '/login', query: { path: '/home',params:JSON.stringify({id:10})}}">Register</router-link>-->
       </div>
     </div>
   </div>
@@ -35,7 +34,7 @@
 <script>
   import CryptoJS from 'crypto-js'
   import {mapState, mapActions} from 'vuex'
-  import {MessageBox,Toast} from 'mint-ui'
+  import {MessageBox, Toast} from 'mint-ui'
   import {Login} from '../service/getData'
   import {getStore, setStore, removeStore} from '../plugins/utils'
 
@@ -57,9 +56,9 @@
     mounted() {
       this.Code = this.$route.query.code || '';
       let backUrl = this.$route.query.currentUrl;
-      if(backUrl){
+      if (backUrl) {
         this.backUrl = backUrl.split("#")[1];
-      }else {
+      } else {
         this.backUrl = '/';
       }
       this.Account = this.decrypt(localStorage.getItem('a_app'));
@@ -160,11 +159,10 @@
     background-size: 100% 100%;
     .login_banner {
       width: 100%;
-      overflow: hidden;
+      text-align: center;
       img {
-        display: block;
-        margin: toRem(125px) auto;
         width: toRem(148px);
+        padding: toRem(130px) 0;
       }
     }
     .user_login {
@@ -192,11 +190,16 @@
         @include ht-lineHt(90px);
       }
       .mint-button {
-        margin-top: toRem(30px);
+        /*margin-top: toRem(30px);*/
       }
       .checkbox {
         color: $color-text-thirdly;
         padding: 0 toRem(20px);
+        input[type=checkbox] {
+          width: toRem(24px);
+          height: toRem(24px);
+          margin: 0;
+        }
       }
       .forget {
         @extend %pull-right;
@@ -204,8 +207,8 @@
         @include ht-lineHt(90px);
         color: $color-text-thirdly;
       }
-      .register {
-        margin-top: toRem(150px);
+      .register_btn {
+        padding-top: toRem(90px);
         text-align: center;
       }
     }

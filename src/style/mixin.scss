@@ -77,10 +77,6 @@ $font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans 
   line-height: toRem($height);
 }
 
-@mixin font-size($font-size) {
-  font-size: toRem($font-size);
-}
-
 // 边框圆角
 @mixin borderRadius($radius:$radius-md) {
   -webkit-border-radius: toRem($radius);

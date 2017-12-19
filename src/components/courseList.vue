@@ -3,9 +3,9 @@
 */
 <template>
   <div class="course_list">
-    <div class="course_item" v-for="item in courseData">
+    <div class="course_item" v-for="item in courseData" @click.stop="toPlay(item.CourseType,item.CourseId)">
       <div class="course_img">
-        <a class="img" @click="toPlay(item.CourseType,item.CourseId)">
+        <a class="img">
           <error-img :src="item.CourseImg" :error-src="noCourse"></error-img>
         </a>
         <img v-if="item.CourseType=='JYAicc'" class="tip" src="../assets/jingpin.png" alt=""/>
@@ -13,11 +13,12 @@
         <img v-if="item.CourseType=='h5'" class="tip" src="../assets/H5.png" alt=""/>
       </div>
       <div class="course_desc">
-        <div class="course_name" @click="toPlay(item.CourseType,item.CourseId)">{{item.CourseName}}</div>
-        <div class="course_teacher">讲师：{{item.TeacherName}}</div>
+        <div class="course_name">{{item.CourseName}}</div>
+        <div class="course_teacher">讲师：{{item.TeacherName || "无"}}</div>
         <div class="course_bottom">
           <span class="highlight">{{item.Credit}}学分</span>
-          <span v-if="!myCourse" class="choose_status" :class="item.SelectFlag=='已选'&&'course_selected'">{{item.SelectFlag}}</span>
+          <span v-if="!myCourse" class="choose_status"
+                :class="item.SelectFlag=='已选'&&'course_selected'">{{item.SelectFlag}}</span>
           <span v-if="myCourse" class="progress">进度：{{parseInt(item.BrowseScore)}}%</span>
         </div>
       </div>
@@ -62,9 +63,11 @@
   .course_list {
     padding: 0 toRem(30px);
     .course_item {
-      margin: toRem(30px) 0;
+      /*margin: toRem(20px) 0;*/
+      padding: toRem(20px) 0;
       @extend %clearFix;
       background-color: $fill-base;
+      border-bottom: 1px solid $border-color-base;
     }
     .course_img {
       @extend %pull-left;
@@ -90,13 +93,14 @@
     }
     .course_name {
       @include ellipsis_two(2);
-      font-size: toRem(28px);
+      height: toRem(72px);
+      /*font-size: 14px;*/
       font-weight: 500;
       color: $color-text-base;
     }
     .course_teacher {
       color: $color-text-secondary;
-      line-height: toRem(48px);
+      line-height: toRem(40px);
     }
     .choose_status {
       @extend %pull-right;

@@ -177,3 +177,18 @@ export const formatTime = (msd) => {
   }
   return time;
 }
+/**
+ * h5,mp5时间提交格式化
+ */
+export const timeFormat = (a) => {//发送的时间格式
+  if (a && a > 0) {
+    var hh = parseInt(a / 3600);
+    if (hh < 10) hh = "0" + hh;
+    var mm = parseInt((a - hh * 3600) / 60);
+    if (mm < 10) mm = "0" + mm;
+    var ss = parseInt((a - hh * 3600) % 60);
+    if (ss < 10) ss = "0" + ss;
+    var length = hh.toString() + mm.toString() + ss.toString();
+  }
+  return length;
+}

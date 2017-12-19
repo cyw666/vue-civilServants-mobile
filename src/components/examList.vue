@@ -3,7 +3,8 @@
 */
 <template>
   <div class="exam_list">
-    <div class="exam_item" v-for="item in examData" @click.stop="checkAttempt(item.ExamId,item.TriesLimit,item.LattemptNumber,item.EndTime)">
+    <div class="exam_item" v-for="item in examData"
+         @click.stop="checkAttempt(item.ExamId,item.TriesLimit,item.LattemptNumber,item.EndTime)">
       <div class="exam_img">
         <img src="../assets/exam_ico.png" alt="">
       </div>
@@ -16,7 +17,8 @@
         </div>
         <div class="bottom">
           <span class="exam_time">考试时间：{{item.TimeLimit}}分钟</span>
-          <span class="pull-right" v-if="item.Status=='Finish'">最好成绩：<span class="green">{{(item.HighScore).toFixed(1)}}</span></span>
+          <span class="pull-right" v-if="item.Status=='Finish'">最好成绩：<span
+              class="green">{{(item.HighScore).toFixed(1)}}</span></span>
           <span class="highlight pull-right" v-if="item.Status=='UnFinish'">不合格</span>
           <span class="pull-right" v-if="item.Status=='UnJoin'">未考</span></div>
       </div>
@@ -26,11 +28,12 @@
   </div>
 </template>
 <script>
-  import {MessageBox,Toast } from 'mint-ui';
+  import {MessageBox, Toast} from 'mint-ui';
+
   export default {
     data() {
       return {
-        message:''
+        message: ''
       }
     },
     props: {
@@ -53,7 +56,7 @@
           if (current < total) {
             let count = total - current;
             MessageBox.confirm(`当前考试剩余${count}次考试机会，是否继续考试`).then(action => {
-              this.$router.push({path:'/exam',query:{id}})
+              this.$router.push({path: '/exam', query: {id}})
             });
 
           } else {
@@ -74,6 +77,7 @@
 
   .exam_list {
     padding: 0 toRem(30px);
+    background-color: $fill-base;
     .exam_item {
       padding: toRem(20px) 0;
       border-bottom: 1px solid $border-color-base;
@@ -92,7 +96,7 @@
     }
     .exam_name {
       @include ellipsis_two(2);
-      font-size: toRem(28px);
+      font-size: 14px;
       font-weight: 500;
       color: $color-text-base;
     }
@@ -119,7 +123,7 @@
       .highlight {
 
       }
-      .green{
+      .green {
         color: $brand-success;
       }
     }

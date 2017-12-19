@@ -8,12 +8,15 @@
       <span v-if="!hasNodes" class="tran_line pull-left"></span>
       <a class="tree_name" @click="nodeClick(dataList)">{{dataList.Name}}</a>
       <div class="tree_toggle_icon" v-if="hasNodes">
-        <img v-if="!open" @click="toggle" src="../assets/dropdown.png" alt="">
-        <img v-if="open" @click="toggle" src="../assets/pullup.png" alt="">
+        <!--<img v-if="!open" @click="toggle" src="../assets/dropdown.png" alt="">-->
+        <!--<img v-if="open" @click="toggle" src="../assets/pullup.png" alt="">-->
+        <i v-if="open" @click="toggle" class="webapp webapp-less"></i>
+        <i v-if="!open" @click="toggle" class="webapp webapp-moreunfold"></i>
       </div>
     </div>
     <ul class="tree_container" v-show="open" v-if="hasNodes">
-      <node v-for="item in dataList.Nodes" :data-list="item" @itemClick="selectedNode" :on-select="onSelect" key="$index"></node>
+      <node v-for="item in dataList.Nodes" :data-list="item" @itemClick="selectedNode" :on-select="onSelect"
+            key="$index"></node>
     </ul>
   </li>
 </template>
@@ -25,7 +28,7 @@
         open: false,
       }
     },
-    props: ["dataList","onSelect"],
+    props: ["dataList", "onSelect"],
     components: {},
     computed: {
       hasNodes: function () {
@@ -36,10 +39,10 @@
       toggle() {
         this.open = !this.open;
       },
-      nodeClick(data){
-        this.$emit("itemClick",data)
+      nodeClick(data) {
+        this.$emit("itemClick", data)
       },
-      selectedNode(data){
+      selectedNode(data) {
         this.onSelect(data);
       }
     },
@@ -54,7 +57,7 @@
   }
 
   .tree_node {
-    font-size: toRem(30px);
+    font-size: 15px;
   }
 
   .tree_title {
@@ -70,8 +73,8 @@
     .tree_toggle_icon {
       @extend %pull-right;
       padding-right: toRem(20px);
-      img {
-        width: toRem(32px);
+      .webapp{
+        color: #999;
       }
     }
     .tran_line {

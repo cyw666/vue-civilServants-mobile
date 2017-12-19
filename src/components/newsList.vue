@@ -83,7 +83,7 @@
     }
     .news_name {
       @include ellipsis_two(2);
-      font-size: toRem(30px);
+      font-size: 15px;
       font-weight: 500;
       color: $color-text-base;
     }

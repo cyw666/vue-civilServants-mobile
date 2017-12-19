@@ -27,7 +27,7 @@
     line-height: toRem(44px);
     text-align: center;
     color: #fff;
-    font-size: toRem(24px);
+    font-size: 12px;
     @include borderRadius(10px);
     background-color: $brand-primary;
     &.primary {

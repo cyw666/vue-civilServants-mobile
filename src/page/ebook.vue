@@ -5,7 +5,7 @@
   <div class="ebook">
     <!--头部-->
     <header-fix title="电子书" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
       <router-link slot="right" to="/ebookSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
     </header-fix>
     <section v-infinite-scroll="getEbookList"

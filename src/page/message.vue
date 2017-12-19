@@ -5,7 +5,7 @@
   <div class="message">
     <!--头部-->
     <header-fix title="消息中心" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <section v-infinite-scroll="getMessageList"
              infinite-scroll-immediate-check="immediate"
@@ -28,11 +28,11 @@
 <script>
   import {Indicator} from 'mint-ui'
   import {headerFix} from '../components'
-  import {goBack} from '../service/mixins'
+  import {goBack, toPlay} from '../service/mixins'
   import {GetMessageCenter, GetCourseDetail} from '../service/getData'
 
   export default {
-    mixins: [goBack],
+    mixins: [goBack, toPlay],
     data() {
       return {
         keyword: '',
@@ -77,16 +77,14 @@
       async getCourseDetail(Id) {
         let data = await GetCourseDetail({Id});
         if (data.Type == 1) {
-          if (data.Data.CourseType == 'Mp4') {
-            this.$router.push({path: '/play', query: {id: Id}})
-          } else {
-            this.$router.push({path: '/playJy', query: {id: Id}})
-          }
+          this.toPlay(data.Data.CourseType, Id);
+        } else if (data.Type != 401) {
+          MessageBox('警告', data.Message);
         }
       },
       linkTo: function (type, id) {
         if (type == 'Notice') {
-          this.$router.push({path: '/messageDetail', query: {id}})
+          this.$router.push({path: '/messageDetail', query: {id, title: '消息详情'}})
         } else {
           this.getCourseDetail(id);
         }
@@ -115,7 +113,7 @@
     }
     .message_info {
       color: $color-text-secondary;
-      img{
+      img {
         width: toRem(33px);
       }
     }

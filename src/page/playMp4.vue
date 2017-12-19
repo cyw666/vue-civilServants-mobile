@@ -5,12 +5,16 @@
   <div class="play_Mp4">
     <!--头部-->
     <header-fix title="视频播放" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="player">
-      <video id="myVideo" preload="meta" :src="courseDetails.OnlineUrl" controls="" x5-video-player-type="h5"
+      <video id="myVideo" preload="meta" :src="courseDetails.OnlineUrl" controls
+             style="object-fit:fill"
+             x5-video-player-type="h5"
              webkit-playsinline="true"
-             playsinline="true" x-webkit-airplay="allow" x5-video-player-fullscreen="true"
+             playsinline="true"
+             x-webkit-airplay="true"
+             x5-video-player-fullscreen="true"
              x5-video-orientation="portraint">
       </video>
     </div>
@@ -20,7 +24,7 @@
         <mt-tab-item id="evaluate">评价</mt-tab-item>
       </mt-navbar>
       <!-- tab-container -->
-      <mt-tab-container v-model="selected" swipeable>
+      <mt-tab-container v-model="selected">
         <mt-tab-container-item id="introduce">
           <course-introduce :course-details="courseDetails"></course-introduce>
         </mt-tab-container-item>
@@ -31,7 +35,9 @@
     </div>
     <div v-if="isOpen" class="open_app">
       <span>打开APP，可享课程下载服务</span><a id="btnOpenApp" class="openApp" href="javascript:void(0);">打开</a>
-      <a class="close" @click="isOpen = !isOpen">×</a>
+      <a class="close_tip" @click="isOpen = !isOpen">
+        <i class="webapp webapp-close"></i>
+      </a>
     </div>
   </div>
 </template>
@@ -39,6 +45,7 @@
   import {headerFix, courseIntroduce, courseComment} from '../components'
   import {goBack} from '../service/mixins'
   import {GetCourseDetail, UploadTimeNode} from '../service/getData'
+  import {timeFormat} from '../plugins/utils'
 
   export default {
     mixins: [goBack],
@@ -90,7 +97,7 @@
       },
       //提交进度
       async updateProgress() {
-        let TimeNode = this.timeFormat(this.myVideo.currentTime);
+        let TimeNode = timeFormat(this.myVideo.currentTime);
         let data = await UploadTimeNode({CourseId: this.courseId, TimeNode});
         if (data.Type == 1) {
         }
@@ -130,20 +137,6 @@
           }
         }, 200);
       },
-      timeFormat: function (a) {//发送的时间格式
-        var hh = parseInt(a / 3600);
-        if (hh < 10) hh = "0" + hh;
-        var mm = parseInt((a - hh * 3600) / 60);
-        if (mm < 10) mm = "0" + mm;
-        var ss = parseInt((a - hh * 3600) % 60);
-        if (ss < 10) ss = "0" + ss;
-        var length = hh.toString() + mm.toString() + ss.toString();
-        if (a > 0) {
-          return length;
-        } else {
-          return "NaN";
-        }
-      },
     },
     beforeDestroy() {
       this.updateProgress();
@@ -175,13 +168,12 @@
         margin-left: 1rem;
         border-radius: toRem(12px);
       }
-      .close {
-        color: $color-text-reverse;
-        font-size: toRem(40px);
+      .close_tip {
+        font-size: 20px;
         position: absolute;
         right: toRem(10px);
         bottom: 0;
-        top: toRem(5px);
+        top: toRem(10px);
         height: toRem(40px);
         line-height: toRem(40px);
       }

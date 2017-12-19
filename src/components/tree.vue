@@ -3,21 +3,23 @@
 */
 <template>
   <ul class="tree_container">
-    <tree-node v-for="item in data" :data-list="item" @itemClick="selectedNode" :on-select="onSelect" key="$index"></tree-node>
+    <tree-node v-for="item in data" :data-list="item" @itemClick="selectedNode" :on-select="onSelect"
+               key="$index"></tree-node>
   </ul>
 </template>
 <script>
   import treeNode from './treeNode.vue'
+
   export default {
     props: {
-      data:Array,
-      onSelect:Function,
+      data: Array,
+      onSelect: Function,
     },
     components: {
       treeNode,
     },
     methods: {
-      selectedNode(data){
+      selectedNode(data) {
         this.onSelect(data);
       }
     },

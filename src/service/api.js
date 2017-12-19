@@ -2,6 +2,7 @@
  * 页面接口api
  */
 // const API_URL = 'http://test10.jy365.net/api';
+  // const API_URL = '122.225.101.117:9064/api';
 const API_URL = '/api';
 const Platform = '/wechat';
 export default {
@@ -100,6 +101,11 @@ export default {
     url: API_URL + Platform + '/ArticleDetail',
     data: {Id:''}
   },
+  //通知公告
+  GetNoticeInfoList: {
+    url: API_URL + Platform + '/GetNoticeInfoList',
+    data: {Keyword:'', Page: '1', Rows: '10'}
+  },
   //排行榜 RankType => 1：学时， 2：课程，3：单位
   GetRankInfoList: {
     url: API_URL + Platform + '/GetRankInfoList',
@@ -143,7 +149,7 @@ export default {
   //电子书章节
   GetBookChapterInfoList: {
     url: API_URL + Platform + '/GetBookChapterInfoList',
-    data: {BookId: "", Page: '1', Rows: '20'}
+    data: {BookId: "", Page: '1', Rows: '30'}
   },
   //电子书章节内容
   GetBookChapterContent: {

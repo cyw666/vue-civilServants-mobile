@@ -14,39 +14,35 @@
         <!--&nbsp;&nbsp;{{option.ThemeItemFlag+'.'+option.ThemeItemTitle}}-->
         <span class="mint-radio-label" v-text="option.ThemeItemFlag+'.'+option.ThemeItemTitle"></span>
       </label>
-  </div>
+    </div>
   </div>
 </template>
 <script>
   export default {
-    data () {
+    data() {
       return {
         currentValue: this.value
       }
     },
-    created(){
+    created() {
 
     },
-    mounted(){
+    mounted() {
 
     },
     props: {
       options: {
-        type:Array,
+        type: Array,
         required: true
       },
       value: String
     },
     components: {},
-    computed: {
+    computed: {},
+    updated() {
 
     },
-    updated(){
-
-    },
-    methods: {
-
-    },
+    methods: {},
     watch: {
       value(val) {
         this.currentValue = val;
@@ -61,6 +57,7 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import '../style/mixin';
+
   .mbRadio {
     .radioList {
       @extend %border-base;
@@ -70,11 +67,11 @@
       .radio-input:focus {
         outline: none;
       }
-      .mint-radiolist-label{
+      .mint-radiolist-label {
         display: block;
         padding: 0 toRem(20px);
         @include ht-lineHt(84px);
-        font-size: toRem(28px);
+        font-size: 14px;
       }
       padding: 0 toRem(20px);
     }

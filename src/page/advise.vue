@@ -5,7 +5,7 @@
   <div class="advise">
     <!--头部-->
     <header-fix title="反馈中心" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="advise_type">
       <a v-for="(item,index) in typeData" class="advise_type_item"
@@ -57,14 +57,23 @@
       },
       //添加留言
       async addAdvise() {
-        if(!this.adviseTitle){Toast({message: "标题不能为空！", position: 'bottom'});return;}
-        if(!this.adviseContent){Toast({message: "反馈内容不能为空！", position: 'bottom'});return;}
-        if(!this.adviseType){Toast({message: "请选择反馈类型！", position: 'bottom'});return;}
+        if (!this.adviseTitle) {
+          Toast({message: "标题不能为空！", position: 'bottom'});
+          return;
+        }
+        if (!this.adviseContent) {
+          Toast({message: "反馈内容不能为空！", position: 'bottom'});
+          return;
+        }
+        if (!this.adviseType) {
+          Toast({message: "请选择反馈类型！", position: 'bottom'});
+          return;
+        }
         let data = await AddMessage({Title: this.adviseTitle, Content: this.adviseContent, ClassCode: this.adviseType});
         if (data.Type == 1) {
           Toast({message: "提交成功！", position: 'bottom'});
           this.$router.push('personalCenter');
-        }else if(data.Type != 401){
+        } else if (data.Type != 401) {
           MessageBox('警告', data.Message);
         }
       },
@@ -94,13 +103,13 @@
       height: toRem(75px);
       line-height: toRem(75px);
       text-align: center;
-      border: 2px solid #999;
-      border-radius: 0.133333rem;
-      font-size: 0.346667rem;
-      color: #666;
+      border: 1px solid $color-text-thirdly;
+      border-radius: 5px;
+      font-size: 12px;
+      color: $color-text-thirdly;
       margin: 0 toRem(30px);
       &.active {
-        border: 2px solid $brand-primary;
+        border: 1px solid $brand-primary;
         color: $brand-primary;
       }
     }
@@ -108,25 +117,25 @@
       padding: 0 toRem(20px);
       margin: toRem(20px) 0;
       background-color: $fill-base;
-      input{
+      input {
         display: block;
         width: 100%;
-        height: toRem(80px);
-        line-height: toRem(80px);
-        font-size: toRem(28px);
+        font-size: 14px;
+        padding: toRem(20px) 0;
+        line-height: 1.2em;
       }
     }
-    .advise_content{
+    .advise_content {
       padding: toRem(20px);
       background-color: $fill-base;
-      textarea{
+      textarea {
         display: block;
         width: 100%;
-        font-size: toRem(28px);
+        font-size: 14px;
         resize: none;
       }
     }
-    .advise_submit{
+    .advise_submit {
       text-align: center;
       padding: toRem(40px) toRem(30px);
     }

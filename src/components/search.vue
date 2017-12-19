@@ -42,7 +42,8 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .search_com{
+
+  .search_com {
     .search_bar {
       height: 0.8rem;
       padding: 0.266667rem 0.4rem;
@@ -51,12 +52,10 @@
       input {
         @extend %pull-left;
         width: toRem(530px);
-        height: toRem(60px);
-        line-height: toRem(60px);
-        padding-left: toRem(20px);
+        padding: toRem(15px) 0 toRem(15px) toRem(20px);
         margin-right: toRem(30px);
         background: $fill-body;
-        font-size: toRem(28px);
+        font-size: 14px;
         @include borderRadius(10px);
       }
       .mint-button--primary {
@@ -65,7 +64,7 @@
         height: toRem(60px);
       }
     }
-    .search-list{
+    .search-list {
       margin-top: toRem(20px);
     }
   }

@@ -5,12 +5,16 @@
   <div class="play_Jyaicc">
     <!--头部-->
     <header-fix title="视频播放" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="player">
-      <video id="myVideo" preload="meta" :src="activeNode.Mp4" controls="" x5-video-player-type="h5"
+      <video id="myVideo" preload="meta" :src="activeNode.Mp4" controls
+             style="object-fit:fill"
+             x5-video-player-type="h5"
              webkit-playsinline="true"
-             playsinline="true" x-webkit-airplay="allow" x5-video-player-fullscreen="true"
+             playsinline="true"
+             x-webkit-airplay="true"
+             x5-video-player-fullscreen="true"
              x5-video-orientation="portraint">
       </video>
     </div>
@@ -21,7 +25,7 @@
         <mt-tab-item id="evaluate">评价</mt-tab-item>
       </mt-navbar>
       <!-- tab-container -->
-      <mt-tab-container v-model="selected" swipeable>
+      <mt-tab-container v-model="selected">
         <mt-tab-container-item id="introduce">
           <course-introduce :course-details="courseDetails"></course-introduce>
         </mt-tab-container-item>
@@ -45,7 +49,9 @@
     </div>
     <div v-if="isOpen" class="open_app">
       <span>打开APP，可享课程下载服务</span><a id="btnOpenApp" class="openApp" href="javascript:void(0);">打开</a>
-      <a class="close" @click="isOpen = !isOpen">×</a>
+      <a class="close_tip" @click="isOpen = !isOpen">
+        <i class="webapp webapp-close"></i>
+      </a>
     </div>
   </div>
 </template>
@@ -66,6 +72,7 @@
         courseDetails: {}, //课程详情信息
         readyState: 0, //视频是否准备就绪
         nodeList: [], //节点数据
+        nodeLength: 0, //节点数据
         duration: 0, //视频时长
         activeNodeIndex: "", //正在播放的索引
         activeNodeId: "", //正在播放的id
@@ -106,6 +113,7 @@
         if (data.Type == 1) {
           this.courseDetails = data.Data;
           this.nodeList = data.Data.NodeList;
+          this.nodeLength = data.Data.NodeList.length;
           this.activeNodeId = data.Data.LastNodeId;
         }
       },
@@ -137,8 +145,8 @@
             } else {
               this.myVideo.currentTime = this.progressTime;
               /*是否自动播放*/
-              if(this.autoPlay){
-                this.myVideo.play();
+              if (this.autoPlay) {
+//                this.myVideo.play();
               }
             }
             /*监听视频播放位置*/
@@ -152,7 +160,7 @@
                   /*视频未播放完毕 禁止拖拽*/
                   if (currentTime > this.progressTime - 2 && currentTime < this.progressTime + 1) {
                     this.progressTime = currentTime;
-                  }else if(currentTime > this.progressTime + 2){
+                  } else if (currentTime > this.progressTime + 2) {
                     this.myVideo.currentTime = this.progressTime;
                   }
                 }
@@ -173,20 +181,23 @@
         this.activeNodeIndex = index;
       },
       /*是否播放下一章节*/
-      nextNode(){
-        MessageBox.confirm('本章节播放完毕，是否播放下一章节！').then(action => {
-          this.autoPlay = true;
-          let nextNodeIndex = this.activeNodeIndex + 1
-          this.playNode(nextNodeIndex);
-        }).catch(error => {
-          this.progressTime = 0;
-          this.myVideo.currentTime = 0;
-          this.myVideo.play();
-          this.autoPlay = true;
-        });
+      nextNode() {
+        /*不是最后一个节点播放下一章节*/
+        if (this.nodeLength != this.activeNodeIndex + 1) {
+          MessageBox.confirm('本章节播放完毕，是否播放下一章节！').then(action => {
+            this.autoPlay = true;
+            let nextNodeIndex = this.activeNodeIndex + 1
+            this.playNode(nextNodeIndex);
+          }).catch(error => {
+            this.progressTime = 0;
+            this.myVideo.currentTime = 0;
+            this.myVideo.play();
+            this.autoPlay = true;
+          });
+        }
       },
       /*点击节点播放其他章节*/
-      otherNode(index){
+      otherNode(index) {
         this.autoPlay = false;
         this.playNode(index);
       }
@@ -251,23 +262,23 @@
       text-indent: 1rem;
       font-size: 14px;
       @include ht-lineHt(105px);
-      background: rgba(0,0,0,0.8);
+      background: rgba(0, 0, 0, 0.8);
       width: 100%;
       color: $color-text-reverse;
-      .openApp{
+      .openApp {
         color: #fff;
         padding: toRem(15px) toRem(30px);
         background: $brand-primary;
         margin-left: 1rem;
         border-radius: toRem(12px);
       }
-      .close{
+      .close_tip {
         color: $color-text-reverse;
-        font-size: toRem(40px);
+        /*font-size: 20px;*/
         position: absolute;
         right: toRem(10px);
         bottom: 0;
-        top: toRem(5px);
+        top: toRem(10px);
         height: toRem(40px);
         line-height: toRem(40px);
       }

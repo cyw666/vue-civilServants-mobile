@@ -1,10 +1,14 @@
 <template>
-  <div class="home">
+  <div class="home_index">
     <header-fix title="主页" fixed>
-      <router-link slot="left" to="/message"><img class="message" src="../assets/message.png" alt="消息"></router-link>
-      <div slot="right">
-        <img src="../assets/info_show.png" @click="toggleModel" alt="用户信息" class="info_show">
-        <router-link to="/history"><img class="history" src="../assets/history.png" alt="历史记录"></router-link>
+      <router-link slot="left" to="/message" class="message">
+        <i class="webapp webapp-email"></i>
+      </router-link>
+      <div slot="right" class="clearFix">
+        <router-link to="/history" class="history">
+          <i class="webapp webapp-time"></i>
+        </router-link>
+        <img src="../assets/info_show.png" @click="toggleModel" alt="用户信息" class="info_show"/>
       </div>
     </header-fix>
     <div class="container">
@@ -16,35 +20,49 @@
         </mt-swipe-item>
       </mt-swipe>
       <section class="guide_list">
-        <div class="guide_item">
-          <router-link to="/myCourse">
-            <img src="../assets/my_course.png" alt="我的课程">
-            <p>我的课程</p>
-          </router-link>
-        </div>
-        <div class="guide_item">
-          <router-link to="/newsCenter">
-            <img src="../assets/news_ico.png" alt="资讯中心">
-            <p>资讯中心</p>
-          </router-link>
-        </div>
-        <div class="guide_item">
-          <router-link to="/rankList">
-            <img src="../assets/rank_ico.png" alt="排行榜">
-            <p>排行榜</p>
-          </router-link>
-        </div>
-        <div class="guide_item">
-          <router-link to="/classGarden">
-            <img src="../assets/class_ico.png" alt="班级园地">
-            <p>班级园地</p>
-          </router-link>
-        </div>
-        <div class="guide_item">
-          <router-link to="/ebook">
-            <img src="../assets/ebook_ico.png" alt="电子书">
-            <p>电子书</p>
-          </router-link>
+        <div class="guide_container">
+          <div class="guide_item">
+            <router-link to="/myCourse">
+              <img src="../assets/my_course.png" alt="我的课程">
+              <p>我的课程</p>
+            </router-link>
+          </div>
+          <div class="guide_item">
+            <router-link to="/newsCenter">
+              <img src="../assets/news_ico.png" alt="资讯中心">
+              <p>资讯中心</p>
+            </router-link>
+          </div>
+          <div class="guide_item">
+            <router-link to="/rankList">
+              <img src="../assets/rank_ico.png" alt="排行榜">
+              <p>排行榜</p>
+            </router-link>
+          </div>
+          <div class="guide_item">
+            <router-link to="/classGarden">
+              <img src="../assets/class_ico.png" alt="班级园地">
+              <p>班级园地</p>
+            </router-link>
+          </div>
+          <div class="guide_item">
+            <router-link to="/ebook">
+              <img src="../assets/ebook_ico.png" alt="电子书">
+              <p>电子书</p>
+            </router-link>
+          </div>
+          <div class="guide_item">
+            <router-link to="/communication">
+              <img src="../assets/communication_ico.png" alt="交流评论">
+              <p>交流评论</p>
+            </router-link>
+          </div>
+          <div class="guide_item">
+            <router-link to="/notice">
+              <img src="../assets/notice_ico.png" alt="通知公告">
+              <p>通知公告</p>
+            </router-link>
+          </div>
         </div>
       </section>
       <div class="boundary"></div>
@@ -84,9 +102,9 @@
 </template>
 <script>
   import {mapState, mapActions} from 'vuex'
-  import {Indicator} from 'mint-ui';
+  import {Indicator, MessageBox} from 'mint-ui';
   import {headerFix, errorImg, footerFix, mbModel} from '../components'
-  import {GetCourseInfoList, GetLink} from '../service/getData'
+  import {GetCourseInfoList, GetLink, GetCourseDetail} from '../service/getData'
   import {toPlay} from '../service/mixins'
   import noCourse from '../assets/noCourse.png'
 
@@ -98,7 +116,7 @@
         showModel: false,
         swipeData: [],
         recommendCourseData: [],
-        noCourse
+        noCourse,
       }
     },
     components: {
@@ -127,6 +145,14 @@
           this.swipeData = data.Data;
         }
       },
+      async getCourseDetail(Id) {
+        let data = await GetCourseDetail({Id});
+        if (data.Type == 1) {
+          this.toPlay(data.Data.CourseType, Id);
+        } else if (data.Type != 401) {
+          MessageBox('警告', data.Message);
+        }
+      },
       toggleModel() {
         this.showModel = !this.showModel;
       },
@@ -137,10 +163,10 @@
             path = `/courseCenter`
             break;
           case "Article":
-            path = `/articleDetail`
+            path = `/newsDetails`
             break;
           case "Course":
-            path = `/courseDetail`
+            this.getCourseDetail(id);
             break;
           case "ArticleList":
             path = `/newsCenter`
@@ -151,23 +177,33 @@
     }
   }
 </script>
-<style lang="scss" scoped rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
 
-  .home {
+  .home_index {
     padding-top: toRem(92px);
-    .container{
+    .container {
       padding-bottom: toRem(110px);
     }
-    .message {
-      width: toRem(50px);
-    }
-    .info_show {
-      width: toRem(50px);
-      margin-right: toRem(15px);
-    }
-    .history {
-      width: toRem(50px);
+    .header {
+      .message {
+        @extend %pull-left;
+        height: toRem(92px);
+      }
+      .webapp {
+        color: $color-text-reverse;
+        font-size: toRem(50px);
+      }
+      .history {
+        @extend %pull-right;
+        height: toRem(92px);
+      }
+      .info_show {
+        width: toRem(50px);
+        margin-right: toRem(25px);
+        @extend %pull-right;
+        margin-top: toRem(18px);
+      }
     }
     .info_content {
       background: url(../assets/info_bg.png) no-repeat center center;
@@ -176,7 +212,7 @@
       .info_layer_avatar {
         text-align: center;
         line-height: toRem(60px);
-        font-size: toRem(24px);
+        font-size: 12px;
       }
       .avatar {
         margin-top: toRem(18px);
@@ -186,12 +222,12 @@
         text-align: center;
         padding: toRem(100px) toRem(10px) 0 toRem(10px);
         h4 {
-          font-size: toRem(28px);
+          font-size: 14px;
         }
         p {
           margin-top: toRem(40px);
           color: $color-text-secondary;
-          font-size: toRem(26px);
+          font-size: 13px;
         }
       }
     }
@@ -203,13 +239,25 @@
         height: 100%;
       }
     }
+
     .guide_list {
+      width: 100%;
+      height: toRem(203px);
+      overflow-x: scroll;
+      overflow-y: hidden;
       @extend %clearFix;
-      text-align: center;
-      background-color: #fff;
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+      .guide_container {
+        width: 140%;
+        height: toRem(203px);
+        text-align: center;
+        background-color: #fff;
+      }
       .guide_item {
         @extend %pull-left;
-        width: 20%;
+        width: toRem(150px);
         padding: toRem(35px) 0;
         p {
           line-height: toRem(50px);
@@ -229,7 +277,7 @@
       padding: toRem(30px) 0 toRem(20px) toRem(25px);
       background-color: #fff;
       .recommend_title {
-        font-size: toRem(36px);
+        font-size: 18px;
         line-height: toRem(62px);
       }
       .recommend_course_list {

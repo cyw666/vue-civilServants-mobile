@@ -4,8 +4,8 @@
 <template>
   <div class="class_detail">
     <div class="sign_bg">
-      <img class="arrow" src="../assets/arrow.png" @click="goBack"/>
-      <img class="scan" src="../assets/scan.png" alt=""/>
+      <i class="webapp webapp-back arrow" @click.stop="goBack"></i>
+      <i class="webapp webapp-scanning scan"></i>
     </div>
     <div class="class_detail_cont">
       <div class="class_detail_item">
@@ -56,7 +56,12 @@
   import {Toast, MessageBox} from 'mint-ui'
   import {signList} from '../components'
   import {goBack} from '../service/mixins'
-  import {GetTrainingDetail,GetClassUserSignList,UpdateTrainingStudentdown,UpdateTrainingStudentup} from '../service/getData'
+  import {
+    GetTrainingDetail,
+    GetClassUserSignList,
+    UpdateTrainingStudentdown,
+    UpdateTrainingStudentup
+  } from '../service/getData'
 
   export default {
     mixins: [goBack],
@@ -85,16 +90,16 @@
         let data = await GetTrainingDetail({Id: this.classId});
         if (data.Type == 1) {
           this.classDetail = data.Data;
-          if(data.Data.Status == "UnJoin"){
+          if (data.Data.Status == "UnJoin") {
             this.isJoinClass = false;
-          }else {
+          } else {
             this.isJoinClass = true;
           }
         }
       },
       //签到列表
       async getSignList() {
-        let data = await GetClassUserSignList({TodayFlag:this.todayFlag,TrainingId: this.classId});
+        let data = await GetClassUserSignList({TodayFlag: this.todayFlag, TrainingId: this.classId});
         if (data.Type == 1) {
           this.signData = data.Data;
         }
@@ -105,7 +110,7 @@
         if (data.Type == 1) {
           this.isJoinClass = true;
           Toast({message: data.Message, position: 'bottom'});
-        }else if(data.Type != 401){
+        } else if (data.Type != 401) {
           MessageBox('警告', data.Message);
         }
       },
@@ -115,7 +120,7 @@
         if (data.Type == 1) {
           this.isJoinClass = false;
           Toast({message: data.Message, position: 'bottom'});
-        }else if(data.Type != 401){
+        } else if (data.Type != 401) {
           MessageBox('警告', data.Message);
         }
       },
@@ -135,17 +140,19 @@
       background-size: toRem(750px) toRem(471px);
       .arrow {
         position: absolute;
-        @include wh(18px, 33px);
-        padding: toRem(20px);
+        padding: toRem(15px);
         left: 0;
         top: 0;
+        font-size: toRem(40px);
+        color: $color-text-reverse;
       }
       .scan {
         position: absolute;
-        @include wh(36px, 36px);
-        padding: toRem(20px);
+        padding: toRem(15px);
         right: 0;
         top: 0;
+        font-size: toRem(40px);
+        color: $color-text-reverse;
       }
     }
     .class_detail_cont {
@@ -161,22 +168,22 @@
       .training_label {
         color: $color-text-thirdly;
         margin-left: toRem(20px);
-        font-size: toRem(28px);
+        font-size: 14px;
       }
       .training_date {
         margin-left: toRem(60px);
-        font-size: toRem(28px);
+        font-size: 14px;
 
       }
     }
     .sign_detail {
-      &::before{
+      &::before {
         content: '';
         display: block;
         height: toRem(20px);
         background-color: $fill-tap;
       }
-      &::after{
+      &::after {
         content: '';
         display: block;
         height: toRem(20px);
@@ -192,13 +199,13 @@
       @extend %pull-right;
     }
     .class_desc {
-      .class_course_detail{
+      .class_course_detail {
         padding: 0 toRem(30px);
         text-indent: 2em;
-        font-size: toRem(28px);
+        font-size: 14px;
       }
     }
-    .cancel{
+    .cancel {
       margin-top: toRem(50px);
       padding: 0 toRem(10px) toRem(20px) toRem(10px);
     }

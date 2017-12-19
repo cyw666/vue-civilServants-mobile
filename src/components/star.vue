@@ -2,13 +2,14 @@
 * 星级评分
 */
 <template>
-  <div class="star">
+  <div class="star_grade">
     <span v-for="(itemClass,index) in itemClasses"
           @click="checkStarItem(index)"
           :class="[itemClass,size=='small'?'small':'']" class="star-item"
           :key="index">
     </span>
-    <span v-if="showText || showScore":class="['rate_text',size=='small'?'rate_text_small':'rate_text_primary']">{{ text }}</span>
+    <span v-if="showText || showScore"
+          :class="['rate_text',size=='small'?'rate_text_small':'rate_text_primary']">{{ text }}</span>
   </div>
 </template>
 <script>
@@ -22,12 +23,9 @@
     created() {
       this.computeClass();
     },
-    mounted() {
-      
-    },
     props: {
       value: {
-        type: [Number,String],
+        type: [Number, String],
         default: 4
       },
       size: {
@@ -58,7 +56,7 @@
         let result = '';
         if (this.showScore) {
           result = this.disabled ? this.value : this.currentValue;
-          result = parseInt(result).toFixed(1)+'分';
+          result = parseInt(result).toFixed(1) + '分';
         } else if (this.showText) {
           result = this.texts[Math.ceil(this.currentValue) - 1];
         }
@@ -67,12 +65,12 @@
     },
     methods: {
       checkStarItem(num) {
-        if(this.disabled){
+        if (this.disabled) {
           return;
         }
         this.currentValue = parseInt(num) + 1;
       },
-      computeClass(){
+      computeClass() {
         let result = [];
         let score = Math.floor(this.value * 2) / 2;
         let hasDecimal = score % 1 !== 0;
@@ -105,7 +103,7 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
 
-  .star {
+  .star_grade {
     display: block;
   }
 
@@ -118,7 +116,7 @@
     line-height: toRem(30px);
     margin: 0 toRem(14px);
     background-size: toRem(30px);
-    &.small{
+    &.small {
       width: toRem(24px);
       height: toRem(24px);
       line-height: toRem(24px);
@@ -138,13 +136,16 @@
   .star-item.off {
     background-image: url(../assets/star_off.png);
   }
-  .rate_text{
+
+  .rate_text {
     color: $color-text-thirdly;
   }
-  .rate_text_primary{
+
+  .rate_text_primary {
     font-size: 16px;
   }
-  .rate_text_small{
+
+  .rate_text_small {
     font-size: 14px;
   }
 </style>

@@ -98,6 +98,12 @@ export const GetArticleInfoList = (data) => fetch.post(Api.GetArticleInfoList.ur
 export const ArticleDetail = (data) => fetch.post(Api.ArticleDetail.url, {...Api.ArticleDetail.data, ...data});
 
 /**
+ *  通知公告
+ */
+export const GetNoticeInfoList = (data) => fetch.post(Api.GetNoticeInfoList.url, {...Api.GetNoticeInfoList.data, ...data});
+
+
+/**
  *  排行榜 RankType => 1：学时， 2：课程，3：单位
  */
 export const GetRankInfoList = (data) => fetch.post(Api.GetRankInfoList.url, {...Api.GetRankInfoList.data, ...data});

@@ -64,20 +64,20 @@
       text-align: center;
       .result_icon {
         padding: toRem(120px) 0 toRem(50px) 0;
-        font-size: toRem(30px);
+        font-size: 15px;
       }
       img {
         margin-right: toRem(20px);
       }
       .get_score {
         @include ht-lineHt(60px);
-        font-size: toRem(38px);
+        font-size: 18px;
       }
     }
     .result_body {
       background-color: $fill-base;
       padding: 0 toRem(30px);
-      font-size: toRem(28px);
+      font-size: 14px;
       margin-top: toRem(20px);
       p {
         @include ht-lineHt(82px);

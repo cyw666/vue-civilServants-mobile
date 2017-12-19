@@ -10,7 +10,7 @@
 </template>
 <script>
   export default {
-    name:"mb-tab-item",
+    name: "mb-tab-item",
     props: ['id'],
   }
 </script>
@@ -28,7 +28,7 @@
     padding: 0 toRem(25px);
     background-color: $brand-primary;
     color: $color-text-reverse;
-    font-size: toRem(28px);
+    font-size: 14px;
     &.active {
       background-color: $color-text-reverse;
       color: $brand-primary;

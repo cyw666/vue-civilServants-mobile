@@ -5,14 +5,15 @@
   <div class="sign_detail">
     <!--头部-->
     <header-fix title="签到详情" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <sign-list></sign-list>
   </div>
 </template>
 <script>
   import {goBack} from '../service/mixins'
-  import {signList,headerFix} from '../components'
+  import {signList, headerFix} from '../components'
+
   export default {
     mixins: [goBack],
     data() {
@@ -41,7 +42,8 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .sign_detail{
+
+  .sign_detail {
     padding-top: toRem(92px);
   }
 </style>

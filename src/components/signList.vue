@@ -10,7 +10,7 @@
           <span class="class_on_off">(上课)</span>
           <span class="sign_or_not sign_in" v-if="item.AmSignIn.SignFlag == true">已签</span>
           <span class="sign_or_not" v-if="item.AmSignIn.SignFlag == false">未签</span>
-          <span class="mar_left_96">上午</span>
+          <span class="finish">上午</span>
           <span class="class_on_off">(下课)</span>
           <span class="sign_or_not sign_in" v-if="item.AmSignOut.SignFlag == true">已签</span>
           <span class="sign_or_not" v-if="item.AmSignOut.SignFlag == false">未签</span>
@@ -20,7 +20,7 @@
           <span class="class_on_off">(上课)</span>
           <span class="sign_or_not sign_in" v-if="item.PmSignIn.SignFlag == true">已签</span>
           <span class="sign_or_not" v-if="item.PmSignIn.SignFlag == false">未签</span>
-          <span class="mar_left_96">下午</span>
+          <span class="finish">下午</span>
           <span class="class_on_off">(下课)</span>
           <span class="sign_or_not sign_in" v-if="item.PmSignOut.SignFlag == true">已签</span>
           <span class="sign_or_not" v-if="item.PmSignOut.SignFlag == false">未签</span>
@@ -34,7 +34,7 @@
     mixins: [],
     data() {
       return {
-        signData:[
+        signData: [
           {
             "TrainingId": 1,
             "OpenFlag": true,
@@ -97,4 +97,20 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
 
+  .sign_list {
+    ul {
+      padding: toRem(20px) toRem(60px);
+      line-height: toRem(40px);
+    }
+    .sign_or_not {
+      color: $brand-error;
+      margin-left: toRem(20px);
+    }
+    .sign_in {
+      color: $brand-success;
+    }
+    .finish {
+      margin-left: toRem(95px);
+    }
+  }
 </style>

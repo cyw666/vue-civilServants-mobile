@@ -5,7 +5,10 @@
   <div class="mb-model_container">
     <transition name="fade">
       <div v-if="showModel" class="mb-model_content">
-        <img class="cancel" src="../assets/cancel.png" @click="close" alt="关闭">
+        <!--<img class="cancel" src="../assets/cancel.png" @click="close" alt="关闭">-->
+        <a @click="close" class="cancel">
+          <i class="webapp webapp-close"></i>
+        </a>
         <div class="slot_content">
           <slot></slot>
         </div>
@@ -18,7 +21,7 @@
   export default {
     data() {
       return {
-        showModel:this.isShow
+        showModel: this.isShow
       }
     },
     mounted() {
@@ -30,13 +33,12 @@
         default: false
       },
     },
-    computed: {
-    },
+    computed: {},
     methods: {
-      close(){
+      close() {
         this.showModel = false;
       },
-      open(){
+      open() {
         this.showModel = true;
       }
     },
@@ -54,10 +56,12 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .mb-model_container{
+
+  .mb-model_container {
     background-color: $fill-base;
   }
-  .mb-model_content{
+
+  .mb-model_content {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -71,10 +75,13 @@
     .cancel {
       position: absolute;
       right: toRem(20px);
-      top: toRem(20px);
+      top: toRem(15px);
       @include square(26px);
+      .webapp-close{
+        color: #666;
+      }
     }
-    .slot_content{
+    .slot_content {
       margin-top: toRem(30px);
     }
   }

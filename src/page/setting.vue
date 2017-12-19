@@ -5,7 +5,7 @@
   <div class="setting">
     <!--头部-->
     <header-fix title="设置" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="cell_list_one">
       <mt-cell title="个人信息修改" is-link to="/userInfoEdit"></mt-cell>
@@ -13,9 +13,14 @@
       <mt-cell title="修改密码" is-link to="/changePwd"></mt-cell>
     </div>
     <div class="cell_list_two">
-      <mt-cell is-link>
-        <a class="callUs" slot="title" href="tel://0571-28990788">联系我们</a>
-      </mt-cell>
+      <!--<mt-cell is-link>
+        <a class="callUs" slot="title" href="tel:0571-28990788">联系我们</a>
+      </mt-cell>-->
+      <p class="contact_use">
+        <a class="callUs" slot="title" href="tel:0571-28990788">联系我们</a>
+        <!--<i class="webapp webapp-more"></i>-->
+        <i class="mint-cell-allow-right"></i>
+      </p>
     </div>
   </div>
 </template>
@@ -34,16 +39,32 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
 
-  .setting{
+  .setting {
     height: 92vh;
     background-color: $fill-body;
     padding-top: toRem(92px);
-    .cell_list_two{
+    .cell_list_two {
       margin-top: toRem(20px);
-      .callUs{
-        margin-left: toRem(30px);
-        display: inline-block;
-        width: 100%;
+      .contact_use{
+        @include ht-lineHt(96px);
+        background-color: $fill-base;
+        @include flex();
+      }
+      .callUs {
+        @extend %pull-left;
+        width: 90%;
+        font-size: 14px;
+        padding-left: toRem(50px);
+      }
+      .mint-cell-allow-right{
+        @extend %pull-right;
+        position: relative;
+        right: 0;
+        top:50%;
+        &::after{
+          width: 0.2rem;
+          height: 0.2rem;
+        }
       }
     }
   }

@@ -1,11 +1,11 @@
 /**
-* template
+* 消息详情
 */
 <template>
   <div class="message_detail">
     <!--头部-->
-    <header-fix title="消息详情" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+    <header-fix :title="title" fixed>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="articleDet" v-html="messageContent"></div>
   </div>
@@ -21,12 +21,14 @@
     mixins: [goBack],
     data() {
       return {
+        title: '',
         messageContent: '',
         messageId: ''
       }
     },
     created() {
       this.messageId = this.$route.query.id || '';
+      this.title = this.$route.query.title || '';
     },
     mounted() {
       this.getMessageContent(this.messageId);
@@ -49,10 +51,13 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
 
+  .message_detail {
+    padding-top: toRem(92px);
+  }
+
   .articleDet {
-    font-size: toRem(32px);
+    font-size: 16px;
     text-indent: 2em;
     padding: toRem(20px);
-    margin-top: toRem(92px);
   }
 </style>

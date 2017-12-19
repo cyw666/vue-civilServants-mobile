@@ -5,7 +5,7 @@
   <div class="register">
     <!--头部-->
     <header-fix title="注册" fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="setting_1">
       <div class="setting_item">
@@ -165,18 +165,11 @@
         isPassPwd: true, //密码验证
       }
     },
-    created() {
-      
-    },
     mounted() {
       this.getGradeList();
     },
     components: {
       headerFix
-    },
-    computed: {},
-    updated() {
-      
     },
     methods: {
       //注册
@@ -325,7 +318,7 @@
       height: toRem(90px);
       line-height: toRem(90px);
       border-bottom: 1px solid $border-color-base;
-      font-size: toRem(28px);
+      font-size: 14px;
       &:last-child {
         border-bottom: transparent;
       }
@@ -343,13 +336,15 @@
       @extend %pull-left;
       text-align: left;
       width: 30%;
-      font-size: toRem(30px);
+      font-size: 15px;
     }
     .right {
       @extend %pull-right;
       width: 70%;
       input {
         width: 95%;
+        padding: toRem(10px) 0;
+        line-height: 1.2em;
       }
     }
     .department {
@@ -368,7 +363,7 @@
     .picker-toolbar {
       background-color: $brand-primary;
       color: $color-text-reverse;
-      font-size: toRem(32px);
+      font-size: 16px;
       .btn {
         display: inline-block;
         @include ht-lineHt(80px);
@@ -393,7 +388,7 @@
       margin-top: toRem(50px);
       padding: 0 toRem(30px);
     }
-    .cell_container{
+    .cell_container {
       position: fixed;
       z-index: 1000;
       top: 0;
@@ -414,7 +409,7 @@
       margin: 0 toRem(30px);
       border-bottom: 1px solid $border-color-base;
       color: $color-text-secondary;
-      font-size: toRem(28px);
+      font-size: 14px;
       a {
         display: inline-block;
         color: $color-text-secondary;

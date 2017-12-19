@@ -3,7 +3,8 @@
 */
 <template>
   <div class="ebook_list">
-    <div class="ebook_item" v-for="(item,index) in data" :key="index" @click="goChapterList(item.BookNameId,item.BookName)">
+    <div class="ebook_item" v-for="(item,index) in data" :key="index"
+         @click="goChapterList(item.BookNameId,item.BookName)">
       <error-img :src="item.BookImg" :error-src="errorBook"></error-img>
       <p class="ebook_name">{{item.BookName}}</p>
       <p class="ebook_author">作者：{{item.AutoName}}</p>
@@ -16,6 +17,7 @@
   import errorImg from './errorImg.vue'
   import errorBook from '../assets/error_book.png'
   import {setStore} from '../plugins/utils'
+
   export default {
     mixins: [],
     data() {
@@ -36,9 +38,9 @@
       
     },
     methods: {
-      goChapterList(id,bookName){
-        setStore("bookName",bookName);
-        this.$router.push({path:'/ebookChapterList',query:{id}})
+      goChapterList(id, bookName) {
+        setStore("bookName", bookName);
+        this.$router.push({path: '/ebookChapterList', query: {id}})
       }
     },
   }

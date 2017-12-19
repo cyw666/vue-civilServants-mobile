@@ -20,7 +20,7 @@
     margin: 0 auto;
     h1 {
       padding: toRem(150px) toRem(20px);
-      font-size: toRem(50px);
+      font-size: 25px;
       text-align: center;
       line-height: 100px;
     }

@@ -8,7 +8,7 @@
 </template>
 <script>
   export default {
-    name:"mb-tab",
+    name: "mb-tab",
     props: {
       fixed: Boolean,
       value: {}
@@ -18,13 +18,14 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .mb_tab{
+
+  .mb_tab {
     @include flex(center);
-    align-items:center;
-    :first-child{
+    align-items: center;
+    :first-child {
       @include border-left-radius(10px);
     }
-    :last-child{
+    :last-child {
       @include border-right-radius(10px);
       border-right: 1px solid #fff;
     }

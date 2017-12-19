@@ -22,6 +22,7 @@
 </template>
 <script>
   import mbTag from './mbTag.vue'
+
   export default {
     props: {
       data: Array,
@@ -31,44 +32,45 @@
       mbTag
     },
     methods: {
-      goDetail(Id){
-        this.$router.push({path:'classDetail',query:{Id}})
+      goDetail(Id) {
+        this.$router.push({path: 'classDetail', query: {Id}})
       }
     }
   }
 </script>
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
+
   .class_list {
     padding: 0 toRem(30px) toRem(20px);
-    li{
+    li {
       padding-top: toRem(20px);
     }
     .class_ico {
       width: toRem(92px);
       height: toRem(240px);
       @extend %pull-left;
-      img{
-        width:toRem(64px);
+      img {
+        width: toRem(64px);
       }
     }
-    .class_right{
+    .class_right {
       @extend %pull-right;
       position: relative;
-      width:toRem(590px);
-      p{
+      width: toRem(590px);
+      p {
         color: $color-text-secondary;
         margin-bottom: toRem(30px);
       }
-      .class_title{
-        font-size: toRem(28px);
+      .class_title {
+        font-size: 14px;
         font-weight: bold;
-        span{
+        span {
           color: $color-text-thirdly;
         }
       }
     }
-    .mb_tag{
+    .mb_tag {
       position: absolute;
       right: 0;
       bottom: toRem(20px);

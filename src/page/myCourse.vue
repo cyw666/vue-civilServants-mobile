@@ -4,7 +4,7 @@
 <template>
   <div class="my_course">
     <header-fix fixed>
-      <a @click="goBack" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
       <mb-tab slot="title" v-model="tabType">
         <mb-tab-item id="0">未完成</mb-tab-item>
         <mb-tab-item id="1">已完成</mb-tab-item>
@@ -12,23 +12,58 @@
       <router-link slot="right" to="/courseSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
     </header-fix>
     <div class="my_course_container">
-      <transition name="fade">
-        <section v-if="tabType=='0'" v-infinite-scroll="getMyUnFinishCourse"
+      <mt-tab-container v-model="tabType">
+        <mt-tab-container-item id="0">
+          <section v-infinite-scroll="getMyUnFinishCourse"
+                   infinite-scroll-disabled="loading"
+                   infinite-scroll-immediate-check="immediate"
+                   infinite-scroll-distance="10">
+            <course-list :course-data="courseUnFinishData"
+                         :no-data-bg="noUfDataBg"
+                         :no-data="noUfData"
+                         my-course>
+            </course-list>
+          </section>
+        </mt-tab-container-item>
+        <mt-tab-container-item id="1">
+          <section v-infinite-scroll="getMyFinishCourse"
+                   infinite-scroll-disabled="loading"
+                   infinite-scroll-immediate-check="immediate"
+                   infinite-scroll-distance="10">
+            <course-list :course-data="courseFinishData"
+                         :no-data-bg="noFDataBg"
+                         :no-data="noFData"
+                         my-course>
+            </course-list>
+          </section>
+        </mt-tab-container-item>
+      </mt-tab-container>
+      <!--<transition name="slide-left">
+        <section v-if="tabType=='0'"
+                 key="0"
+                 v-infinite-scroll="getMyUnFinishCourse"
                  infinite-scroll-disabled="loading"
                  infinite-scroll-immediate-check="immediate"
                  infinite-scroll-distance="10">
-          <course-list :course-data="courseUnFinishData" :no-data-bg="noUfDataBg" :no-data="noUfData"
-                       my-course></course-list>
+          <course-list :course-data="courseUnFinishData"
+                       :no-data-bg="noUfDataBg"
+                       :no-data="noUfData"
+                       my-course>
+          </course-list>
         </section>
-      </transition>
-      <transition name="fade">
-        <section v-if="tabType=='1'" v-infinite-scroll="getMyFinishCourse"
+        <section v-else-if="tabType=='1'"
+                 key="1"
+                 v-infinite-scroll="getMyFinishCourse"
                  infinite-scroll-disabled="loading"
                  infinite-scroll-immediate-check="immediate"
                  infinite-scroll-distance="10">
-          <course-list :course-data="courseFinishData" :no-data-bg="noFDataBg" :no-data="noFData" my-course></course-list>
+          <course-list :course-data="courseFinishData"
+                       :no-data-bg="noFDataBg"
+                       :no-data="noFData"
+                       my-course>
+          </course-list>
         </section>
-      </transition>
+      </transition>-->
     </div>
   </div>
 </template>
@@ -64,19 +99,19 @@
       element.addEventListener('touchstart', (event) => {
         if (this.prevent) event.preventDefault();
         if (this.stopPropagation) event.stopPropagation();
-        this.doOnTouchStart(event);
+//        this.doOnTouchStart(event);
       });
 
       element.addEventListener('touchmove', (event) => {
         if (this.prevent) event.preventDefault();
         if (this.stopPropagation) event.stopPropagation();
-        this.doOnTouchMove(event);
+//        this.doOnTouchMove(event);
       });
 
       element.addEventListener('touchend', (event) => {
         if (this.prevent) event.preventDefault();
         if (this.stopPropagation) event.stopPropagation();
-        this.doOnTouchEnd(event);
+//        this.doOnTouchEnd(event);
       });
     },
     components: {
@@ -152,11 +187,11 @@
         this.endX = pageX;
 //        console.log("TouchEnd" + pageX, pageY);
         //左滑
-        if (this.endX < this.startX - 10) {
+        if (this.endX < this.startX - 20) {
           this.tabType = "1";
         }
         //右滑
-        if (this.endX > this.startX + 10) {
+        if (this.endX > this.startX + 20) {
           this.tabType = "0";
         }
       },

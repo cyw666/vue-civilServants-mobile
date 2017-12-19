@@ -43,16 +43,17 @@
   import mbModel from './mbModel.vue'
   import star from './star.vue'
   import {getCourseCommentList, AddCourseComment} from '../service/getData'
+
   export default {
     data() {
       return {
-        isShowModel:false,
-        noData:false,
-        immediate:false,
-        loading:false,
-        page:1,
-        commentList:[],
-        commentCount:[],
+        isShowModel: false,
+        noData: false,
+        immediate: false,
+        loading: false,
+        page: 1,
+        commentList: [],
+        commentCount: [],
         addCourseData: {
           CourseId: this.courseId,
           Content: "",
@@ -88,13 +89,18 @@
       },
       //添加课程评论
       async addComment() {
-        let data = await AddCourseComment(this.addCourseData);
-        if (data.Type == 1) {
-          Toast({message: data.Message, position: 'bottom'});
-        }else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+        if (this.addCourseData.Content.length > 0 && this.addCourseData.Content.length <= 100) {
+          let data = await AddCourseComment(this.addCourseData);
+          if (data.Type == 1) {
+            Toast({message: data.Message, position: 'bottom'});
+          } else if (data.Type != 401) {
+            MessageBox('警告', data.Message);
+          }
+          this.isShowModel = false;
+        } else {
+          Toast({message: "评论内容不能超过100字！", position: 'bottom'});
         }
-        this.isShowModel = false;
+
       },
       openEvaluateModel() {
         this.isShowModel = true;
@@ -105,7 +111,8 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .evaluate{
+
+  .evaluate {
     .course_judge_tag {
       .title {
         @include ht-lineHt(112px);
@@ -135,7 +142,8 @@
         height: 2.45rem;
         font-size: 14px;
         background: #f7f9fc;
-        text-indent: 0.4rem;
+        text-indent: 2em;
+        padding: toRem(10px);
       }
       .submit {
         display: block;
@@ -173,7 +181,7 @@
           font-size: 14px;
           font-weight: 600;
         }
-        .star {
+        .star_grade {
           @extend %pull-right;
         }
         .date {

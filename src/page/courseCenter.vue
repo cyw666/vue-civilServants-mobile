@@ -4,7 +4,10 @@
 <template>
   <div class="courseCenter">
     <header-fix :title="courseTitle" fixed>
-      <a slot="left" @click="toggleNav"><img class="slide" src="../assets/slide.png"></a>
+      <a slot="left" @click="toggleNav">
+        <!--<img class="slide" src="../assets/slide.png">-->
+        <i class="webapp webapp-category"></i>
+      </a>
       <router-link slot="right" to="/courseSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
     </header-fix>
     <div class="container">
@@ -44,6 +47,9 @@
         noData: false,
         noDataBg: false,
       }
+    },
+    created() {
+      this.channelId = this.$route.query.id || 0;
     },
     mounted() {
       this.getChannelInfoList();

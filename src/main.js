@@ -4,6 +4,7 @@ import './plugins/flexible_css'
 import './plugins/flexible'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import './assets/iconfont/iconfont.css'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './service/filter'
@@ -22,14 +23,20 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(MintUI);
 
+//修改title
+const changeTitle = (title) => {//发送的时间格式
+  if(title){
+    document.title = title;
+  }
+}
 const router = new VueRouter({
   routes
 })
-/*router.beforeEach((to, from, next) => {
-  // console.log(to,from)
-
+router.beforeEach((to, from, next) => {
+  let title = to.meta.title;
+  changeTitle(title);
   next();
-})*/
+})
 router.afterEach((to, from) => {
   let currentUrl = window.location.href;
   setStore("currentUrl",currentUrl);

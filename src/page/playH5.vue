@@ -13,6 +13,7 @@
 </template>
 <script>
   import {GetCourseDetail, UploadTimeNode} from '../service/getData'
+  import {timeFormat} from '../plugins/utils'
 
   export default {
     data() {
@@ -72,24 +73,9 @@
       },
       //提交进度
       async updateProgress() {
-        let TimeNode = this.timeFormat(this.watchTime);
+        let TimeNode = timeFormat(this.watchTime);
         let data = await UploadTimeNode({CourseId: this.courseId, TimeNode});
         if (data.Type == 1) {
-        }
-      },
-      //提交的时间格式
-      timeFormat: function (a) {
-        var hh = parseInt(a / 3600);
-        if (hh < 10) hh = "0" + hh;
-        var mm = parseInt((a - hh * 3600) / 60);
-        if (mm < 10) mm = "0" + mm;
-        var ss = parseInt((a - hh * 3600) % 60);
-        if (ss < 10) ss = "0" + ss;
-        var length = hh.toString() + mm.toString() + ss.toString();
-        if (a > 0) {
-          return length;
-        } else {
-          return "NaN";
         }
       },
     },
