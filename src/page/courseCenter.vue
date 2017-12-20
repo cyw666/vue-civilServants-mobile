@@ -5,10 +5,9 @@
   <div class="courseCenter">
     <header-fix :title="courseTitle" fixed>
       <a slot="left" @click="toggleNav">
-        <!--<img class="slide" src="../assets/slide.png">-->
         <i class="webapp webapp-category"></i>
       </a>
-      <router-link slot="right" to="/courseSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
+      <router-link slot="right" to="/courseSearch"><i class="webapp webapp-search"></i></router-link>
     </header-fix>
     <div class="container">
       <nav-slide :show="showSlide" @showChange="showChange">

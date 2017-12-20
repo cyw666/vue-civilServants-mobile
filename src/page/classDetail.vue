@@ -9,22 +9,22 @@
     </div>
     <div class="class_detail_cont">
       <div class="class_detail_item">
-        <img src="../assets/date.png" alt="" @click="getCamera()">
+        <i class="webapp webapp-calendar"></i>
         <span class="training_label">(培训日期)</span>
         <span class="training_date">{{classDetail.StartDate | dateFilter}}—{{classDetail.EndDate | dateFilter}}</span>
       </div>
       <div class="class_detail_item">
-        <img src="../assets/address.png" alt="">
+        <i class="webapp webapp-map"></i>
         <span class="training_label">(培训地点)</span>
         <span class="training_date">{{classDetail.Address}}</span>
       </div>
       <div class="class_detail_item">
-        <img src="../assets/person.png" alt="">
+        <i class="webapp webapp-account"></i>
         <span class="training_label">(培训对象)</span>
         <span class="training_date">{{classDetail.TrainingObject}}</span>
       </div>
       <div class="class_detail_item">
-        <img src="../assets/plan.png" alt="">
+        <i class="webapp webapp-edit"></i>
         <span class="training_label">(培训计划)</span>
         <span class="training_date">{{classDetail.TeachingPlan || "无"}}</span>
       </div>
@@ -158,6 +158,14 @@
     .class_detail_cont {
       background-color: $fill-base;
       padding: 0 toRem(30px);
+      .webapp {
+        display: inline-block;
+        color: #000;
+        font-size: 20px;
+        @include ht-lineHt(50px);
+        position: relative;
+        top: 2px;
+      }
     }
     .class_detail_item {
       line-height: toRem(92px);

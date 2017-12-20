@@ -5,7 +5,6 @@
   <div class="mb-model_container">
     <transition name="fade">
       <div v-if="showModel" class="mb-model_content">
-        <!--<img class="cancel" src="../assets/cancel.png" @click="close" alt="关闭">-->
         <a @click="close" class="cancel">
           <i class="webapp webapp-close"></i>
         </a>
@@ -77,7 +76,7 @@
       right: toRem(20px);
       top: toRem(15px);
       @include square(26px);
-      .webapp-close{
+      .webapp-close {
         color: #666;
       }
     }

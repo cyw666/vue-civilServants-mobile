@@ -76,10 +76,10 @@
     .webapp-back {
       font-size: 22px;
     }
-    .webapp-search{
+    .webapp-search {
       font-size: 19px;
     }
-    .webapp-category{
+    .webapp-category {
       font-size: 20px;
     }
   }

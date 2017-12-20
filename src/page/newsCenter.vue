@@ -5,10 +5,10 @@
   <div class="newsCenter">
     <header-fix :title="articleTitle" fixed>
       <div slot="left">
-        <a @click="goBack"><img class="back_img" src="../assets/arrow.png" alt=""></a>
-        <a @click="toggleNav"><img class="slide" src="../assets/slide.png"></a>
+        <a @click="goBack"><i class="webapp webapp-back"></i></a>
+        <a @click="toggleNav"><i class="webapp webapp-category"></i></a>
       </div>
-      <router-link slot="right" to="/newsSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
+      <router-link slot="right" to="/newsSearch"><i class="webapp webapp-search"></i></router-link>
     </header-fix>
     <div class="news_container">
       <nav-slide :show="showSlide" @showChange="showChange">

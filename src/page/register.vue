@@ -30,7 +30,7 @@
         <div class="right required">
           <span class="department" @click="openGroupList">
             {{groupName}}
-            <span class="arrowRight"> > </span>
+            <span class="arrowRight"><i class="webapp webapp-more"></i></span>
           </span>
         </div>
       </div>
@@ -45,7 +45,8 @@
       </div>
       <div class="setting_item">
         <span class="label">选择职级</span>
-        <div class="right"><p @click="openGradeList">{{gradeName}} <span class="arrowRight"> > </span></p></div>
+        <div class="right"><p @click="openGradeList">{{gradeName}} <span class="arrowRight"><i
+            class="webapp webapp-more"></i></span></p></div>
       </div>
       <div class="setting_item">
         <span class="label">手机号码</span>
@@ -75,38 +76,38 @@
         <transition name="slide-left">
           <div class="cell_list" v-if="showGroupIndex == 1" key="1">
             <header-fix :title="groupName">
-              <a @click="backGroupList" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+              <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
             <div class="cell" v-for="(item,index) in groupList1" :key="index">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
-              <span class="arrow_right"> > </span>
+              <span class="arrow_right"><i class="webapp webapp-more"></i></span>
             </div>
           </div>
           <div class="cell_list" v-else-if="showGroupIndex == 2" key="2">
             <header-fix :title="groupName">
-              <a @click="backGroupList" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+              <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
             <div class="cell" v-for="(item,index) in groupList2" :key="index">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
-              <span class="arrow_right"> > </span>
+              <span class="arrow_right"><i class="webapp webapp-more"></i></span>
             </div>
           </div>
           <div class="cell_list" v-else-if="showGroupIndex == 3" key="3">
             <header-fix :title="groupName">
-              <a @click="backGroupList" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+              <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
             <div class="cell" v-for="(item,index) in groupList3" :key="index">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
-              <span class="arrow_right"> > </span>
+              <span class="arrow_right"><i class="webapp webapp-more"></i></span>
             </div>
           </div>
           <div class="cell_list" v-else-if="showGroupIndex == 4" key="4">
             <header-fix :title="groupName">
-              <a @click="backGroupList" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></a>
+              <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
             <div class="cell" v-for="(item,index) in groupList4" :key="index">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
-              <span class="arrow_right"> > </span>
+              <span class="arrow_right"><i class="webapp webapp-more"></i></span>
             </div>
           </div>
         </transition>
@@ -350,9 +351,14 @@
     .department {
       display: inline-block;
       width: 95%;
+      height: toRem(90px);
     }
     .arrowRight {
       margin-left: toRem(50px);
+      .webapp-more {
+        color: #666;
+        font-size: 20px;
+      }
     }
     .group_list {
       width: 100%;
@@ -410,13 +416,19 @@
       border-bottom: 1px solid $border-color-base;
       color: $color-text-secondary;
       font-size: 14px;
+      @extend %clearFix;
       a {
-        display: inline-block;
+        @extend %pull-left;
         color: $color-text-secondary;
-        width: 95%;
+        width: 90%;
       }
       .arrow_right {
-        float: right;
+        @extend %pull-right;
+        height: 46px;
+        .webapp-more {
+          color: #666;
+          font-size: 20px;
+        }
       }
     }
   }

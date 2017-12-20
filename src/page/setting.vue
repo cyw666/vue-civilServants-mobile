@@ -13,12 +13,8 @@
       <mt-cell title="修改密码" is-link to="/changePwd"></mt-cell>
     </div>
     <div class="cell_list_two">
-      <!--<mt-cell is-link>
-        <a class="callUs" slot="title" href="tel:0571-28990788">联系我们</a>
-      </mt-cell>-->
       <p class="contact_use">
         <a class="callUs" slot="title" href="tel:0571-28990788">联系我们</a>
-        <!--<i class="webapp webapp-more"></i>-->
         <i class="mint-cell-allow-right"></i>
       </p>
     </div>
@@ -45,7 +41,7 @@
     padding-top: toRem(92px);
     .cell_list_two {
       margin-top: toRem(20px);
-      .contact_use{
+      .contact_use {
         @include ht-lineHt(96px);
         background-color: $fill-base;
         @include flex();
@@ -56,12 +52,12 @@
         font-size: 14px;
         padding-left: toRem(50px);
       }
-      .mint-cell-allow-right{
+      .mint-cell-allow-right {
         @extend %pull-right;
         position: relative;
         right: 0;
-        top:50%;
-        &::after{
+        top: 50%;
+        &::after {
           width: 0.2rem;
           height: 0.2rem;
         }

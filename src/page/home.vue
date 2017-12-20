@@ -137,7 +137,9 @@
       ...mapActions(["getUserInformation"]),
       async getRecommendCourse() {
         let data = await GetCourseInfoList({ChannelId: -3});
-        this.recommendCourseData = data.Data.List;
+        if (data.Type == 1) {
+          this.recommendCourseData = data.Data.List;
+        }
       },
       async getSwipeData() {
         let data = await GetLink();

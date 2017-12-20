@@ -8,7 +8,6 @@
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
       <router-link slot="right" to="/addCommunication">
         <i class="webapp webapp-edit"></i>
-        <!--<img class="add_com" src="../assets/write.png" alt="">-->
       </router-link>
     </header-fix>
     <section v-infinite-scroll="getDiscussList"
@@ -25,7 +24,6 @@
             <a class="comment_img" @click.stop="openWrite(item.Id)">
               <i class="webapp webapp-comments" style="color: #89d4ff;"></i>
             </a>
-            <!--<img class="comment_img" @click.stop="openWrite(item.Id)" src="../assets/comment.png" alt=""/>-->
             <ul class="comment">
               <li v-for="(item,index) in item.List" :key="index"><span
                   class="name">{{item.UserName}}：</span>{{item.Content}}

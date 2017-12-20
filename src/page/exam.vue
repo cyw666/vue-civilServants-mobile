@@ -2,11 +2,11 @@
   <div class="exam">
     <!--头部-->
     <header-fix :title="examTitle" fixed>
-      <router-link to="/" slot="left"><img class="back_img" src="../assets/arrow.png" alt=""></router-link>
-      <router-link slot="right" to="/courseSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
+      <router-link slot="right" to="/courseSearch"><i class="webapp webapp-search"></i></router-link>
     </header-fix>
     <div class="exam_header">
-      <img src="../assets/time_ico.png" alt="">
+      <i class="webapp webapp-time" style="color: #00aeff"></i>
       <span>剩余时间：{{timeLimit ? timeLimt + "分钟" : "不限时"}}</span>
     </div>
     <div class="exam_content" v-for="(list,index) in exam" v-show="(itemNum-1)==index">
@@ -36,10 +36,12 @@
 </template>
 <script>
   import {MessageBox} from 'mint-ui';
+  import {goBack} from '../service/mixins'
   import {headerFix, mbChecklist, mbRadio} from '../components'
   import {GetExam, UpdateUserExam} from '../service/getData'
 
   export default {
+    mixins: [goBack],
     data() {
       return {
         exam: [],
@@ -75,22 +77,24 @@
     methods: {
       async getExam() {
         let data = await GetExam({Id: this.examId});
-        let exam = data.Data;
-        this.exam = exam.ThemeInfoList;
-        this.examTitle = exam.ExamTitle;
-        this.timeLimit = exam.TimeLimit;
-        this.allItem = exam.ThemeCount;
-        this.itemData = exam.ThemeInfoList[0];
-        //初始化choosedItem
-        this.exam.forEach((item, index) => {
-          let themeID = item.ThemeId;
-          let examType = item.ThemeType;
-          if (examType == 2) {
-            this.choosedItem[themeID] = []; //多选model类型为数组
-          } else {
-            this.choosedItem[themeID] = '';
-          }
-        });
+        if (data.Type == 1) {
+          let exam = data.Data;
+          this.exam = exam.ThemeInfoList;
+          this.examTitle = exam.ExamTitle;
+          this.timeLimit = exam.TimeLimit;
+          this.allItem = exam.ThemeCount;
+          this.itemData = exam.ThemeInfoList[0];
+          //初始化choosedItem
+          this.exam.forEach((item, index) => {
+            let themeID = item.ThemeId;
+            let examType = item.ThemeType;
+            if (examType == 2) {
+              this.choosedItem[themeID] = []; //多选model类型为数组
+            } else {
+              this.choosedItem[themeID] = '';
+            }
+          });
+        }
       },
       //点击下一题
       nextItem() {
@@ -121,6 +125,8 @@
                 let usedTime = endDate - t.startDate;
                 let queryData = {...data.Data, ...{usedTime}, ...{examId: t.examId}};
                 t.$router.push({path: "examResult", query: {data: JSON.stringify(queryData)}});
+              } else if (data.Type != 401) {
+                MessageBox('警告', data.Message);
               }
             })
         });

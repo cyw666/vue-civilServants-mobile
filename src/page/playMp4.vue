@@ -100,6 +100,7 @@
         let TimeNode = timeFormat(this.myVideo.currentTime);
         let data = await UploadTimeNode({CourseId: this.courseId, TimeNode});
         if (data.Type == 1) {
+          //提交成功
         }
       },
       playFunc() {

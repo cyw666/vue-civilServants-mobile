@@ -38,6 +38,7 @@
   </div>
 </template>
 <script>
+  import {MessageBox} from 'mint-ui'
   import {mapState, mapActions} from 'vuex'
   import {footerFix} from '../components'
   import {LoginOut} from '../service/getData'
@@ -61,6 +62,8 @@
         let data = await LoginOut();
         if (data.Type == 1) {
           this.$router.push('/login')
+        } else if (data.Type != 401) {
+          MessageBox('警告', data.Message);
         }
       }
     },
@@ -115,10 +118,10 @@
       padding-bottom: toRem(110px);
       margin: toRem(60px) toRem(30px) 0 toRem(40px);
     }
-    .webapp{
+    .webapp {
       font-size: toRem(32px);
     }
-    .flower{
+    .flower {
       color: #fde58b;
     }
   }

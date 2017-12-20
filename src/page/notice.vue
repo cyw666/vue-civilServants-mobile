@@ -121,7 +121,7 @@
           text-align: right;
         }
       }
-      .webapp-more{
+      .webapp-more {
         color: #666;
         font-size: 20px;
       }

@@ -8,8 +8,6 @@
       <span v-if="!hasNodes" class="tran_line pull-left"></span>
       <a class="tree_name" @click="nodeClick(dataList)">{{dataList.Name}}</a>
       <div class="tree_toggle_icon" v-if="hasNodes">
-        <!--<img v-if="!open" @click="toggle" src="../assets/dropdown.png" alt="">-->
-        <!--<img v-if="open" @click="toggle" src="../assets/pullup.png" alt="">-->
         <i v-if="open" @click="toggle" class="webapp webapp-less"></i>
         <i v-if="!open" @click="toggle" class="webapp webapp-moreunfold"></i>
       </div>
@@ -73,7 +71,7 @@
     .tree_toggle_icon {
       @extend %pull-right;
       padding-right: toRem(20px);
-      .webapp{
+      .webapp {
         color: #999;
       }
     }

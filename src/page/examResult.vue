@@ -6,8 +6,8 @@
     <!--头部-->
     <header-fix title="考试结果" fixed></header-fix>
     <div class="result_top">
-      <div class="result_icon" v-if="result.PassFlag"><img src="../assets/happy.png" alt=""><span>恭喜您！</span></div>
-      <div class="result_icon" v-if="!result.PassFlag"><img src="../assets/unHappy.png" alt=""><span>很遗憾！</span></div>
+      <div class="result_icon" v-if="result.PassFlag"><i class="webapp webapp-smile"></i><span>恭喜您！</span></div>
+      <div class="result_icon" v-if="!result.PassFlag"><i class="webapp webapp-cry"></i><span>很遗憾！</span></div>
       <p class="get_score">您的得分：{{result.Score}}分</p>
     </div>
     <div class="result_body">
@@ -65,9 +65,9 @@
       .result_icon {
         padding: toRem(120px) 0 toRem(50px) 0;
         font-size: 15px;
-      }
-      img {
-        margin-right: toRem(20px);
+        span {
+          margin-left: toRem(20px);
+        }
       }
       .get_score {
         @include ht-lineHt(60px);
@@ -99,6 +99,12 @@
         @include borderRadius(20px);
         margin-right: toRem(40px);
       }
+    }
+    .webapp-smile {
+      color: #ec4747;
+    }
+    .webapp-cry {
+      color: #999999;
     }
   }
 </style>

@@ -9,7 +9,7 @@
         <mb-tab-item id="0">未完成</mb-tab-item>
         <mb-tab-item id="1">已完成</mb-tab-item>
       </mb-tab>
-      <router-link slot="right" to="/courseSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
+      <router-link slot="right" to="/courseSearch"><i class="webapp webapp-search"></i></router-link>
     </header-fix>
     <div class="my_course_container">
       <mt-tab-container v-model="tabType">
@@ -38,32 +38,6 @@
           </section>
         </mt-tab-container-item>
       </mt-tab-container>
-      <!--<transition name="slide-left">
-        <section v-if="tabType=='0'"
-                 key="0"
-                 v-infinite-scroll="getMyUnFinishCourse"
-                 infinite-scroll-disabled="loading"
-                 infinite-scroll-immediate-check="immediate"
-                 infinite-scroll-distance="10">
-          <course-list :course-data="courseUnFinishData"
-                       :no-data-bg="noUfDataBg"
-                       :no-data="noUfData"
-                       my-course>
-          </course-list>
-        </section>
-        <section v-else-if="tabType=='1'"
-                 key="1"
-                 v-infinite-scroll="getMyFinishCourse"
-                 infinite-scroll-disabled="loading"
-                 infinite-scroll-immediate-check="immediate"
-                 infinite-scroll-distance="10">
-          <course-list :course-data="courseFinishData"
-                       :no-data-bg="noFDataBg"
-                       :no-data="noFData"
-                       my-course>
-          </course-list>
-        </section>
-      </transition>-->
     </div>
   </div>
 </template>

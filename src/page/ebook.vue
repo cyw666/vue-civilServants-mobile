@@ -6,7 +6,7 @@
     <!--头部-->
     <header-fix title="电子书" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
-      <router-link slot="right" to="/ebookSearch"><img class="search" src="../assets/search.png" alt=""></router-link>
+      <router-link slot="right" to="/ebookSearch"><i class="webapp webapp-search"></i></router-link>
     </header-fix>
     <section v-infinite-scroll="getEbookList"
              infinite-scroll-immediate-check="immediate"
