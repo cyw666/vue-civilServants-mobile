@@ -2,21 +2,19 @@
 * 班级搜索
 */
 <template>
-  <div class="classSearch">
+  <div class="classSearch container_top">
     <!--头部-->
     <header-fix title="搜索" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
-    <div class="pad_top">
-      <search v-model="keyword" :search="clickSearch">
-        <section v-infinite-scroll="getClassList"
-                 infinite-scroll-immediate-check="immediate"
-                 infinite-scroll-disabled="loading"
-                 infinite-scroll-distance="10">
-          <class-list :data="classData" :no-data-bg="noDataBg"></class-list>
-        </section>
-      </search>
-    </div>
+    <search v-model="keyword" :search="clickSearch">
+      <section v-infinite-scroll="getClassList"
+               infinite-scroll-immediate-check="immediate"
+               infinite-scroll-disabled="loading"
+               infinite-scroll-distance="10">
+        <class-list :data="classData" :no-data-bg="noDataBg"></class-list>
+      </section>
+    </search>
   </div>
 </template>
 <script>
@@ -80,11 +78,7 @@
   @import "../style/mixin";
 
   .classSearch {
-    height: 100vh;
-    overflow: hidden;
     background-color: $fill-body;
-    .pad_top {
-      padding-top: toRem(92px);
-    }
+    overflow: hidden;
   }
 </style>

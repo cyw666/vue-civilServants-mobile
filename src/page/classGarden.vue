@@ -2,7 +2,7 @@
 * 班级园地
 */
 <template>
-  <div class="class_garden">
+  <div class="class_garden container_top">
     <!--头部-->
     <header-fix title="班级园地" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -132,7 +132,6 @@
   @import "../style/mixin";
 
   .class_garden {
-    padding-top: toRem(92px);
     .filter {
       @extend %pull-left;
       color: $color-text-reverse;

@@ -1,5 +1,5 @@
 <template>
-  <div class="home_index">
+  <div class="home_index container_both">
     <header-fix title="主页" fixed>
       <router-link slot="left" to="/message" class="message">
         <i class="webapp webapp-email"></i>
@@ -183,9 +183,7 @@
   @import "../style/mixin";
 
   .home_index {
-    padding-top: toRem(92px);
     .container {
-      padding-bottom: toRem(110px);
     }
     .header {
       .message {

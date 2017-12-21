@@ -35,7 +35,7 @@ function checkStatus(response) {
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
     // console.log(response);
     if (response.data.Type == 401) {
-      if(tip){
+      if (tip) {
         tip = false;
         MessageBox.alert('您的账号已掉线，请重新登录！').then(() => {
           var currentUrl = getStore("currentUrl");
@@ -46,7 +46,7 @@ function checkStatus(response) {
             tip = true;
             clearTimeout(timer);
             timer = null;
-          },2000);
+          }, 2000);
         });
       }
     }

@@ -1,28 +1,32 @@
 <template>
-  <div class="userLogin">
+  <div class="userLogin container_top">
+    <!--头部-->
+    <header-fix title="登陆" fixed></header-fix>
     <div class="login_banner">
       <img src="../assets/login_ico.png">
     </div>
     <div class="user_login">
-      <form class="form-horizontal">
+      <form>
         <div class="form-group">
-          <label for="userName" class="control-label">用户名</label>
+          <!--<label for="userName" class="control-label">用户名</label>-->
+          <i class="webapp webapp-account"></i>
           <input v-model="Account" class="form-control" id="userName" type="text" placeholder="请输入用户名">
           <span class="acError" v-if="acError">用户名不能包含汉子</span>
         </div>
         <div class="form-group">
-          <label for="userPassword" class="control-label">密 &nbsp;&nbsp;码</label>
+          <!--<label for="userPassword" class="control-label">密 &nbsp;&nbsp;码</label>-->
+          <i class="webapp webapp-lock"></i>
           <input v-model="Password" class="form-control" id="userPassword" type="password" placeholder="请输入密码">
           <span class="pwError" v-if="pwError">密码长度6~16位</span>
         </div>
       </form>
+      <mt-button size="large" type="primary" @click.native="clickLogin">登陆</mt-button>
       <div class="checkbox">
         <label>
           <input v-model="Remember" type="checkbox"> &nbsp;记住密码
         </label>
         <a class="forget" @click="showForgetMessage">忘记密码？</a>
       </div>
-      <mt-button size="large" type="primary" @click.native="clickLogin">确定</mt-button>
       <div class="register_btn">
         <mt-button size="normal" type="primary" @click.native="toRegister" plain>
           注册账号
@@ -35,6 +39,7 @@
   import CryptoJS from 'crypto-js'
   import {mapState, mapActions} from 'vuex'
   import {MessageBox, Toast} from 'mint-ui'
+  import {headerFix} from '../components'
   import {Login} from '../service/getData'
   import {getStore, setStore, removeStore} from '../plugins/utils'
 
@@ -52,6 +57,9 @@
         pwError: false,
         acError: false,
       }
+    },
+    components: {
+      headerFix,
     },
     mounted() {
       this.Code = this.$route.query.code || '';
@@ -154,6 +162,7 @@
   @import '../style/mixin';
 
   .userLogin {
+    width: 100%;
     height: 100vh;
     background: url("../assets/login_bg.png") no-repeat center bottom;
     background-size: 100% 100%;
@@ -162,24 +171,26 @@
       text-align: center;
       img {
         width: toRem(148px);
-        padding: toRem(130px) 0;
+        padding: toRem(100px) 0;
       }
     }
     .user_login {
-      border-top: 1px solid #ddd;
-      padding-left: toRem(20px);
-      padding-right: toRem(20px);
-      .form-horizontal {
-        background: #fff;
-      }
+      padding: 0 toRem(40px);
       .form-control {
         border: none;
+        padding-left: toRem(80px);
       }
       .form-group {
-        border-bottom: 1px solid $border-color-base;
+        border: 1px solid $border-color-base;
+        background: #fff;
         position: relative;
-        label {
-          width: toRem(120px);
+        width: 100%;
+        margin-bottom: toRem(20px);
+        .webapp {
+          color: $color-text-thirdly;
+          position: absolute;
+          top: toRem(23px);
+          left: toRem(20px);
         }
       }
       .pwError, .acError {
@@ -188,9 +199,6 @@
         top: 0;
         color: $brand-error;
         @include ht-lineHt(90px);
-      }
-      .mint-button {
-        /*margin-top: toRem(30px);*/
       }
       .checkbox {
         color: $color-text-thirdly;
@@ -210,6 +218,9 @@
       .register_btn {
         padding-top: toRem(90px);
         text-align: center;
+        .mint-button {
+          height: toRem(75px);
+        }
       }
     }
   }

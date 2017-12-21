@@ -2,7 +2,7 @@
 * 考试结果
 */
 <template>
-  <div class="exam_result">
+  <div class="exam_result container_top">
     <!--头部-->
     <header-fix title="考试结果" fixed></header-fix>
     <div class="result_top">
@@ -55,9 +55,7 @@
   @import "../style/mixin";
 
   .exam_result {
-    height: 100vh;
-    background: $fill-tap;
-    margin-top: toRem(92px);
+    background: $fill-body;
     .result_top {
       background-color: $fill-base;
       height: toRem(364px);
@@ -76,12 +74,12 @@
     }
     .result_body {
       background-color: $fill-base;
-      padding: 0 toRem(30px);
       font-size: 14px;
       margin-top: toRem(20px);
       p {
         @include ht-lineHt(82px);
         border-top: 1px solid $border-color-base;
+        padding: 0 toRem(30px);
       }
     }
     .result_footer {
@@ -101,10 +99,10 @@
       }
     }
     .webapp-smile {
-      color: #ec4747;
+      color: $brand-primary;
     }
     .webapp-cry {
-      color: #999999;
+      color: $brand-primary;
     }
   }
 </style>

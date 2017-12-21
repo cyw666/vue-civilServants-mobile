@@ -2,7 +2,7 @@
 * 历史记录
 */
 <template>
-  <div class="history">
+  <div class="history container_top">
     <!--头部-->
     <header-fix title="历史记录" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -77,7 +77,6 @@
       },
       handleTopChange(status) {
         this.topStatus = status;
-        console.log(status);
       },
       //今天历史记录
       async getTodayHistory() {
@@ -103,9 +102,7 @@
   @import "../style/mixin";
 
   .history {
-    padding-top: toRem(92px);
     .history_container {
-      /*margin-top: toRem(92px);*/
     }
     .history_course {
       padding: toRem(20px) toRem(30px);

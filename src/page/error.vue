@@ -4,7 +4,7 @@
 <template>
   <div class="error">
     <h1>
-      <span>404 没有此页面！</span>
+      <span><i class="webapp webapp-cry"></i> &nbsp;没有此页面！</span>
     </h1>
   </div>
 </template>
@@ -23,6 +23,10 @@
       font-size: 25px;
       text-align: center;
       line-height: 100px;
+    }
+    .webapp-cry {
+      font-size: 22px;
+      color: #333;
     }
   }
 </style>

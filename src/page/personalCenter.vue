@@ -2,7 +2,7 @@
 * 个人中心
 */
 <template>
-  <div class="personalCenter">
+  <div class="personalCenter container_bottom">
     <div class="person_top">
       <img src="../assets/person_cener_avatar.png" alt="">
       <div class="my_info">
@@ -120,9 +120,6 @@
     }
     .webapp {
       font-size: toRem(32px);
-    }
-    .flower {
-      color: #fde58b;
     }
   }
 </style>

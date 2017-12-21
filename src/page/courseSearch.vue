@@ -2,24 +2,22 @@
 * 课程搜索
 */
 <template>
-  <div class="courseSearch">
+  <div class="courseSearch container_top">
     <!--头部-->
     <header-fix title="搜索" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
-    <div class="pad_top">
-      <search v-model="keyword" :search="clickSearch">
-        <section slot v-infinite-scroll="getCourseList"
-                 infinite-scroll-immediate-check="immediate"
-                 infinite-scroll-disabled="loading"
-                 infinite-scroll-distance="10">
-          <course-list :course-data="courseData"
-                       :no-data-bg="noDataBg"
-                       :no-data="noData">
-          </course-list>
-        </section>
-      </search>
-    </div>
+    <search v-model="keyword" :search="clickSearch">
+      <section slot v-infinite-scroll="getCourseList"
+               infinite-scroll-immediate-check="immediate"
+               infinite-scroll-disabled="loading"
+               infinite-scroll-distance="10">
+        <course-list :course-data="courseData"
+                     :no-data-bg="noDataBg"
+                     :no-data="noData">
+        </course-list>
+      </section>
+    </search>
   </div>
 </template>
 <script>
@@ -92,11 +90,7 @@
   @import "../style/mixin";
 
   .courseSearch {
-    min-height: 100vh;
-    overflow: hidden;
     background-color: $fill-body;
-    .pad_top {
-      padding-top: toRem(92px);
-    }
+    overflow: hidden;
   }
 </style>

@@ -7,14 +7,12 @@ import getters from './getters'
 Vue.use(Vuex)
 
 const state = {
-  userInfo: {
-  
-  }
+  userInfo: {}
 }
 
 export default new Vuex.Store({
-	state,
-	getters,
-	actions,
-	mutations,
+  state,
+  getters,
+  actions,
+  mutations,
 })

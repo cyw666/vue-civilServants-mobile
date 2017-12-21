@@ -64,7 +64,7 @@ export const GetMessageCenter = (data) => fetch.post(Api.GetMessageCenter.url, {
 /**
  * 通知内容
  */
-export const GetNoticeInfoContent = (data) => fetch.post(Api.GetNoticeInfoContent.url+'/'+data.Id, {...Api.GetNoticeInfoContent.data, ...data});
+export const GetNoticeInfoContent = (data) => fetch.post(Api.GetNoticeInfoContent.url + '/' + data.Id, {...Api.GetNoticeInfoContent.data, ...data});
 
 /**
  * 课程详情

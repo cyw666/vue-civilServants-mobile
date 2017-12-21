@@ -2,7 +2,7 @@
 * 修改手机号码
 */
 <template>
-  <div class="change_mobile">
+  <div class="change_mobile container_top">
     <!--头部-->
     <header-fix title="修改手机号码" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -129,8 +129,6 @@
   @import "../style/mixin";
 
   .change_mobile {
-    padding-top: toRem(92px);
-    height: 92vh;
     background-color: $fill-body;
     .change_mobile_list {
     }
@@ -142,7 +140,7 @@
       }
       input {
         display: inline-block;
-        width: 65%;
+        width: 70%;
         line-height: 1.2em;
         padding: toRem(20px);
         font-size: 14px;

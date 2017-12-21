@@ -2,28 +2,26 @@
 * 课程中心
 */
 <template>
-  <div class="courseCenter">
+  <div class="courseCenter container_both">
     <header-fix :title="courseTitle" fixed>
       <a slot="left" @click="toggleNav">
         <i class="webapp webapp-category"></i>
       </a>
       <router-link slot="right" to="/courseSearch"><i class="webapp webapp-search"></i></router-link>
     </header-fix>
-    <div class="container">
-      <nav-slide :show="showSlide" @showChange="showChange">
-        <div slot="left" class="category">
-          <tree :data="courseCategory" :on-select="searchCourse"></tree>
-        </div>
-        <div slot="right">
-          <section v-infinite-scroll="getCourseList"
-                   infinite-scroll-immediate-check="immediate"
-                   infinite-scroll-disabled="loading"
-                   infinite-scroll-distance="10">
-            <course-list :course-data="courseData" :no-data-bg="noDataBg" :no-data="noData"></course-list>
-          </section>
-        </div>
-      </nav-slide>
-    </div>
+    <nav-slide :show="showSlide" @showChange="showChange">
+      <div slot="left" class="category">
+        <tree :data="courseCategory" :on-select="searchCourse"></tree>
+      </div>
+      <div slot="right">
+        <section v-infinite-scroll="getCourseList"
+                 infinite-scroll-immediate-check="immediate"
+                 infinite-scroll-disabled="loading"
+                 infinite-scroll-distance="10">
+          <course-list :course-data="courseData" :no-data-bg="noDataBg" :no-data="noData"></course-list>
+        </section>
+      </div>
+    </nav-slide>
     <footer-fix selected="courseCenter"></footer-fix>
   </div>
 </template>
@@ -114,21 +112,7 @@
   @import "../style/mixin";
 
   .courseCenter {
-    .slide {
-      width: toRem(35px);
-    }
-    .search {
-      width: toRem(39px);
-    }
-    .container {
-      padding-top: toRem(92px);
-      padding-bottom: toRem(110px);
-      width: 100%;
-      height: 85vh;
-      overflow: hidden;
-    }
-    .category {
-      padding: toRem(20px) 0;
-    }
+    width: 100vw;
+    height: 100vh;
   }
 </style>

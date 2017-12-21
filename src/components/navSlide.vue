@@ -21,19 +21,8 @@
         showLayer: this.show
       }
     },
-    created() {
-      
-    },
-    mounted() {
-      
-    },
     props: {
       show: Boolean
-    },
-    components: {},
-    computed: {},
-    updated() {
-      
     },
     methods: {
       closeLayer() {
@@ -46,7 +35,6 @@
         this.showLayer = val;
       }
     }
-    
   }
 </script>
 
@@ -57,6 +45,7 @@
     width: 100%;
     height: 100%;
     position: relative;
+    overflow: hidden;
     .nav_left {
       background-color: #fff;
       position: absolute;

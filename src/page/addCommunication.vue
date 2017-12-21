@@ -2,7 +2,7 @@
 * 添加讨论
 */
 <template>
-  <div class="add_communication">
+  <div class="add_communication container_top">
     <!--头部-->
     <header-fix title="交流评论" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -52,14 +52,12 @@
   @import "../style/mixin";
 
   .add_communication {
-    padding-top: toRem(92px);
-    width: 10rem;
-    height: 93vh;
+    width: 100vw;
     background-color: $fill-body;
     textarea {
       display: block;
       resize: none;
-      width: 9.2rem;
+      width: 100vw;
       padding: toRem(20px) toRem(30px);
       font-size: 14px;
     }

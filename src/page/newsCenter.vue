@@ -2,7 +2,7 @@
 * 新闻中心
 */
 <template>
-  <div class="newsCenter">
+  <div class="newsCenter container_top">
     <header-fix :title="articleTitle" fixed>
       <div slot="left">
         <a @click="goBack"><i class="webapp webapp-back"></i></a>
@@ -10,21 +10,19 @@
       </div>
       <router-link slot="right" to="/newsSearch"><i class="webapp webapp-search"></i></router-link>
     </header-fix>
-    <div class="news_container">
-      <nav-slide :show="showSlide" @showChange="showChange">
-        <div slot="left" class="category">
-          <tree :data="articleCategory" :on-select="searchArticle"></tree>
-        </div>
-        <div slot="right">
-          <section v-infinite-scroll="getArticleList"
-                   infinite-scroll-immediate-check="immediate"
-                   infinite-scroll-disabled="loading"
-                   infinite-scroll-distance="10">
-            <news-list :news-data="articleData" :no-data-bg="noDataBg" :no-data="noData"></news-list>
-          </section>
-        </div>
-      </nav-slide>
-    </div>
+    <nav-slide :show="showSlide" @showChange="showChange">
+      <div slot="left" class="category">
+        <tree :data="articleCategory" :on-select="searchArticle"></tree>
+      </div>
+      <div slot="right">
+        <section v-infinite-scroll="getArticleList"
+                 infinite-scroll-immediate-check="immediate"
+                 infinite-scroll-disabled="loading"
+                 infinite-scroll-distance="10">
+          <news-list :news-data="articleData" :no-data-bg="noDataBg" :no-data="noData"></news-list>
+        </section>
+      </div>
+    </nav-slide>
   </div>
 </template>
 <script>
@@ -114,21 +112,7 @@
   @import "../style/mixin";
 
   .newsCenter {
-    .slide {
-      width: toRem(35px);
-      margin-left: toRem(30px);
-    }
-    .search {
-      width: toRem(39px);
-    }
-    .news_container {
-      padding-top: toRem(92px);
-      width: 100%;
-      height: 93vh;
-      overflow: scroll;
-    }
-    .category {
-      padding: toRem(20px) 0;
-    }
+    width: 100vw;
+    height: 100vh;
   }
 </style>

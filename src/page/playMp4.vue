@@ -2,7 +2,7 @@
 * Mp4播放页
 */
 <template>
-  <div class="play_Mp4">
+  <div class="play_Mp4 container_top">
     <!--头部-->
     <header-fix title="视频播放" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -150,8 +150,6 @@
   @import "../style/mixin";
 
   .play_Mp4 {
-    padding-top: toRem(92px);
-    min-height: 93vh;
     .open_app {
       position: fixed;
       left: 0;
@@ -179,19 +177,18 @@
         line-height: toRem(40px);
       }
     }
-  }
-
-  .player {
-    padding-top: 0.2rem;
-    width: 10rem;
-    height: 5.8rem;
-    margin: 0 auto;
-    position: relative;
-    background: #000;
-    video {
-      height: 100%;
-      margin: 0 auto;
+    .player {
+      padding-top: 0.2rem;
       width: 10rem;
+      height: 5.8rem;
+      margin: 0 auto;
+      position: relative;
+      background: #000;
+      video {
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+      }
     }
   }
 </style>

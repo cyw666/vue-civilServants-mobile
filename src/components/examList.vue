@@ -47,7 +47,6 @@
         default: false
       },
     },
-    components: {},
     methods: {
       checkAttempt(id, total, current, endTime) {
         var dateEnd = new Date(endTime).getTime();

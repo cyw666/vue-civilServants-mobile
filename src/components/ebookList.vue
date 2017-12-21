@@ -19,7 +19,6 @@
   import {setStore} from '../plugins/utils'
 
   export default {
-    mixins: [],
     data() {
       return {
         errorBook
@@ -32,10 +31,6 @@
     },
     components: {
       errorImg
-    },
-    computed: {},
-    updated() {
-      
     },
     methods: {
       goChapterList(id, bookName) {

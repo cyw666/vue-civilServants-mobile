@@ -84,7 +84,7 @@ export default {
   //用户课程列表 Finish => 1：完成课程，0：未完成课程 ,2：表示全部
   GetUserCourseInfoList: {
     url: API_URL + Platform + '/GetUserCourseInfoList',
-    data: {Finish: "2", Keyword: "",Page: 1, Rows: 10}
+    data: {Finish: "2", Keyword: "", Page: 1, Rows: 10}
   },
   //文章频道
   GetArticleChannelInfoList: {
@@ -99,17 +99,17 @@ export default {
   //文章详情
   ArticleDetail: {
     url: API_URL + Platform + '/ArticleDetail',
-    data: {Id:''}
+    data: {Id: ''}
   },
   //通知公告
   GetNoticeInfoList: {
     url: API_URL + Platform + '/GetNoticeInfoList',
-    data: {Keyword:'', Page: '1', Rows: '10'}
+    data: {Keyword: '', Page: '1', Rows: '10'}
   },
   //排行榜 RankType => 1：学时， 2：课程，3：单位
   GetRankInfoList: {
     url: API_URL + Platform + '/GetRankInfoList',
-    data: {RankType:'',TotalCount:'20'}
+    data: {RankType: '', TotalCount: '20'}
   },
   //培训班分类
   GetTrainingTypeList: {
@@ -204,27 +204,37 @@ export default {
   //修改手机号
   UpdateMobile: {
     url: API_URL + Platform + '/UpdateMobile',
-    data: {OldMobile:'',NewMobile:'',SmgCode:''}
+    data: {OldMobile: '', NewMobile: '', SmgCode: ''}
   },
   //发送验证码
   SendMsg: {
     url: API_URL + Platform + '/SendMsg',
-    data: {MobileNo:''}
+    data: {MobileNo: ''}
   },
   //修改密码
   SetUserPassword: {
     url: API_URL + Platform + '/SetUserPassword',
-    data: {OldPassword:'',Password:''}
+    data: {OldPassword: '', Password: ''}
   },
   //单位列表
   GetGroupList: {
     url: API_URL + Platform + '/GetGroupList',
-    data: {ParentId:'1'}
+    data: {ParentId: '1'}
   },
   //注册
   Register: {
     url: API_URL + Platform + '/Register',
-    data: {Account: "", Password: "", Name: "", GroupId: "", IdCard: "", Grade: "", Mobile: "", SmgCode: "", PortalId: 1,}
+    data: {
+      Account: "",
+      Password: "",
+      Name: "",
+      GroupId: "",
+      IdCard: "",
+      Grade: "",
+      Mobile: "",
+      SmgCode: "",
+      PortalId: 1,
+    }
   },
   //讨论列表
   DiscussList: {
@@ -239,7 +249,7 @@ export default {
   //课程评论
   getCourseCommentList: {
     url: API_URL + Platform + '/getCourseCommentList',
-    data: {CourseId: "", Keyword: "", Page: "1", Rows:'10'}
+    data: {CourseId: "", Keyword: "", Page: "1", Rows: '10'}
   },
   //添加课程评论
   AddCourseComment: {
@@ -249,7 +259,7 @@ export default {
   //提交精品课程进度
   SyncUserStudyData: {
     url: API_URL + Platform + '/SyncUserStudyData',
-    data: {CourseId: "", Data: {NodeId:'',Time:'',Status:''}}
+    data: {CourseId: "", Data: {NodeId: '', Time: '', Status: ''}}
   },
   //提交Mp4课程进度
   UploadTimeNode: {

@@ -12,33 +12,33 @@ $brand-success: #6abf47;
 $brand-info: #26a2ff;
 $brand-warning: #ffc600;
 $brand-error: #f4333c;
-$brand-important: #ff5b05;  // 用于小红点
+$brand-important: #ff5b05; // 用于小红点
 $brand-wait: #ec4747;
 
 // 边框色
 $border-color-base: #ddd;
 $border-color-light: #e8e8e8;
 // 文字色
-$color-text-base: #333;                  // 基本
-$color-text-reverse: #fff;                  // 白色
-$color-text-secondary: #666;          // 辅助色
-$color-text-thirdly: #999;          // 辅助色
-$color-text-placeholder: #bbb;           // 文本框提示
-$color-text-disabled: #bbb;              // 失效
-$color-text-caption: #888;               // 辅助描述
-$color-link: $brand-primary;             // 链接
-$color-highlight: $brand-primary;             // 高亮
+$color-text-base: #333; // 基本
+$color-text-reverse: #fff; // 白色
+$color-text-secondary: #666; // 辅助色
+$color-text-thirdly: #999; // 辅助色
+$color-text-placeholder: #bbb; // 文本框提示
+$color-text-disabled: #bbb; // 失效
+$color-text-caption: #888; // 辅助描述
+$color-link: $brand-primary; // 链接
+$color-highlight: $brand-primary; // 高亮
 // 背景色
-$fill-base: #fff;                           // 组件默认背景
-$fill-body: #f5f5f9;                        // 页面背景
-$fill-tap: #ddd;                            // 组件默认背景 - 按下
-$fill-disabled: #ddd;                       // 通用失效背景
-$fill-mask: rgba(0, 0, 0, 0.4);              // 遮罩背景
-$color-icon-base: #ccc;                      // 许多小图标的背景，比如一些小圆点，加减号
+$fill-base: #fff; // 组件默认背景
+$fill-body: #f5f5f9; // 页面背景
+$fill-tap: #ddd; // 组件默认背景 - 按下
+$fill-disabled: #ddd; // 通用失效背景
+$fill-mask: rgba(0, 0, 0, 0.4); // 遮罩背景
+$color-icon-base: #ccc; // 许多小图标的背景，比如一些小圆点，加减号
 $fill-grey: #f7f7f7;
 
 // 透明度
-$opacity-disabled: 0.3;   // switch checkbox radio 等组件禁用的透明度
+$opacity-disabled: 0.3; // switch checkbox radio 等组件禁用的透明度
 
 // 字体尺寸
 $font-size-icontext: 10 * $hd;
@@ -85,6 +85,7 @@ $font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans 
   -o-border-radius: toRem($radius);
   border-radius: toRem($radius);
 }
+
 //圆角
 @mixin border-top-radius($radius) {
   border-top-right-radius: toRem($radius);
@@ -105,6 +106,7 @@ $font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans 
   border-bottom-left-radius: toRem($radius);
   border-top-left-radius: toRem($radius);
 }
+
 @mixin opacity($opacity:1) {
   opacity: $opacity;
   -moz-opacity: $opacity;
@@ -148,19 +150,21 @@ $font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans 
 }
 
 //flex 布局和 子元素 对其方式
-@mixin flex($type: space-between){
+@mixin flex($type: space-between) {
   display: flex;
   display: -webkit-flex;
   justify-content: $type;
 }
+
 //超出第n行显示...
-@mixin ellipsis_two ($line_num:2){
-  overflow:hidden;
-  text-overflow:ellipsis;
-  display:-webkit-box;
-  -webkit-box-orient:vertical;
-  -webkit-line-clamp:$line_num;
+@mixin ellipsis_two($line_num:2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line_num;
 }
+
 // 左浮动
 %pull-left {
   float: left !important;

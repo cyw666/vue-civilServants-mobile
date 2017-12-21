@@ -24,8 +24,8 @@ Vue.use(VueRouter);
 Vue.use(MintUI);
 
 //修改title
-const changeTitle = (title) => {//发送的时间格式
-  if(title){
+const changeTitle = (title) => {
+  if (title) {
     document.title = title;
   }
 }
@@ -39,7 +39,7 @@ router.beforeEach((to, from, next) => {
 })
 router.afterEach((to, from) => {
   let currentUrl = window.location.href;
-  setStore("currentUrl",currentUrl);
+  setStore("currentUrl", currentUrl);
 })
 
 var vm = new Vue({

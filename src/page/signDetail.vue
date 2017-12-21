@@ -2,7 +2,7 @@
 * 签到详情
 */
 <template>
-  <div class="sign_detail">
+  <div class="sign_detail container_top">
     <!--头部-->
     <header-fix title="签到详情" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -44,6 +44,6 @@
   @import "../style/mixin";
 
   .sign_detail {
-    padding-top: toRem(92px);
+
   }
 </style>

@@ -2,21 +2,19 @@
 * 新闻搜索
 */
 <template>
-  <div class="newsSearch">
+  <div class="newsSearch container_top">
     <!--头部-->
     <header-fix title="搜索" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
-    <div class="pad_top">
-      <search v-model="keyword" :search="clickSearch">
-        <section slot v-infinite-scroll="getArticleList"
-                 infinite-scroll-immediate-check="immediate"
-                 infinite-scroll-disabled="loading"
-                 infinite-scroll-distance="10">
-          <news-list :news-data="articleData" :no-data-bg="noDataBg" :no-data="noData"></news-list>
-        </section>
-      </search>
-    </div>
+    <search v-model="keyword" :search="clickSearch">
+      <section slot v-infinite-scroll="getArticleList"
+               infinite-scroll-immediate-check="immediate"
+               infinite-scroll-disabled="loading"
+               infinite-scroll-distance="10">
+        <news-list :news-data="articleData" :no-data-bg="noDataBg" :no-data="noData"></news-list>
+      </section>
+    </search>
   </div>
 </template>
 <script>
@@ -90,8 +88,5 @@
     height: 100vh;
     overflow: hidden;
     background-color: $fill-body;
-    .pad_top {
-      padding-top: toRem(92px);
-    }
   }
 </style>

@@ -2,7 +2,7 @@
 * 考试中心
 */
 <template>
-  <div class="examCenter">
+  <div class="examCenter container_both">
     <header-fix :title="examTitle" fixed>
       <a slot="left" @click="toggleNav">
         <i class="webapp webapp-category"></i>
@@ -18,25 +18,23 @@
         </router-link>
       </div>
     </header-fix>
-    <div class="container">
-      <nav-slide :show="showSlide" @showChange="showChange">
-        <div slot="left" class="category">
-          <tree :data="examCategory" :on-select="searchExam" :scroll-bottom="getExamList"
-                :loading="loading"></tree>
-        </div>
-        <div slot="right">
-          <section v-infinite-scroll="getExamList"
-                   infinite-scroll-immediate-check="immediate"
-                   infinite-scroll-disabled="loading"
-                   infinite-scroll-distance="10">
-            <exam-list :exam-data="examData"
-                       :no-data-bg="noDataBg"
-                       :no-data="noData">
-            </exam-list>
-          </section>
-        </div>
-      </nav-slide>
-    </div>
+    <nav-slide :show="showSlide" @showChange="showChange">
+      <div slot="left" class="category">
+        <tree :data="examCategory" :on-select="searchExam" :scroll-bottom="getExamList"
+              :loading="loading"></tree>
+      </div>
+      <div slot="right">
+        <section v-infinite-scroll="getExamList"
+                 infinite-scroll-immediate-check="immediate"
+                 infinite-scroll-disabled="loading"
+                 infinite-scroll-distance="10">
+          <exam-list :exam-data="examData"
+                     :no-data-bg="noDataBg"
+                     :no-data="noData">
+          </exam-list>
+        </section>
+      </div>
+    </nav-slide>
     <div class="filter_layer" v-if="showFilter" @click="toggleFilter"></div>
     <div class="filter_list" :class="{'show':showFilter}">
       <p class="filter_item filter_title"><span>筛选条件</span></p>
@@ -171,9 +169,8 @@
   @import "../style/mixin";
 
   .examCenter {
-    .slide {
-      width: toRem(35px);
-    }
+    width: 100vw;
+    height: 100vh;
     .filter {
       @extend %pull-left;
       color: $color-text-reverse;
@@ -186,19 +183,6 @@
       .webapp {
         font-size: 20px;
       }
-    }
-    .search {
-      width: toRem(39px);
-    }
-    .container {
-      padding-top: toRem(92px);
-      padding-bottom: toRem(110px);
-      width: 100%;
-      height: 85vh;
-      overflow: hidden;
-    }
-    .category {
-      padding: toRem(20px) 0;
     }
     .filter_layer {
       position: absolute;

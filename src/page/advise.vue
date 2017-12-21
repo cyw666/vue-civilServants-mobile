@@ -2,7 +2,7 @@
 * 信息反馈
 */
 <template>
-  <div class="advise">
+  <div class="advise container_top">
     <!--头部-->
     <header-fix title="反馈中心" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -88,8 +88,6 @@
   @import "../style/mixin";
 
   .advise {
-    padding-top: toRem(92px);
-    height: 92vh;
     background-color: $fill-body;
     .advise_type {
       background-color: $fill-base;
@@ -114,22 +112,21 @@
       }
     }
     .advise_title {
-      padding: 0 toRem(20px);
       margin: toRem(20px) 0;
       background-color: $fill-base;
       input {
         display: block;
         width: 100%;
         font-size: 14px;
-        padding: toRem(20px) 0;
+        padding: toRem(20px);
         line-height: 1.2em;
       }
     }
     .advise_content {
-      padding: toRem(20px);
       background-color: $fill-base;
       textarea {
         display: block;
+        padding: toRem(20px);
         width: 100%;
         font-size: 14px;
         resize: none;

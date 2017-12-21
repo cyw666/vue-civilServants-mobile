@@ -24,12 +24,6 @@
         currentValue: this.value
       }
     },
-    created() {
-
-    },
-    mounted() {
-
-    },
     props: {
       options: {
         type: Array,
@@ -37,12 +31,6 @@
       },
       value: String
     },
-    components: {},
-    computed: {},
-    updated() {
-
-    },
-    methods: {},
     watch: {
       value(val) {
         this.currentValue = val;
@@ -51,7 +39,6 @@
         this.$emit('input', val);
       }
     }
-
   }
 </script>
 

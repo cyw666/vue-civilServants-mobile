@@ -2,7 +2,7 @@
 * 设置
 */
 <template>
-  <div class="setting">
+  <div class="setting container_top">
     <!--头部-->
     <header-fix title="设置" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -36,9 +36,7 @@
   @import "../style/mixin";
 
   .setting {
-    height: 92vh;
     background-color: $fill-body;
-    padding-top: toRem(92px);
     .cell_list_two {
       margin-top: toRem(20px);
       .contact_use {
@@ -53,10 +51,8 @@
         padding-left: toRem(50px);
       }
       .mint-cell-allow-right {
-        @extend %pull-right;
         position: relative;
         right: 0;
-        top: 50%;
         &::after {
           width: 0.2rem;
           height: 0.2rem;

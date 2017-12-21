@@ -36,22 +36,22 @@
     </transition>
     <transition name="fade">
       <div v-if="showConfig" class="ebook_config">
-        <mt-tabbar fixed :class="{'night':isNight}">
+        <mt-tabbar fixed>
           <mt-tab-item id="ebookChapterList" :href="'#/ebookChapterList?id='+detailData.BookContentId">
-            <i slot="icon" class="webapp webapp-bookmark" style="color: #838484;"></i>
+            <i slot="icon" class="webapp webapp-bookmark"></i>
             目录
           </mt-tab-item>
           <mt-tab-item id="ebook" href="#/ebook">
-            <i slot="icon" class="webapp webapp-book" style="color: #838484;"></i>
+            <i slot="icon" class="webapp webapp-book"></i>
             电子书
           </mt-tab-item>
           <mt-tab-item id="setting" @click.native.stop="toggleStyleSetting">
-            <i slot="icon" class="webapp webapp-set" style="color: #838484;"></i>
+            <i slot="icon" class="webapp webapp-set"></i>
             设置
           </mt-tab-item>
           <mt-tab-item id="night" @click.native.stop="toggleNight">
-            <i v-if="isNight" slot="icon" class="webapp webapp-moon" style="color: #838484;"></i>
-            <i v-if="!isNight" slot="icon" class="webapp webapp-sun" style="color: #838484;"></i>
+            <i v-if="isNight" slot="icon" class="webapp webapp-moon"></i>
+            <i v-if="!isNight" slot="icon" class="webapp webapp-sun"></i>
             {{isNight ? "白天" : "夜间"}}
           </mt-tab-item>
         </mt-tabbar>
@@ -200,6 +200,12 @@
       }
     }
     .ebook_config {
+      .webapp {
+        color: $color-text-reverse;
+      }
+      .mint-tabbar {
+        background-color: rgba(0, 0, 0, 0.4);
+      }
       .mint-tabbar > .mint-tab-item.is-selected {
         background-color: #eaeaea;
         color: $brand-primary;
@@ -214,6 +220,7 @@
       }
       .mint-tab-item-label {
         font-size: 12px;
+        color: $color-text-reverse;
       }
     }
     .content {

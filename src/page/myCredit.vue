@@ -2,7 +2,7 @@
 * 我的学时
 */
 <template>
-  <div class="my_credit">
+  <div class="my_credit container_top">
     <!--头部-->
     <header-fix title="我的学分" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -60,7 +60,6 @@
   @import "../style/mixin";
 
   .my_credit {
-    padding-top: toRem(92px);
     .cell_list_one, .cell_list_two, .cell_list_three {
       padding: 0 toRem(20px);
     }

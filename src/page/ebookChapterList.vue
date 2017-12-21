@@ -2,7 +2,7 @@
 * 图书章节
 */
 <template>
-  <div class="ebook_chapter">
+  <div class="ebook_chapter container_top">
     <!--头部-->
     <header-fix :title="bookName" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -85,7 +85,6 @@
   @import "../style/mixin";
 
   .ebook_chapter {
-    padding-top: toRem(92px);
     .ebook_chapter_list {
       padding: 0 toRem(30px);
     }

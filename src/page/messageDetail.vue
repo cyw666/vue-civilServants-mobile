@@ -2,7 +2,7 @@
 * 消息详情
 */
 <template>
-  <div class="message_detail">
+  <div class="message_detail container_top">
     <!--头部-->
     <header-fix :title="title" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -52,12 +52,9 @@
   @import "../style/mixin";
 
   .message_detail {
-    padding-top: toRem(92px);
-  }
-
-  .articleDet {
-    font-size: 16px;
-    text-indent: 2em;
-    padding: toRem(20px);
+    .articleDet {
+      font-size: 16px;
+      padding: toRem(20px);
+    }
   }
 </style>

@@ -17,27 +17,10 @@
 <script>
   export default {
     name: "header-fix",
-    data() {
-      return {}
-    },
-    created() {
-
-    },
-    mounted() {
-
-    },
     props: {
       title: String,
       fixed: Boolean
     },
-    components: {},
-    computed: {},
-    updated() {
-
-    },
-    methods: {},
-    watch: {}
-
   }
 </script>
 

@@ -2,7 +2,7 @@
 * 消息中心
 */
 <template>
-  <div class="message">
+  <div class="message container_top">
     <!--头部-->
     <header-fix title="消息中心" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -98,10 +98,10 @@
 
   .message {
     .message_list {
-      padding: toRem(92px) toRem(30px) 0 toRem(30px);
+      padding: 0 toRem(30px);
     }
     .message_item {
-      padding: toRem(30px) 0;
+      padding: toRem(25px) 0;
       border-bottom: 1px solid $border-color-base;
     }
     .message_title {

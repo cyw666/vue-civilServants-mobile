@@ -14,22 +14,11 @@
 </template>
 <script>
   export default {
-    mixins: [],
-    data() {
-      return {}
-    },
-    created() {
-      
-    },
-    mounted() {
-      
-    },
     props: {
       value: [Object],
       dataList: Array,
       active: [String, Number]
     },
-    components: {},
     computed: {
       activeNode: function () {
         let dataList = this.dataList;
@@ -43,16 +32,11 @@
         return node;
       }
     },
-    updated() {
-      
-    },
-    methods: {},
     watch: {
       activeNode: function (val) {
         this.$emit('input', val);
       }
     }
-    
   }
 </script>
 

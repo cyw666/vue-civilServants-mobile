@@ -2,7 +2,7 @@
 * 电子书
 */
 <template>
-  <div class="ebook">
+  <div class="ebook container_top">
     <!--头部-->
     <header-fix title="电子书" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -73,27 +73,24 @@
   @import "../style/mixin";
 
   .ebook {
-    padding-top: toRem(92px);
-  }
-
-  .ebook_list {
-    @extend %clearFix;
-  }
-
-  .ebook_item {
-    @extend %pull-left;
-    text-align: center;
-    width: 33.3%;
-    padding-top: toRem(25px);
-    img {
-      @include wh(176px, 234px);
+    .ebook_list {
+      @extend %clearFix;
     }
-    .ebook_name {
-      line-height: toRem(50px);
-    }
-    .ebook_author {
-      line-height: toRem(40px);
+    .ebook_item {
+      @extend %pull-left;
+      text-align: center;
+      width: 33.3%;
+      padding-top: toRem(25px);
+      img {
+        @include wh(176px, 234px);
+      }
+      .ebook_name {
+        line-height: toRem(50px);
+      }
+      .ebook_author {
+        line-height: toRem(40px);
 
+      }
     }
   }
 </style>

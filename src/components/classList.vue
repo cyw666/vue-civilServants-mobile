@@ -42,7 +42,9 @@
   @import "../style/mixin";
 
   .class_list {
-    padding: 0 toRem(30px) toRem(20px);
+    background: $fill-base;
+    margin-top: toRem(20px);
+    padding: 0 toRem(30px);
     li {
       padding-top: toRem(20px);
     }

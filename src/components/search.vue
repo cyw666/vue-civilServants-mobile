@@ -45,22 +45,21 @@
 
   .search_com {
     .search_bar {
-      height: 0.8rem;
-      padding: 0.266667rem 0.4rem;
+      padding: toRem(20px);
       background: #fff;
       @extend %clearFix;
       input {
         @extend %pull-left;
-        width: toRem(530px);
-        padding: toRem(15px) 0 toRem(15px) toRem(20px);
-        margin-right: toRem(30px);
+        width: 7.5rem;
+        padding: toRem(15px) toRem(30px) toRem(15px) toRem(20px);
         background: $fill-body;
         font-size: 14px;
         @include borderRadius(10px);
       }
       .mint-button--primary {
         @extend %pull-left;
-        width: toRem(110px);
+        margin-left: toRem(20px);
+        width: toRem(120px);
         height: toRem(60px);
       }
     }

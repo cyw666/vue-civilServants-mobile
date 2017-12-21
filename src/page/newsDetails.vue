@@ -64,11 +64,11 @@
     padding: toRem(92px) toRem(30px) toRem(30px) toRem(30px);
     .read_count {
       display: inline-block;
-      @include wh(104px, 40px);
-      line-height: toRem(40px);
+      @include wh(130px, 50px);
+      line-height: toRem(50px);
       text-align: center;
-      @include border-left-radius(20px);
-      @include border-right-radius(20px);
+      @include border-left-radius(25px);
+      @include border-right-radius(25px);
       background-color: #fff;
       color: $brand-primary;
       font-size: 12px;

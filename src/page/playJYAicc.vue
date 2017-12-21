@@ -2,7 +2,7 @@
 * JYAicc播放页
 */
 <template>
-  <div class="play_Jyaicc">
+  <div class="play_Jyaicc container_top">
     <!--头部-->
     <header-fix title="视频播放" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -233,8 +233,6 @@
   @import "../style/mixin";
 
   .play_Jyaicc {
-    padding-top: toRem(92px);
-    min-height: 93vh;
     .course_menu {
       padding: 0 toRem(30px);
       font-size: 15px;
@@ -283,19 +281,19 @@
         line-height: toRem(40px);
       }
     }
-  }
-
-  .player {
-    padding-top: 0.2rem;
-    width: 10rem;
-    height: 5.8rem;
-    margin: 0 auto;
-    position: relative;
-    background: #000;
-    video {
-      height: 100%;
-      margin: 0 auto;
+    .player {
+      padding-top: 0.2rem;
       width: 10rem;
+      height: 5.8rem;
+      margin: 0 auto;
+      position: relative;
+      background: #000;
+      video {
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+      }
     }
   }
+
 </style>

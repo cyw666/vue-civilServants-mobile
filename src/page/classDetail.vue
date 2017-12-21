@@ -132,6 +132,7 @@
   @import "../style/mixin";
 
   .class_detail {
+    padding-bottom: toRem(90px);
     .sign_bg {
       position: relative;
       height: toRem(471px);
@@ -214,8 +215,15 @@
       }
     }
     .cancel {
-      margin-top: toRem(50px);
-      padding: 0 toRem(10px) toRem(20px) toRem(10px);
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      /*margin-top: toRem(50px);*/
+      /*padding: 0 toRem(10px) toRem(20px) toRem(10px);*/
+      .mint-button--large {
+        border-radius: 0;
+      }
     }
 
   }

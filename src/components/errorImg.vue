@@ -11,22 +11,12 @@
         imgErrorSrc: this.errorSrc
       }
     },
-    created() {
-
-    },
     mounted() {
       this.$refs.img.onerror = () => {
         this.imageSrc = this.imgErrorSrc || baseErrorSrc
       }
     },
     props: ['src', 'errorSrc'],
-    components: {},
-    computed: {},
-    updated() {
-
-    },
-    methods: {},
-    watch: {}
 
   }
 </script>

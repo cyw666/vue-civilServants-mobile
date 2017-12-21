@@ -3,6 +3,9 @@
 *,
 *:before,
 *:after {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -10,7 +13,7 @@ body {
   font-family: $font-family;
   font-size: $font-size-base;
   color: $color-text-base;
-  background-color: #fff;
+  background-color: $fill-base;
   min-height: 100vh;
   width: 100%;
 }
@@ -72,8 +75,8 @@ a {
   color: $color-text-base;
 }
 
-a{
-  &:hover{
+a {
+  &:hover {
     text-decoration: none;
   }
   &:focus {
@@ -137,10 +140,29 @@ label {
   background: url(../assets/no_data.png) no-repeat center center;
   background-size: toRem(255px) toRem(425px);
 }
+
+//容器
+.container_top {
+  padding-top: toRem(92px);
+  min-height: 100vh;
+}
+
+.container_bottom {
+  padding-bottom: toRem(105px);
+  min-height: 100vh;
+}
+
+.container_both {
+  padding-top: toRem(92px);
+  padding-bottom: toRem(105px);
+  min-height: 100vh;
+}
+
 //iconfont
-.webapp{
+.webapp {
   color: $color-text-reverse;
 }
+
 //高亮
 .highlight {
   color: $color-highlight;
@@ -317,7 +339,7 @@ body {
 
 //轮播
 .mint-swipe-indicator {
-  &.is-active{
+  &.is-active {
     background: $brand-primary;
     opacity: 0.9;
   }
@@ -352,7 +374,7 @@ body {
   .mint-cell-text {
     margin-left: toRem(30px);
   }
-  .mint-cell-title{
+  .mint-cell-title {
     @include flex(flex-start);
     align-items: center;
   }

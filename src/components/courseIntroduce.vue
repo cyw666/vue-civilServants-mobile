@@ -31,27 +31,10 @@
   import star from './star.vue'
 
   export default {
-    mixins: [],
-    data() {
-      return {}
-    },
-    created() {
-      
-    },
-    mounted() {
-      
-    },
     props: ["courseDetails"],
     components: {
       star
     },
-    computed: {},
-    updated() {
-      
-    },
-    methods: {},
-    watch: {}
-    
   }
 </script>
 

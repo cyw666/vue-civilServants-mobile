@@ -23,16 +23,12 @@
         showModel: this.isShow
       }
     },
-    mounted() {
-      
-    },
     props: {
       isShow: {
         type: Boolean,
         default: false
       },
     },
-    computed: {},
     methods: {
       close() {
         this.showModel = false;
@@ -49,7 +45,6 @@
         this.$emit('update:isShow', val);
       }
     }
-    
   }
 </script>
 

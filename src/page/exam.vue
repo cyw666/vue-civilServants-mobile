@@ -175,7 +175,7 @@
       }
     }
     .exam_content {
-      padding: 0 toRem(30px);
+      padding: 0 toRem(40px);
       .exam_name {
         margin: toRem(30px) 0 toRem(100px) 0;
         span {
@@ -187,9 +187,9 @@
       }
       .exam_list {
         margin-top: toRem(20px);
+        padding: 0;
         li {
           border-bottom: 1px solid $fill-tap;
-          /*height: torem(40px);*/
           line-height: toRem(80px);
           input:focus {
             outline: none;
@@ -199,7 +199,6 @@
             width: 85%;
             font-size: 16px;
           }
-          padding: 0 toRem(20px);
         }
       }
     }

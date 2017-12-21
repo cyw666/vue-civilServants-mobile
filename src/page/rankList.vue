@@ -2,7 +2,7 @@
 * 排行傍
 */
 <template>
-  <div class="rankList">
+  <div class="rankList container_top">
     <!--头部-->
     <header-fix title="排行榜" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -17,7 +17,7 @@
     <mt-tab-container v-model="selected">
       <mt-tab-container-item id="1">
         <table class="table">
-          <thead>
+          <thead class="fixed_rank_title">
           <tr>
             <th class="rank">排名</th>
             <th class="student">学员</th>
@@ -37,7 +37,7 @@
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
         <table class="table">
-          <thead>
+          <thead class="fixed_rank_title">
           <tr>
             <th class="rank">排名</th>
             <th class="student">课程</th>
@@ -57,7 +57,7 @@
       </mt-tab-container-item>
       <mt-tab-container-item id="3">
         <table class="table">
-          <thead>
+          <thead class="fixed_rank_title">
           <tr>
             <th class="rank">排名</th>
             <th class="student">单位</th>
@@ -123,7 +123,23 @@
   @import "../style/mixin";
 
   .rankList {
-    padding-top: toRem(92px);
+    padding-top: toRem(280px);
+    .mint-navbar {
+      position: fixed;
+      top: toRem(92px);
+      left: 0;
+      width: 100%;
+      background-color: $fill-body;
+      z-index: 10;
+    }
+    .fixed_rank_title {
+      position: fixed;
+      top: toRem(204px);
+      left: 0;
+      width: 100%;
+      background-color: $fill-body;
+      z-index: 10;
+    }
     .table {
       width: 100%;
       text-align: center;
@@ -156,6 +172,5 @@
         width: toRem(225px);
       }
     }
-
   }
 </style>

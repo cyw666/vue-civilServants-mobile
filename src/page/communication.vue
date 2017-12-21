@@ -2,7 +2,7 @@
 * 交流评论
 */
 <template>
-  <div class="communication">
+  <div class="communication container_top">
     <!--头部-->
     <header-fix title="交流评论" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -138,7 +138,6 @@
   @import "../style/mixin";
 
   .communication {
-    padding-top: toRem(92px);
     .add_com {
       width: toRem(31px);
     }
@@ -179,6 +178,7 @@
         .comment {
           margin-top: toRem(45px);
           background: $fill-grey;
+          padding: toRem(10px);
           li {
             font-size: 14px;
             padding: toRem(5px) toRem(10px);

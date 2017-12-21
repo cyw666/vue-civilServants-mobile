@@ -2,7 +2,7 @@
 * 通知公告
 */
 <template>
-  <div class="notice_center">
+  <div class="notice_center container_top">
     <!--头部-->
     <header-fix title="通知公告" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -46,19 +46,11 @@
         noData: false,
       }
     },
-    created() {
-      
-    },
     mounted() {
       this.getNoticeInfoList();
     },
-    props: [],
     components: {
       headerFix,
-    },
-    computed: {},
-    updated() {
-      
     },
     methods: {
       async getNoticeInfoList() {
@@ -87,8 +79,6 @@
         this.$router.push({path: '/messageDetail', query: {id, title: '通知详情'}})
       },
     },
-    watch: {}
-    
   }
 </script>
 
@@ -96,12 +86,11 @@
   @import "../style/mixin";
 
   .notice_center {
-    padding-top: toRem(92px);
     .notice_list {
       padding: 0 toRem(30px);
     }
     .notice_item {
-      border-bottom: 1px solid $border-color-base;
+      border-bottom: 1px solid $border-color-light;
       padding: toRem(10px) 0;
       .title {
         .pull-left {

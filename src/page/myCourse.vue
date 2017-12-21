@@ -2,7 +2,7 @@
 * 我的课程
 */
 <template>
-  <div class="my_course">
+  <div class="my_course container_top">
     <header-fix fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
       <mb-tab slot="title" v-model="tabType">
@@ -174,15 +174,5 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  @import "../style/mixin";
 
-  .my_course {
-    .search {
-      @include square(39px);
-    }
-  }
-
-  .my_course_container {
-    padding-top: toRem(92px);
-  }
 </style>

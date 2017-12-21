@@ -2,7 +2,7 @@
 * 个人信息修改
 */
 <template>
-  <div class="user_info_edit">
+  <div class="user_info_edit container_top">
     <!--头部-->
     <header-fix title="个人信息修改" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -326,8 +326,6 @@
   @import "../style/mixin";
 
   .user_info_edit {
-    padding-top: toRem(92px);
-    height: 92vh;
     background-color: $fill-body;
     .setting_item {
       @extend %clearFix;
@@ -411,8 +409,7 @@
       color: $color-text-reverse;
     }
     .subimt_edit {
-      margin-top: toRem(50px);
-      padding: 0 toRem(30px);
+      padding: toRem(50px) toRem(30px) 0;
     }
   }
 </style>

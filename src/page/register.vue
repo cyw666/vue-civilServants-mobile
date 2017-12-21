@@ -2,7 +2,7 @@
 * 注册
 */
 <template>
-  <div class="register">
+  <div class="register container_top">
     <!--头部-->
     <header-fix title="注册" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -28,10 +28,10 @@
       <div class="setting_item">
         <span class="label">选择部门</span>
         <div class="right required">
-          <span class="department" @click="openGroupList">
+          <p class="department" @click="openGroupList">
             {{groupName}}
             <span class="arrowRight"><i class="webapp webapp-more"></i></span>
-          </span>
+          </p>
         </div>
       </div>
 
@@ -45,8 +45,11 @@
       </div>
       <div class="setting_item">
         <span class="label">选择职级</span>
-        <div class="right"><p @click="openGradeList">{{gradeName}} <span class="arrowRight"><i
-            class="webapp webapp-more"></i></span></p></div>
+        <div class="right">
+          <p class="department" @click="openGradeList">{{gradeName}}
+            <span class="arrowRight"><i class="webapp webapp-more"></i></span>
+          </p>
+        </div>
       </div>
       <div class="setting_item">
         <span class="label">手机号码</span>
@@ -80,7 +83,7 @@
             </header-fix>
             <div class="cell" v-for="(item,index) in groupList1" :key="index">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
-              <span class="arrow_right"><i class="webapp webapp-more"></i></span>
+              <i class="webapp webapp-more"></i>
             </div>
           </div>
           <div class="cell_list" v-else-if="showGroupIndex == 2" key="2">
@@ -89,7 +92,7 @@
             </header-fix>
             <div class="cell" v-for="(item,index) in groupList2" :key="index">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
-              <span class="arrow_right"><i class="webapp webapp-more"></i></span>
+              <i class="webapp webapp-more"></i>
             </div>
           </div>
           <div class="cell_list" v-else-if="showGroupIndex == 3" key="3">
@@ -98,7 +101,7 @@
             </header-fix>
             <div class="cell" v-for="(item,index) in groupList3" :key="index">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
-              <span class="arrow_right"><i class="webapp webapp-more"></i></span>
+              <i class="webapp webapp-more"></i>
             </div>
           </div>
           <div class="cell_list" v-else-if="showGroupIndex == 4" key="4">
@@ -107,7 +110,7 @@
             </header-fix>
             <div class="cell" v-for="(item,index) in groupList4" :key="index">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
-              <span class="arrow_right"><i class="webapp webapp-more"></i></span>
+              <i class="webapp webapp-more"></i>
             </div>
           </div>
         </transition>
@@ -310,8 +313,6 @@
   @import "../style/mixin";
 
   .register {
-    padding-top: toRem(92px);
-    height: 92vh;
     background-color: $fill-body;
     .setting_item {
       @extend %clearFix;
@@ -354,7 +355,7 @@
       height: toRem(90px);
     }
     .arrowRight {
-      margin-left: toRem(50px);
+      @extend %pull-right;
       .webapp-more {
         color: #666;
         font-size: 20px;
@@ -417,18 +418,17 @@
       color: $color-text-secondary;
       font-size: 14px;
       @extend %clearFix;
+      position: relative;
       a {
         @extend %pull-left;
         color: $color-text-secondary;
-        width: 90%;
+        width: 100%;
       }
-      .arrow_right {
-        @extend %pull-right;
-        height: 46px;
-        .webapp-more {
-          color: #666;
-          font-size: 20px;
-        }
+      .webapp-more {
+        color: #666;
+        font-size: 20px;
+        position: absolute;
+        right: 0;
       }
     }
   }

@@ -2,7 +2,7 @@
 * 修改密码
 */
 <template>
-  <div class="change_pwd">
+  <div class="change_pwd container_top">
     <!--头部-->
     <header-fix title="修改密码" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -81,15 +81,13 @@
   @import "../style/mixin";
 
   .change_pwd {
-    padding-top: toRem(92px);
-    height: 92vh;
     background-color: $fill-body;
     .change_mobile_item {
       background-color: $fill-base;
       margin-top: toRem(20px);
       input {
         display: inline-block;
-        width: 90%;
+        width: 100%;
         padding: toRem(20px) toRem(20px);
         line-height: 1.2em;
         font-size: 14px;
