@@ -12,7 +12,7 @@
           <p>报名时间：截止到{{item.SignEndDate | dateFilter}}</p>
           <p>培训地点：{{item.Address}}</p>
           <mb-tag v-if="item.Status == 'UnJoin'" type="error">未报名</mb-tag>
-          <mb-tag v-if="item.Status == 'Join'" type="info">已报名</mb-tag>
+          <mb-tag v-if="item.Status == 'Join'" type="success">已报名</mb-tag>
           <mb-tag v-if="item.Status == 'UnAudit'" type="info">审核中</mb-tag>
         </div>
       </li>
@@ -42,11 +42,9 @@
   @import "../style/mixin";
 
   .class_list {
-    background: $fill-base;
-    margin-top: toRem(20px);
-    padding: 0 toRem(30px);
     li {
-      padding-top: toRem(20px);
+      background: $fill-base;
+      padding: toRem(20px) toRem(30px);
     }
     .class_ico {
       width: toRem(92px);

@@ -75,10 +75,9 @@
   @import "../style/mixin";
 
   .exam_list {
-    padding: 0 toRem(30px);
-    background-color: $fill-base;
     .exam_item {
-      padding: toRem(20px) 0;
+      background-color: $fill-base;
+      padding: toRem(20px) toRem(30px);
       border-bottom: 1px solid $border-color-base;
       @extend %clearFix;
     }

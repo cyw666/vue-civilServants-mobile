@@ -40,8 +40,13 @@ function checkStatus(response) {
         MessageBox.alert('您的账号已掉线，请重新登录！').then(() => {
           var currentUrl = getStore("currentUrl");
           window.localStorage.removeItem('ASPXAUTH');
-          var loginUrl = "/#/login?currentUrl=" + encodeURIComponent(currentUrl);
-          window.location.href = loginUrl;
+  
+          if (getStore("userAgent").weixin) {
+            window.location = getStore("URL");
+          } else if(getStore("userAgent").mobile){
+            var loginUrl = "/#/login?currentUrl=" + encodeURIComponent(currentUrl);
+            window.location.href = loginUrl;
+          }
           var timer = setTimeout(function () {
             tip = true;
             clearTimeout(timer);

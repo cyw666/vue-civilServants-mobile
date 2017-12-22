@@ -183,7 +183,7 @@
     }
     .bg_container {
       padding: toRem(30px);
-      min-height: 95%;
+      min-height: 100vh;
     }
     .ebook_footer {
       padding-top: toRem(20px);

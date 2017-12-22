@@ -75,7 +75,7 @@
         }
       },
       clickSearch() {
-        if (this.keyword != this.oldKeyword) {
+        if (this.keyword != this.oldKeyword && !!this.keyword) {
           this.courseData = [];
           this.page = 1;
           this.getCourseList();

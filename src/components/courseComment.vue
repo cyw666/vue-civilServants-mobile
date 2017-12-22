@@ -142,7 +142,6 @@
         height: 2.45rem;
         font-size: 14px;
         background: #f7f9fc;
-        text-indent: 2em;
         padding: toRem(10px);
       }
       .submit {

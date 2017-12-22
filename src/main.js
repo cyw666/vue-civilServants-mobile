@@ -1,7 +1,5 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import './plugins/flexible_css'
-import './plugins/flexible'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import './assets/iconfont/iconfont.css'
@@ -12,7 +10,7 @@ import './service/filter'
 import './style/base.scss'
 import routes from './router'
 import store from './store/'
-import {setStore} from './plugins/utils'
+import {setStore,userAgent} from './plugins/utils'
 
 //注册全局组建
 /*import mbTag from './components/mbTag.vue'
@@ -38,8 +36,12 @@ router.beforeEach((to, from, next) => {
   next();
 })
 router.afterEach((to, from) => {
+  /*存入当前url*/
   let currentUrl = window.location.href;
   setStore("currentUrl", currentUrl);
+  /*判断mobile weixin*/
+  let agent = userAgent();
+  setStore('userAgent',agent);
 })
 
 var vm = new Vue({

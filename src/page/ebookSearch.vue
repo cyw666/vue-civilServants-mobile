@@ -63,7 +63,7 @@
         }
       },
       clickSearch() {
-        if (this.keyword != this.oldKeyword) {
+        if (this.keyword != this.oldKeyword && !!this.keyword) {
           this.ebookData = [];
           this.page = 1;
           this.getEbookList();

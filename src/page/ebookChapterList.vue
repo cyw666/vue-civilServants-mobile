@@ -89,7 +89,8 @@
       padding: 0 toRem(30px);
     }
     .ebook_chapter_item {
-      line-height: toRem(90px);
+      padding: toRem(20px) 0;
+      line-height: toRem(40px);
       border-bottom: 1px solid $border-color-base;
       font-size: 14px;
     }

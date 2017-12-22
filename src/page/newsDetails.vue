@@ -64,7 +64,8 @@
     padding: toRem(92px) toRem(30px) toRem(30px) toRem(30px);
     .read_count {
       display: inline-block;
-      @include wh(130px, 50px);
+      min-width: toRem(130px);
+      height: toRem(50px);
       line-height: toRem(50px);
       text-align: center;
       @include border-left-radius(25px);
@@ -79,6 +80,7 @@
     text-align: center;
     color: $color-text-secondary;
     border-bottom: 1px dashed $border-color-base;
+    padding-top: toRem(20px);
     h2 {
       font-weight: 500;
       font-size: 18px;
@@ -91,5 +93,8 @@
 
   .article_details_content {
     padding-top: toRem(20px);
+    img {
+      width: 100%;
+    }
   }
 </style>

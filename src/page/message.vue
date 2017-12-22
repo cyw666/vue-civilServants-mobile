@@ -16,7 +16,7 @@
           <div class="message_title" :class="{'read':item.ReadFlag}">{{item.Title}}</div>
           <div class="message_info clearFix">
             <span class="pull-left">{{item.Createdate | dateFilter('yyyy.MM.dd')}}</span>
-            <span class="pull-right" v-if="item.Type=='Course'"><img src="../assets/video_ico.png" alt=""></span>
+            <span class="pull-right" v-if="item.Type=='Course'"><i class="webapp webapp-video" style="color: #ee3f3f"></i></span>
           </div>
         </div>
         <div class="noDataBg" v-if="noDataBg"></div>

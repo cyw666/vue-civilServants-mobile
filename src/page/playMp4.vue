@@ -8,7 +8,7 @@
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="player">
-      <video id="myVideo" preload="meta" :src="courseDetails.OnlineUrl" controls
+      <video v-if="isWeChat" id="myVideo" preload="meta" :src="courseDetails.OnlineUrl" controls
              style="object-fit:fill"
              x5-video-player-type="h5"
              webkit-playsinline="true"
@@ -17,6 +17,7 @@
              x5-video-player-fullscreen="true"
              x5-video-orientation="portraint">
       </video>
+      <video v-else id="myVideo" preload="meta" :src="courseDetails.OnlineUrl" controls></video>
     </div>
     <div class="course_detail">
       <mt-navbar v-model="selected">
@@ -45,12 +46,13 @@
   import {headerFix, courseIntroduce, courseComment} from '../components'
   import {goBack} from '../service/mixins'
   import {GetCourseDetail, UploadTimeNode} from '../service/getData'
-  import {timeFormat} from '../plugins/utils'
+  import {timeFormat,getStore} from '../plugins/utils'
 
   export default {
     mixins: [goBack],
     data() {
       return {
+        isWeChat: false, //是否是微信
         isOpen: true,
         selected: 'introduce',
         courseId: '', //课程id
@@ -65,6 +67,11 @@
       }
     },
     created() {
+      if (getStore("userAgent").weixin) {
+        this.isWeChat = true;
+      } else if (getStore("userAgent").mobile) {
+        this.isWeChat = false;
+      }
       this.courseId = this.$route.query.id;
     },
     mounted() {

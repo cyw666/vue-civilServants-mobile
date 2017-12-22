@@ -51,6 +51,7 @@
   @import "../style/mixin";
 
   .tree_container {
+    width: 100%;
     padding: 0 0 0 toRem(20px);
   }
 
@@ -59,12 +60,11 @@
   }
 
   .tree_title {
-    /*border-bottom: 2px solid $border-color-base;*/
     @include ht-lineHt(90px);
     @extend %clearFix;
     .tree_name {
-      display: inline-block;
-      width: 70%;
+      @extend %pull-left;
+      width: 80%;
       @extend %ellipsis;
       line-height: toRem(90px);
     }

@@ -209,7 +209,7 @@
     }
     .class_desc {
       .class_course_detail {
-        padding: 0 toRem(30px);
+        padding: 0 toRem(30px) toRem(10px);
         text-indent: 2em;
         font-size: 14px;
       }
@@ -219,8 +219,6 @@
       left: 0;
       right: 0;
       bottom: 0;
-      /*margin-top: toRem(50px);*/
-      /*padding: 0 toRem(10px) toRem(20px) toRem(10px);*/
       .mint-button--large {
         border-radius: 0;
       }

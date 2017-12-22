@@ -1,5 +1,5 @@
 /**
-* 课程搜索
+* 考试搜索
 */
 <template>
   <div class="examSearch container_top">
@@ -78,7 +78,7 @@
       },
 
       clickSearch() {
-        if (this.keyword != this.oldKeyword) {
+        if (this.keyword != this.oldKeyword && !!this.keyword) {
           this.examData = [];
           this.page = 1;
           this.getExamList();

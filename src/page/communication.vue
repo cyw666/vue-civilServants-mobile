@@ -196,21 +196,20 @@
       bottom: 0;
       left: 0;
       background: $fill-body;
-      padding-top: toRem(30px);
+      padding: toRem(30px) toRem(30px) 0 toRem(30px);
       textarea {
         display: block;
         resize: none;
         width: 9.2rem;
-        margin-left: toRem(20px);
         border: 1px solid #e9e9e9;
         border-radius: toRem(10px);
-        padding: toRem(30px);
+        padding: toRem(20px);
         font-size: 16px;
       }
       .mint-button--primary {
         background-color: $brand-info;
         @extend %pull-right;
-        margin: toRem(10px);
+        margin: toRem(10px) 0 toRem(10px) toRem(10px);
       }
     }
   }

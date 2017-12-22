@@ -1,15 +1,15 @@
 <template>
-  <div class="exam">
+  <div class="exam container_both">
     <!--头部-->
     <header-fix :title="examTitle" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
-      <router-link slot="right" to="/courseSearch"><i class="webapp webapp-search"></i></router-link>
+      <router-link slot="right" to="/examSearch"><i class="webapp webapp-search"></i></router-link>
     </header-fix>
     <div class="exam_header">
       <i class="webapp webapp-time" style="color: #00aeff"></i>
       <span>剩余时间：{{timeLimit ? timeLimt + "分钟" : "不限时"}}</span>
     </div>
-    <div class="exam_content" v-for="(list,index) in exam" v-show="(itemNum-1)==index">
+    <div class="exam_content" v-for="(list,index) in exam" v-if="(itemNum-1)==index">
       <p class="exam_name">
         <span class="red" v-if="list.ThemeType==0">【判断题】</span>
         <span class="red" v-if="list.ThemeType==1">【单选题】</span>
@@ -164,8 +164,7 @@
 
   .exam {
     .exam_header {
-      padding-top: toRem(92px);
-      margin: 0 toRem(30px);
+      padding: 0 toRem(30px);
       border-bottom: 1px solid $border-color-base;
       text-align: center;
       font-size: 16px;
@@ -177,7 +176,7 @@
     .exam_content {
       padding: 0 toRem(40px);
       .exam_name {
-        margin: toRem(30px) 0 toRem(100px) 0;
+        padding: toRem(30px) 0 toRem(100px) 0;
         span {
           font-size: 16px;
         }
@@ -186,8 +185,6 @@
         }
       }
       .exam_list {
-        margin-top: toRem(20px);
-        padding: 0;
         li {
           border-bottom: 1px solid $fill-tap;
           line-height: toRem(80px);

@@ -74,7 +74,6 @@
   @import "../style/mixin";
 
   .personalCenter {
-    height: 100vh;
     background-color: $fill-body;
     .person_top {
       width: 10rem;

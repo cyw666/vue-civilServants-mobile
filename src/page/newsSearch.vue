@@ -71,7 +71,7 @@
         }
       },
       clickSearch() {
-        if (this.keyword != this.oldKeyword) {
+        if (this.keyword != this.oldKeyword && !!this.keyword) {
           this.articleData = [];
           this.page = 1;
           this.getArticleList();

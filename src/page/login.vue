@@ -8,15 +8,13 @@
     <div class="user_login">
       <form>
         <div class="form-group">
-          <!--<label for="userName" class="control-label">用户名</label>-->
           <i class="webapp webapp-account"></i>
-          <input v-model="Account" class="form-control" id="userName" type="text" placeholder="请输入用户名">
+          <input v-model="Account" class="form-control" type="text" placeholder="请输入用户名">
           <span class="acError" v-if="acError">用户名不能包含汉子</span>
         </div>
         <div class="form-group">
-          <!--<label for="userPassword" class="control-label">密 &nbsp;&nbsp;码</label>-->
           <i class="webapp webapp-lock"></i>
-          <input v-model="Password" class="form-control" id="userPassword" type="password" placeholder="请输入密码">
+          <input v-model="Password" class="form-control" type="password" placeholder="请输入密码">
           <span class="pwError" v-if="pwError">密码长度6~16位</span>
         </div>
       </form>
@@ -38,10 +36,10 @@
 <script>
   import CryptoJS from 'crypto-js'
   import {mapState, mapActions} from 'vuex'
-  import {MessageBox, Toast} from 'mint-ui'
+  import {MessageBox, Toast, Indicator} from 'mint-ui'
   import {headerFix} from '../components'
   import {Login} from '../service/getData'
-  import {getStore, setStore, removeStore} from '../plugins/utils'
+  import {getStore, setStore, removeStore, getQueryString} from '../plugins/utils'
 
   export default {
     name: 'login',
@@ -55,11 +53,16 @@
         key: "jy365jy365jy365y",
         iv: "0392039203920300",
         pwError: false,
-        acError: false,
+        acError: false
       }
     },
     components: {
       headerFix,
+    },
+    created() {
+      this.Code = getQueryString('code') || "";
+      setStore('URL', 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf24d72db02fede73&redirect_uri=http%3a%2f%2ftest10.jy365.net%2fwechat%2fpages%2flogin.html&response_type=code&scope=snsapi_base#wechat_redirect');
+      setStore('indexUrl', 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf24d72db02fede73&redirect_uri=http%3a%2f%2ftest10.jy365.net%2fwechat%2findex.html&response_type=code&scope=snsapi_base#wechat_redirect');
     },
     mounted() {
       this.Code = this.$route.query.code || '';
@@ -89,7 +92,9 @@
           Code: this.Code,
           Mac: this.Account
         }
+        Indicator.open();
         let res = await Login(loginParams);
+        Indicator.close();
         if (res.Type == 1) {
           if (this.Remember) {
             this.encrypt("a_app", this.Account);
@@ -100,12 +105,17 @@
             this.encrypt("p_app", "");
             setStore("remember", false);
           }
-          this.$router.replace(this.backUrl);
+          /*判断 weixin,mobile*/
+          if (getStore("userAgent").weixin) {
+            window.location = getStore("indexUrl");
+          } else if (getStore("userAgent").mobile) {
+            this.$router.replace(this.backUrl);
+          }
         } else if (res.Type == 0) {
           MessageBox('警告', res.Message);
         }
         else {
-          MessageBox('警告', "登陆失败!");
+          MessageBox('警告', "登陆异常!");
         }
       },
       encrypt(name, value) {
@@ -171,7 +181,7 @@
       text-align: center;
       img {
         width: toRem(148px);
-        padding: toRem(100px) 0;
+        padding: toRem(90px) 0;
       }
     }
     .user_login {
@@ -195,10 +205,10 @@
       }
       .pwError, .acError {
         position: absolute;
-        right: 0;
+        right: toRem(10px);
         top: 0;
         color: $brand-error;
-        @include ht-lineHt(90px);
+        @include ht-lineHt(80px);
       }
       .checkbox {
         color: $color-text-thirdly;

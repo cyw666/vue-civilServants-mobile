@@ -61,10 +61,8 @@
   @import "../style/mixin";
 
   .course_list {
-    padding: 0 toRem(30px);
     .course_item {
-      /*margin: toRem(20px) 0;*/
-      padding: toRem(20px) 0;
+      padding: toRem(20px) toRem(30px);
       @extend %clearFix;
       background-color: $fill-base;
       border-bottom: 1px solid $border-color-base;

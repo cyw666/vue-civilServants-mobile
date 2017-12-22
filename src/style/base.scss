@@ -134,11 +134,10 @@ label {
 
 .noDataBg {
   display: block;
-  //width: toRem(750px);
-  height: toRem(900px);
+  height: toRem(700px);
   text-align: center;
   background: url(../assets/no_data.png) no-repeat center center;
-  background-size: toRem(255px) toRem(425px);
+  background-size: toRem(254px) toRem(405px);
 }
 
 //容器

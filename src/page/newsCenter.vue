@@ -6,7 +6,7 @@
     <header-fix :title="articleTitle" fixed>
       <div slot="left">
         <a @click="goBack"><i class="webapp webapp-back"></i></a>
-        <a @click="toggleNav"><i class="webapp webapp-category"></i></a>
+        <a @click="toggleNav" class="category_icon"><i class="webapp webapp-category"></i></a>
       </div>
       <router-link slot="right" to="/newsSearch"><i class="webapp webapp-search"></i></router-link>
     </header-fix>
@@ -114,5 +114,8 @@
   .newsCenter {
     width: 100vw;
     height: 100vh;
+    .category_icon{
+      margin-left: toRem(15px);
+    }
   }
 </style>

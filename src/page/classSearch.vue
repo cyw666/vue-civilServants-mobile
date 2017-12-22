@@ -64,7 +64,7 @@
         }
       },
       clickSearch() {
-        if (this.keyword != this.oldKeyword) {
+        if (this.keyword != this.oldKeyword && !!this.keyword) {
           this.classData = [];
           this.page = 1;
           this.getClassList();
