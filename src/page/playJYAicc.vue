@@ -8,7 +8,7 @@
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="player">
-      <video v-if="isWeChat" id="myVideo" preload="meta" :src="activeNode.Mp4" controls
+      <video id="myVideo" preload="meta" :src="activeNode.Mp4" controls
              style="object-fit:fill"
              x5-video-player-type="h5"
              webkit-playsinline="true"
@@ -17,7 +17,7 @@
              x5-video-player-fullscreen="true"
              x5-video-orientation="portraint">
       </video>
-      <video v-else id="myVideo" preload="meta" :src="activeNode.Mp4" controls></video>
+      <!--<video v-else id="myVideo" preload="meta" :src="activeNode.Mp4" controls autoplay></video>-->
     </div>
     <div class="course_detail">
       <mt-navbar v-model="selected">
@@ -155,6 +155,8 @@
               /*是否自动播放*/
               if (this.autoPlay) {
                 this.myVideo.play();
+              } else {
+                this.myVideo.pause();
               }
             }
             /*监听视频播放位置*/
@@ -176,9 +178,14 @@
             });
             /*监听视频播放结束*/
             this.myVideo.addEventListener('ended', () => {
-              this.activeNode.Status = 'C';
-              this.updateProgress(this.activeNode.NodeId, this.myVideo.currentTime, this.activeNode.Status);
-              this.nextNode();
+              /*判断是否是拖拽到结束*/
+              if (this.progressTime > this.duration - 2) {
+                this.activeNode.Status = 'C';
+                this.updateProgress(this.activeNode.NodeId, this.myVideo.currentTime, this.activeNode.Status);
+                this.nextNode();
+              }else {
+                this.myVideo.play();
+              }
             });
           }
         }, 200);
@@ -197,16 +204,14 @@
             let nextNodeIndex = this.activeNodeIndex + 1
             this.playNode(nextNodeIndex);
           }).catch(error => {
-            this.progressTime = 0;
-            this.myVideo.currentTime = 0;
-            this.myVideo.play();
-            this.autoPlay = true;
+            this.myVideo.pause();
+            this.autoPlay = false;
           });
         }
       },
       /*点击节点播放其他章节*/
       otherNode(index) {
-        this.autoPlay = false;
+        this.autoPlay = true;
         this.playNode(index);
       }
     },

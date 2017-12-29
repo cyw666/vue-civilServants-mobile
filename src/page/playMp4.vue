@@ -8,7 +8,7 @@
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="player">
-      <video v-if="isWeChat" id="myVideo" preload="meta" :src="courseDetails.OnlineUrl" controls
+      <video id="myVideo" preload="meta" :src="courseDetails.OnlineUrl" controls
              style="object-fit:fill"
              x5-video-player-type="h5"
              webkit-playsinline="true"
@@ -17,7 +17,7 @@
              x5-video-player-fullscreen="true"
              x5-video-orientation="portraint">
       </video>
-      <video v-else id="myVideo" preload="meta" :src="courseDetails.OnlineUrl" controls></video>
+      <!--<video v-else id="myVideo" preload="meta" :src="courseDetails.OnlineUrl" controls></video>-->
     </div>
     <div class="course_detail">
       <mt-navbar v-model="selected">
@@ -119,7 +119,7 @@
             /*准备好可以播放时清除定时器*/
             clearInterval(timer);
             timer = null;
-            this.duration = this.myVideo.duration; //当前时间
+            this.duration = (this.myVideo.duration).toFixed(2); //当前时间
             this.progressTime = this.myVideo.duration * (parseFloat(this.browseScore) / 100);
             this.myVideo.currentTime = this.lastLocation;
             /*监听视频播放位置*/
@@ -137,13 +137,18 @@
             });
             /*监听视频播放结束*/
             this.myVideo.addEventListener('ended', () => {
-              this.updateProgress();
+              /*判断是否是拖拽到结束*/
+              if (this.progressTime > this.duration - 2) {
+                this.updateProgress();
+              }else {
+                this.myVideo.play();
+              }
             });
             this.updateTimer = setInterval(() => {
               this.updateProgress();
             }, 60000);
           }
-        }, 200);
+        }, 100);
       },
     },
     beforeDestroy() {

@@ -2,12 +2,11 @@
  * ajax请求
  */
 'use strict'
-import {MessageBox} from 'mint-ui'
+import {Toast} from 'mint-ui'
 import axios from 'axios'
 import qs from 'qs'
 import {getStore} from '../plugins/utils'
 
-var tip = true;
 // axios.defaults.baseURL = 'http://test10.jy365.net';
 axios.defaults.timeout = 10000;
 axios.defaults.withCredentials = true;
@@ -34,38 +33,29 @@ function checkStatus(response) {
   // 如果http状态码正常，则直接返回数据
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
     // console.log(response);
+    //用户掉线
     if (response.data.Type == 401) {
-      if (tip) {
-        tip = false;
-        MessageBox.alert('您的账号已掉线，请重新登录！').then(() => {
-          var currentUrl = getStore("currentUrl");
-          window.localStorage.removeItem('ASPXAUTH');
-  
-          if (getStore("userAgent").weixin) {
-            window.location = getStore("URL");
-          } else if(getStore("userAgent").mobile){
-            var loginUrl = "/#/login?currentUrl=" + encodeURIComponent(currentUrl);
-            window.location.href = loginUrl;
-          }
-          var timer = setTimeout(function () {
-            tip = true;
-            clearTimeout(timer);
-            timer = null;
-          }, 2000);
-        });
+      Toast({message: "账号掉线，请重新登录", position: 'bottom'});
+      var currentUrl = getStore("currentUrl");
+      window.localStorage.removeItem('ASPXAUTH');
+      if (getStore("userAgent").weixin) {
+        window.location = getStore("URL");
+      } else if (getStore("userAgent").mobile) {
+        var loginUrl = "/#/login?currentUrl=" + encodeURIComponent(currentUrl);
+        window.location.href = loginUrl;
       }
     }
     //存储aspxauth身份验证
     if (response.headers.aspxauth) {
       window.localStorage.setItem('ASPXAUTH', response.headers.aspxauth);
     }
-    return response.data
     // 如果不需要除了data之外的数据，可以直接 return response.data
+    return response.data
   }
   // 异常状态下，把错误信息返回去
   return {
     status: -404,
-    msg: '网络异常'
+    msg: '网络异常：' + response.data.Message
   }
 }
 
