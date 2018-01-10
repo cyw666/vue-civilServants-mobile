@@ -29,7 +29,7 @@
     color: #fff;
     font-size: 12px;
     @include borderRadius(10px);
-    background-color: $brand-primary;
+    background-color: #999;
     &.primary {
       background-color: $brand-primary;
     }

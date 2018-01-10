@@ -60,15 +60,12 @@
       headerFix,
     },
     created() {
-      this.Code = getQueryString('code') || "";
-      setStore('URL', 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf24d72db02fede73&redirect_uri=http%3a%2f%2ftest10.jy365.net%2fwechat%2fpages%2flogin.html&response_type=code&scope=snsapi_base#wechat_redirect');
-      setStore('indexUrl', 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf24d72db02fede73&redirect_uri=http%3a%2f%2ftest10.jy365.net%2fwechat%2findex.html&response_type=code&scope=snsapi_base#wechat_redirect');
+      this.Code = this.$route.query.code;
     },
     mounted() {
-      this.Code = this.$route.query.code || '';
       let backUrl = this.$route.query.currentUrl;
       if (backUrl) {
-        this.backUrl = backUrl.split("#")[1];
+        this.backUrl = backUrl;
       } else {
         this.backUrl = '/';
       }
@@ -77,10 +74,10 @@
       this.Remember = getStore("remember");
     },
     computed: {
-      ...mapState([])
+      ...mapState(['userAgent', 'weLoginUrl', 'weIndexUrl'])
     },
     methods: {
-      ...mapActions(["getUserInformation"]),
+      ...mapActions(["getUserAgent"]),
       async clickLogin() {
         if (!this.Account || !this.Password) {
           Toast({message: '用户名或密码不能为空！', position: 'bottom'});
@@ -106,9 +103,9 @@
             setStore("remember", false);
           }
           /*判断 weixin,mobile*/
-          if (getStore("userAgent").weixin) {
-            window.location = getStore("indexUrl");
-          } else if (getStore("userAgent").mobile) {
+          if (this.userAgent.weixin) {
+            window.location = this.weIndexUrl;
+          } else {
             this.$router.replace(this.backUrl);
           }
         } else if (res.Type == 0) {

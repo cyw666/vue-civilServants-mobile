@@ -131,6 +131,16 @@ export default {
     url: API_URL + Platform + '/GetClassUserSignList',
     data: {TrainingId: '', TodayFlag: '', Order: 'desc', Page: '1', Rows: '20'}
   },
+  //获取微信签名
+  GetWechatWxAuthModel: {
+    url: API_URL + Platform + '/GetWechatWxAuthModel',
+    data: {Url:''}
+  },
+  //签到或签退
+  TrainingSignIn: {
+    url: API_URL + Platform + '/TrainingSignIn',
+    data: {TrainingId: '', SignType: '', Longitude: '', Latitude: '', Position: ''}
+  },
   //取消报名培训班
   UpdateTrainingStudentdown: {
     url: API_URL + Platform + '/UpdateTrainingStudentdown',

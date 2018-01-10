@@ -7,23 +7,27 @@
     <header-fix title="签到详情" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
-    <sign-list></sign-list>
+    <sign-list :signData="signData"></sign-list>
   </div>
 </template>
 <script>
   import {goBack} from '../service/mixins'
   import {signList, headerFix} from '../components'
+  import {GetClassUserSignList} from '../service/getData'
 
   export default {
     mixins: [goBack],
     data() {
-      return {}
+      return {
+        trainingId:'',
+        signData:[]
+      }
     },
     created() {
-      
+      this.trainingId = this.$route.query.Id;
     },
     mounted() {
-      
+      this.getSignList();
     },
     props: [],
     components: {
@@ -34,7 +38,15 @@
     updated() {
       
     },
-    methods: {},
+    methods: {
+      //签到列表
+      async getSignList() {
+        let data = await GetClassUserSignList({TrainingId: this.trainingId});
+        if (data.Type == 1) {
+          this.signData = data.Data;
+        }
+      },
+    },
     watch: {}
     
   }
@@ -44,6 +56,6 @@
   @import "../style/mixin";
 
   .sign_detail {
-
+    background-color: $fill-body;
   }
 </style>

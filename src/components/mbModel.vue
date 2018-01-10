@@ -59,7 +59,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-51%, -51%);
     z-index: 1200;
     @include borderRadius(10px);
     min-height: toRem(60px);

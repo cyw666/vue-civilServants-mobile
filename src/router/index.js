@@ -41,6 +41,7 @@ const PlayMp4 = r => require.ensure([], () => r(require('../page/playMp4.vue')),
 const PlayJYAicc = r => require.ensure([], () => r(require('../page/playJYAicc.vue')), 'playJYAicc')
 const PlayH5 = r => require.ensure([], () => r(require('../page/playH5.vue')), 'playH5')
 const Notice = r => require.ensure([], () => r(require('../page/notice.vue')), 'notice')
+const OpenApp = r => require.ensure([], () => r(require('../page/openApp.vue')), 'openApp')
 
 const routes = [
   {
@@ -317,6 +318,13 @@ const routes = [
         path: 'playH5',
         component: PlayH5,
         meta: {title: 'h5课程播放'},
+      },
+      //打开app
+      {
+        name: 'openApp',
+        path: 'openApp',
+        component: OpenApp,
+        meta: {title: '打开App'},
       },
       //error
       {

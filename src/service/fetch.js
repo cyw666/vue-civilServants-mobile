@@ -42,7 +42,8 @@ function checkStatus(response) {
         window.location = getStore("URL");
       } else if (getStore("userAgent").mobile) {
         var loginUrl = "/#/login?currentUrl=" + encodeURIComponent(currentUrl);
-        window.location.href = loginUrl;
+        window.history.pushState(null,'',loginUrl);
+        window.location.reload();
       }
     }
     //存储aspxauth身份验证

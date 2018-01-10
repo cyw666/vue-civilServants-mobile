@@ -101,22 +101,26 @@
 
 </template>
 <script>
-  import {mapState, mapActions} from 'vuex'
+  import axios from 'axios'
+  import {mapState, mapActions, mapMutations} from 'vuex'
   import {Indicator, MessageBox} from 'mint-ui';
   import {headerFix, errorImg, footerFix, mbModel} from '../components'
-  import {GetCourseInfoList, GetLink, GetCourseDetail} from '../service/getData'
+  import {GetCourseInfoList, GetLink, GetCourseDetail, GetUserInfo, Login} from '../service/getData'
   import {toPlay} from '../service/mixins'
   import noCourse from '../assets/noCourse.png'
+  import {getStore, setStore, removeStore, getQueryString, userAgent} from '../plugins/utils'
 
   export default {
     name: 'home',
     mixins: [toPlay],
     data() {
       return {
+        userInfo: {},
         showModel: false,
         swipeData: [],
         recommendCourseData: [],
         noCourse,
+        code: '',
       }
     },
     components: {
@@ -125,16 +129,48 @@
       headerFix,
       mbModel,
     },
+    created() {
+      this.code = this.$route.query.code;
+      this.getUserAgent();
+    },
     mounted() {
       this.getRecommendCourse();
       this.getSwipeData();
-      this.getUserInformation();
+      let ASPXAUTH = window.localStorage.getItem('ASPXAUTH');
+      if (ASPXAUTH) {
+        this.getUserInformation();
+      } else {
+        /*自动登陆*/
+        this.login();
+      }
     },
     computed: {
-      ...mapState(["userInfo"])
+      ...mapState(['userAgent', 'weLoginUrl', 'weIndexUrl']),
     },
     methods: {
-      ...mapActions(["getUserInformation"]),
+      ...mapActions(['getUserAgent']),
+      async login() {
+        let res = await Login({Code: this.code});
+        if (res.Type == 1) {
+          /*登陆成功*/
+          this.getUserInformation();
+        } else {
+          MessageBox('警告', res.Message);
+          if (this.userAgent.weixin) {
+            window.location = this.weLoginUrl;
+          } else {
+            window.location.href = '/#/login';
+          }
+        }
+      },
+      async getUserInformation() {
+        let data = await GetUserInfo();
+        if (data.Type == 1) {
+          this.userInfo = data.Data;
+        } else if (data.Type != 401) {
+          alert(data.Message);
+        }
+      },
       async getRecommendCourse() {
         let data = await GetCourseInfoList({ChannelId: -3});
         if (data.Type == 1) {

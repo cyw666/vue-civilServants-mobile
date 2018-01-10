@@ -5,7 +5,7 @@
   <div class="class_detail">
     <div class="sign_bg">
       <i class="webapp webapp-back arrow" @click.stop="goBack"></i>
-      <i class="webapp webapp-scanning scan"></i>
+      <i class="webapp webapp-scanning scan" @click.stop="scan(classDetail.Status)"></i>
     </div>
     <div class="class_detail_cont">
       <div class="class_detail_item">
@@ -35,7 +35,7 @@
         <span>签到情况</span>
         <router-link class="see_sign" :to="{path:'/signDetail',query:{Id:classId}}">(查看所有签到)</router-link>
       </div>
-      <sign-list></sign-list>
+      <sign-list :signData="signData"></sign-list>
     </div>
     <div class="class_desc">
       <div class="sign_title">
@@ -53,6 +53,9 @@
   </div>
 </template>
 <script>
+  //  var wx = require('weixin-js-sdk');
+  import wx from 'weixin-js-sdk'
+//  import '../plugins/base64'
   import {Toast, MessageBox} from 'mint-ui'
   import {signList} from '../components'
   import {goBack} from '../service/mixins'
@@ -60,7 +63,9 @@
     GetTrainingDetail,
     GetClassUserSignList,
     UpdateTrainingStudentdown,
-    UpdateTrainingStudentup
+    UpdateTrainingStudentup,
+    GetWechatWxAuthModel,
+    TrainingSignIn,
   } from '../service/getData'
 
   export default {
@@ -72,19 +77,110 @@
         classDetail: "",
         signData: [],
         isJoinClass: false,
+        url: window.location.href,
+        longitude: '', //经度
+        latitude: '', //纬度
       }
     },
     created() {
       this.classId = this.$route.query.Id || "";
+      /*获取经纬度*/
+      this.getLocation();
     },
     mounted() {
+      this.getWechatWxAuthModel();
+      /*班级详情*/
       this.getClassDetail();
+      /*签到列表*/
       this.getSignList();
     },
     components: {
       signList
     },
     methods: {
+      //微信签名
+      async getWechatWxAuthModel() {
+        let data = await GetWechatWxAuthModel({Url: this.url});
+        if (data.Type == 1) {
+          wx.config({
+            debug: false,
+            appId: 'wxf24d72db02fede73',// 必填，公众号的唯一标识
+            timestamp: data.Data.Timestamp,// 必填，生成签名的时间戳
+            nonceStr: data.Data.Nonce,// 必填，生成签名的随机串
+            signature: data.Data.Signature,// 必填，签名
+            jsApiList: ['checkJsApi', 'scanQRCode', 'chooseImage', 'getLocalImgData']// 必填，需要使用的JS接口列表
+          });
+        } else if (data.Type != 401) {
+          MessageBox('警告', data.Message);
+        }
+      },
+      /*点击签到*/
+      scan(status) {
+        let t = this;
+        if (status == 'UnJoin') {
+          MessageBox('警告', "请先报名");
+        } else if (status == 'UnAudit') {
+          MessageBox('警告', "正在审核中");
+        } else {
+          wx.scanQRCode({
+            needResult: 1,
+            scanType: ['qrCode'],
+            success: function (res) {
+              t.TrainingSignIn();
+            }
+          });
+        }
+      },
+      /*调用签到接口*/
+      async TrainingSignIn() {
+        let data = await TrainingSignIn({
+          TrainingId: this.classId,
+          Longitude: this.longitude,
+          Latitude: this.latitude
+        });
+        if (data.Type == 1) {
+          Toast({message: data.Message, position: 'bottom'});
+        } else if (data.Type != 401) {
+          MessageBox('警告', data.Message);
+        }
+      },
+      /*获取位置信息*/
+      getLocation() {
+        let options = {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        };
+        const success = (pos) => {
+          let crd = pos.coords;
+          this.longitude = crd.longitude;
+          this.latitude = crd.latitude;
+        };
+        const error = (err) => {
+          console.warn('ERROR(' + err.code + '): ' + err.message);
+        };
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(success, error, options);
+        } else {
+          console.log('Geolocation is not supported by this browser.')
+        }
+        /*wx.ready(function () {
+          wx.checkJsApi({
+            jsApiList: ['scanQRCode', 'chooseImage', 'getLocalImgData'],
+            success: function () {
+            }
+          });
+          wx.getLocation({
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+              this.longitude = res.longitude;// 经度，浮点数，范围为180 ~ -180。
+              this.latitude = res.latitude;// 纬度，浮点数，范围为90 ~ -90
+              /!*var speed = res.speed; // 速度，以米/每秒计
+              var accuracy = res.accuracy; // 位置精度*!/
+            }
+          });
+        });*/
+      },
       //班级详情
       async getClassDetail() {
         let data = await GetTrainingDetail({Id: this.classId});

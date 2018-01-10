@@ -129,6 +129,16 @@ export const GetTrainingDetail = (data) => fetch.post(Api.GetTrainingDetail.url,
 export const GetClassUserSignList = (data) => fetch.post(Api.GetClassUserSignList.url, {...Api.GetClassUserSignList.data, ...data});
 
 /**
+ *  获取微信签名
+ */
+export const GetWechatWxAuthModel = (data) => fetch.post(Api.GetWechatWxAuthModel.url, {...Api.GetWechatWxAuthModel.data, ...data});
+
+/**
+ *  签到或签退
+ */
+export const TrainingSignIn = (data) => fetch.post(Api.TrainingSignIn.url, {...Api.TrainingSignIn.data, ...data});
+
+/**
  *  取消报名
  */
 export const UpdateTrainingStudentdown = (data) => fetch.post(Api.UpdateTrainingStudentdown.url, {...Api.UpdateTrainingStudentdown.data, ...data});

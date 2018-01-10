@@ -5,84 +5,51 @@
   <div class="sign_list">
     <ul>
       <li v-for="item in signData">
-        <div>
+        <p class="sign_date">{{item.SignInDate | dateFilter}}</p>
+        <div class="sign_am">
           <span>上午</span>
           <span class="class_on_off">(上课)</span>
-          <span class="sign_or_not sign_in" v-if="item.AmSignIn.SignFlag == true">已签</span>
-          <span class="sign_or_not" v-if="item.AmSignIn.SignFlag == false">未签</span>
+          <mb-tag v-if="item.AmSignIn.SignFlag == true" type="success">已签</mb-tag>
+          <mb-tag v-if="item.AmSignIn.SignFlag == false">未签</mb-tag>
           <span class="finish">上午</span>
           <span class="class_on_off">(下课)</span>
-          <span class="sign_or_not sign_in" v-if="item.AmSignOut.SignFlag == true">已签</span>
-          <span class="sign_or_not" v-if="item.AmSignOut.SignFlag == false">未签</span>
+          <mb-tag v-if="item.AmSignOut.SignFlag == true" type="success">已签</mb-tag>
+          <mb-tag v-if="item.AmSignOut.SignFlag == false">未签</mb-tag>
         </div>
-        <div>
+        <div class="sign_pm">
           <span>下午</span>
           <span class="class_on_off">(上课)</span>
-          <span class="sign_or_not sign_in" v-if="item.PmSignIn.SignFlag == true">已签</span>
-          <span class="sign_or_not" v-if="item.PmSignIn.SignFlag == false">未签</span>
+          <mb-tag v-if="item.PmSignIn.SignFlag == true" type="success">已签</mb-tag>
+          <mb-tag v-if="item.PmSignIn.SignFlag == false">未签</mb-tag>
           <span class="finish">下午</span>
           <span class="class_on_off">(下课)</span>
-          <span class="sign_or_not sign_in" v-if="item.PmSignOut.SignFlag == true">已签</span>
-          <span class="sign_or_not" v-if="item.PmSignOut.SignFlag == false">未签</span>
+          <mb-tag v-if="item.PmSignOut.SignFlag == true" type="success">已签</mb-tag>
+          <mb-tag v-if="item.PmSignOut.SignFlag == false">未签</mb-tag>
         </div>
       </li>
     </ul>
   </div>
 </template>
 <script>
+  import mbTag from './mbTag.vue'
   export default {
     data() {
-      return {
-        signData: [
-          {
-            "TrainingId": 1,
-            "OpenFlag": true,
-            "AmSignIn": {
-              "SignType": "sample string 1",
-              "BeginTime": "00:00:00.1234567",
-              "EndTime": "00:00:00.1234567",
-              "SignFlag": true,
-              "RequireSignTime": "sample string 5",
-              "SignDate": "2017-12-06 10:16:40"
-            },
-            "AmSignOut": {
-              "SignType": "sample string 1",
-              "BeginTime": "00:00:00.1234567",
-              "EndTime": "00:00:00.1234567",
-              "SignFlag": true,
-              "RequireSignTime": "sample string 5",
-              "SignDate": "2017-12-06 10:16:40"
-            },
-            "PmSignIn": {
-              "SignType": "sample string 1",
-              "BeginTime": "00:00:00.1234567",
-              "EndTime": "00:00:00.1234567",
-              "SignFlag": true,
-              "RequireSignTime": "sample string 5",
-              "SignDate": "2017-12-06 10:16:40"
-            },
-            "PmSignOut": {
-              "SignType": "sample string 1",
-              "BeginTime": "00:00:00.1234567",
-              "EndTime": "00:00:00.1234567",
-              "SignFlag": true,
-              "RequireSignTime": "sample string 5",
-              "SignDate": "2017-12-06 10:16:40"
-            },
-            "SignInCode": "sample string 3",
-            "SignInDate": "2017-12-06 10:16:40"
-          },
-        ]
-      }
+      return {}
     },
     created() {
-      
     },
     mounted() {
       
     },
-    props: [],
-    components: {},
+    props: {
+      signData: {
+        type: Array,
+        required: true
+      }
+    },
+    components: {
+      mbTag
+    },
     computed: {},
     updated() {
       
@@ -98,8 +65,13 @@
 
   .sign_list {
     ul {
-      padding: toRem(20px) toRem(60px);
+      padding: toRem(20px) 0;
       line-height: toRem(40px);
+      li{
+        padding: toRem(10px) toRem(20px);
+        margin-bottom: toRem(20px);
+        background-color: $fill-base;
+      }
     }
     .sign_or_not {
       color: $brand-error;
@@ -110,6 +82,21 @@
     }
     .finish {
       margin-left: toRem(95px);
+    }
+    .sign_date {
+      font-size: 14px;
+    }
+    .class_on_off {
+      color: $color-text-thirdly;
+    }
+    .sign_am, .sign_pm {
+      padding: toRem(20px) toRem(50px);
+    }
+    .mb_tag {
+      width: toRem(75px);
+      height: toRem(38px);
+      line-height: toRem(38px);
+      margin-left: toRem(20px);
     }
   }
 </style>

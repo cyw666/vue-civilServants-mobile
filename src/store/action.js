@@ -1,8 +1,10 @@
 import {
   GetUserInfo
 } from '../service/getData'
+import {userAgent} from '../plugins/utils'
 import {
   GET_USERINFO,
+  GET_USERAGENT,
 } from './mutation-types.js'
 
 export default {
@@ -14,4 +16,8 @@ export default {
       alert(data.Message);
     }
   },
+  getUserAgent({state, commit}, payload){
+    let data = userAgent();
+    commit(GET_USERAGENT, data);
+  }
 }

@@ -10,7 +10,7 @@ import './service/filter'
 import './style/base.scss'
 import routes from './router'
 import store from './store/'
-import {setStore,userAgent} from './plugins/utils'
+import {setStore, userAgent} from './plugins/utils'
 
 //注册全局组建
 /*import mbTag from './components/mbTag.vue'
@@ -37,11 +37,11 @@ router.beforeEach((to, from, next) => {
 })
 router.afterEach((to, from) => {
   /*存入当前url*/
-  let currentUrl = window.location.href;
+  let currentUrl = to.fullPath;
   setStore("currentUrl", currentUrl);
   /*判断mobile weixin*/
   let agent = userAgent();
-  setStore('userAgent',agent);
+  setStore('userAgent', agent);
 })
 
 var vm = new Vue({
