@@ -6,52 +6,53 @@
     <!--头部-->
     <transition name="fade">
       <header-fix :title="bookName" fixed v-if="showConfig">
-        <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
+        <div slot="left" class="backEbook" @click.stop="toChapter({path:'ebook'})">
+          <i class="webapp webapp-back"></i>
+          <span>返回书架</span>
+        </div>
       </header-fix>
     </transition>
     <div class="bg_container" :style="{background: bgColor }" @click.stop="toggleShowConfig">
       <div class="content" :style="{fontSize: fontSize + 'rem' }" v-html="detailData.Content"></div>
       <div class="ebook_footer">
-        <mt-button v-if="index>1" class="prev" type="primary" size="small" @click.native.stop="prevChapter()">上一章节
+        <mt-button v-if="index>1" class="prev" size="small" @click.native.stop="prevChapter()">上一章节
         </mt-button>
-        <mt-button class="next" type="primary" size="small" @click.native.stop="nextChapter()">下一章节</mt-button>
+        <mt-button class="next" size="small" @click.native.stop="nextChapter()">下一章节</mt-button>
       </div>
     </div>
     <transition name="fade">
       <div v-if="showStyleSetting" class="style_setting">
         <div class="font_setting">
-          <em>字体</em>
-          <span class="font_large" @click.stop="changeFontSize(0.1)">A+</span>
-          <span class="font_small" @click.stop="changeFontSize(-0.1)">A-</span>
+          <em>字号</em>
+          <span class="font_large" @click.stop="changeFontSize(0.1)">大</span>
+          <span class="font_small" @click.stop="changeFontSize(-0.1)">小</span>
           <span class="default" @click.stop="defaultFontSize">默认</span>
         </div>
         <div class="bg_setting clearFix">
           <span>背景</span>
-          <span class="bg_1" @click.stop="changeBgColor('#fff')"></span>
-          <span class="bg_2" @click.stop="changeBgColor('#f7f0e5')"></span>
-          <span class="bg_3" @click.stop="changeBgColor('#ccffcb')"></span>
-          <span class="bg_4" @click.stop="changeBgColor('#e0a5b4')"></span>
+          <span class="bg_1" @click.stop="changeBgColor('#f6eee3')"></span>
+          <span class="bg_2" @click.stop="changeBgColor('#e5dfc5')"></span>
+          <span class="bg_3" @click.stop="changeBgColor('#a4a4a4')"></span>
+          <span class="bg_4" @click.stop="changeBgColor('#ccf1d0')"></span>
+          <span class="bg_5" @click.stop="changeBgColor('#0e150e')"></span>
         </div>
       </div>
     </transition>
     <transition name="fade">
       <div v-if="showConfig" class="ebook_config">
         <mt-tabbar fixed>
-          <mt-tab-item id="ebookChapterList" :href="'#/ebookChapterList?id='+detailData.BookContentId">
-            <i slot="icon" class="webapp webapp-bookmark"></i>
+          <mt-tab-item id="ebookChapterList"
+                       @click.native="toChapter({path:'ebookChapterList',query:{id:detailData.BookContentId}})">
+            <i slot="icon" class="webapp webapp-category"></i>
             目录
-          </mt-tab-item>
-          <mt-tab-item id="ebook" href="#/ebook">
-            <i slot="icon" class="webapp webapp-book"></i>
-            电子书
           </mt-tab-item>
           <mt-tab-item id="setting" @click.native.stop="toggleStyleSetting">
             <i slot="icon" class="webapp webapp-set"></i>
             设置
           </mt-tab-item>
           <mt-tab-item id="night" @click.native.stop="toggleNight">
-            <i v-if="isNight" slot="icon" class="webapp webapp-moon"></i>
-            <i v-if="!isNight" slot="icon" class="webapp webapp-sun"></i>
+            <i v-if="isNight" slot="icon" class="webapp webapp-sun"></i>
+            <i v-if="!isNight" slot="icon" class="webapp webapp-moon"></i>
             {{isNight ? "白天" : "夜间"}}
           </mt-tab-item>
         </mt-tabbar>
@@ -60,12 +61,16 @@
   </div>
 </template>
 <script>
-  import {Toast} from 'mint-ui'
+  import Vue from 'vue'
+  import {Toast, Button, Tabbar, TabItem} from 'mint-ui'
   import {headerFix} from '../components'
   import {GetBookChapterContent} from '../service/getData'
   import {setStore, getStore} from '../plugins/utils'
   import {goBack} from '../service/mixins'
 
+  Vue.component(Button.name, Button);
+  Vue.component(Tabbar.name, Tabbar);
+  Vue.component(TabItem.name, TabItem);
   export default {
     mixins: [goBack],
     data() {
@@ -99,6 +104,7 @@
       this.index = this.$route.query.index || 1;
     },
     mounted() {
+      window.scrollTo(0, 0);
       this.getChapterContent();
     },
     methods: {
@@ -109,37 +115,48 @@
           this.detailData = data.Data;
         }
       },
+      /*返回*/
+      toChapter(path) {
+        this.$router.replace(path);
+      },
+      /*显示/隐藏 头尾*/
       toggleShowConfig() {
         this.showConfig = !this.showConfig;
         this.showStyleSetting = false;
       },
+      /*白天/夜间切换*/
       toggleNight() {
         if (this.isNight) {
-          this.bgColor = "#fff";
+          this.bgColor = "#f6eee3";
         } else {
           this.bgColor = "rgba(0, 0, 0, 0.9)";
         }
         this.isNight = !this.isNight;
       },
+      /*显示/隐藏 设置*/
       toggleStyleSetting() {
         this.showStyleSetting = !this.showStyleSetting;
       },
+      /*字体大小控制*/
       changeFontSize(step) {
         let newFontSize = this.fontSize + step;
         if (newFontSize < 0.3) {
-          Toast({message: "字体已最小！", position: 'bottom'});
+          Toast({message: "字体已最小", position: 'bottom'});
         } else if (newFontSize > 0.7) {
-          Toast({message: "字体已最大！", position: 'bottom'});
+          Toast({message: "字体已最大", position: 'bottom'});
         } else {
           this.fontSize = newFontSize;
         }
       },
+      /*默认字体大小*/
       defaultFontSize() {
         this.fontSize = 0.5;
       },
+      /*切换背景*/
       changeBgColor(color) {
         this.bgColor = color;
       },
+      /*存储个人配置*/
       storeConfig() {
         let config = {
           fontSize: this.fontSize,
@@ -148,16 +165,18 @@
         }
         setStore("ebookConfig", config);
       },
+      /*下一章*/
       nextChapter() {
         this.nextId = parseInt(this.detailId) + 1;
         this.nextIndex = parseInt(this.index) + 1;
-        this.$router.push({path: '/ebookDetail', query: {id: this.nextId, index: this.nextIndex}});
+        this.$router.replace({path: '/ebookDetail', query: {id: this.nextId, index: this.nextIndex}});
         window.location.reload();
       },
+      /*上一章*/
       prevChapter() {
         this.nextId = parseInt(this.detailId) - 1;
         this.nextIndex = parseInt(this.index) - 1;
-        this.$router.push({path: '/ebookDetail', query: {id: this.nextId, index: this.nextIndex}});
+        this.$router.replace({path: '/ebookDetail', query: {id: this.nextId, index: this.nextIndex}});
         window.location.reload();
       }
     },
@@ -179,7 +198,10 @@
   .ebook_detail {
     height: 100vh;
     .header {
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.82);
+    }
+    .backEbook {
+      color: $color-text-reverse;
     }
     .bg_container {
       padding: toRem(30px);
@@ -190,12 +212,16 @@
       padding-bottom: toRem(80px);
       text-align: center;
       @extend %clearFix;
+      .mint-button--default {
+        color: $color-text-thirdly;
+        background-color: rgba(0, 0, 0, 0.82);
+      }
       .prev {
-        @extend %pull-left;
+        //        @extend %pull-left;
         width: toRem(260px);
       }
       .next {
-        @extend %pull-right;
+        //        @extend %pull-right;
         width: toRem(260px);
       }
     }
@@ -204,7 +230,7 @@
         color: $color-text-reverse;
       }
       .mint-tabbar {
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: rgba(0, 0, 0, 0.82);
       }
       .mint-tabbar > .mint-tab-item.is-selected {
         background-color: #eaeaea;
@@ -239,12 +265,12 @@
         font-size: 14px;
         span {
           display: inline-block;
-          width: toRem(150px);
+          width: toRem(180px);
           @include ht-lineHt(60px);
           text-align: center;
           border: 1px solid #fff;
-          border-radius: 0.1rem;
-          margin: 0 0.4rem;
+          border-radius: toRem(60px);
+          margin: 0 toRem(15px);
         }
       }
       .bg_setting {
@@ -259,30 +285,25 @@
           float: left;
           @include square(75px);
           line-height: toRem(75px);
-          margin: 0 toRem(40px);
+          margin: 0 toRem(20px);
           border-radius: 50%;
         }
         .bg_1 {
-          background: #fff;
+          background: #f6eee3;
         }
         .bg_2 {
-          background: #f7f0e5;
+          background: #e5dfc5;
         }
         .bg_3 {
-          background: #ccffcb;
+          background: #a4a4a4;
         }
         .bg_4 {
-          background: #e0a5b4;
+          background: #ccf1d0;
+        }
+        .bg_5 {
+          background: #0e150e;
         }
       }
-    }
-  }
-
-  .night {
-    background-color: rgba(0, 0, 0, 0.9) !important;
-    color: rgba(255, 255, 255, 0.5);
-    a {
-      color: rgba(255, 255, 255, 0.5);
     }
   }
 </style>

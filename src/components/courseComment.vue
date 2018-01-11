@@ -39,11 +39,13 @@
   </div>
 </template>
 <script>
-  import {Toast, MessageBox} from 'mint-ui'
+  import Vue from 'vue'
+  import {Toast, MessageBox, InfiniteScroll} from 'mint-ui'
   import mbModel from './mbModel.vue'
   import star from './star.vue'
   import {getCourseCommentList, AddCourseComment} from '../service/getData'
 
+  Vue.use(InfiniteScroll);
   export default {
     data() {
       return {

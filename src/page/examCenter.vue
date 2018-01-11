@@ -63,10 +63,12 @@
   </div>
 </template>
 <script>
-  import {Indicator} from 'mint-ui';
+  import Vue from 'vue';
+  import {Indicator, InfiniteScroll} from 'mint-ui';
   import {headerFix, footerFix, navSlide, tree, examList} from '../components'
   import {GetExamType, GetExamList} from '../service/getData'
 
+  Vue.use(InfiniteScroll);
   export default {
     data() {
       return {

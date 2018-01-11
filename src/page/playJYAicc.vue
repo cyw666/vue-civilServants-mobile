@@ -57,12 +57,17 @@
   </div>
 </template>
 <script>
-  import {MessageBox} from 'mint-ui'
+  import Vue from 'vue'
+  import {MessageBox, Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
   import {headerFix, courseIntroduce, courseComment} from '../components'
   import {goBack} from '../service/mixins'
   import {GetCourseDetail, SyncUserStudyData} from '../service/getData'
   import {getStore} from '../plugins/utils'
 
+  Vue.component(Navbar.name, Navbar);
+  Vue.component(TabItem.name, TabItem);
+  Vue.component(TabContainer.name, TabContainer);
+  Vue.component(TabContainerItem.name, TabContainerItem);
   export default {
     mixins: [goBack],
     data() {
@@ -183,7 +188,7 @@
                 this.activeNode.Status = 'C';
                 this.updateProgress(this.activeNode.NodeId, this.myVideo.currentTime, this.activeNode.Status);
                 this.nextNode();
-              }else {
+              } else {
                 this.myVideo.play();
               }
             });
@@ -199,7 +204,7 @@
       nextNode() {
         /*不是最后一个节点播放下一章节*/
         if (this.nodeLength != this.activeNodeIndex + 1) {
-          MessageBox.confirm('本章节播放完毕，是否播放下一章节！').then(action => {
+          MessageBox.confirm('本章节播放完毕，是否播放下一章节').then(action => {
             this.autoPlay = true;
             let nextNodeIndex = this.activeNodeIndex + 1
             this.playNode(nextNodeIndex);

@@ -26,11 +26,13 @@
   </div>
 </template>
 <script>
-  import {MessageBox, Toast} from 'mint-ui'
+  import Vue from 'vue'
+  import {MessageBox, Toast, Button} from 'mint-ui'
   import {headerFix} from '../components'
   import {CommentType, AddMessage} from '../service/getData'
   import {goBack} from '../service/mixins'
 
+  Vue.component(Button.name, Button);
   export default {
     mixins: [goBack],
     data() {
@@ -58,25 +60,26 @@
       //添加留言
       async addAdvise() {
         if (!this.adviseTitle) {
-          Toast({message: "标题不能为空！", position: 'bottom'});
+          Toast({message: "标题不能为空", position: 'bottom'});
           return;
         }
         if (!this.adviseContent) {
-          Toast({message: "反馈内容不能为空！", position: 'bottom'});
+          Toast({message: "反馈内容不能为空", position: 'bottom'});
           return;
         }
         if (!this.adviseType) {
-          Toast({message: "请选择反馈类型！", position: 'bottom'});
+          Toast({message: "请选择反馈类型", position: 'bottom'});
           return;
         }
         let data = await AddMessage({Title: this.adviseTitle, Content: this.adviseContent, ClassCode: this.adviseType});
         if (data.Type == 1) {
-          Toast({message: "提交成功！", position: 'bottom'});
+          Toast({message: "提交成功", position: 'bottom'});
           this.$router.push('personalCenter');
         } else if (data.Type != 401) {
           MessageBox('警告', data.Message);
         }
       },
+      /*反馈类型切换*/
       changeType(type) {
         this.adviseType = type;
       }

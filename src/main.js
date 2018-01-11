@@ -3,8 +3,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import './assets/iconfont/iconfont.css'
-import MintUI from 'mint-ui'
-import 'mint-ui/lib/style.css'
 import './service/filter'
 
 import './style/base.scss'
@@ -16,10 +14,8 @@ import {setStore, userAgent} from './plugins/utils'
 /*import mbTag from './components/mbTag.vue'
 Vue.component(mbTag.name, mbTag);*/
 
-
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
-Vue.use(MintUI);
 
 //修改title
 const changeTitle = (title) => {
@@ -36,6 +32,7 @@ router.beforeEach((to, from, next) => {
   next();
 })
 router.afterEach((to, from) => {
+  window.scrollTo(0, 0);
   /*存入当前url*/
   let currentUrl = to.fullPath;
   setStore("currentUrl", currentUrl);
@@ -48,3 +45,4 @@ var vm = new Vue({
   router,
   store
 }).$mount('#app')
+export default router

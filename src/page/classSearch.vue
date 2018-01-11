@@ -18,10 +18,12 @@
   </div>
 </template>
 <script>
-  import {Indicator} from 'mint-ui';
+  import Vue from 'vue'
+  import {Indicator,InfiniteScroll} from 'mint-ui';
   import {headerFix, search, classList} from '../components'
   import {GetTrainingClass} from '../service/getData'
   import {goBack} from '../service/mixins'
+  Vue.use(InfiniteScroll);
 
   export default {
     mixins: [goBack],
@@ -42,6 +44,7 @@
       classList,
     },
     methods: {
+      /*获取班级列表*/
       async getClassList() {
         this.noDataBg = false;
         this.loading = true;

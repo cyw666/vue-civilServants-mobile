@@ -112,11 +112,18 @@
   </div>
 </template>
 <script>
-  import {Toast, MessageBox} from 'mint-ui'
+  import Vue from 'vue'
+  import {Toast, MessageBox, Radio, Button, Popup, Picker, DatetimePicker} from 'mint-ui'
   import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
   import {formatDate} from '../plugins/utils'
   import {GetUserInfo, UpdateUserInfo, GetGradeList, GetDegreeList} from '../service/getData'
+
+  Vue.component(Radio.name, Radio);
+  Vue.component(Button.name, Button);
+  Vue.component(Popup.name, Popup);
+  Vue.component(Picker.name, Picker);
+  Vue.component(DatetimePicker.name, DatetimePicker);
 
   export default {
     mixins: [goBack],
@@ -287,15 +294,15 @@
         if (this.isPassIdCard && this.isPassEmail) {
           let data = await UpdateUserInfo(this.infoSend);
           if (data.Type == 1) {
-            Toast({message: "修改成功！", position: 'bottom'});
+            Toast({message: "修改成功", position: 'bottom'});
             this.$router.push('setting');
           } else if (data.Type != 401) {
             MessageBox('警告', data.Message);
           }
         } else if (!this.isPassIdCard) {
-          Toast({message: "请输入18位有效身份证号！", position: 'bottom'});
+          Toast({message: "请输入18位有效身份证号", position: 'bottom'});
         } else if (!this.isPassEmail) {
-          Toast({message: "邮箱格式错误！", position: 'bottom'});
+          Toast({message: "邮箱格式错误", position: 'bottom'});
         }
       },
 

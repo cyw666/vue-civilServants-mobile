@@ -119,11 +119,16 @@
   </div>
 </template>
 <script>
-  import {Toast, MessageBox, Indicator} from 'mint-ui'
+  import Vue from 'vue'
+  import {Toast, MessageBox, Indicator, Button, Popup, Picker} from 'mint-ui'
   import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
   import {formatDate} from '../plugins/utils'
   import {GetGradeList, GetGroupList, Register} from '../service/getData'
+
+  Vue.component(Button.name, Button);
+  Vue.component(Popup.name, Popup);
+  Vue.component(Picker.name, Picker);
 
   export default {
     mixins: [goBack],
@@ -180,7 +185,7 @@
       async userRegister() {
         let data = await Register(this.infoSend);
         if (data.Type == 1) {
-          Toast({message: "注册成功！", position: 'bottom'});
+          Toast({message: "注册成功", position: 'bottom'});
           this.$router.push('/login');
         } else if (data.Type != 401) {
           MessageBox('警告', data.Message);
@@ -243,23 +248,23 @@
       },
       verification() {
         if (!this.infoSend.Account) {
-          Toast({message: "用户名不能为空！", position: 'bottom', duration: 2000});
+          Toast({message: "用户名不能为空", position: 'bottom', duration: 2000});
         } else if (!this.infoSend.Password) {
-          Toast({message: "密码不能为空！", position: 'bottom', duration: 2000});
+          Toast({message: "密码不能为空", position: 'bottom', duration: 2000});
         } else if (!this.isPassPwd) {
-          Toast({message: "密码长度为6~16个字符！", position: 'bottom', duration: 2000});
+          Toast({message: "密码长度为6~16位", position: 'bottom', duration: 2000});
         } else if (!this.confirmPwd) {
-          Toast({message: "确认密码不能为空！", position: 'bottom', duration: 2000});
+          Toast({message: "确认密码不能为空", position: 'bottom', duration: 2000});
         } else if (!this.isPassConfirm) {
-          Toast({message: "两次输入密码不一致！", position: 'bottom', duration: 2000});
+          Toast({message: "两次输入密码不一致", position: 'bottom', duration: 2000});
         } else if (!this.infoSend.Name) {
-          Toast({message: "姓名不能为空！", position: 'bottom', duration: 2000});
+          Toast({message: "姓名不能为空", position: 'bottom', duration: 2000});
         } else if (!this.infoSend.GroupId) {
-          Toast({message: "请选择部门！", position: 'bottom', duration: 2000});
+          Toast({message: "请选择部门", position: 'bottom', duration: 2000});
         } else if (!this.isPassIdCard) {
-          Toast({message: "请输入有效身份证号码！", position: 'bottom', duration: 2000});
+          Toast({message: "请输入有效身份证号码", position: 'bottom', duration: 2000});
         } else if (!this.isPassMobile) {
-          Toast({message: "手机号格式不正确！", position: 'bottom', duration: 2000});
+          Toast({message: "手机号格式不正确", position: 'bottom', duration: 2000});
         } else {
           this.userRegister();
         }

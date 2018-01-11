@@ -42,11 +42,15 @@
   </div>
 </template>
 <script>
-  import {Indicator} from 'mint-ui'
+  import Vue from 'vue'
+  import {Indicator, TabContainer, TabContainerItem, InfiniteScroll} from 'mint-ui'
   import {headerFix, mbTab, mbTabItem, courseList} from '../components'
   import {goBack} from '../service/mixins'
   import {GetUserCourseInfoList} from '../service/getData'
 
+  Vue.component(TabContainer.name, TabContainer);
+  Vue.component(TabContainerItem.name, TabContainerItem);
+  Vue.use(InfiniteScroll);
   export default {
     mixins: [goBack],
     data() {

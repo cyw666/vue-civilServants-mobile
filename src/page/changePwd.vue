@@ -24,11 +24,13 @@
   </div>
 </template>
 <script>
-  import {MessageBox, Toast} from 'mint-ui'
+  import Vue from 'vue'
+  import {MessageBox, Toast, Button} from 'mint-ui'
   import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
   import {SetUserPassword} from '../service/getData'
 
+  Vue.component(Button.name, Button);
   export default {
     mixins: [goBack],
     data() {
@@ -47,17 +49,17 @@
     methods: {
       async updatePwd() {
         if (!this.sendData.OldPassword) {
-          Toast({message: "输入旧密码！", position: 'bottom'});
+          Toast({message: "输入旧密码", position: 'bottom'});
         } else if (!this.sendData.Password) {
-          Toast({message: "请输入新密码！", position: 'bottom'});
+          Toast({message: "请输入新密码", position: 'bottom'});
         } else if (this.sendData.OldPassword == this.sendData.Password) {
-          Toast({message: "新旧密码不能一致！", position: 'bottom'});
+          Toast({message: "新旧密码不能一致", position: 'bottom'});
         } else if (!this.isPassConfirm) {
-          Toast({message: "两次输入新密码不一致！", position: 'bottom'});
+          Toast({message: "两次输入新密码不一致", position: 'bottom'});
         } else {
           let data = await SetUserPassword(this.sendData);
           if (data.Type == 1) {
-            Toast({message: "修改成功,请重新登陆！", position: 'bottom'});
+            Toast({message: "修改成功,请重新登陆", position: 'bottom'});
             this.$router.push('/login');
           } else if (data.Type != 401) {
             MessageBox('警告', data.Message);

@@ -43,11 +43,17 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
+  import {Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
   import {headerFix, courseIntroduce, courseComment} from '../components'
   import {goBack} from '../service/mixins'
   import {GetCourseDetail, UploadTimeNode} from '../service/getData'
-  import {timeFormat,getStore} from '../plugins/utils'
+  import {timeFormat, getStore} from '../plugins/utils'
 
+  Vue.component(Navbar.name, Navbar);
+  Vue.component(TabItem.name, TabItem);
+  Vue.component(TabContainer.name, TabContainer);
+  Vue.component(TabContainerItem.name, TabContainerItem);
   export default {
     mixins: [goBack],
     data() {
@@ -110,6 +116,7 @@
           //提交成功
         }
       },
+      /*播放方法*/
       playFunc() {
         this.myVideo.load();
         let timer = setInterval(() => {
@@ -140,7 +147,7 @@
               /*判断是否是拖拽到结束*/
               if (this.progressTime > this.duration - 2) {
                 this.updateProgress();
-              }else {
+              } else {
                 this.myVideo.play();
               }
             });

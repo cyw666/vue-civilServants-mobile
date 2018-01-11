@@ -48,7 +48,7 @@
       text-align: left;
     }
     .header_title {
-      flex: 2;
+      flex: 1;
       @extend %ellipsis;
       color: #fff;
     }

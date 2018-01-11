@@ -31,8 +31,12 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
+  import {Cell} from 'mint-ui';
   import {mapState, mapActions} from 'vuex'
   import {headerFix} from '../components'
+
+  Vue.component(Cell.name, Cell);
 
   export default {
     data() {

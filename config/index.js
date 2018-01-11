@@ -3,7 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-
+const target = 'http://test10.jy365.net';
 module.exports = {
   dev: {
     // Paths
@@ -12,19 +12,26 @@ module.exports = {
     proxyTable: {
       // proxy all requests starting with /api to jsonplaceholder
       '/api': {
-        target: 'http://test10.jy365.net',
+        target,
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'
         }
       },
       '/lessionnew': {
-        target: 'http://test10.jy365.net',
+        target,
         changeOrigin: true,
         pathRewrite: {
           '^/lessionnew': '/lessionnew'
         }
-      }
+      },
+      '/Content': {
+        target,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/Content': '/Content'
+        }
+      },
     },
     
     // Various Dev Server settings

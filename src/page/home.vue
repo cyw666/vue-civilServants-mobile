@@ -101,15 +101,17 @@
 
 </template>
 <script>
-  import axios from 'axios'
-  import {mapState, mapActions, mapMutations} from 'vuex'
-  import {Indicator, MessageBox} from 'mint-ui';
-  import {headerFix, errorImg, footerFix, mbModel} from '../components'
-  import {GetCourseInfoList, GetLink, GetCourseDetail, GetUserInfo, Login} from '../service/getData'
-  import {toPlay} from '../service/mixins'
-  import noCourse from '../assets/noCourse.png'
-  import {getStore, setStore, removeStore, getQueryString, userAgent} from '../plugins/utils'
+  import Vue from 'vue';
+  import {mapState, mapActions} from 'vuex';
+  import {Indicator, Toast, MessageBox, Swipe, SwipeItem} from 'mint-ui';
+  import {headerFix, errorImg, footerFix, mbModel} from '../components';
+  import {GetCourseInfoList, GetLink, GetCourseDetail, GetUserInfo, Login} from '../service/getData';
+  import {toPlay} from '../service/mixins';
+  import noCourse from '../assets/noCourse.png';
+  import {getStore, setStore, removeStore, getQueryString, userAgent} from '../plugins/utils';
 
+  Vue.component(Swipe.name, Swipe);
+  Vue.component(SwipeItem.name, SwipeItem);
   export default {
     name: 'home',
     mixins: [toPlay],
@@ -137,12 +139,17 @@
       this.getRecommendCourse();
       this.getSwipeData();
       let ASPXAUTH = window.localStorage.getItem('ASPXAUTH');
-      if (ASPXAUTH) {
-        this.getUserInformation();
+      if (this.userAgent.weixin) {
+        if (ASPXAUTH) {
+          this.getUserInformation();
+        } else {
+          /*自动登陆*/
+          this.login();
+        }
       } else {
-        /*自动登陆*/
-        this.login();
+        this.getUserInformation();
       }
+
     },
     computed: {
       ...mapState(['userAgent', 'weLoginUrl', 'weIndexUrl']),
@@ -155,12 +162,8 @@
           /*登陆成功*/
           this.getUserInformation();
         } else {
-          MessageBox('警告', res.Message);
-          if (this.userAgent.weixin) {
-            window.location = this.weLoginUrl;
-          } else {
-            window.location.href = '/#/login';
-          }
+          Toast({message: '用户掉线,请重新登录', position: 'bottom'});
+          window.location = this.weLoginUrl;
         }
       },
       async getUserInformation() {

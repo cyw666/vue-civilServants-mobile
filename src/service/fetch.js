@@ -1,12 +1,13 @@
 /**
  * ajax请求
  */
-'use strict'
-import {Toast} from 'mint-ui'
+import {Toast, Indicator} from 'mint-ui'
 import axios from 'axios'
 import qs from 'qs'
 import {getStore} from '../plugins/utils'
 
+
+let timeLimit = true;
 // axios.defaults.baseURL = 'http://test10.jy365.net';
 axios.defaults.timeout = 10000;
 axios.defaults.withCredentials = true;
@@ -30,11 +31,12 @@ axios.interceptors.response.use(response => {
 })
 
 function checkStatus(response) {
+  Indicator.close();
   // 如果http状态码正常，则直接返回数据
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
-    // console.log(response);
     //用户掉线
-    if (response.data.Type == 401) {
+    if (response.data.Type == 401 && timeLimit) {
+      timeLimit = false;
       Toast({message: "账号掉线，请重新登录", position: 'bottom'});
       var currentUrl = getStore("currentUrl");
       window.localStorage.removeItem('ASPXAUTH');
@@ -42,9 +44,12 @@ function checkStatus(response) {
         window.location = getStore("URL");
       } else if (getStore("userAgent").mobile) {
         var loginUrl = "/#/login?currentUrl=" + encodeURIComponent(currentUrl);
-        window.history.pushState(null,'',loginUrl);
-        window.location.reload();
+        window.location.href = loginUrl;
       }
+      let timer = setTimeout(() => {
+        timeLimit = true;
+        clearTimeout(timer);
+      }, 1000);
     }
     //存储aspxauth身份验证
     if (response.headers.aspxauth) {
@@ -61,6 +66,7 @@ function checkStatus(response) {
 }
 
 function checkCode(res) {
+  Indicator.close();
   // 如果code异常(这里已经包括网络错误，服务器错误，后端抛出的错误)，可以弹出一个错误提示，告诉用户
   if (res.status === -404) {
     console.log(res.msg)
@@ -82,6 +88,11 @@ export default {
       (res) => {
         return checkCode(res)
       }
+    ).catch(
+      (err) => {
+        Indicator.close();
+        Toast({message: "服务器异常", position: 'bottom'});
+      }
     )
   },
   get(url, params) {
@@ -96,6 +107,11 @@ export default {
     ).then(
       (res) => {
         return checkCode(res)
+      }
+    ).catch(
+      (err) => {
+        Indicator.close();
+        Toast({message: "服务器异常", position: 'bottom'});
       }
     )
   }

@@ -23,12 +23,14 @@
   </div>
 </template>
 <script>
-  import {Indicator} from 'mint-ui'
+  import Vue from 'vue';
+  import {Indicator, InfiniteScroll} from 'mint-ui'
   import {GetBookChapterInfoList} from '../service/getData'
   import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
   import {getStore} from '../plugins/utils'
 
+  Vue.use(InfiniteScroll);
   export default {
     mixins: [goBack],
     data() {

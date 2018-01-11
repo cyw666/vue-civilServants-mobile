@@ -16,7 +16,8 @@
           <div class="message_title" :class="{'read':item.ReadFlag}">{{item.Title}}</div>
           <div class="message_info clearFix">
             <span class="pull-left">{{item.Createdate | dateFilter('yyyy.MM.dd')}}</span>
-            <span class="pull-right" v-if="item.Type=='Course'"><i class="webapp webapp-video" style="color: #ee3f3f"></i></span>
+            <span class="pull-right" v-if="item.Type=='Course'"><i class="webapp webapp-video"
+                                                                   style="color: #ee3f3f"></i></span>
           </div>
         </div>
         <div class="noDataBg" v-if="noDataBg"></div>
@@ -26,11 +27,13 @@
   </div>
 </template>
 <script>
-  import {Indicator} from 'mint-ui'
+  import Vue from 'vue';
+  import {Indicator, InfiniteScroll} from 'mint-ui'
   import {headerFix} from '../components'
   import {goBack, toPlay} from '../service/mixins'
   import {GetMessageCenter, GetCourseDetail} from '../service/getData'
 
+  Vue.use(InfiniteScroll);
   export default {
     mixins: [goBack, toPlay],
     data() {

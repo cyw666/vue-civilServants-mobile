@@ -31,6 +31,11 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
+  import { Tabbar, TabItem } from 'mint-ui';
+
+  Vue.component(Tabbar.name, Tabbar);
+  Vue.component(TabItem.name, TabItem);
   export default {
     name: 'footerFix',
     props: ['selected'],

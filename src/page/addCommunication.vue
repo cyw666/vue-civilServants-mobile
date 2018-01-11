@@ -14,10 +14,13 @@
   </div>
 </template>
 <script>
-  import {Toast, MessageBox} from 'mint-ui'
+  import Vue from 'vue'
+  import {Toast, MessageBox, Button} from 'mint-ui'
   import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
   import {AddDiscuss} from '../service/getData'
+
+  Vue.component(Button.name, Button);
 
   export default {
     mixins: [goBack],

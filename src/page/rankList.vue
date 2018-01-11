@@ -79,10 +79,16 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
+  import {Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
   import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
   import {GetRankInfoList} from '../service/getData'
 
+  Vue.component(Navbar.name, Navbar);
+  Vue.component(TabItem.name, TabItem);
+  Vue.component(TabContainer.name, TabContainer);
+  Vue.component(TabContainerItem.name, TabContainerItem);
   export default {
     mixins: [goBack],
     data() {

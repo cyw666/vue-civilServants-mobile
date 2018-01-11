@@ -38,11 +38,14 @@
   </div>
 </template>
 <script>
-  import {MessageBox} from 'mint-ui'
+  import Vue from 'vue'
+  import {MessageBox, Cell, Button} from 'mint-ui'
   import {mapState, mapActions} from 'vuex'
   import {footerFix} from '../components'
   import {LoginOut} from '../service/getData'
 
+  Vue.component(Cell.name, Cell);
+  Vue.component(Button.name, Button);
   export default {
     data() {
       return {}

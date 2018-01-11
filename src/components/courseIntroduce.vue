@@ -15,9 +15,12 @@
     </div>
     <div class="course_detail_list">
       <p>
-        <span>课程分类：&nbsp;&nbsp;&nbsp;&nbsp;{{courseDetails.ChannelName}}</span><span>学<i>分：&nbsp;&nbsp;&nbsp;{{courseDetails.Credit}}分</i></span>
+        <span>课程分类：&nbsp;&nbsp;&nbsp;&nbsp;{{courseDetails.ChannelName}}</span>
+        <span>学分：&nbsp;&nbsp;&nbsp;{{courseDetails.Credit}}分</span>
       </p>
-      <p><span>时<i>长：&nbsp;&nbsp;&nbsp;&nbsp;{{courseDetails.Duration}}分钟</i></span><span>进<i>度：&nbsp;&nbsp;&nbsp;&nbsp;{{courseDetails.BrowseScore}}</i></span>
+      <p>
+        <span>时长：&nbsp;&nbsp;&nbsp;&nbsp;{{courseDetails.Duration}}分钟</span>
+        <span>进度：&nbsp;&nbsp;&nbsp;&nbsp;{{courseDetails.BrowseScore}}</span>
       </p>
     </div>
     <div class="split"></div>
@@ -69,10 +72,11 @@
         @extend %pull-left;
         @extend %ellipsis;
         &:first-child {
-          width: 50%;
+          width: 60%;
         }
         &:nth-child(2) {
-          margin-left: toRem(120px);
+          width: 40%;
+          padding-left: toRem(50px);
         }
       }
     }

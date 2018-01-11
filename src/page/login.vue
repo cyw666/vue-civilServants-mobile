@@ -21,7 +21,11 @@
       <mt-button size="large" type="primary" @click.native="clickLogin">登陆</mt-button>
       <div class="checkbox">
         <label>
-          <input v-model="Remember" type="checkbox"> &nbsp;记住密码
+          <span class="mint-checkbox">
+            <input v-model="Remember" type="checkbox" class="mint-checkbox-input">
+            <span class="mint-checkbox-core"></span>
+          </span>
+          <span class="mint-checkbox-label">记住密码</span>&nbsp;
         </label>
         <a class="forget" @click="showForgetMessage">忘记密码？</a>
       </div>
@@ -34,12 +38,15 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
   import CryptoJS from 'crypto-js'
   import {mapState, mapActions} from 'vuex'
-  import {MessageBox, Toast, Indicator} from 'mint-ui'
+  import {MessageBox, Toast, Indicator, Checklist, Button} from 'mint-ui'
   import {headerFix} from '../components'
   import {Login} from '../service/getData'
   import {getStore, setStore, removeStore, getQueryString} from '../plugins/utils'
+
+  Vue.component(Button.name, Button);
 
   export default {
     name: 'login',
@@ -78,9 +85,10 @@
     },
     methods: {
       ...mapActions(["getUserAgent"]),
+      /*登陆*/
       async clickLogin() {
         if (!this.Account || !this.Password) {
-          Toast({message: '用户名或密码不能为空！', position: 'bottom'});
+          Toast({message: '用户名或密码不能为空', position: 'bottom'});
           return;
         }
         let loginParams = {
@@ -112,9 +120,10 @@
           MessageBox('警告', res.Message);
         }
         else {
-          MessageBox('警告', "登陆异常!");
+          MessageBox('警告', "登陆异常");
         }
       },
+      /*加密*/
       encrypt(name, value) {
         let encryptText = CryptoJS.AES.encrypt(value, CryptoJS.enc.Utf8.parse(this.key), {
           iv: CryptoJS.enc.Utf8.parse(this.iv),
@@ -123,6 +132,7 @@
         });
         localStorage.setItem(name, encryptText);
       },
+      /*解密*/
       decrypt(value) {
         let decryptText = CryptoJS.AES.decrypt(value || " ", CryptoJS.enc.Utf8.parse(this.key), {
           iv: CryptoJS.enc.Utf8.parse(this.iv),
@@ -210,6 +220,7 @@
       .checkbox {
         color: $color-text-thirdly;
         padding: 0 toRem(20px);
+        font-size: 14px;
         input[type=checkbox] {
           width: toRem(24px);
           height: toRem(24px);

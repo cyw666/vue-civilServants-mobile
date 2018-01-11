@@ -26,10 +26,13 @@
   </div>
 </template>
 <script>
-  import {Indicator} from 'mint-ui';
+  import Vue from 'vue';
+  import {Indicator, InfiniteScroll} from 'mint-ui';
   import {headerFix, navSlide, tree, newsList} from '../components'
   import {GetArticleChannelInfoList, GetArticleInfoList} from '../service/getData'
   import {goBack} from '../service/mixins'
+
+  Vue.use(InfiniteScroll);
 
   export default {
     mixins: [goBack],
@@ -114,7 +117,7 @@
   .newsCenter {
     width: 100vw;
     height: 100vh;
-    .category_icon{
+    .category_icon {
       margin-left: toRem(15px);
     }
   }

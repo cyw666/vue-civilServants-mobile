@@ -35,11 +35,13 @@
   </div>
 </template>
 <script>
-  import {MessageBox} from 'mint-ui';
+  import Vue from 'vue'
+  import {MessageBox, Button} from 'mint-ui';
   import {goBack} from '../service/mixins'
   import {headerFix, mbChecklist, mbRadio} from '../components'
   import {GetExam, UpdateUserExam} from '../service/getData'
 
+  Vue.component(Button.name, Button);
   export default {
     mixins: [goBack],
     data() {
@@ -102,7 +104,7 @@
         if (this.choosedItem[key]) {
           this.itemNum++;
         } else {
-          MessageBox('提示', '请选择选项！');
+          MessageBox('提示', '请选择选项');
         }
       },
       //点击上一题

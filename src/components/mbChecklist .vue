@@ -18,6 +18,10 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
+  import {Checklist} from 'mint-ui';
+
+  Vue.component(Checklist.name, Checklist);
   export default {
     data() {
       return {

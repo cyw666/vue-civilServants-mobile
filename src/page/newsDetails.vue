@@ -10,7 +10,7 @@
     </header-fix>
     <section class="article_details_title">
       <h2>{{articleDetails.Name}}</h2>
-      <div>
+      <div class="article_details_desc">
         <span>发布时间：{{articleDetails.CreatedDate | dateFilter}}</span>
         <span class="article_details_author">作者：{{articleDetails.Author}}</span>
         <span class="article_details_resource">来源：{{articleDetails.Resource}}</span>
@@ -74,6 +74,10 @@
       color: $brand-primary;
       font-size: 12px;
     }
+  }
+
+  .article_details_desc {
+    padding: toRem(10px) 0;
   }
 
   .article_details_title {

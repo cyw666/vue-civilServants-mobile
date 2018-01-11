@@ -53,10 +53,10 @@
   </div>
 </template>
 <script>
-  //  var wx = require('weixin-js-sdk');
+  import Vue from 'vue'
   import wx from 'weixin-js-sdk'
-//  import '../plugins/base64'
-  import {Toast, MessageBox} from 'mint-ui'
+  //  import '../plugins/base64'
+  import {Toast, MessageBox, Button} from 'mint-ui'
   import {signList} from '../components'
   import {goBack} from '../service/mixins'
   import {
@@ -68,6 +68,7 @@
     TrainingSignIn,
   } from '../service/getData'
 
+  Vue.component(Button.name, Button);
   export default {
     mixins: [goBack],
     data() {
@@ -98,7 +99,7 @@
       signList
     },
     methods: {
-      //微信签名
+      /*微信签名*/
       async getWechatWxAuthModel() {
         let data = await GetWechatWxAuthModel({Url: this.url});
         if (data.Type == 1) {
@@ -108,7 +109,7 @@
             timestamp: data.Data.Timestamp,// 必填，生成签名的时间戳
             nonceStr: data.Data.Nonce,// 必填，生成签名的随机串
             signature: data.Data.Signature,// 必填，签名
-            jsApiList: ['checkJsApi', 'scanQRCode', 'chooseImage', 'getLocalImgData']// 必填，需要使用的JS接口列表
+            jsApiList: ['checkJsApi', 'scanQRCode', 'chooseImage', 'getLocalImgData', 'getLocation']// 必填，需要使用的JS接口列表
           });
         } else if (data.Type != 401) {
           MessageBox('警告', data.Message);
@@ -146,7 +147,7 @@
       },
       /*获取位置信息*/
       getLocation() {
-        let options = {
+        /*let options = {
           enableHighAccuracy: true,
           timeout: 5000,
           maximumAge: 0
@@ -163,23 +164,18 @@
           navigator.geolocation.getCurrentPosition(success, error, options);
         } else {
           console.log('Geolocation is not supported by this browser.')
-        }
-        /*wx.ready(function () {
-          wx.checkJsApi({
-            jsApiList: ['scanQRCode', 'chooseImage', 'getLocalImgData'],
-            success: function () {
-            }
-          });
+        }*/
+        wx.ready(function () {
           wx.getLocation({
             type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
             success: function (res) {
               this.longitude = res.longitude;// 经度，浮点数，范围为180 ~ -180。
               this.latitude = res.latitude;// 纬度，浮点数，范围为90 ~ -90
-              /!*var speed = res.speed; // 速度，以米/每秒计
-              var accuracy = res.accuracy; // 位置精度*!/
+              /*let speed = res.speed; // 速度，以米/每秒计
+              let accuracy = res.accuracy; // 位置精度*/
             }
           });
-        });*/
+        });
       },
       //班级详情
       async getClassDetail() {

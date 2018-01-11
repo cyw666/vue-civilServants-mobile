@@ -49,11 +49,14 @@
   </div>
 </template>
 <script>
-  import {Indicator} from 'mint-ui';
-  import {headerFix, classList} from '../components'
-  import {goBack} from '../service/mixins'
-  import {GetRankInfoList, GetTrainingTypeList, GetTrainingClass} from '../service/getData'
+  import Vue from 'vue';
+  import {Indicator, Navbar, TabItem} from 'mint-ui';
+  import {headerFix, classList} from '../components';
+  import {goBack} from '../service/mixins';
+  import {GetRankInfoList, GetTrainingTypeList, GetTrainingClass} from '../service/getData';
 
+  Vue.component(Navbar.name, Navbar);
+  Vue.component(TabItem.name, TabItem);
   export default {
     mixins: [goBack],
     data() {
@@ -72,16 +75,12 @@
     mounted() {
       this.getClassCategory();
     },
-    props: [],
     components: {
       headerFix,
       classList,
     },
-    computed: {},
-    updated() {
-
-    },
     methods: {
+      /*筛选切换*/
       toggleFilter() {
         this.showFilter = !this.showFilter;
       },

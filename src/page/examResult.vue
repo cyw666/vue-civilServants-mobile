@@ -24,8 +24,11 @@
 
 </template>
 <script>
+  import Vue from 'vue'
+  import {Button} from 'mint-ui'
   import {headerFix} from '../components'
 
+  Vue.component(Button.name, Button);
   export default {
     data() {
       return {

@@ -40,7 +40,7 @@
       async getMessageContent(Id) {
         Indicator.open();
         let data = await GetNoticeInfoContent({Id});
-        Indicator.close();
+//        Indicator.close();
         let message = data.toString().split("<body>")[1].split("</body>");
         this.messageContent = message[0];
       },

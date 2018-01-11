@@ -38,11 +38,14 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
+  import {Loadmore} from 'mint-ui';
   import {headerFix, errorImg} from '../components'
   import {goBack, toPlay} from '../service/mixins'
   import noCourse from '../assets/noCourse.png'
   import {GetHistoryCourse} from '../service/getData'
 
+  Vue.component(Loadmore.name, Loadmore);
   export default {
     mixins: [goBack, toPlay],
     data() {
@@ -60,14 +63,9 @@
       this.getTodayHistory();
       this.getEarlierHistory();
     },
-    props: [],
     components: {
       headerFix,
       errorImg,
-    },
-    computed: {},
-    updated() {
-      
     },
     methods: {
       loadTop() {

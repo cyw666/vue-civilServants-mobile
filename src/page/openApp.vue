@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-  import {getQueryString, userAgent} from '../plugins/utils'
+  import {userAgent} from '../plugins/utils'
 
   export default {
     mixins: [],
@@ -36,7 +36,8 @@
       /*初始化 打开APP*/
       new Mlink({
         mlink: link,
-        button: document.querySelector("a#btnOpenApp")
+        button: document.querySelector("a#btnOpenApp"),
+//        autoLaunchApp:true,
       });
 
       if (this.browser.iPhone || this.browser.iPad || this.browser.ios) {
@@ -49,15 +50,7 @@
       if (this.browser.android) {
         document.getElementById("btnOpenApp").click();
       }
-    },
-    props: [],
-    components: {},
-    computed: {},
-    updated() {
-      
-    },
-    methods: {},
-    watch: {}
+    }
   }
 </script>
 

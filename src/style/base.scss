@@ -73,9 +73,6 @@ a {
   text-decoration: none;
   outline: none;
   color: $color-text-base;
-}
-
-a {
   &:hover {
     text-decoration: none;
   }
@@ -214,41 +211,6 @@ label {
   }
 }
 
-//按钮
-.page-button-group, .page-button-group > * {
-  margin-bottom: toRem(30px);
-}
-
-.mint-button {
-  height: toRem(90px);
-  font-size: 14px;
-  @include borderRadius(12px);
-}
-
-.mint-button--normal, .mint-button--small {
-  padding: 0 toRem(24px);
-}
-
-.mint-button--small {
-  font-size: 12px;
-  height: toRem(70px);
-}
-
-.mint-button--large {
-  @include borderRadius(15px);
-}
-
-.mint-button--primary {
-  color: #fff;
-  background-color: $brand-primary;
-}
-
-.mint-button--primary.is-plain {
-  border: 1px solid $brand-primary;
-  background-color: transparent;
-  color: $brand-primary;
-}
-
 //过渡动画
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
@@ -305,7 +267,41 @@ label {
   opacity: 0;
 }
 
-body {
+.app {
+  //按钮
+  .page-button-group, .page-button-group > * {
+    margin-bottom: toRem(30px);
+  }
+
+  .mint-button {
+    height: toRem(90px);
+    font-size: 14px;
+    @include borderRadius(12px);
+  }
+
+  .mint-button--normal, .mint-button--small {
+    padding: 0 toRem(24px);
+  }
+
+  .mint-button--small {
+    font-size: 12px;
+    height: toRem(70px);
+  }
+
+  .mint-button--large {
+    @include borderRadius(15px);
+  }
+
+  .mint-button--primary {
+    color: #fff;
+    background-color: $brand-primary;
+  }
+
+  .mint-button--primary.is-plain {
+    border: 1px solid $brand-primary;
+    background-color: transparent;
+    color: $brand-primary;
+  }
   //MessageBox
   .mint-msgbox {
     font-size: 16px;
@@ -334,13 +330,87 @@ body {
     opacity: 0;
     background: #000;
   }
-}
+  //轮播
+  .mint-swipe-indicator {
+    &.is-active {
+      background: $brand-primary;
+      opacity: 0.9;
+    }
+  }
+  //cell
+  .mint-cell {
+    @include ht-lineHt(88px);
+    .mint-cell-wrapper {
+      line-height: toRem(88px);
+      font-size: 14px;
+      background: none;
+      border-bottom: 1px solid $border-color-base;
+    }
+    img {
+      @include square(26px);
+    }
+    .mint-cell-text {
+      margin-left: toRem(30px);
+    }
+    .mint-cell-title {
+      @include flex(flex-start);
+      align-items: center;
+    }
+    .mint-cell-allow-right::after {
+      @include square(15px);
+    }
+    &:last-child {
+      background: none;
+      border-bottom: none;
+      background-color: #fff;
+      .mint-cell-wrapper {
+        background: none;
+        border-bottom: none;
+        background-color: #fff;
+      }
+    }
+  }
+  //.mint-navbar 选项卡
+  .mint-navbar {
+    .mint-tab-item {
+      padding: toRem(34px) 0;
+      font-size: 16px;
+      &.is-selected {
+        border-bottom: toRem(6px) solid $brand-primary;
+        color: $brand-primary;
+        margin-bottom: toRem(6px);
+      }
+    }
+  }
 
-//轮播
-.mint-swipe-indicator {
-  &.is-active {
-    background: $brand-primary;
-    opacity: 0.9;
+  .mint-tab-item-label {
+    font-size: 16px;
+  }
+
+  .mint-tab-item-icon {
+    width: toRem(48px);
+    height: toRem(48px);
+    margin: 0 auto toRem(5px);
+  }
+
+  //radio
+  .mint-radio-input:checked + .mint-radio-core {
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+  }
+
+  .mint-radio-label {
+    margin-left: toRem(6px);
+  }
+
+  //checkbox
+  .mint-checkbox-input:checked + .mint-checkbox-core {
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+  }
+
+  .mint-checklist-label {
+    margin-left: toRem(6px);
   }
 }
 
@@ -358,40 +428,6 @@ body {
   width: toRem(39px);
 }
 
-//cell
-.mint-cell {
-  @include ht-lineHt(88px);
-  .mint-cell-wrapper {
-    line-height: toRem(88px);
-    font-size: 14px;
-    background: none;
-    border-bottom: 1px solid $border-color-base;
-  }
-  img {
-    @include square(26px);
-  }
-  .mint-cell-text {
-    margin-left: toRem(30px);
-  }
-  .mint-cell-title {
-    @include flex(flex-start);
-    align-items: center;
-  }
-  .mint-cell-allow-right::after {
-    @include square(15px);
-  }
-  &:last-child {
-    background: none;
-    border-bottom: none;
-    background-color: #fff;
-    .mint-cell-wrapper {
-      background: none;
-      border-bottom: none;
-      background-color: #fff;
-    }
-  }
-}
-
 //遮罩层
 .mb-model {
   width: 100vw;
@@ -401,29 +437,6 @@ body {
   top: 0;
   z-index: 1000;
   background-color: $fill-mask;
-}
-
-//.mint-navbar 选项卡
-.mint-navbar {
-  .mint-tab-item {
-    padding: toRem(34px) 0;
-    font-size: 16px;
-    &.is-selected {
-      border-bottom: toRem(6px) solid $brand-primary;
-      color: $brand-primary;
-      margin-bottom: toRem(6px);
-    }
-  }
-}
-
-.mint-tab-item-label {
-  font-size: 16px;
-}
-
-.mint-tab-item-icon {
-  width: toRem(48px);
-  height: toRem(48px);
-  margin: 0 auto toRem(5px);
 }
 
 //table 表格
@@ -456,25 +469,6 @@ table {
   background-size: toRem(33px), toRem(35px);
 }
 
-//radio
-.mint-radio-input:checked + .mint-radio-core {
-  background-color: $brand-primary;
-  border-color: $brand-primary;
-}
-
-.mint-radio-label {
-  margin-left: toRem(6px);
-}
-
-//checkbox
-.mint-checkbox-input:checked + .mint-checkbox-core {
-  background-color: $brand-primary;
-  border-color: $brand-primary;
-}
-
-.mint-checklist-label {
-  margin-left: toRem(6px);
-}
 
 
 

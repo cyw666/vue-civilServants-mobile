@@ -45,11 +45,14 @@
   </div>
 </template>
 <script>
-  import {Toast, MessageBox, Indicator} from 'mint-ui'
+  import Vue from 'vue';
+  import {Toast, MessageBox, Indicator, Button, InfiniteScroll} from 'mint-ui'
   import {headerFix} from '../components'
   import {goBack} from '../service/mixins'
   import {DiscussList, AddDiscuss} from '../service/getData'
 
+  Vue.component(Button.name, Button);
+  Vue.use(InfiniteScroll);
   export default {
     mixins: [goBack],
     data() {
@@ -66,19 +69,11 @@
         noDataBg: false,
       }
     },
-    created() {
-      
-    },
     mounted() {
 //      this.getDiscussList();
     },
-    props: [],
     components: {
       headerFix
-    },
-    computed: {},
-    updated() {
-      
     },
     methods: {
       //获取讨论列表
@@ -130,7 +125,6 @@
         this.isShowWrite = false;
       },
     },
-    watch: {}
   }
 </script>
 

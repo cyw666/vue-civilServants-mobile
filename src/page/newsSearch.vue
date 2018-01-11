@@ -18,11 +18,13 @@
   </div>
 </template>
 <script>
-  import {Indicator} from 'mint-ui';
+  import Vue from 'vue'
+  import {Indicator,InfiniteScroll} from 'mint-ui';
   import {headerFix, search, courseList, newsList} from '../components'
   import {GetArticleInfoList} from '../service/getData'
   import {goBack} from '../service/mixins'
 
+  Vue.use(InfiniteScroll);
   export default {
     mixins: [goBack],
     data() {
