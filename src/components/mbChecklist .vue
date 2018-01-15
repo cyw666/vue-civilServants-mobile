@@ -1,6 +1,6 @@
 <template>
   <div class="mbChecklist" @change="$emit('change', currentValue)">
-    <div class="checkList" v-for="option in options">
+    <div class="checkList" v-for="(option,index) in options" :key="index">
       <label class="mint-checklist-label">
         <span class="mint-checkbox">
           <input

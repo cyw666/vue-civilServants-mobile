@@ -25,7 +25,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(item,index) in studentData" :key="index">
+          <tr v-for="(item,index) in studentData" :key="item.index">
             <td v-if="index<3" class="rank"
                 :class="{'rank_bg_one':index==0,'rank_bg_two':index==1,'rank_bg_three':index==2,}"></td>
             <td v-if="index>=3" class="rank">{{item.index}}</td>
@@ -45,7 +45,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(item,index) in courseData" :key="index">
+          <tr v-for="(item,index) in courseData" :key="item.index">
             <td v-if="index<3" class="rank"
                 :class="{'rank_bg_one':index==0,'rank_bg_two':index==1,'rank_bg_three':index==2,}"></td>
             <td v-if="index>=3" class="rank">{{item.index}}</td>
@@ -65,7 +65,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(item,index) in groupData" :key="index">
+          <tr v-for="(item,index) in groupData" :key="item.index">
             <td v-if="index<3" class="rank"
                 :class="{'rank_bg_one':index==0,'rank_bg_two':index==1,'rank_bg_three':index==2,}"></td>
             <td v-if="index>=3" class="rank">{{item.index}}</td>

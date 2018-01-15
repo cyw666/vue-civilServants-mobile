@@ -3,7 +3,7 @@
 */
 <template>
   <ul class="course_menu">
-    <li v-for="(item,index) in dataList" :class="{'highlight':item.NodeId==active}">
+    <li v-for="(item,index) in dataList" :key="index" :class="{'highlight':item.NodeId==active}">
       <span class="title">{{item.NodeName}}</span>
       <p class="status">
         <span class="green" v-if="item.Status=='C'">已完成</span>

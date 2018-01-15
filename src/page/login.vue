@@ -68,6 +68,7 @@
     },
     created() {
       this.Code = this.$route.query.code;
+      this.getUserAgent();
     },
     mounted() {
       let backUrl = this.$route.query.currentUrl;

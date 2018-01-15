@@ -11,7 +11,9 @@
       <div class="history_container">
         <div class="history_course">
           <div class="history_title"><span class="red_line"></span><span>今天</span></div>
-          <div class="history_content" v-for="item in todayHistory" @click.stop="toPlay(item.CourseType,item.CourseId)">
+          <div class="history_content" v-for="item in todayHistory"
+               :key="item.CourseId"
+               @click.stop="toPlay(item.CourseType,item.CourseId)">
             <div class="left_img">
               <error-img :src="item.CourseImg" :error-src="noCourse"></error-img>
             </div>
@@ -23,7 +25,9 @@
         </div>
         <div class="history_course">
           <div class="history_title"><span class="red_line"></span><span>更早</span></div>
-          <div class="history_content" v-for="item in earlyHistory" @click.stop="toPlay(item.CourseType,item.CourseId)">
+          <div class="history_content" v-for="item in earlyHistory"
+               :key="item.CourseId"
+               @click.stop="toPlay(item.CourseType,item.CourseId)">
             <div class="left_img">
               <error-img :src="item.CourseImg" :error-src="noCourse"></error-img>
             </div>

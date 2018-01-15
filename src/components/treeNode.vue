@@ -13,8 +13,8 @@
       </div>
     </div>
     <ul class="tree_container" v-show="open" v-if="hasNodes">
-      <node v-for="item in dataList.Nodes" :data-list="item" @itemClick="selectedNode" :on-select="onSelect"
-            key="$index"></node>
+      <node v-for="(item,index) in dataList.Nodes" :data-list="item" @itemClick="selectedNode" :on-select="onSelect"
+            :key="index"></node>
     </ul>
   </li>
 </template>

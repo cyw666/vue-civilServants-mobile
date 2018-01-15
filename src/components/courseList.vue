@@ -3,7 +3,8 @@
 */
 <template>
   <div class="course_list">
-    <div class="course_item" v-for="item in courseData" @click.stop="toPlay(item.CourseType,item.CourseId)">
+    <div class="course_item" v-for="item in courseData" :key="item.CourseId"
+         @click.stop="toPlay(item.CourseType,item.CourseId)">
       <div class="course_img">
         <a class="img">
           <error-img :src="item.CourseImg" :error-src="noCourse"></error-img>

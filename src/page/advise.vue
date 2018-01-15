@@ -9,6 +9,7 @@
     </header-fix>
     <div class="advise_type">
       <a v-for="(item,index) in typeData" class="advise_type_item"
+         :key="item.ClassCode"
          :class="{'active':item.ClassCode == adviseType}"
          @click="changeType(item.ClassCode)">
         {{item.ClassName}}

@@ -13,7 +13,7 @@
     </header-fix>
     <div class="container">
       <mt-swipe :auto="4000">
-        <mt-swipe-item v-for="item in swipeData" key="$index">
+        <mt-swipe-item v-for="item in swipeData" :key="item.Id">
           <a @click.prevent="judgeUrl(item.Type,item.Id)">
             <error-img :src="item.Icon"></error-img>
           </a>
@@ -222,8 +222,6 @@
   @import "../style/mixin";
 
   .home_index {
-    .container {
-    }
     .header {
       .message {
         @extend %pull-left;

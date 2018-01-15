@@ -33,6 +33,7 @@
         <mt-tab-container-item id="catalogue">
           <ul class="course_menu">
             <li v-for="(item,index) in nodeList"
+                :key="item.NodeId"
                 :class="{'highlight':item.NodeId==activeNodeId}"
                 @click.stop="otherNode(index)">
               <span class="title">{{item.NodeName}}</span>
@@ -58,7 +59,7 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {MessageBox, Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
+  import {Toast,MessageBox, Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
   import {headerFix, courseIntroduce, courseComment} from '../components'
   import {goBack} from '../service/mixins'
   import {GetCourseDetail, SyncUserStudyData} from '../service/getData'
@@ -91,7 +92,8 @@
           Time: 0,
         },
         myVideo: null, //video对象
-        progressTime: 0, //记录视频完成进度位置
+        prevLocation:0,//上一次播放位置
+        locationTime:0 //当前播放位置
       }
     },
     created() {
@@ -138,6 +140,8 @@
         });
         if (data.Type == 1) {
           this.nodeList = data.Data.NodeList;
+        }else if(data.Type != 401){
+          Toast({message: "进度提交失败", position: 'bottom'});
         }
       },
       /*播放方法*/
@@ -149,42 +153,40 @@
           if (readyState == 4) {
             /*准备好可以播放时清除定时器*/
             clearInterval(timer);
-            timer = null;
             this.duration = this.myVideo.duration; //当前时间
-            /*播放前判断是否播放完毕*/
-            if (this.activeNode.Status == 'C') {
-              /*播放已经完毕 是否播放下一章节*/
-              this.nextNode();
+            console.log(this.prevLocation)
+            this.myVideo.currentTime = this.prevLocation;
+//            debugger;
+            /*是否自动播放*/
+            if (this.autoPlay) {
+              this.myVideo.play();
             } else {
-              this.myVideo.currentTime = this.progressTime;
-              /*是否自动播放*/
-              if (this.autoPlay) {
-                this.myVideo.play();
-              } else {
-                this.myVideo.pause();
-              }
+              this.myVideo.pause();
             }
             /*监听视频播放位置*/
             this.myVideo.addEventListener('timeupdate', () => {
               let currentTime = this.myVideo.currentTime;
               if (currentTime > 0) {
-                /*视频已经播放完毕*/
-                if (this.activeNode.Status == "C") {
-                  this.progressTime = currentTime;
-                } else {
+                /*视频播放完成，记录当前位置*/
+                if(this.activeNode.Status == "C"){
+                  this.locationTime = currentTime;
+                }else {
                   /*视频未播放完毕 禁止拖拽*/
-                  if (currentTime > this.progressTime - 2 && currentTime < this.progressTime + 1) {
-                    this.progressTime = currentTime;
-                  } else if (currentTime > this.progressTime + 2) {
-                    this.myVideo.currentTime = this.progressTime;
+                  if(currentTime > this.locationTime + 2||currentTime < this.locationTime - 2){
+                    this.myVideo.currentTime = this.locationTime;
+                    this.myVideo.play();
+                    Toast({message: "未播放课程禁止拖拽", position: 'bottom'});
+                  }else {
+                    this.locationTime = currentTime;
                   }
                 }
+
               }
             });
             /*监听视频播放结束*/
             this.myVideo.addEventListener('ended', () => {
               /*判断是否是拖拽到结束*/
-              if (this.progressTime > this.duration - 2) {
+              if (this.locationTime > this.duration - 2) {
                 this.activeNode.Status = 'C';
                 this.updateProgress(this.activeNode.NodeId, this.myVideo.currentTime, this.activeNode.Status);
                 this.nextNode();
@@ -197,7 +199,7 @@
       },
       /*播放其他章节*/
       playNode(index) {
-        this.updateProgress(this.activeNode.NodeId, this.progressTime, this.activeNode.Status);
+        this.updateProgress(this.activeNode.NodeId, this.locationTime, this.activeNode.Status);
         this.activeNodeIndex = index;
       },
       /*是否播放下一章节*/
@@ -221,7 +223,7 @@
       }
     },
     beforeDestroy() {
-      this.updateProgress(this.activeNode.NodeId, this.progressTime, this.activeNode.Status);
+      this.updateProgress(this.activeNode.NodeId, this.locationTime, this.activeNode.Status);
     },
     watch: {
       activeNodeIndex: function (val) {
@@ -238,7 +240,8 @@
           if (val == item.NodeId) {
             this.activeNode = item;
             this.activeNodeIndex = index;
-            this.progressTime = item.Time;
+            this.prevLocation = item.Time;
+            this.locationTime = item.Time;
             this.playFunc();
           }
         })
@@ -263,9 +266,9 @@
         width: 7rem;
       }
       .status {
-        @extend %pull-left;
+        @extend %pull-right;
         color: $color-text-thirdly;
-        font-size: 14px;
+        font-size: 12px;
       }
       .green {
         color: $brand-success;

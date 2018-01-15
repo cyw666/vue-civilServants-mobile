@@ -9,13 +9,13 @@
       <i class="webapp webapp-time" style="color: #00aeff"></i>
       <span>剩余时间：{{timeLimit ? timeLimt + "分钟" : "不限时"}}</span>
     </div>
-    <div class="exam_content" v-for="(list,index) in exam" v-if="(itemNum-1)==index">
+    <div class="exam_content" v-for="(list,index) in exam" v-if="itemNum == index + 1">
       <p class="exam_name">
         <span class="red" v-if="list.ThemeType==0">【判断题】</span>
         <span class="red" v-if="list.ThemeType==1">【单选题】</span>
         <span class="red" v-if="list.ThemeType==2">【多选题】</span>
         <span>{{index + 1 + "." + list.ThemeTitle}}</span>
-        <!--<span class="red">({{list.ThemeScore}}分)</span>-->
+        <span class="red">({{Number(list.ThemeScore).toFixed(1)}}分)</span>
       </p>
       <ul class="exam_list">
         <p v-if="list.ThemeType == 2">
@@ -132,9 +132,6 @@
               }
             })
         });
-      },
-      choseItem(id) {
-        this.itemId = id;
       },
       changeSendData(data) {
         if (data) {

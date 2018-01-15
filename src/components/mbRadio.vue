@@ -1,6 +1,6 @@
 <template>
   <div class="mbRadio" @change="$emit('change', currentValue)">
-    <div class="radioList" v-for="option in options">
+    <div class="radioList" v-for="(option,index) in options" :key="index">
       <label class="mint-radiolist-label">
         <span class="mint-radio">
           <input

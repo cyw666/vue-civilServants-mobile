@@ -4,6 +4,7 @@
 <template>
   <div class="exam_list">
     <div class="exam_item" v-for="item in examData"
+         :key="item.ExamId"
          @click.stop="checkAttempt(item.ExamId,item.TriesLimit,item.LattemptNumber,item.EndTime)">
       <div class="exam_img">
         <img src="../assets/exam_ico.png" alt="">

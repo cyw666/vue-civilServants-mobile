@@ -4,7 +4,7 @@
 <template>
   <div class="class_list">
     <ul>
-      <li v-for="(item,index) in data" :key="index" class="clearFix" @click="goDetail(item.Id)">
+      <li v-for="(item,index) in data" :key="item.Id" class="clearFix" @click="goDetail(item.Id)">
         <div class="class_ico"><img src="../assets/class_logo.png" alt=""></div>
         <div class="class_right">
           <p class="class_title"><a>{{item.Name}}</a><span>({{item.UserCount}}人报名)</span></p>

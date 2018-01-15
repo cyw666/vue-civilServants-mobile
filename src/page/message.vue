@@ -12,7 +12,9 @@
              infinite-scroll-disabled="loading"
              infinite-scroll-distance="10">
       <div class="message_list">
-        <div class="message_item" v-for="item in messageData" @click.stop="linkTo(item.Type,item.Id)">
+        <div class="message_item" v-for="item in messageData"
+             :key="item.Id"
+             @click.stop="linkTo(item.Type,item.Id)">
           <div class="message_title" :class="{'read':item.ReadFlag}">{{item.Title}}</div>
           <div class="message_info clearFix">
             <span class="pull-left">{{item.Createdate | dateFilter('yyyy.MM.dd')}}</span>

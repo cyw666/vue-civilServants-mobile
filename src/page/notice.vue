@@ -12,7 +12,7 @@
              infinite-scroll-disabled="loading"
              infinite-scroll-distance="10">
       <div class="notice_list">
-        <div class="notice_item" v-for="(item,index) in noticeData" :key="index" @click.stop="linkTo(item.NoticeId)">
+        <div class="notice_item" v-for="(item,index) in noticeData" :key="item.NoticeId" @click.stop="linkTo(item.NoticeId)">
           <div class="title clearFix">
             <span class="pull-left">{{item.NoticeTitle}}</span>
             <span class="pull-right"><i class="webapp webapp-more"></i></span>

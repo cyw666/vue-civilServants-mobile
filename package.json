@@ -5,7 +5,7 @@
   "author": "cyw666 <13656631764@163.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "test": "npm run unit",
     "build": "node build/build.js"

@@ -81,7 +81,7 @@
             <header-fix :title="groupName">
               <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
-            <div class="cell" v-for="(item,index) in groupList1" :key="index">
+            <div class="cell" v-for="(item,index) in groupList1" :key="item.UserGroupId">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
               <i class="webapp webapp-more"></i>
             </div>
@@ -90,7 +90,7 @@
             <header-fix :title="groupName">
               <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
-            <div class="cell" v-for="(item,index) in groupList2" :key="index">
+            <div class="cell" v-for="(item,index) in groupList2" :key="item.UserGroupId">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
               <i class="webapp webapp-more"></i>
             </div>
@@ -99,7 +99,7 @@
             <header-fix :title="groupName">
               <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
-            <div class="cell" v-for="(item,index) in groupList3" :key="index">
+            <div class="cell" v-for="(item,index) in groupList3" :key="item.UserGroupId">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
               <i class="webapp webapp-more"></i>
             </div>
@@ -108,7 +108,7 @@
             <header-fix :title="groupName">
               <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
-            <div class="cell" v-for="(item,index) in groupList4" :key="index">
+            <div class="cell" v-for="(item,index) in groupList4"  :key="item.UserGroupId">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
               <i class="webapp webapp-more"></i>
             </div>

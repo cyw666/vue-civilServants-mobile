@@ -12,7 +12,7 @@
              infinite-scroll-disabled="loading"
              infinite-scroll-distance="10">
       <ul class="ebook_chapter_list">
-        <li class="ebook_chapter_item" v-for="(item,index) in bookChapterData" :key="index">
+        <li class="ebook_chapter_item" v-for="(item,index) in bookChapterData" :key="item.BookTitelId">
           <router-link :to="{path:'/ebookDetail',query:{id:item.BookTitelId,index:index+1}}">{{item.Title}}
           </router-link>
         </li>

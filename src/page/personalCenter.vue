@@ -32,7 +32,8 @@
       </mt-cell>
     </div>
     <div class="exit">
-      <mt-button @click.native="exit" type="primary" size="large">退出登录</mt-button>
+      <mt-button v-if="userAgent.weixin" @click.native="exit" type="primary" size="large">解除微信绑定</mt-button>
+      <mt-button v-else @click.native="exit" type="primary" size="large">退出登录</mt-button>
     </div>
     <footer-fix selected="personalCenter"></footer-fix>
   </div>
@@ -54,7 +55,7 @@
       this.getUserInformation();
     },
     computed: {
-      ...mapState(["userInfo"]),
+      ...mapState(["userInfo", "userAgent"]),
     },
     components: {
       footerFix

@@ -14,7 +14,7 @@
                infinite-scroll-immediate-check="immediate"
                infinite-scroll-disabled="loading"
                infinite-scroll-distance="10">
-        <div class="course_comment_item" v-for="(item,index) in commentList">
+        <div class="course_comment_item" v-for="(item,index) in commentList" :key="item.CommentId">
           <div class="left_avatar"><img src="../assets/male.png" alt=""/></div>
           <div class="right_content">
             <p class="name">

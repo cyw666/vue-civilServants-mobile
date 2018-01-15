@@ -15,7 +15,7 @@
              infinite-scroll-disabled="loading"
              infinite-scroll-distance="10">
       <ul class="info_content">
-        <li class="info_item" v-for="(item,index) in discussList" :key="index" @click="closeWrite">
+        <li class="info_item" v-for="(item,index) in discussList" :key="item.Id" @click="closeWrite">
           <div class="left_avatar"><img src="../assets/male.png" alt=""></div>
           <div class="right_content">
             <p class="author_name">{{item.UserName}}</p>
@@ -25,7 +25,7 @@
               <i class="webapp webapp-comments" style="color: #89d4ff;"></i>
             </a>
             <ul class="comment">
-              <li v-for="(item,index) in item.List" :key="index"><span
+              <li v-for="(item,index) in item.List" :key="item.Id"><span
                   class="name">{{item.UserName}}：</span>{{item.Content}}
               </li>
             </ul>

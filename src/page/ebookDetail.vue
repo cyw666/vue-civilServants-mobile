@@ -202,6 +202,7 @@
     }
     .backEbook {
       color: $color-text-reverse;
+      font-size: 16px;
     }
     .bg_container {
       padding: toRem(30px);

@@ -18,7 +18,7 @@
       </div>
     </header-fix>
     <mt-navbar v-model="typeId">
-      <mt-tab-item v-for="item in classCategory" :id="item.TypeId" key="$index">{{item.TypeName}}</mt-tab-item>
+      <mt-tab-item v-for="item in classCategory" :key="item.TypeId" :id="item.TypeId">{{item.TypeName}}</mt-tab-item>
     </mt-navbar>
 
     <class-list :data="classGardenData" :no-data-bg="noDataBg"></class-list>
@@ -131,6 +131,14 @@
   @import "../style/mixin";
 
   .class_garden {
+    padding-top: toRem(204px);
+    .mint-navbar{
+      position: fixed;
+      top:toRem(92px);
+      width: 100%;
+      background-color: $fill-body;
+      z-index: 100;
+    }
     .filter {
       @extend %pull-left;
       color: $color-text-reverse;

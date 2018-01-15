@@ -3,7 +3,7 @@
 */
 <template>
   <div class="ebook_list">
-    <div class="ebook_item" v-for="(item,index) in data" :key="index"
+    <div class="ebook_item" v-for="item in data" :key="item.BookNameId"
          @click="goChapterList(item.BookNameId,item.BookName)">
       <error-img :src="item.BookImg" :error-src="errorBook"></error-img>
       <p class="ebook_name">{{item.BookName}}</p>

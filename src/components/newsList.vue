@@ -3,7 +3,7 @@
 */
 <template>
   <div class="news_list">
-    <div class="news_item" v-for="item in newsData" @click="goArticleDetail(item.ArticleId)">
+    <div class="news_item" v-for="item in newsData" :key="item.ArticleId" @click="goArticleDetail(item.ArticleId)">
       <div class="news_img">
         <error-img :src="item.ArticleImg" :error-src="noNews"></error-img>
       </div>

@@ -4,7 +4,7 @@
 <template>
   <div class="sign_list">
     <ul>
-      <li v-for="item in signData">
+      <li v-for="(item,index) in signData" :key="index">
         <p class="sign_date">{{item.SignInDate | dateFilter}}</p>
         <div class="sign_am">
           <span>上午</span>
