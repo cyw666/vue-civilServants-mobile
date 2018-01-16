@@ -53,9 +53,16 @@
       padding-top: toRem(25px);
       img {
         @include wh(176px, 234px);
+        @include border-right-radius(10px);
+        box-shadow: toRem(6px) toRem(6px) 4px #b5b9bc;
+        -webkit-box-shadow: toRem(6px) toRem(6px) 8px #b5b9bc;
       }
       .ebook_name {
-        line-height: toRem(50px);
+        padding: 0 toRem(30px);
+        height: toRem(64px);
+        line-height: toRem(32px);
+        @include ellipsis_two();
+        margin: toRem(10px) 0;
       }
       .ebook_author {
         line-height: toRem(40px);

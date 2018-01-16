@@ -31,7 +31,7 @@
     </div>
     <div class="sign_detail">
       <div class="sign_title">
-        <span class="red_line"></span>
+        <span class="primary_line"></span>
         <span>签到情况</span>
         <router-link class="see_sign" :to="{path:'/signDetail',query:{Id:classId}}">(查看所有签到)</router-link>
       </div>
@@ -39,7 +39,7 @@
     </div>
     <div class="class_desc">
       <div class="sign_title">
-        <span class="red_line"></span>
+        <span class="primary_line"></span>
         <span>课程详情</span>
       </div>
       <div class="class_course_detail">

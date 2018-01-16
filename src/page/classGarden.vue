@@ -136,7 +136,6 @@
       position: fixed;
       top:toRem(92px);
       width: 100%;
-      background-color: $fill-body;
       z-index: 100;
     }
     .filter {

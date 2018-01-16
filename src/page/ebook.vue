@@ -73,26 +73,7 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-
-  .ebook {
-    .ebook_list {
-      @extend %clearFix;
-    }
-    .ebook_item {
-      @extend %pull-left;
-      text-align: center;
-      width: 33.3%;
-      padding-top: toRem(25px);
-      img {
-        @include wh(176px, 234px);
-      }
-      .ebook_name {
-        line-height: toRem(50px);
-      }
-      .ebook_author {
-        line-height: toRem(40px);
-
-      }
-    }
+  .ebook{
+    background-color: $fill-body;
   }
 </style>

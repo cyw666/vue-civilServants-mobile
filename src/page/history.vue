@@ -4,13 +4,13 @@
 <template>
   <div class="history container_top">
     <!--头部-->
-    <header-fix title="历史记录" fixed>
+    <header-fix title="播放记录" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <mt-loadmore :top-method="loadTop" @top-status-change="handleTopChange" ref="loadmore">
       <div class="history_container">
         <div class="history_course">
-          <div class="history_title"><span class="red_line"></span><span>今天</span></div>
+          <div class="history_title"><span class="primary_line"></span><span>今天</span></div>
           <div class="history_content" v-for="item in todayHistory"
                :key="item.CourseId"
                @click.stop="toPlay(item.CourseType,item.CourseId)">
@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="history_course">
-          <div class="history_title"><span class="red_line"></span><span>更早</span></div>
+          <div class="history_title"><span class="primary_line"></span><span>更早</span></div>
           <div class="history_content" v-for="item in earlyHistory"
                :key="item.CourseId"
                @click.stop="toPlay(item.CourseType,item.CourseId)">
@@ -107,29 +107,31 @@
     .history_container {
     }
     .history_course {
-      padding: toRem(20px) toRem(30px);
+      padding: toRem(20px) toRem(30px) 0 toRem(30px);
+      margin-bottom: toRem(20px);
+      background-color: $fill-base;
     }
     .history_title {
       font-size: 15px;
-      padding: toRem(15px) 0;
     }
     .history_content {
       @extend %clearFix;
       padding: toRem(20px) 0;
       border-bottom: 1px solid $border-color-base;
       .left_img {
-        width: toRem(244px);
+        width: toRem(200px);
         @extend %pull-left;
         img {
-          @include wh(244px, 148px);
+          @include wh(186px, 106px);
         }
       }
       .right_content {
         @extend %pull-right;
-        width: toRem(425px);
+        width: toRem(470px);
         h4 {
           font-size: 14px;
-          margin-bottom: toRem(45px);
+          height: toRem(76px);
+          line-height: toRem(38px);
           @include ellipsis_two;
         }
         span {

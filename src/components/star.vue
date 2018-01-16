@@ -56,7 +56,7 @@
         let result = '';
         if (this.showScore) {
           result = this.disabled ? this.value : this.currentValue;
-          result = parseInt(result).toFixed(1) + '分';
+          result = parseInt(result).toFixed(1);
         } else if (this.showText) {
           result = this.texts[Math.ceil(this.currentValue) - 1];
         }
@@ -121,7 +121,7 @@
       height: toRem(24px);
       line-height: toRem(24px);
       background-size: toRem(24px);
-      margin: 0 toRem(11px);
+      margin: 0 toRem(6px);
     }
   }
 
@@ -142,10 +142,10 @@
   }
 
   .rate_text_primary {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .rate_text_small {
-    font-size: 14px;
+    font-size: 12px;
   }
 </style>

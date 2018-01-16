@@ -13,7 +13,16 @@
                  infinite-scroll-immediate-check="immediate"
                  infinite-scroll-disabled="loading"
                  infinite-scroll-distance="10">
-          <ebook-list :data="ebookData" :no-data-bg="noDataBg"></ebook-list>
+          <!--<ebook-list :data="ebookData" :no-data-bg="noDataBg"></ebook-list>-->
+          <div class="ebook_search_list">
+            <div class="ebook_item" v-for="item in ebookData" :key="item.BookNameId"
+                 @click="goChapterList(item.BookNameId,item.BookName)">
+              <img src="../assets/txt.png" alt="">
+              <span class="ebook_name">{{item.BookName}}</span>
+            </div>
+            <div class="noDataBg" v-if="noDataBg"></div>
+            <!--<div class="no-data" v-if="noData">没有更多内容了...</div>-->
+          </div>
         </section>
       </search>
     </div>
@@ -25,6 +34,7 @@
   import {headerFix, search, ebookList} from '../components'
   import {GetBookInfoList} from '../service/getData'
   import {goBack} from '../service/mixins'
+  import {setStore} from '../plugins/utils'
 
   Vue.use(InfiniteScroll);
 
@@ -71,6 +81,10 @@
           this.page = 1;
           this.getEbookList();
         }
+      },
+      goChapterList(id, bookName) {
+        setStore("bookName", bookName);
+        this.$router.push({path: '/ebookChapterList', query: {id}})
       }
     },
   }
@@ -85,6 +99,19 @@
     background-color: $fill-body;
     .pad_top {
       padding-top: toRem(92px);
+    }
+    .ebook_search_list{
+
+    }
+    .ebook_item{
+      @include ht-lineHt(70px);
+      padding: 0 toRem(40px);
+      background-color: $fill-base;
+      img{
+        width: toRem(27px);
+        margin-right: toRem(30px);
+        vertical-align: middle;
+      }
     }
   }
 </style>

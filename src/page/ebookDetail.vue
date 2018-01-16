@@ -199,6 +199,9 @@
     height: 100vh;
     .header {
       background-color: rgba(0, 0, 0, 0.82);
+      .webapp-back{
+        font-size: 16px;
+      }
     }
     .backEbook {
       color: $color-text-reverse;

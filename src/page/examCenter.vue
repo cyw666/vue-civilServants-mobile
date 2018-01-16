@@ -8,14 +8,14 @@
         <i class="webapp webapp-category"></i>
       </a>
       <div slot="right" class="clearFix">
+        <router-link class="pull-right" to="/examSearch">
+          <i class="webapp webapp-search"></i>
+        </router-link>
         <a class="filter" @click="toggleFilter">
           <span>筛选</span>
           <i v-if="showFilter" class="webapp webapp-less"></i>
           <i v-if="!showFilter" class="webapp webapp-moreunfold"></i>
         </a>
-        <router-link class="pull-right" to="/examSearch">
-          <i class="webapp webapp-search"></i>
-        </router-link>
       </div>
     </header-fix>
     <nav-slide :show="showSlide" @showChange="showChange">
@@ -41,22 +41,22 @@
       <p class="filter_item" @click="filterExam('All')">
         <i class="webapp webapp-order" style="color: #00aeff;"></i>
         <span>默认</span>
-        <i v-if="examType=='All'" class="webapp webapp-selected" style="color: #ee3f3f;"></i>
+        <i v-if="examType=='All'" class="webapp webapp-selected"></i>
       </p>
       <p class="filter_item" @click="filterExam('Finish')">
         <i class="webapp webapp-smile" style="color: #5fbe81;"></i>
         <span>已过</span>
-        <i v-if="examType=='Finish'" class="webapp webapp-selected" style="color: #ee3f3f;"></i>
+        <i v-if="examType=='Finish'" class="webapp webapp-selected"></i>
       </p>
       <p class="filter_item" @click="filterExam('UnFinish')">
         <i class="webapp webapp-cry" style="color: #ee3f3f;"></i>
         <span>未过</span>
-        <i v-if="examType=='UnFinish'" class="webapp webapp-selected" style="color: #ee3f3f;"></i>
+        <i v-if="examType=='UnFinish'" class="webapp webapp-selected"></i>
       </p>
       <p class="filter_item" @click="filterExam('UnJoin')">
         <i class="webapp webapp-cry" style="color: #999999;"></i>
         <span>未考</span>
-        <i v-if="examType=='UnJoin'" class="webapp webapp-selected" style="color: #ee3f3f;"></i>
+        <i v-if="examType=='UnJoin'" class="webapp webapp-selected"></i>
       </p>
     </div>
     <footer-fix selected="examCenter"></footer-fix>
@@ -174,7 +174,7 @@
     width: 100vw;
     height: 100vh;
     .filter {
-      @extend %pull-left;
+      @extend %pull-right;
       color: $color-text-reverse;
       font-size: 14px;
       margin-right: toRem(10px);
@@ -222,14 +222,19 @@
       .webapp-selected {
         @extend %pull-right;
         font-size: 25px;
+        color: $brand-primary;
       }
       &.filter_title {
         background-color: $fill-grey;
         padding: 0;
+        color: $color-text-thirdly;
         span {
           margin-left: toRem(30px);
         }
       }
+    }
+    .tree_title .tran_line{
+      background-color: $brand-primary;
     }
   }
 </style>

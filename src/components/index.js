@@ -21,6 +21,8 @@ import star from './star.vue'
 import courseIntroduce from './courseIntroduce.vue'
 import courseCatalogue from './courseCatalogue.vue'
 import courseComment from './courseComment.vue'
+import courseNotes from './courseNotes.vue'
+import relatedCourse from './relatedCourse.vue'
 
 export {
   courseList,
@@ -46,4 +48,6 @@ export {
   courseIntroduce,
   courseCatalogue,
   courseComment,
+  courseNotes,
+  relatedCourse,
 }

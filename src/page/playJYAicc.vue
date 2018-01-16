@@ -23,6 +23,7 @@
       <mt-navbar v-model="selected">
         <mt-tab-item id="introduce">介绍</mt-tab-item>
         <mt-tab-item id="catalogue">目录</mt-tab-item>
+        <mt-tab-item id="relatedCourse">相关课程</mt-tab-item>
         <mt-tab-item id="evaluate">评价</mt-tab-item>
       </mt-navbar>
       <!-- tab-container -->
@@ -44,8 +45,16 @@
             </li>
           </ul>
         </mt-tab-container-item>
+        <mt-tab-container-item id="relatedCourse">
+          <section v-infinite-scroll="getRelatedCourse"
+                   infinite-scroll-immediate-check="immediate"
+                   infinite-scroll-disabled="loading"
+                   infinite-scroll-distance="10">
+            <course-list :course-data="courseData" :no-data-bg="noDataBg" :no-data="noData"></course-list>
+          </section>
+        </mt-tab-container-item>
         <mt-tab-container-item id="evaluate">
-          <course-comment :course-id="courseId"></course-comment>
+          <course-comment :course-id="courseId" :comment-credit="courseDetails.CommentCredit"></course-comment>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
@@ -59,10 +68,10 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Toast,MessageBox, Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
-  import {headerFix, courseIntroduce, courseComment} from '../components'
+  import {Indicator,Toast,MessageBox, Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
+  import {headerFix, courseIntroduce, courseComment,courseList} from '../components'
   import {goBack} from '../service/mixins'
-  import {GetCourseDetail, SyncUserStudyData} from '../service/getData'
+  import {GetCourseDetail, SyncUserStudyData, RelatedCourse} from '../service/getData'
   import {getStore} from '../plugins/utils'
 
   Vue.component(Navbar.name, Navbar);
@@ -93,7 +102,14 @@
         },
         myVideo: null, //video对象
         prevLocation:0,//上一次播放位置
-        locationTime:0 //当前播放位置
+        locationTime:0, //当前播放位置
+        /*相关课程*/
+        courseData: [],
+        loading: false,
+        immediate: false,
+        page: 1,
+        noData: false,
+        noDataBg: false,
       }
     },
     created() {
@@ -114,14 +130,39 @@
       this.myVideo = document.getElementById("myVideo");
       /*获取课程详情*/
       this.getCourseDetail();
+      this.getRelatedCourse();
     },
     components: {
       headerFix,
       courseIntroduce,
       courseComment,
+      courseList,
     },
     computed: {},
     methods: {
+      //相关课程
+      async getRelatedCourse() {
+        this.noData = false;
+        this.noDataBg = false;
+        this.loading = true;
+        Indicator.open();
+        let data = await RelatedCourse({CourseId: this.courseId, Page: this.page});
+        Indicator.close();
+        if (data.Type == 1) {
+          let list = data.Data.List;
+          if (list.length == 0 && this.page > 1) {
+            this.noData = true;
+            return;
+          }
+          if (list.length == 0 && this.page == 1) {
+            this.noDataBg = true;
+            return;
+          }
+          this.courseData = this.courseData.concat(list);
+          this.loading = false;
+          this.page += 1;
+        }
+      },
       //课程详情
       async getCourseDetail() {
         let data = await GetCourseDetail({Id: this.courseId});
@@ -141,7 +182,7 @@
         if (data.Type == 1) {
           this.nodeList = data.Data.NodeList;
         }else if(data.Type != 401){
-          Toast({message: "进度提交失败", position: 'bottom'});
+          Toast({message: data.Message, position: 'bottom'});
         }
       },
       /*播放方法*/
@@ -154,7 +195,6 @@
             /*准备好可以播放时清除定时器*/
             clearInterval(timer);
             this.duration = this.myVideo.duration; //当前时间
-            console.log(this.prevLocation)
             this.myVideo.currentTime = this.prevLocation;
 //            debugger;
             /*是否自动播放*/

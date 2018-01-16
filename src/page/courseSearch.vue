@@ -8,6 +8,20 @@
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <search v-model="keyword" :search="clickSearch">
+      <div slot="history" class="search_history">
+        <p class="history_title clearFix">
+          <span class="pull-left">历史搜索</span>
+          <i class="webapp webapp-delete pull-right" @click="deleteHistory()"></i>
+        </p>
+        <div class="search_history_list">
+          <p v-for="(item,index) in searchHistory"
+             class="search_history_item"
+             :key="index"
+             @click="selectKeyword(item)">
+            {{item}}
+          </p>
+        </div>
+      </div>
       <section slot v-infinite-scroll="getCourseList"
                infinite-scroll-immediate-check="immediate"
                infinite-scroll-disabled="loading"
@@ -26,6 +40,7 @@
   import {headerFix, search, courseList} from '../components'
   import {GetCourseInfoList} from '../service/getData'
   import {goBack} from '../service/mixins'
+  import {getStore, setStore, removeStore, unique} from '../plugins/utils'
 
   Vue.use(InfiniteScroll);
   export default {
@@ -41,6 +56,13 @@
         page: 1,
         noData: false,
         noDataBg: false,
+        searchHistory: []
+      }
+    },
+    created() {
+      let searchHistory = getStore('searchHistory');
+      if (searchHistory) {
+        this.searchHistory = unique(searchHistory);
       }
     },
     mounted() {
@@ -77,10 +99,30 @@
       },
       clickSearch() {
         if (this.keyword != this.oldKeyword && !!this.keyword) {
+          this.searchHistory.unshift(this.keyword);
+          let uniqueHistory = unique(this.searchHistory);
+          if (uniqueHistory.length > 7) {
+            let newHistory = uniqueHistory.slice(0,6);
+            this.searchHistory = newHistory;
+            setStore('searchHistory', newHistory);
+          }else {
+            this.searchHistory = uniqueHistory;
+            setStore('searchHistory', uniqueHistory);
+          }
           this.courseData = [];
           this.page = 1;
           this.getCourseList();
         }
+      },
+      /*点击关键词搜索*/
+      selectKeyword(key) {
+        this.keyword = key;
+        clickSearch();
+      },
+      /*清除关键词*/
+      deleteHistory() {
+        removeStore('searchHistory');
+        this.searchHistory = [];
       }
     },
   }
@@ -92,5 +134,30 @@
   .courseSearch {
     background-color: $fill-body;
     overflow: hidden;
+    .search_history {
+      background-color: $fill-base;
+      padding: 0 toRem(20px) toRem(20px);
+      .history_title {
+        font-size: 13px;
+      }
+      .webapp-delete {
+        color: $color-text-base;
+        font-size: 12px;
+      }
+      .search_history_list {
+        @include flex(flex-start);
+        flex-wrap: wrap;
+        margin-top: toRem(20px);
+      }
+      .search_history_item {
+        padding: toRem(15px) toRem(20px);
+        background-color: $fill-body;
+        margin-right: toRem(40px);
+        font-size: 13px;
+        @include borderRadius(4px);
+        color: $color-text-secondary;
+        margin-bottom: toRem(10px);
+      }
+    }
   }
 </style>

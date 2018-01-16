@@ -243,6 +243,10 @@ export const SyncUserStudyData = (data) => fetch.post(Api.SyncUserStudyData.url,
  */
 export const UploadTimeNode = (data) => fetch.post(Api.UploadTimeNode.url, {...Api.UploadTimeNode.data, ...data});
 
+/**
+ *  相关课程
+ */
+export const RelatedCourse = (data) => fetch.post(Api.RelatedCourse.url, {...Api.RelatedCourse.data, ...data});
 
 
 

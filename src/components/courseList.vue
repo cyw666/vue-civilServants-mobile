@@ -82,7 +82,8 @@
         position: absolute;
         right: toRem(5px);
         top: toRem(5px);
-        @include wh(50px, 27px);
+        @include wh(57px, 27px);
+        @include borderRadius(5px);
       }
     }
     .course_desc {
@@ -110,7 +111,7 @@
       @include borderRadius(5px);
     }
     .course_selected {
-      background-color: #00b4ff;
+      background-color: $brand-success;
     }
     .progress {
       @extend %pull-right;

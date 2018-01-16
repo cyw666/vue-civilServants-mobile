@@ -34,6 +34,7 @@
           </tr>
           </tbody>
         </table>
+        <div class="noDataBg" v-if="noDataBg1"></div>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
         <table class="table">
@@ -54,6 +55,7 @@
           </tr>
           </tbody>
         </table>
+        <div class="noDataBg" v-if="noDataBg2"></div>
       </mt-tab-container-item>
       <mt-tab-container-item id="3">
         <table class="table">
@@ -74,6 +76,7 @@
           </tr>
           </tbody>
         </table>
+        <div class="noDataBg" v-if="noDataBg3"></div>
       </mt-tab-container-item>
     </mt-tab-container>
   </div>
@@ -97,6 +100,9 @@
         studentData: [],
         courseData: [],
         groupData: [],
+        noDataBg1:false,
+        noDataBg2:false,
+        noDataBg3:false,
       }
     },
     mounted() {
@@ -114,10 +120,19 @@
         if (data.Type == 1) {
           if (RankType == "1") {
             this.studentData = data.Data.List;
+            if(data.Data.List.length==0){
+              this.noDataBg1 = true;
+            }
           } else if (RankType == "2") {
             this.courseData = data.Data.List;
+            if(data.Data.List.length==0){
+              this.noDataBg2 = true;
+            }
           } else if (RankType == "3") {
             this.groupData = data.Data.List;
+            if(data.Data.List.length==0){
+              this.noDataBg3 = true;
+            }
           }
         }
       },
@@ -129,34 +144,34 @@
   @import "../style/mixin";
 
   .rankList {
-    padding-top: toRem(280px);
+    padding-top: toRem(260px);
     .mint-navbar {
       position: fixed;
       top: toRem(92px);
       left: 0;
       width: 100%;
-      background-color: $fill-body;
       z-index: 10;
     }
     .fixed_rank_title {
       position: fixed;
-      top: toRem(204px);
+      top: toRem(182px);
       left: 0;
       width: 100%;
-      background-color: $fill-body;
+      background-color: $brand-primary;
       z-index: 10;
     }
     .table {
       width: 100%;
       text-align: center;
+      background-color: $fill-base;
       th, td {
         text-align: center;
       }
       th {
         line-height: toRem(75px);
         text-align: center;
-        background: #e8e8e8;
-        font-size: 15px;
+        font-size: 14px;
+        color: $color-text-reverse;
       }
       td {
         line-height: toRem(70px);

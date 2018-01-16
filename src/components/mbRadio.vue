@@ -1,6 +1,6 @@
 <template>
   <div class="mbRadio" @change="$emit('change', currentValue)">
-    <div class="radioList" v-for="(option,index) in options" :key="index">
+    <div class="radioList" v-for="(option,index) in options" :key="index" :class="option.ThemeItemFlag == currentValue&&'radio_checked'">
       <label class="mint-radiolist-label">
         <span class="mint-radio">
           <input
@@ -9,10 +9,11 @@
               v-model="currentValue"
               :disabled="option.disabled"
               :value="option.ThemeItemFlag || option"/>
-          <span class="mint-radio-core"></span>
+          <!--<span class="mint-radio-core"></span>-->
         </span>
         <!--&nbsp;&nbsp;{{option.ThemeItemFlag+'.'+option.ThemeItemTitle}}-->
-        <span class="mint-radio-label" v-text="option.ThemeItemFlag+'.'+option.ThemeItemTitle"></span>
+        <span class="mint-radio-label" v-text="option.ThemeItemFlag+'.'"></span>
+        <span class="mint-radio-label label_title" v-text="option.ThemeItemTitle"></span>
       </label>
     </div>
   </div>
@@ -52,7 +53,7 @@
   .mbRadio {
     .radioList {
       @extend %border-base;
-      @include borderRadius(6px);
+      @include borderRadius(10px);
       background-color: $fill-grey;
       margin-bottom: toRem(30px);
       .radio-input:focus {
@@ -65,6 +66,14 @@
         font-size: 14px;
       }
       padding: 0 toRem(20px);
+    }
+    .radio_checked{
+      border:1px solid $brand-primary;
+      background-color: $fill-base;
+      color: $brand-primary;
+    }
+    .label_title{
+      margin-left: toRem(50px);
     }
   }
 

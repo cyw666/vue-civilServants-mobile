@@ -14,18 +14,18 @@
       </div>
     </div>
     <div class="course_detail_list">
-      <p>
-        <span>课程分类：&nbsp;&nbsp;&nbsp;&nbsp;{{courseDetails.ChannelName}}</span>
-        <span>学分：&nbsp;&nbsp;&nbsp;{{courseDetails.Credit}}分</span>
-      </p>
-      <p>
-        <span>时长：&nbsp;&nbsp;&nbsp;&nbsp;{{courseDetails.Duration}}分钟</span>
-        <span>进度：&nbsp;&nbsp;&nbsp;&nbsp;{{courseDetails.BrowseScore}}</span>
-      </p>
+      <div class="detail_item">
+        <p class="detail_item_left"><span class="label">课程分类：</span>{{courseDetails.ChannelName}}</p>
+        <p class="detail_item_right"><span class="label">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分：</span>{{courseDetails.Credit}}分</p>
+      </div>
+      <div class="detail_item">
+        <p class="detail_item_left"><span class="label">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</span>{{courseDetails.Duration}}分钟</p>
+        <p class="detail_item_right"><span class="label">进&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;度：</span>{{courseDetails.BrowseScore}}</p>
+      </div>
     </div>
     <div class="split"></div>
     <div class="course_detail_desc">
-      <h4><span class="red_line"></span><span>课程介绍</span></h4>
+      <h4><span class="primary_line"></span><span>课程介绍</span></h4>
       <p>{{courseDetails.Description}}</p>
     </div>
   </div>
@@ -56,36 +56,39 @@
       }
       .userCount {
         margin-left: toRem(30px);
+        font-size: 12px;
+        color: $color-text-thirdly;
       }
       .clearFix {
         padding: toRem(20px) 0;
       }
     }
     .course_detail_list {
-      p {
+      .detail_item {
         line-height: toRem(60px);
         padding: 0 toRem(30px);
         font-size: 14px;
         @extend %clearFix;
+        .label{
+          color: $color-text-thirdly;
+          margin-right: toRem(20px);
+        }
       }
-      span {
+      .detail_item_left{
         @extend %pull-left;
         @extend %ellipsis;
-        &:first-child {
-          width: 60%;
-        }
-        &:nth-child(2) {
-          width: 40%;
-          padding-left: toRem(50px);
-        }
+        width: 55%;
+      }
+      .detail_item_right{
+        @extend %pull-left;
+        @extend %ellipsis;
+        width: 45%;
+        padding-left: toRem(50px);
       }
     }
     .course_detail_desc {
       padding: toRem(30px);
       h4 {
-        font-size: 16px;
-      }
-      p {
         font-size: 14px;
       }
     }

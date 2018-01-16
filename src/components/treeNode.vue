@@ -4,7 +4,7 @@
 <template>
   <li class="tree_node">
     <div class="tree_title">
-      <span v-if="hasNodes" class="red_line pull-left"></span>
+      <span v-if="hasNodes" class="primary_line pull-left"></span>
       <span v-if="!hasNodes" class="tran_line pull-left"></span>
       <a class="tree_name" @click="nodeClick(dataList)">{{dataList.Name}}</a>
       <div class="tree_toggle_icon" v-if="hasNodes">
@@ -82,7 +82,7 @@
       margin-right: toRem(20px);
       background-color: transparent;
     }
-    .red_line, .tran_line {
+    .primary_line, .tran_line {
       margin-top: toRem(30px);
     }
   }

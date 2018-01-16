@@ -104,6 +104,7 @@
   .message {
     .message_list {
       padding: 0 toRem(30px);
+      background-color: $fill-base;
     }
     .message_item {
       padding: toRem(25px) 0;

@@ -5,11 +5,13 @@
   <div class="evaluate">
     <div class="course_judge_tag" @click="openEvaluateModel">
       <p class="title">评价该课程</p>
-      <p class="judge"></p>
+      <p class="judge">
+        <star v-model="commentCredit" disabled></star>
+      </p>
     </div>
     <div class="split"></div>
     <div class="course_comment">
-      <h1>评价详情（{{commentCount}}个评价）</h1>
+      <h1>评价详情 <span class="course_comment_count">（{{commentCount}}个评价）</span></h1>
       <section v-infinite-scroll="getCommentList"
                infinite-scroll-immediate-check="immediate"
                infinite-scroll-disabled="loading"
@@ -63,7 +65,7 @@
         }
       }
     },
-    props: ["courseId"],
+    props: ["courseId",'commentCredit'],
     components: {
       mbModel,
       star,
@@ -124,8 +126,8 @@
       .judge {
         width: 4.146667rem;
         height: 0.4rem;
-        background: url(../assets/bigStar.png) no-repeat 0 0;
-        background-size: 4.146667rem 4.4rem;
+        /*background: url(../assets/bigStar.png) no-repeat 0 0;*/
+        /*background-size: 4.146667rem 4.4rem;*/
         margin: 0 auto toRem(30px);
       }
     }
@@ -141,8 +143,8 @@
         display: block;
         resize: none;
         width: 100%;
-        height: 2.45rem;
-        font-size: 14px;
+        height: toRem(250px);
+        font-size: 13px;
         background: #f7f9fc;
         padding: toRem(10px);
       }
@@ -154,14 +156,17 @@
         text-align: center;
         background: #fff;
         color: $brand-primary;
-        font-size: 15px;
+        font-size: 13px;
       }
     }
     .course_comment {
       padding: 0 toRem(30px);
       h1 {
-        font-size: 16px;
+        font-size: 14px;
         line-height: toRem(60px);
+      }
+      .course_comment_count{
+        color: $color-text-thirdly;
       }
     }
     .course_comment_item {
@@ -188,6 +193,9 @@
         .date {
           color: $color-text-thirdly;
           padding: toRem(5px) 0;
+        }
+        .content{
+          color: $color-text-secondary;
         }
       }
     }

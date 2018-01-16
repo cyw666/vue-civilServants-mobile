@@ -62,6 +62,7 @@
 
   .article_container {
     padding: toRem(92px) toRem(30px) toRem(30px) toRem(30px);
+    background-color: $fill-base;
     .read_count {
       display: inline-block;
       min-width: toRem(130px);
@@ -77,7 +78,7 @@
   }
 
   .article_details_desc {
-    padding: toRem(10px) 0;
+    padding: toRem(20px) 0;
   }
 
   .article_details_title {
@@ -86,9 +87,10 @@
     border-bottom: 1px dashed $border-color-base;
     padding-top: toRem(20px);
     h2 {
-      font-weight: 500;
+      font-weight: 600;
       font-size: 18px;
       color: $color-text-base;
+      text-align: left;
     }
     span {
       margin-right: toRem(25px);

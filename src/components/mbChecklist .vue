@@ -1,6 +1,6 @@
 <template>
   <div class="mbChecklist" @change="$emit('change', currentValue)">
-    <div class="checkList" v-for="(option,index) in options" :key="index">
+    <div class="checkList" v-for="(option,index) in options" :key="index" :class="isInArray(option.ThemeItemFlag)&&'checklist_checked'">
       <label class="mint-checklist-label">
         <span class="mint-checkbox">
           <input
@@ -9,10 +9,11 @@
               v-model="currentValue"
               :disabled="option.disabled"
               :value="option.ThemeItemFlag || option"/>
-          <span class="mint-checkbox-core"></span>
+          <!--<span class="mint-checkbox-core"></span>-->
         </span>
         <!--&nbsp;&nbsp;{{option.ThemeItemFlag+'.'+option.ThemeItemTitle}}-->
-        <span class="mint-checkbox-label" v-text="option.ThemeItemFlag+'.'+option.ThemeItemTitle || option"></span>
+        <span class="mint-checkbox-label" v-text="option.ThemeItemFlag+'.'"></span>
+        <span class="mint-checkbox-label label_title" v-text="option.ThemeItemTitle"></span>
       </label>
     </div>
   </div>
@@ -34,6 +35,19 @@
       },
       value: ''
     },
+    computed: {
+
+    },
+    methods: {
+      isInArray(value){
+        for(var i = 0; i < this.currentValue.length; i++){
+          if(value === this.currentValue[i]){
+            return true;
+          }
+        }
+        return false;
+      }
+    },
     watch: {
       value(val) {
         this.currentValue = val;
@@ -51,7 +65,7 @@
   .mbChecklist {
     .checkList {
       @extend %border-base;
-      @include borderRadius(6px);
+      @include borderRadius(10px);
       background-color: $fill-grey;
       margin-bottom: toRem(30px);
       .checklist-input:focus {
@@ -64,6 +78,14 @@
         font-size: 14px;
       }
       padding: 0 toRem(20px);
+    }
+    .checklist_checked{
+      border:1px solid $brand-primary;
+      background-color: $fill-base;
+      color: $brand-primary;
+    }
+    .label_title{
+      margin-left: toRem(50px);
     }
   }
 </style>

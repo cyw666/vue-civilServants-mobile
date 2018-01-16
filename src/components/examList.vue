@@ -20,7 +20,7 @@
           <span class="exam_time">考试时间：{{item.TimeLimit}}分钟</span>
           <span class="pull-right" v-if="item.Status=='Finish'">最好成绩：<span
               class="green">{{(item.HighScore).toFixed(1)}}</span></span>
-          <span class="highlight pull-right" v-if="item.Status=='UnFinish'">不合格</span>
+          <span class="below pull-right" v-if="item.Status=='UnFinish'">不合格</span>
           <span class="pull-right" v-if="item.Status=='UnJoin'">未考</span></div>
       </div>
     </div>
@@ -116,11 +116,13 @@
     .bottom {
       color: $color-text-thirdly;
       line-height: toRem(44px);
+      font-size: 12px;
+      margin-top: toRem(10px);
       .exam_time {
 
       }
-      .highlight {
-
+      .below {
+        color: $brand-error;
       }
       .green {
         color: $brand-success;

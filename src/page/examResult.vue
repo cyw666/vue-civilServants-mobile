@@ -79,14 +79,14 @@
       background-color: $fill-base;
       font-size: 14px;
       margin-top: toRem(20px);
+      padding: 0 toRem(30px);
       p {
         @include ht-lineHt(82px);
-        border-top: 1px solid $border-color-base;
-        padding: 0 toRem(30px);
+        border-top: 1px solid $border-color-light;
       }
     }
     .result_footer {
-      margin-top: toRem(100px);
+      margin-top: toRem(82px);
       @extend %clearFix;
       .back {
         @extend %pull-left;

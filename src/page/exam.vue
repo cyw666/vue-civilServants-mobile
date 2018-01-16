@@ -28,7 +28,7 @@
     </div>
     <div class="exam_footer">
       <mt-button class="prev" type="primary" plain @click.native='preItem'>上一题</mt-button>
-      <span class="itemNum">{{itemNum}}/{{allItem}}</span>
+      <span class="itemNum"><span>试题</span> （{{itemNum}}/{{allItem}}）</span>
       <mt-button v-if="itemNum<allItem" type="primary" class="next" @click.native="nextItem">下一题</mt-button>
       <mt-button v-else type="primary" class="next" @click.native="submitExam">提交</mt-button>
     </div>
@@ -217,6 +217,9 @@
         width: toRem(350px);
         font-size: 15px;
         line-height: toRem(73px);
+        span{
+          color: $color-text-secondary;
+        }
       }
       .next {
         margin-right: toRem(30px);

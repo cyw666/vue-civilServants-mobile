@@ -1,6 +1,6 @@
 <template>
   <div class="home_index container_both">
-    <header-fix title="主页" fixed>
+    <header-fix title="合肥终身学习网" fixed>
       <router-link slot="left" to="/message" class="message">
         <i class="webapp webapp-email"></i>
       </router-link>
@@ -30,7 +30,7 @@
           <div class="guide_item">
             <router-link to="/newsCenter">
               <img src="../assets/news_ico.png" alt="资讯中心">
-              <p>资讯中心</p>
+              <p>新闻资讯</p>
             </router-link>
           </div>
           <div class="guide_item">
@@ -39,6 +39,12 @@
               <p>排行榜</p>
             </router-link>
           </div>
+          <!--<div class="guide_item">
+            <router-link to="/classGarden">
+              <img src="../assets/result_show_icon.png" alt="成果展示">
+              <p>成果展示</p>
+            </router-link>
+          </div>-->
           <div class="guide_item">
             <router-link to="/classGarden">
               <img src="../assets/class_ico.png" alt="班级园地">
@@ -67,7 +73,7 @@
       </section>
       <div class="boundary"></div>
       <section class="recommend_course">
-        <div class="recommend_title"><span class="red_line"></span>课程推荐</div>
+        <div class="recommend_title"><span class="primary_line"></span>课程推荐</div>
         <div class="recommend_course_list">
           <ul>
             <li v-for="item in recommendCourseData" :key="item.Id">
@@ -243,8 +249,8 @@
       }
     }
     .info_content {
-      background: url(../assets/info_bg.png) no-repeat center center;
-      background-size: 100% 100%;
+      background: url(../assets/info_bg.png) no-repeat center bottom;
+      background-size: toRem(571px) toRem(345px);
       height: toRem(533px);
       .info_layer_avatar {
         text-align: center;
@@ -279,23 +285,22 @@
 
     .guide_list {
       width: 100%;
-      height: toRem(203px);
       overflow-x: scroll;
       overflow-y: hidden;
-      @extend %clearFix;
       &::-webkit-scrollbar {
         width: 0px;
       }
+      background-color: $fill-base;
+      height: toRem(202px);
       .guide_container {
+        @extend %clearFix;
         width: 140%;
-        height: toRem(203px);
         text-align: center;
-        background-color: #fff;
       }
       .guide_item {
         @extend %pull-left;
         width: toRem(150px);
-        padding: toRem(35px) 0;
+        padding: toRem(40px) 0;
         p {
           line-height: toRem(50px);
         }
@@ -314,8 +319,12 @@
       padding: toRem(30px) 0 toRem(20px) toRem(25px);
       background-color: #fff;
       .recommend_title {
-        font-size: 18px;
+        font-size: 14px;
         line-height: toRem(62px);
+        .primary_line{
+          position: relative;
+          top:2px;
+        }
       }
       .recommend_course_list {
         ul {
@@ -330,7 +339,7 @@
             padding-right: toRem(25px);
           }
           img {
-            width: toRem(335px);
+            width: toRem(334px);
             height: toRem(178px);
           }
           .course_title {
@@ -338,12 +347,13 @@
             @extend %ellipsis;
             text-align: left;
             line-height: toRem(40px);
+            font-size: 13px;
           }
           .clearFix {
             line-height: toRem(40px);
           }
           .teacher {
-            color: $color-text-secondary;
+            color: $color-text-thirdly;
           }
         }
       }

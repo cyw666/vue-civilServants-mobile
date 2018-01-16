@@ -22,6 +22,8 @@
     <div class="course_detail">
       <mt-navbar v-model="selected">
         <mt-tab-item id="introduce">介绍</mt-tab-item>
+        <mt-tab-item id="relatedCourse">相关课程</mt-tab-item>
+        <!--<mt-tab-item id="notes">学习笔记</mt-tab-item>-->
         <mt-tab-item id="evaluate">评价</mt-tab-item>
       </mt-navbar>
       <!-- tab-container -->
@@ -29,8 +31,19 @@
         <mt-tab-container-item id="introduce">
           <course-introduce :course-details="courseDetails"></course-introduce>
         </mt-tab-container-item>
+        <mt-tab-container-item id="relatedCourse">
+          <section v-infinite-scroll="getRelatedCourse"
+                   infinite-scroll-immediate-check="immediate"
+                   infinite-scroll-disabled="loading"
+                   infinite-scroll-distance="10">
+            <course-list :course-data="courseData" :no-data-bg="noDataBg" :no-data="noData"></course-list>
+          </section>
+        </mt-tab-container-item>
+        <!--<mt-tab-container-item id="notes">
+          学习笔记
+        </mt-tab-container-item>-->
         <mt-tab-container-item id="evaluate">
-          <course-comment :course-id="courseId"></course-comment>
+          <course-comment :course-id="courseId" :comment-credit="courseDetails.CommentCredit"></course-comment>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
@@ -44,10 +57,10 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
-  import {headerFix, courseIntroduce, courseComment} from '../components'
+  import {Toast, Indicator, Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
+  import {headerFix, courseIntroduce, courseComment, courseNotes, courseList} from '../components'
   import {goBack} from '../service/mixins'
-  import {GetCourseDetail, UploadTimeNode} from '../service/getData'
+  import {GetCourseDetail, UploadTimeNode, RelatedCourse} from '../service/getData'
   import {timeFormat, getStore} from '../plugins/utils'
 
   Vue.component(Navbar.name, Navbar);
@@ -70,6 +83,13 @@
         lastLocation: 0, //记录上次播放的位置
         progressTime: 0, //记录视频完成进度位置
         updateTimer: 0, //提交进度定时器
+        /*相关课程*/
+        courseData: [],
+        loading: false,
+        immediate: false,
+        page: 1,
+        noData: false,
+        noDataBg: false,
       }
     },
     created() {
@@ -90,14 +110,40 @@
       this.myVideo = document.getElementById("myVideo");
       /*获取课程详情*/
       this.getCourseDetail();
+      this.getRelatedCourse();
     },
     components: {
       headerFix,
       courseIntroduce,
       courseComment,
+      courseNotes,
+      courseList,
     },
     computed: {},
     methods: {
+      //相关课程
+      async getRelatedCourse() {
+        this.noData = false;
+        this.noDataBg = false;
+        this.loading = true;
+        Indicator.open();
+        let data = await RelatedCourse({CourseId: this.courseId, Page: this.page});
+        Indicator.close();
+        if (data.Type == 1) {
+          let list = data.Data.List;
+          if (list.length == 0 && this.page > 1) {
+            this.noData = true;
+            return;
+          }
+          if (list.length == 0 && this.page == 1) {
+            this.noDataBg = true;
+            return;
+          }
+          this.courseData = this.courseData.concat(list);
+          this.loading = false;
+          this.page += 1;
+        }
+      },
       //课程详情
       async getCourseDetail() {
         let data = await GetCourseDetail({Id: this.courseId});
@@ -114,6 +160,8 @@
         let data = await UploadTimeNode({CourseId: this.courseId, TimeNode});
         if (data.Type == 1) {
           //提交成功
+        } else if (data.Type != 401) {
+          Toast({message: data.Message, position: 'bottom'});
         }
       },
       /*播放方法*/

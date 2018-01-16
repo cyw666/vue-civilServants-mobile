@@ -59,11 +59,11 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-51%, -51%);
+    transform: translate(-50%, -50%);
     z-index: 1200;
-    @include borderRadius(10px);
+    @include borderRadius(15px);
     min-height: toRem(60px);
-    width: toRem(580px);
+    width: toRem(540px);
     overflow: hidden;
     background-color: $fill-base;
     .cancel {

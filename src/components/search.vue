@@ -9,6 +9,7 @@
         搜索
       </mt-button>
     </div>
+    <slot name="history"></slot>
     <div class="search-list">
       <slot></slot>
     </div>
@@ -65,6 +66,7 @@
         margin-left: toRem(20px);
         width: toRem(120px);
         height: toRem(60px);
+        background-color: #ffcd5c;
       }
     }
     .search-list {

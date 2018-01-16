@@ -51,6 +51,7 @@
       flex: 1;
       @extend %ellipsis;
       color: #fff;
+      font-size: 16px;
     }
     .header_right {
       flex: 1;

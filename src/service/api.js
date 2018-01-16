@@ -134,7 +134,7 @@ export default {
   //获取微信签名
   GetWechatWxAuthModel: {
     url: API_URL + Platform + '/GetWechatWxAuthModel',
-    data: {Url:''}
+    data: {Url: ''}
   },
   //签到或签退
   TrainingSignIn: {
@@ -275,5 +275,10 @@ export default {
   UploadTimeNode: {
     url: API_URL + Platform + '/UploadTimeNode',
     data: {CourseId: "", TimeNode: ""}
+  },
+  //相关课程
+  RelatedCourse: {
+    url: API_URL + Platform + '/RelatedCourse',
+    data: {CourseId: "", Page: 1, Rows: 10}
   },
 };

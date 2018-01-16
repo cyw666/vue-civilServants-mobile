@@ -223,3 +223,18 @@ export const getQueryString = (name) => {
   if (r != null) return unescape(r[2]);
   return null;
 }
+
+/**
+ * 数组去重
+ */
+export const unique = (arr) => {
+  let res = [];
+  let json = {};
+  for (let i = 0; i < arr.length; i++) {
+    if (!json[arr[i]]) {
+      res.push(arr[i]);
+      json[arr[i]] = 1;
+    }
+  }
+  return res;
+}
