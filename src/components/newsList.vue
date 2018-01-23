@@ -55,7 +55,7 @@
 
   .news_list {
     .news_item {
-      padding: toRem(20px) toRem(30px);
+      padding: toRem(30px);
       @extend %clearFix;
       background-color: $fill-base;
       border-bottom: 1px solid $border-color-base;
@@ -63,10 +63,10 @@
     .news_img {
       @extend %pull-left;
       position: relative;
-      width: toRem(258px);
+      width: toRem(204px);
       img {
         width: 100%;
-        height: toRem(146px);
+        height: toRem(150px);
       }
       .tip {
         position: absolute;
@@ -77,18 +77,19 @@
     }
     .news_desc {
       @extend %pull-left;
-      width: toRem(415px);
+      width: toRem(480px);
       padding-left: toRem(15px);
     }
     .news_name {
       @include ellipsis_two(2);
       font-size: 15px;
       font-weight: 500;
-      color: $color-text-base;
+      height: toRem(90px);
+      padding-top: toRem(10px);
     }
     .news_time {
-      color: $color-text-secondary;
-      margin-top: toRem(30px);
+      color: $color-text-thirdly;
+      margin-top: toRem(20px);
     }
   }
 </style>

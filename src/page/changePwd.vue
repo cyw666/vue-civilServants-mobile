@@ -90,9 +90,8 @@
       input {
         display: inline-block;
         width: 100%;
-        padding: toRem(20px) toRem(20px);
+        padding: toRem(30px);
         line-height: 1.2em;
-        font-size: 14px;
       }
     }
     .submit_edit {

@@ -4,7 +4,7 @@
 <template>
   <div class="play_Mp4 container_top">
     <!--头部-->
-    <header-fix title="视频播放" fixed>
+    <header-fix :title="courseDetails.CourseName" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="player">
@@ -23,7 +23,7 @@
       <mt-navbar v-model="selected">
         <mt-tab-item id="introduce">介绍</mt-tab-item>
         <mt-tab-item id="relatedCourse">相关课程</mt-tab-item>
-        <!--<mt-tab-item id="notes">学习笔记</mt-tab-item>-->
+        <mt-tab-item id="notes">学习笔记</mt-tab-item>
         <mt-tab-item id="evaluate">评价</mt-tab-item>
       </mt-navbar>
       <!-- tab-container -->
@@ -39,14 +39,34 @@
             <course-list :course-data="courseData" :no-data-bg="noDataBg" :no-data="noData"></course-list>
           </section>
         </mt-tab-container-item>
-        <!--<mt-tab-container-item id="notes">
-          学习笔记
-        </mt-tab-container-item>-->
+        <mt-tab-container-item id="notes">
+          <course-notes></course-notes>
+          <div class="add_notes_btn">
+            <mt-button size="large" type="primary" @click.native="toggleNotes">
+              <i class="webapp webapp-edit"></i>
+              添加笔记
+            </mt-button>
+          </div>
+        </mt-tab-container-item>
         <mt-tab-container-item id="evaluate">
           <course-comment :course-id="courseId" :comment-credit="courseDetails.CommentCredit"></course-comment>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
+    <!--添加笔记-->
+    <transition name="slide-left">
+      <add-notes
+          class="notes_container container_top"
+          v-if="showAddNotes"
+          :notes-data.sync="addNotesData"
+      >
+        <!--头部-->
+        <header-fix slot="header" title="添加笔记" fixed>
+          <span slot="left" @click="toggleNotes">取消</span>
+          <span slot="right" @click="saveNotes">保存</span>
+        </header-fix>
+      </add-notes>
+    </transition>
     <div v-if="isOpen" class="open_app">
       <span>打开APP，可享课程下载服务</span><a id="btnOpenApp" class="openApp" href="javascript:void(0);">打开</a>
       <a class="close_tip" @click="isOpen = !isOpen">
@@ -57,10 +77,12 @@
 </template>
 <script>
   import Vue from 'vue'
+  import {mapMutations} from 'vuex';
+  import wx from 'weixin-js-sdk'
   import {Toast, Indicator, Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
-  import {headerFix, courseIntroduce, courseComment, courseNotes, courseList} from '../components'
+  import {headerFix, courseIntroduce, courseComment, courseNotes, courseList, addNotes} from '../components'
   import {goBack} from '../service/mixins'
-  import {GetCourseDetail, UploadTimeNode, RelatedCourse} from '../service/getData'
+  import {GetCourseDetail, UploadTimeNode, RelatedCourse, GetWechatWxAuthModel} from '../service/getData'
   import {timeFormat, getStore} from '../plugins/utils'
 
   Vue.component(Navbar.name, Navbar);
@@ -75,7 +97,9 @@
         isOpen: true,
         selected: 'introduce',
         courseId: '', //课程id
-        courseDetails: {}, //课程详情信息
+        courseDetails: {//课程详情信息
+          CourseName: '视频播放'
+        },
         readyState: 0, //视频是否准备就绪
         duration: 0, //视频时长
         browseScore: 0, //百分比进度
@@ -90,6 +114,13 @@
         page: 1,
         noData: false,
         noDataBg: false,
+        url: window.location.href,
+
+        showAddNotes: false, //是否显示添加笔记
+        addNotesData:{
+          title:'',
+          content:''
+        }
       }
     },
     created() {
@@ -99,6 +130,7 @@
         this.isWeChat = false;
       }
       this.courseId = this.$route.query.id;
+      this.netWorkType();
     },
     mounted() {
       /*初始化 打开APP*/
@@ -108,8 +140,9 @@
       });
       /*获取video对象*/
       this.myVideo = document.getElementById("myVideo");
+      this.getWechatWxAuthModel();
       /*获取课程详情*/
-      this.getCourseDetail();
+      this.getCourseDetail(this.playFunc);
       this.getRelatedCourse();
     },
     components: {
@@ -118,9 +151,42 @@
       courseComment,
       courseNotes,
       courseList,
+      addNotes,
     },
     computed: {},
     methods: {
+      ...mapMutations(['GET_NETWORKTYPE']),
+      /*微信签名*/
+      async getWechatWxAuthModel() {
+        let data = await GetWechatWxAuthModel({Url: this.url});
+        if (data.Type == 1) {
+          wx.config({
+            debug: false,
+            appId: 'wxf24d72db02fede73',// 必填，公众号的唯一标识
+            timestamp: data.Data.Timestamp,// 必填，生成签名的时间戳
+            nonceStr: data.Data.Nonce,// 必填，生成签名的随机串
+            signature: data.Data.Signature,// 必填，签名
+            jsApiList: ['checkJsApi', 'getNetworkType']// 必填，需要使用的JS接口列表
+          });
+        } else if (data.Type != 401) {
+          MessageBox('警告', data.Message);
+        }
+      },
+      /*获取网络环境*/
+      netWorkType() {
+        let t = this;
+        wx.ready(function () {
+          wx.getNetworkType({
+            success: function (res) {
+              var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
+              t.GET_NETWORKTYPE(networkType);
+              if (networkType !== 'wifi') {
+                Toast({message: '您正在使用2G/3G/4G网络，建议在WIFI环境观看', position: 'middle'});
+              }
+            }
+          });
+        });
+      },
       //相关课程
       async getRelatedCourse() {
         this.noData = false;
@@ -145,13 +211,15 @@
         }
       },
       //课程详情
-      async getCourseDetail() {
+      async getCourseDetail(cb) {
         let data = await GetCourseDetail({Id: this.courseId});
         if (data.Type == 1) {
           this.courseDetails = data.Data;
           this.lastLocation = data.Data.LastLocation;
           this.browseScore = data.Data.BrowseScore;
-          this.playFunc();
+          if (typeof cb === "function") {
+            cb();
+          }
         }
       },
       //提交进度
@@ -160,6 +228,7 @@
         let data = await UploadTimeNode({CourseId: this.courseId, TimeNode});
         if (data.Type == 1) {
           //提交成功
+          this.getCourseDetail();
         } else if (data.Type != 401) {
           Toast({message: data.Message, position: 'bottom'});
         }
@@ -173,7 +242,6 @@
           if (readyState == 4) {
             /*准备好可以播放时清除定时器*/
             clearInterval(timer);
-            timer = null;
             this.duration = (this.myVideo.duration).toFixed(2); //当前时间
             this.progressTime = this.myVideo.duration * (parseFloat(this.browseScore) / 100);
             this.myVideo.currentTime = this.lastLocation;
@@ -181,12 +249,18 @@
             this.myVideo.addEventListener('timeupdate', () => {
               let currentTime = this.myVideo.currentTime;
               if (currentTime > 0) {
-                if (currentTime > this.progressTime - 2 && currentTime < this.progressTime + 1) {
-                  //视频播放位置接近时候，视频完成进度位置前进
-                  this.progressTime = currentTime;
-                } else if (currentTime > this.progressTime + 2) {
-                  //视频未播放区域 禁止拖拽
-                  this.myVideo.currentTime = this.progressTime;
+                /*该视频未播放完成*/
+                if (parseFloat(this.browseScore) < 100) {
+                  if (currentTime > this.progressTime - 2 && currentTime < this.progressTime + 1) {
+                    //视频播放位置接近时候，视频完成进度位置前进
+                    this.progressTime = currentTime;
+                  } else if (currentTime > this.progressTime + 2) {
+                    //视频未播放区域 禁止拖拽
+                    this.myVideo.currentTime = this.progressTime;
+                    Toast({message: "未播放区域禁止拖拽", position: 'bottom'});
+                  }
+                } else {
+                  /*该视频播放完成*/
                 }
               }
             });
@@ -195,6 +269,7 @@
               /*判断是否是拖拽到结束*/
               if (this.progressTime > this.duration - 2) {
                 this.updateProgress();
+                clearInterval(this.updateTimer);
               } else {
                 this.myVideo.play();
               }
@@ -205,6 +280,15 @@
           }
         }, 100);
       },
+      /*显示、隐藏添加笔记*/
+      toggleNotes() {
+        this.showAddNotes = !this.showAddNotes;
+      },
+      /*保存笔记*/
+      saveNotes() {
+        this.toggleNotes();
+        console.log("保存笔记",this.addNotesData)
+      }
     },
     beforeDestroy() {
       this.updateProgress();
@@ -256,6 +340,25 @@
         width: 100%;
         margin: 0 auto;
       }
+    }
+    .add_notes_btn {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      .mint-button--large {
+        border-radius: 0;
+      }
+    }
+    .notes_container {
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      right: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #fff;
     }
   }
 </style>

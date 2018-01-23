@@ -117,6 +117,7 @@
   @import "../style/mixin";
 
   .evaluate {
+    background-color: $fill-base;
     .course_judge_tag {
       .title {
         @include ht-lineHt(112px);
@@ -192,7 +193,7 @@
         }
         .date {
           color: $color-text-thirdly;
-          padding: toRem(5px) 0;
+          padding: toRem(10px) 0;
         }
         .content{
           color: $color-text-secondary;

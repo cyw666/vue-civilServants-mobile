@@ -1,20 +1,21 @@
 <template>
-  <div class="userLogin container_top">
+  <div class="userLogin">
     <!--头部-->
-    <header-fix title="登陆" fixed></header-fix>
+    <!--<header-fix title="登陆" fixed></header-fix>-->
     <div class="login_banner">
-      <img src="../assets/login_ico.png">
+      <img src="../assets/person_cener_avatar.png">
+      <p>LOGIN ON</p>
     </div>
     <div class="user_login">
       <form>
         <div class="form-group">
           <i class="webapp webapp-account"></i>
-          <input v-model="Account" class="form-control" type="text" placeholder="请输入用户名">
+          <input v-model="Account" class="form-control" type="text" placeholder="输入用户名/手机号">
           <span class="acError" v-if="acError">用户名不能包含汉子</span>
         </div>
         <div class="form-group">
           <i class="webapp webapp-lock"></i>
-          <input v-model="Password" class="form-control" type="password" placeholder="请输入密码">
+          <input v-model="Password" class="form-control" type="password" placeholder="输入密码">
           <span class="pwError" v-if="pwError">密码长度6~16位</span>
         </div>
       </form>
@@ -187,13 +188,19 @@
     .login_banner {
       width: 100%;
       text-align: center;
+      color: $brand-primary;
+      font-size: 15px;
+      font-weight: bold;
       img {
-        width: toRem(148px);
-        padding: toRem(90px) 0;
+        width: toRem(166px);
+        padding-top: toRem(120px);
+      }
+      p {
+        padding: toRem(20px) 0 toRem(65px) 0;
       }
     }
     .user_login {
-      padding: 0 toRem(40px);
+      padding: 0 toRem(30px) 0 toRem(30px);
       .form-control {
         border: none;
         padding-left: toRem(80px);
@@ -203,7 +210,7 @@
         background: #fff;
         position: relative;
         width: 100%;
-        margin-bottom: toRem(20px);
+        margin-bottom: toRem(30px);
         .webapp {
           color: $color-text-thirdly;
           position: absolute;
@@ -219,20 +226,24 @@
         @include ht-lineHt(80px);
       }
       .checkbox {
-        color: $color-text-thirdly;
-        padding: 0 toRem(20px);
+        color: $brand-primary;
         font-size: 14px;
+        margin-top: toRem(10px);
         input[type=checkbox] {
           width: toRem(24px);
           height: toRem(24px);
           margin: 0;
+        }
+        .mint-checkbox-input:checked + .mint-checkbox-core {
+          background-color: $brand-wait;
+          border-color: $brand-wait;
         }
       }
       .forget {
         @extend %pull-right;
         display: inline-block;
         @include ht-lineHt(90px);
-        color: $color-text-thirdly;
+        color: $brand-primary;
       }
       .register_btn {
         padding-top: toRem(90px);

@@ -8,7 +8,7 @@
         <router-link to="/history" class="history">
           <i class="webapp webapp-time"></i>
         </router-link>
-        <img src="../assets/info_show.png" @click="toggleModel" alt="用户信息" class="info_show"/>
+        <img src="../assets/info_show.png"exam @click="toggleModel" alt="用户信息" class="info_show"/>
       </div>
     </header-fix>
     <div class="container">
@@ -22,9 +22,9 @@
       <section class="guide_list">
         <div class="guide_container">
           <div class="guide_item">
-            <router-link to="/myCourse">
+            <router-link to="/courseCenter">
               <img src="../assets/my_course.png" alt="我的课程">
-              <p>我的课程</p>
+              <p>课程中心</p>
             </router-link>
           </div>
           <div class="guide_item">
@@ -39,25 +39,25 @@
               <p>排行榜</p>
             </router-link>
           </div>
-          <!--<div class="guide_item">
-            <router-link to="/classGarden">
+          <div class="guide_item">
+            <router-link to="/resultShow">
               <img src="../assets/result_show_icon.png" alt="成果展示">
               <p>成果展示</p>
             </router-link>
-          </div>-->
-          <div class="guide_item">
+          </div>
+          <!--<div class="guide_item">
             <router-link to="/classGarden">
               <img src="../assets/class_ico.png" alt="班级园地">
               <p>班级园地</p>
             </router-link>
-          </div>
+          </div>-->
           <div class="guide_item">
             <router-link to="/ebook">
               <img src="../assets/ebook_ico.png" alt="电子书">
               <p>电子书</p>
             </router-link>
           </div>
-          <div class="guide_item">
+          <!--<div class="guide_item">
             <router-link to="/communication">
               <img src="../assets/communication_ico.png" alt="交流评论">
               <p>交流评论</p>
@@ -68,7 +68,7 @@
               <img src="../assets/notice_ico.png" alt="通知公告">
               <p>通知公告</p>
             </router-link>
-          </div>
+          </div>-->
         </div>
       </section>
       <div class="boundary"></div>
@@ -98,7 +98,7 @@
           <p>{{userInfo.Username}}</p>
         </div>
         <div class="info_detail">
-          <h4>您好，欢迎来到干部教育网络学院学习平台</h4>
+          <h4>您好，欢迎来到合肥终身学习平台</h4>
           <p><span>已获{{userInfo.TotalCredit}}学分，排名第{{userInfo.ScoreRank}}名</span></p>
         </div>
       </div>
@@ -181,7 +181,7 @@
         }
       },
       async getRecommendCourse() {
-        let data = await GetCourseInfoList({ChannelId: -3});
+        let data = await GetCourseInfoList({ChannelId: '-3'});
         if (data.Type == 1) {
           this.recommendCourseData = data.Data.List;
         }
@@ -294,7 +294,7 @@
       height: toRem(202px);
       .guide_container {
         @extend %clearFix;
-        width: 140%;
+        width: 100%;
         text-align: center;
       }
       .guide_item {

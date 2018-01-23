@@ -7,6 +7,7 @@
                :data-list="item"
                @itemClick="selectedNode"
                :on-select="onSelect"
+               :selected-id="selectedId"
                :key="index">
     </tree-node>
   </ul>
@@ -18,6 +19,7 @@
     props: {
       data: Array,
       onSelect: Function,
+      selectedId:[String,Number]
     },
     components: {
       treeNode,

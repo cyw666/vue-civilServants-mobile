@@ -1,10 +1,10 @@
 /**
-* 个人信息修改
+* 修改个人信息
 */
 <template>
   <div class="user_info_edit container_top">
     <!--头部-->
-    <header-fix title="个人信息修改" fixed>
+    <header-fix title="修改个人信息" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="setting_1">

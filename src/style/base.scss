@@ -63,7 +63,11 @@ input[type=checkbox], input[type=radio] {
   line-height: normal;
   @include square(30px);
 }
-
+textarea {
+  display: block;
+  resize: none;
+  width: 100%;
+}
 *:focus {
   outline: none;
 }
@@ -167,19 +171,20 @@ label {
 
 //表单
 .form-group {
-  font-size: 16px;
+  font-size: 14px;
+  border-radius: toRem(10px);
+  overflow: hidden;
 }
 
 .form-control {
   display: block;
   width: 100%;
   line-height: toRem(50px);
-  padding: toRem(15px) toRem(20px);
-  font-size: 17px;
-  color: #555;
+  padding: toRem(19px) toRem(20px);
+  font-size: 14px;
+  color: $color-text-thirdly;
   background-color: #fff;
   @extend %border-base;
-  border-radius: toRem(4px);
 }
 
 .checkbox, .radio {
@@ -277,7 +282,7 @@ label {
   .mint-button {
     height: toRem(90px);
     font-size: 14px;
-    @include borderRadius(12px);
+    @include borderRadius(8px);
   }
 
   .mint-button--normal, .mint-button--small {
@@ -290,7 +295,7 @@ label {
   }
 
   .mint-button--large {
-    @include borderRadius(15px);
+    @include borderRadius(12px);
   }
 
   .mint-button--primary {
@@ -472,6 +477,57 @@ table {
 .rank_bg_three {
   background: url(../assets/copper.png) no-repeat center center;
   background-size: toRem(33px), toRem(35px);
+}
+/*筛选*/
+.filter_layer {
+  position: absolute;
+  top: toRem(92px);
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .4);
+  z-index: 50;
+}
+.filter_list {
+  position: absolute;
+  max-height: 0;
+  overflow: hidden;
+  left: 0;
+  right: 0;
+  top: toRem(92px);
+  z-index: 100;
+  background-color: $fill-base;
+  font-size: 15px;
+  transition: max-height ease 0.5s;
+  &.show {
+    max-height: toRem(430px);
+  }
+}
+.filter_item {
+  @include ht-lineHt(86px);
+  padding: 0 toRem(30px);
+  span {
+    margin-left: toRem(30px);
+  }
+  img {
+    width: toRem(28px);
+  }
+  .webapp-selected {
+    @extend %pull-right;
+    font-size: 25px;
+    color: $brand-primary;
+  }
+  &.filter_title {
+    background-color: $fill-grey;
+    padding: 0;
+    color: $color-text-thirdly;
+    span {
+      margin-left: toRem(30px);
+    }
+  }
+  &.active{
+    color: $brand-primary;
+  }
 }
 
 

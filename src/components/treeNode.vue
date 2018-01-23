@@ -3,7 +3,7 @@
 */
 <template>
   <li class="tree_node">
-    <div class="tree_title">
+    <div class="tree_title" :class="dataList.Id == selectedId && 'tree_selected'">
       <span v-if="hasNodes" class="primary_line pull-left"></span>
       <span v-if="!hasNodes" class="tran_line pull-left"></span>
       <a class="tree_name" @click="nodeClick(dataList)">{{dataList.Name}}</a>
@@ -13,8 +13,13 @@
       </div>
     </div>
     <ul class="tree_container" v-show="open" v-if="hasNodes">
-      <node v-for="(item,index) in dataList.Nodes" :data-list="item" @itemClick="selectedNode" :on-select="onSelect"
-            :key="index"></node>
+      <node v-for="(item,index) in dataList.Nodes"
+            :data-list="item"
+            @itemClick="selectedNode"
+            :on-select="onSelect"
+            :selected-id="selectedId"
+            :key="index">
+      </node>
     </ul>
   </li>
 </template>
@@ -26,8 +31,7 @@
         open: false,
       }
     },
-    props: ["dataList", "onSelect"],
-    components: {},
+    props: ["dataList", "onSelect", "selectedId"],
     computed: {
       hasNodes: function () {
         return this.dataList.Nodes && this.dataList.Nodes.length;
@@ -60,19 +64,19 @@
   }
 
   .tree_title {
-    @include ht-lineHt(90px);
+    @include ht-lineHt(88px);
     @extend %clearFix;
     .tree_name {
       @extend %pull-left;
       width: 80%;
       @extend %ellipsis;
-      line-height: toRem(90px);
+      line-height: toRem(88px);
     }
     .tree_toggle_icon {
       @extend %pull-right;
       padding-right: toRem(20px);
       .webapp {
-        color: #999;
+        color: $color-text-thirdly;
       }
     }
     .tran_line {
@@ -84,6 +88,9 @@
     }
     .primary_line, .tran_line {
       margin-top: toRem(30px);
+    }
+    &.tree_selected {
+      background-color: lighten($brand-primary, 36%);
     }
   }
 </style>

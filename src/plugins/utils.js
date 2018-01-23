@@ -164,14 +164,12 @@ export const formatTime = (msd) => {
     if (time > 60 && time < 60 * 60) {
       time = parseInt(time / 60.0) + "分钟" + parseInt((parseFloat(time / 60.0) -
         parseInt(time / 60.0)) * 60) + "秒";
-    }
-    else if (time >= 60 * 60 && time < 60 * 60 * 24) {
+    } else if (time >= 60 * 60 && time < 60 * 60 * 24) {
       time = parseInt(time / 3600.0) + "小时" + parseInt((parseFloat(time / 3600.0) -
         parseInt(time / 3600.0)) * 60) + "分钟" +
         parseInt((parseFloat((parseFloat(time / 3600.0) - parseInt(time / 3600.0)) * 60) -
           parseInt((parseFloat(time / 3600.0) - parseInt(time / 3600.0)) * 60)) * 60) + "秒";
-    }
-    else {
+    } else {
       time = parseInt(time) + "秒";
     }
   }
@@ -237,4 +235,19 @@ export const unique = (arr) => {
     }
   }
   return res;
+}
+
+/**
+ * 字数限制 ...
+ */
+export const wordLimit = (text, num) => {
+  var des = '';
+  if (typeof text == "string") {
+    if (text.length > num) {
+      des = text.substring(0, num) + "...";
+      return des;
+    } else {
+      return text;
+    }
+  }
 }

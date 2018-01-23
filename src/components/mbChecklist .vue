@@ -1,6 +1,7 @@
 <template>
   <div class="mbChecklist" @change="$emit('change', currentValue)">
-    <div class="checkList" v-for="(option,index) in options" :key="index" :class="isInArray(option.ThemeItemFlag)&&'checklist_checked'">
+    <div class="checkList" v-for="(option,index) in options" :key="index"
+         :class="isInArray(option.ThemeItemFlag)&&'checklist_checked'">
       <label class="mint-checklist-label">
         <span class="mint-checkbox">
           <input
@@ -35,13 +36,11 @@
       },
       value: ''
     },
-    computed: {
-
-    },
+    computed: {},
     methods: {
-      isInArray(value){
-        for(var i = 0; i < this.currentValue.length; i++){
-          if(value === this.currentValue[i]){
+      isInArray(value) {
+        for (var i = 0; i < this.currentValue.length; i++) {
+          if (value === this.currentValue[i]) {
             return true;
           }
         }
@@ -73,18 +72,17 @@
       }
       .mint-checklist-label {
         display: block;
-        padding: 0 toRem(20px);
-        @include ht-lineHt(84px);
-        font-size: 14px;
+        padding: toRem(21px) toRem(20px);
+        font-size: 15px;
       }
       padding: 0 toRem(20px);
     }
-    .checklist_checked{
-      border:1px solid $brand-primary;
+    .checklist_checked {
+      border: 1px solid $brand-primary;
       background-color: $fill-base;
       color: $brand-primary;
     }
-    .label_title{
+    .label_title {
       margin-left: toRem(50px);
     }
   }

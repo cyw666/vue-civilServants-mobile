@@ -1,6 +1,7 @@
 <template>
   <div class="mbRadio" @change="$emit('change', currentValue)">
-    <div class="radioList" v-for="(option,index) in options" :key="index" :class="option.ThemeItemFlag == currentValue&&'radio_checked'">
+    <div class="radioList" v-for="(option,index) in options" :key="index"
+         :class="option.ThemeItemFlag == currentValue&&'radio_checked'">
       <label class="mint-radiolist-label">
         <span class="mint-radio">
           <input
@@ -61,18 +62,17 @@
       }
       .mint-radiolist-label {
         display: block;
-        padding: 0 toRem(20px);
-        @include ht-lineHt(84px);
-        font-size: 14px;
+        padding: toRem(21px) toRem(20px);
+        font-size: 15px;
       }
       padding: 0 toRem(20px);
     }
-    .radio_checked{
-      border:1px solid $brand-primary;
+    .radio_checked {
+      border: 1px solid $brand-primary;
       background-color: $fill-base;
       color: $brand-primary;
     }
-    .label_title{
+    .label_title {
       margin-left: toRem(50px);
     }
   }

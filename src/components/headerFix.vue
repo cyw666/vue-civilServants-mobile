@@ -48,7 +48,7 @@
       text-align: left;
     }
     .header_title {
-      flex: 1;
+      flex: 2;
       @extend %ellipsis;
       color: #fff;
       font-size: 16px;
@@ -56,6 +56,7 @@
     .header_right {
       flex: 1;
       text-align: right;
+      font-size: 14px;
     }
     .webapp-back {
       font-size: 22px;

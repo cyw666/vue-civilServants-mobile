@@ -132,6 +132,7 @@
   @import "../style/mixin";
 
   .communication {
+    background-color: $fill-base;
     .add_com {
       width: toRem(31px);
     }
@@ -198,7 +199,7 @@
         border: 1px solid #e9e9e9;
         border-radius: toRem(10px);
         padding: toRem(20px);
-        font-size: 16px;
+        font-size: 14px;
       }
       .mint-button--primary {
         background-color: $brand-info;

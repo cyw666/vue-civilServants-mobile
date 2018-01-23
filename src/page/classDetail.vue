@@ -55,7 +55,6 @@
 <script>
   import Vue from 'vue'
   import wx from 'weixin-js-sdk'
-  //  import '../plugins/base64'
   import {Toast, MessageBox, Button} from 'mint-ui'
   import {signList} from '../components'
   import {goBack} from '../service/mixins'
@@ -278,18 +277,8 @@
       }
     }
     .sign_detail {
-      &::before {
-        content: '';
-        display: block;
-        height: toRem(20px);
-        background-color: $fill-tap;
-      }
-      &::after {
-        content: '';
-        display: block;
-        height: toRem(20px);
-        background-color: $fill-tap;
-      }
+      background-color: $fill-base;
+      margin: toRem(20px) 0;
     }
     .sign_title {
       line-height: toRem(60px);
@@ -300,6 +289,7 @@
       @extend %pull-right;
     }
     .class_desc {
+      background-color: $fill-base;
       .class_course_detail {
         padding: 0 toRem(30px) toRem(10px);
         text-indent: 2em;

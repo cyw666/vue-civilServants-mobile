@@ -58,7 +58,6 @@
             MessageBox.confirm(`当前考试剩余${count}次考试机会，是否继续考试`).then(action => {
               this.$router.push({path: '/exam', query: {id}})
             });
-
           } else {
             this.message = "考试次数已用完";
             Toast({message: this.message, position: 'bottom'});

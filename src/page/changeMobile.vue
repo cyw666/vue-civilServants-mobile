@@ -65,14 +65,16 @@
       },
       async sendMsg() {
         if (!this.sendData.NewMobile) {
-          MessageBox('警告', '请填写新手机号码');
+          Toast({message: "请填写新手机号码", position: 'bottom'});
         } else if (!this.isPassMobile) {
-          MessageBox('警告', '新手机号码格式有误');
+          Toast({message: "新手机号码格式有误", position: 'bottom'});
         } else {
           let data = await SendMsg({MobileNo: this.sendData.NewMobile});
           if (data.Type == 1) {
             Toast({message: "发送成功", position: 'bottom'});
             this.countDown();
+          } else if (data.Type != 401) {
+            MessageBox('警告', data.Message);
           }
         }
       },
@@ -142,8 +144,7 @@
         display: inline-block;
         width: 70%;
         line-height: 1.2em;
-        padding: toRem(20px);
-        font-size: 14px;
+        padding: toRem(30px);
       }
     }
     .old_mobile {

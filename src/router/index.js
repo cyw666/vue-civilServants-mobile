@@ -42,6 +42,14 @@ const PlayJYAicc = r => require.ensure([], () => r(require('../page/playJYAicc.v
 const PlayH5 = r => require.ensure([], () => r(require('../page/playH5.vue')), 'playH5')
 const Notice = r => require.ensure([], () => r(require('../page/notice.vue')), 'notice')
 const OpenApp = r => require.ensure([], () => r(require('../page/openApp.vue')), 'openApp')
+const MyCollect = r => require.ensure([], () => r(require('../page/myCollect.vue')), 'myCollect')
+const LearningPortfolio = r => require.ensure([], () => r(require('../page/learningPortfolio.vue')), 'learningPortfolio')
+const ExamHistory = r => require.ensure([], () => r(require('../page/examHistory.vue')), 'examHistory')
+const ResultShow = r => require.ensure([], () => r(require('../page/resultShow.vue')), 'resultShow')
+const ResultShowDetail = r => require.ensure([], () => r(require('../page/resultShowDetail.vue')), 'resultShowDetail')
+const ResultShowSearch = r => require.ensure([], () => r(require('../page/resultShowSearch.vue')), 'resultShowSearch')
+const NotesDetail = r => require.ensure([], () => r(require('../page/notesDetail.vue')), 'notesDetail')
+const NoticeDetail = r => require.ensure([], () => r(require('../page/noticeDetail.vue')), 'noticeDetail')
 
 const routes = [
   {
@@ -325,6 +333,62 @@ const routes = [
         path: 'openApp',
         component: OpenApp,
         meta: {title: '打开App'},
+      },
+      //我的收藏
+      {
+        name: 'myCollect',
+        path: 'myCollect',
+        component: MyCollect,
+        meta: {title: '我的收藏'},
+      },
+      //学习档案
+      {
+        name: 'learningPortfolio',
+        path: 'learningPortfolio',
+        component: LearningPortfolio,
+        meta: {title: '学习档案'},
+      },
+      //考试记录
+      {
+        name: 'examHistory',
+        path: 'examHistory',
+        component: ExamHistory,
+        meta: {title: '考试记录'},
+      },
+      //成果展示
+      {
+        name: 'resultShow',
+        path: 'resultShow',
+        component: ResultShow,
+        meta: {title: '成果展示'},
+      },
+      //成果展示详情
+      {
+        name: 'resultShowDetail',
+        path: 'resultShowDetail',
+        component: ResultShowDetail,
+        meta: {title: '成果展示详情'},
+      },
+      //成果展示搜索
+      {
+        name: 'resultShowSearch',
+        path: 'resultShowSearch',
+        component: ResultShowSearch,
+        meta: {title: '成果展示搜索'},
+      },
+      //笔记详情
+      {
+        name: 'notesDetail',
+        path: 'notesDetail',
+        component: NotesDetail,
+        meta: {title: '笔记详情'},
+      },
+      //通知详情
+      {
+        name: 'noticeDetail',
+        path: 'noticeDetail',
+        component: NoticeDetail,
+        meta: {title: '通知详情'},
       },
       //error
       {

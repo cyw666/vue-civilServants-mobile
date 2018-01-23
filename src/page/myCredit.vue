@@ -27,7 +27,6 @@
       <mt-cell title="考核结果" :value="userInfo.PassFlag?'通过':'未通过'"></mt-cell>
       <mt-cell title="您的学分排名" :value="userInfo.ScoreRank"></mt-cell>
     </div>
-
   </div>
 </template>
 <script>
@@ -66,6 +65,7 @@
   .my_credit {
     .cell_list_one, .cell_list_two, .cell_list_three {
       padding: 0 toRem(20px);
+      background-color: $fill-base;
     }
     .mint-cell-wrapper {
       padding: 0;
@@ -74,7 +74,7 @@
       display: block;
       width: 100%;
       height: toRem(20px);
-      background-color: #e8e8e8;
+      background-color: $fill-body;
     }
   }
 </style>

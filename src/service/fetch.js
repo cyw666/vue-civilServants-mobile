@@ -3,15 +3,13 @@
  */
 import {Toast, Indicator} from 'mint-ui'
 import axios from 'axios'
-import qs from 'qs'
 import {getStore} from '../plugins/utils'
 
-
 let timeLimit = true;
-// axios.defaults.baseURL = 'http://test10.jy365.net';
+// axios.defaults.baseURL = 'http://122.225.101.119:8989';
 axios.defaults.timeout = 10000;
 axios.defaults.withCredentials = true;
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 //拦截器
 axios.interceptors.request.use(config => {
   // 将aspxauth添加到请求头
@@ -33,7 +31,7 @@ axios.interceptors.response.use(response => {
 function checkStatus(response) {
   Indicator.close();
   // 如果http状态码正常，则直接返回数据
-  if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
+  if (response) {
     //用户掉线
     if (response.data.Type == 401 && timeLimit) {
       timeLimit = false;
@@ -79,7 +77,7 @@ export default {
     return axios({
       method: 'post',
       url,
-      data: qs.stringify(data),
+      data: data,
     }).then(
       (response) => {
         return checkStatus(response)

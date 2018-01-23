@@ -4,7 +4,7 @@
 <template>
   <div class="play_Jyaicc container_top">
     <!--头部-->
-    <header-fix title="视频播放" fixed>
+    <header-fix :title="courseDetails.CourseName" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="player">
@@ -68,10 +68,12 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Indicator,Toast,MessageBox, Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
-  import {headerFix, courseIntroduce, courseComment,courseList} from '../components'
+  import {mapMutations} from 'vuex';
+  import wx from 'weixin-js-sdk'
+  import {Indicator, Toast, MessageBox, Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
+  import {headerFix, courseIntroduce, courseComment, courseList} from '../components'
   import {goBack} from '../service/mixins'
-  import {GetCourseDetail, SyncUserStudyData, RelatedCourse} from '../service/getData'
+  import {GetCourseDetail, SyncUserStudyData, RelatedCourse, GetWechatWxAuthModel} from '../service/getData'
   import {getStore} from '../plugins/utils'
 
   Vue.component(Navbar.name, Navbar);
@@ -87,7 +89,9 @@
         autoPlay: false, //是否自动播放
         selected: 'introduce', //被选择便签页id
         courseId: '', //课程id
-        courseDetails: {}, //课程详情信息
+        courseDetails: {//课程详情信息
+          CourseName:'视频播放'
+        },
         readyState: 0, //视频是否准备就绪
         nodeList: [], //节点数据
         nodeLength: 0, //节点数据
@@ -101,8 +105,8 @@
           Time: 0,
         },
         myVideo: null, //video对象
-        prevLocation:0,//上一次播放位置
-        locationTime:0, //当前播放位置
+        prevLocation: 0,//上一次播放位置
+        locationTime: 0, //当前播放位置
         /*相关课程*/
         courseData: [],
         loading: false,
@@ -110,6 +114,7 @@
         page: 1,
         noData: false,
         noDataBg: false,
+        url: window.location.href,
       }
     },
     created() {
@@ -119,6 +124,7 @@
         this.isWeChat = false;
       }
       this.courseId = this.$route.query.id;
+      this.netWorkType();
     },
     mounted() {
       /*初始化 打开APP*/
@@ -128,6 +134,7 @@
       });
       /*获取video对象*/
       this.myVideo = document.getElementById("myVideo");
+      this.getWechatWxAuthModel();
       /*获取课程详情*/
       this.getCourseDetail();
       this.getRelatedCourse();
@@ -140,6 +147,38 @@
     },
     computed: {},
     methods: {
+      ...mapMutations(['GET_NETWORKTYPE']),
+      /*微信签名*/
+      async getWechatWxAuthModel() {
+        let data = await GetWechatWxAuthModel({Url: this.url});
+        if (data.Type == 1) {
+          wx.config({
+            debug: false,
+            appId: 'wxf24d72db02fede73',// 必填，公众号的唯一标识
+            timestamp: data.Data.Timestamp,// 必填，生成签名的时间戳
+            nonceStr: data.Data.Nonce,// 必填，生成签名的随机串
+            signature: data.Data.Signature,// 必填，签名
+            jsApiList: ['checkJsApi', 'getNetworkType']// 必填，需要使用的JS接口列表
+          });
+        } else if (data.Type != 401) {
+          MessageBox('警告', data.Message);
+        }
+      },
+      /*获取网络环境*/
+      netWorkType() {
+        let t = this;
+        wx.ready(function () {
+          wx.getNetworkType({
+            success: function (res) {
+              var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
+              t.GET_NETWORKTYPE(networkType);
+              if (networkType !== 'wifi') {
+                Toast({message: '您正在使用2G/3G/4G网络，建议在WIFI环境观看', position: 'middle'});
+              }
+            }
+          });
+        });
+      },
       //相关课程
       async getRelatedCourse() {
         this.noData = false;
@@ -181,7 +220,7 @@
         });
         if (data.Type == 1) {
           this.nodeList = data.Data.NodeList;
-        }else if(data.Type != 401){
+        } else if (data.Type != 401) {
           Toast({message: data.Message, position: 'bottom'});
         }
       },
@@ -196,7 +235,6 @@
             clearInterval(timer);
             this.duration = this.myVideo.duration; //当前时间
             this.myVideo.currentTime = this.prevLocation;
-//            debugger;
             /*是否自动播放*/
             if (this.autoPlay) {
               this.myVideo.play();
@@ -208,15 +246,15 @@
               let currentTime = this.myVideo.currentTime;
               if (currentTime > 0) {
                 /*视频播放完成，记录当前位置*/
-                if(this.activeNode.Status == "C"){
+                if (this.activeNode.Status == "C") {
                   this.locationTime = currentTime;
-                }else {
+                } else {
                   /*视频未播放完毕 禁止拖拽*/
-                  if(currentTime > this.locationTime + 2||currentTime < this.locationTime - 2){
+                  if (currentTime > this.locationTime + 4 || currentTime < this.locationTime - 4) {
                     this.myVideo.currentTime = this.locationTime;
                     this.myVideo.play();
                     Toast({message: "未播放课程禁止拖拽", position: 'bottom'});
-                  }else {
+                  } else {
                     this.locationTime = currentTime;
                   }
                 }
@@ -294,7 +332,13 @@
   @import "../style/mixin";
 
   .play_Jyaicc {
+    .header {
+      .header_title{
+        flex: 6;
+      }
+    }
     .course_menu {
+      background-color: $fill-base;
       padding: 0 toRem(30px);
       font-size: 15px;
       li {
@@ -333,7 +377,6 @@
       }
       .close_tip {
         color: $color-text-reverse;
-        /*font-size: 20px;*/
         position: absolute;
         right: toRem(10px);
         bottom: 0;

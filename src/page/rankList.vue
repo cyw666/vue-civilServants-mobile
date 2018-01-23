@@ -10,7 +10,7 @@
     <mt-navbar v-model="selected">
       <mt-tab-item id="1">学员排名</mt-tab-item>
       <mt-tab-item id="2">课程排名</mt-tab-item>
-      <mt-tab-item id="3">单位排名</mt-tab-item>
+      <mt-tab-item id="3">地区排名</mt-tab-item>
     </mt-navbar>
 
     <!-- tab-container -->

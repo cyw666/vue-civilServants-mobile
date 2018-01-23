@@ -5,6 +5,9 @@
   // const API_URL = '122.225.101.117:9064/api';
 const API_URL = '/api';
 const Platform = '/wechat';
+/*
+* 账号：cyw 密码：123123
+* */
 export default {
   //判断用户是否存在
   CheckUserIsExit: {
@@ -13,7 +16,8 @@ export default {
   },
   //登陆
   Login: {
-    url: API_URL + Platform + '/Login',
+    // url: API_URL + Platform + '/Login',
+    url: API_URL + Platform + '/ValidateUser',
     data: {Code: '', Account: '', Password: '', Mac: '', CId: ''}
   },
   //获取用户信息

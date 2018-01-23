@@ -65,24 +65,27 @@
       text-align: center;
       .result_icon {
         padding: toRem(120px) 0 toRem(50px) 0;
-        font-size: 15px;
+        font-size: 16px;
         span {
           margin-left: toRem(20px);
         }
       }
       .get_score {
         @include ht-lineHt(60px);
-        font-size: 18px;
+        font-size: 20px;
       }
     }
     .result_body {
       background-color: $fill-base;
-      font-size: 14px;
+      font-size: 15px;
       margin-top: toRem(20px);
       padding: 0 toRem(30px);
       p {
         @include ht-lineHt(82px);
         border-top: 1px solid $border-color-light;
+      }
+      .pull-right{
+        color: $color-text-secondary;
       }
     }
     .result_footer {
@@ -102,10 +105,10 @@
       }
     }
     .webapp-smile {
-      color: $brand-primary;
+      color: $brand-success;
     }
     .webapp-cry {
-      color: $brand-primary;
+      color: $brand-error;
     }
   }
 </style>

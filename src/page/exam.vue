@@ -7,24 +7,34 @@
     </header-fix>
     <div class="exam_header">
       <i class="webapp webapp-time" style="color: #00aeff"></i>
-      <span>剩余时间：{{timeLimit ? timeLimt + "分钟" : "不限时"}}</span>
+      <span v-if="timeLimit">倒计时：{{timeLimit | formatTime}}</span>
+      <span v-else>倒计时：不限时</span>
     </div>
-    <div class="exam_content" v-for="(list,index) in exam" v-if="itemNum == index + 1">
-      <p class="exam_name">
-        <span class="red" v-if="list.ThemeType==0">【判断题】</span>
-        <span class="red" v-if="list.ThemeType==1">【单选题】</span>
-        <span class="red" v-if="list.ThemeType==2">【多选题】</span>
-        <span>{{index + 1 + "." + list.ThemeTitle}}</span>
-        <span class="red">({{Number(list.ThemeScore).toFixed(1)}}分)</span>
-      </p>
-      <ul class="exam_list">
-        <p v-if="list.ThemeType == 2">
-          <mb-checklist :options="list.ItemInfo" v-model="choosedItem[list.ThemeId]"></mb-checklist>
-        </p>
-        <p v-else>
-          <mb-radio :options="list.ItemInfo" v-model="choosedItem[list.ThemeId]"></mb-radio>
-        </p>
-      </ul>
+    <div class="exam_content" v-for="(list,index) in exam" :key="index">
+      <transition name="slide-left">
+        <div v-if="itemNum == index + 1">
+          <p class="exam_name">
+            <span class="red" v-if="list.ThemeType==0">【判断题】</span>
+            <span class="red" v-if="list.ThemeType==1">【单选题】</span>
+            <span class="red" v-if="list.ThemeType==2">【多选题】</span>
+            <span class="red" v-if="list.ThemeType==3">【简答题】</span>
+            <span class="topic_name">{{index + 1 + "." + list.ThemeTitle}}</span>
+            <span class="red">({{Number(list.ThemeScore).toFixed(1)}}分)</span>
+          </p>
+          <div class="exam_list">
+            <div v-if="list.ThemeType == 0||list.ThemeType == 1">
+              <mb-radio :options="list.ItemInfo" v-model="choosedItem[list.ThemeId]"></mb-radio>
+            </div>
+            <div v-else-if="list.ThemeType == 2">
+              <mb-checklist :options="list.ItemInfo" v-model="choosedItem[list.ThemeId]"></mb-checklist>
+            </div>
+            <div v-else-if="list.ThemeType == 3">
+          <textarea class="answerInput" v-model="choosedItem[list.ThemeId]" rows="15"
+                    placeholder="在此处出入答案内容"></textarea>
+            </div>
+          </div>
+        </div>
+      </transition>
     </div>
     <div class="exam_footer">
       <mt-button class="prev" type="primary" plain @click.native='preItem'>上一题</mt-button>
@@ -40,6 +50,7 @@
   import {goBack} from '../service/mixins'
   import {headerFix, mbChecklist, mbRadio} from '../components'
   import {GetExam, UpdateUserExam} from '../service/getData'
+  import {formatTime} from '../plugins/utils'
 
   Vue.component(Button.name, Button);
   export default {
@@ -55,7 +66,6 @@
         allItem: 0,
         userInfo: null,
         choosedItem: {},
-        sendData: [],
         startDate: "",//考试开始时间
       }
     },
@@ -73,9 +83,6 @@
       mbRadio
     },
     computed: {},
-    updated() {
-
-    },
     methods: {
       async getExam() {
         let data = await GetExam({Id: this.examId});
@@ -83,7 +90,7 @@
           let exam = data.Data;
           this.exam = exam.ThemeInfoList;
           this.examTitle = exam.ExamTitle;
-          this.timeLimit = exam.TimeLimit;
+          this.timeLimit = exam.TimeLimit * 60;
           this.allItem = exam.ThemeCount;
           this.itemData = exam.ThemeInfoList[0];
           //初始化choosedItem
@@ -96,6 +103,7 @@
               this.choosedItem[themeID] = '';
             }
           });
+          this.countDown();
         }
       },
       //点击下一题
@@ -115,22 +123,25 @@
           this.itemNum = 1;
         }
       },
+      async upDateExam() {
+        let t = this;
+        let params = t.changeSendData(t.choosedItem);
+        UpdateUserExam({ExamId: t.examId, Data: params})
+          .then(function (data) {
+            if (data.Type == 1) {
+              let endDate = new Date();
+              let usedTime = endDate - t.startDate;
+              let queryData = {...data.Data, ...{usedTime}, ...{examId: t.examId}};
+              t.$router.push({path: "examResult", query: {data: JSON.stringify(queryData)}});
+            } else if (data.Type != 401) {
+              MessageBox('警告', data.Message);
+            }
+          })
+      },
       //提交考试
-      async submitExam() {
-        let params = this.changeSendData(this.choosedItem);
+      submitExam() {
         MessageBox.confirm('确定提交试卷?').then(() => {
-          let t = this;
-          UpdateUserExam({ExamId: this.examId, Data: params})
-            .then(function (data) {
-              if (data.Type == 1) {
-                let endDate = new Date();
-                let usedTime = endDate - t.startDate;
-                let queryData = {...data.Data, ...{usedTime}, ...{examId: t.examId}};
-                t.$router.push({path: "examResult", query: {data: JSON.stringify(queryData)}});
-              } else if (data.Type != 401) {
-                MessageBox('警告', data.Message);
-              }
-            })
+          this.upDateExam();
         });
       },
       changeSendData(data) {
@@ -149,6 +160,19 @@
           return params;
         }
       },
+      countDown() {
+        let time = parseInt(this.timeLimit);
+        let limitTimer = setInterval(() => {
+          time -= 1;
+          this.timeLimit = time;
+          if (time <= 0) {
+            clearInterval(limitTimer);
+            MessageBox.alert('考试时间已到').then(action => {
+              this.upDateExam();
+            });
+          }
+        }, 1000);
+      }
     },
     watch: {
       itemNum: function (val) {
@@ -162,39 +186,38 @@
   @import '../style/mixin';
 
   .exam {
+    background-color: $fill-base;
+    font-size: 15px;
     .exam_header {
       padding: 0 toRem(30px);
       border-bottom: 1px solid $border-color-base;
       text-align: center;
-      font-size: 16px;
       line-height: toRem(62px);
       img {
         width: toRem(29px);
       }
     }
     .exam_content {
+      position: absolute;
+      left: 0;
       padding: 0 toRem(40px);
       .exam_name {
         padding: toRem(30px) 0 toRem(100px) 0;
-        span {
-          font-size: 16px;
-        }
         .red {
           color: $brand-primary;
         }
       }
+      .topic_name {
+        line-height: toRem(50px);
+      }
       .exam_list {
-        li {
-          border-bottom: 1px solid $fill-tap;
-          line-height: toRem(80px);
-          input:focus {
-            outline: none;
-          }
-          label {
-            display: inline-block;
-            width: 85%;
-            font-size: 16px;
-          }
+        .answerInput {
+          width: 100%;
+          padding: toRem(10px);
+          resize: none;
+          border: 1px solid $border-color-base;
+          @include borderRadius(10px);
+          font-size: 14px;
         }
       }
     }
@@ -215,10 +238,10 @@
       .itemNum {
         display: inline-block;
         width: toRem(350px);
-        font-size: 15px;
         line-height: toRem(73px);
-        span{
+        span {
           color: $color-text-secondary;
+          font-size: 14px;
         }
       }
       .next {

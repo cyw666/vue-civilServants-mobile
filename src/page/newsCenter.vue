@@ -12,7 +12,7 @@
     </header-fix>
     <nav-slide :show="showSlide" @showChange="showChange">
       <div slot="left" class="category">
-        <tree :data="articleCategory" :on-select="searchArticle"></tree>
+        <tree :data="articleCategory" :on-select="searchArticle" :selected-id="categoryId"></tree>
       </div>
       <div slot="right">
         <section v-infinite-scroll="getArticleList"
@@ -118,7 +118,7 @@
     width: 100vw;
     height: 100vh;
     .category_icon {
-      margin-left: toRem(15px);
+      margin-left: toRem(10px);
     }
   }
 </style>

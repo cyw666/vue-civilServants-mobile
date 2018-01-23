@@ -167,6 +167,15 @@ $font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans 
   -webkit-line-clamp: $line_num;
 }
 
+/*圆点*/
+@mixin dot($size:10px,$color:$brand-primary) {
+  display: inline-block;
+  @include square($size);
+  @include borderRadius($size/2);
+  background-color: $color;
+  vertical-align: middle;
+}
+
 // 左浮动
 %pull-left {
   float: left !important;

@@ -20,8 +20,11 @@
     </header-fix>
     <nav-slide :show="showSlide" @showChange="showChange">
       <div slot="left" class="category">
-        <tree :data="examCategory" :on-select="searchExam" :scroll-bottom="getExamList"
-              :loading="loading"></tree>
+        <tree :data="examCategory"
+              :on-select="searchExam"
+              :selected-id="typeId"
+        >
+        </tree>
       </div>
       <div slot="right">
         <section v-infinite-scroll="getExamList"
@@ -38,22 +41,22 @@
     <div class="filter_layer" v-if="showFilter" @click="toggleFilter"></div>
     <div class="filter_list" :class="{'show':showFilter}">
       <p class="filter_item filter_title"><span>筛选条件</span></p>
-      <p class="filter_item" @click="filterExam('All')">
+      <p class="filter_item" :class="examType=='All'&&'active'" @click="filterExam('All')">
         <i class="webapp webapp-order" style="color: #00aeff;"></i>
         <span>默认</span>
         <i v-if="examType=='All'" class="webapp webapp-selected"></i>
       </p>
-      <p class="filter_item" @click="filterExam('Finish')">
+      <p class="filter_item" :class="examType=='Finish'&&'active'" @click="filterExam('Finish')">
         <i class="webapp webapp-smile" style="color: #5fbe81;"></i>
         <span>已过</span>
         <i v-if="examType=='Finish'" class="webapp webapp-selected"></i>
       </p>
-      <p class="filter_item" @click="filterExam('UnFinish')">
+      <p class="filter_item" :class="examType=='UnFinish'&&'active'" @click="filterExam('UnFinish')">
         <i class="webapp webapp-cry" style="color: #ee3f3f;"></i>
         <span>未过</span>
         <i v-if="examType=='UnFinish'" class="webapp webapp-selected"></i>
       </p>
-      <p class="filter_item" @click="filterExam('UnJoin')">
+      <p class="filter_item" :class="examType=='UnJoin'&&'active'" @click="filterExam('UnJoin')">
         <i class="webapp webapp-cry" style="color: #999999;"></i>
         <span>未考</span>
         <i v-if="examType=='UnJoin'" class="webapp webapp-selected"></i>
@@ -116,7 +119,7 @@
         if (data.Type == 1) {
           let list = data.Data.List;
           let category = list.map((item, index) => {
-            return {...item, ...{Name: item.TypeName, Nodes: null}}
+            return {Name: item.TypeName, Id: item.TypeId, ParentId: item.ParentId, Nodes: null}
           })
           this.examCategory = category;
         }
@@ -147,7 +150,7 @@
       //点击分类搜索
       searchExam(data) {
         this.page = 1;
-        this.typeId = data.TypeId;
+        this.typeId = data.Id;
         this.examTitle = data.Name;
         this.showSlide = false;
         this.showFilter = false;
@@ -233,7 +236,7 @@
         }
       }
     }
-    .tree_title .tran_line{
+    .tree_title .tran_line {
       background-color: $brand-primary;
     }
   }

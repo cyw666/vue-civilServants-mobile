@@ -45,6 +45,7 @@
   @import "../style/mixin";
 
   .course_introduce {
+    background-color: $fill-base;
     .course_detail_name {
       margin: 0 toRem(30px);
       border-bottom: 1px solid $border-color-base;
@@ -83,7 +84,7 @@
         @extend %pull-left;
         @extend %ellipsis;
         width: 45%;
-        padding-left: toRem(50px);
+        padding-left: toRem(40px);
       }
     }
     .course_detail_desc {

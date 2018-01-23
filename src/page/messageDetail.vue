@@ -52,9 +52,13 @@
   @import "../style/mixin";
 
   .message_detail {
+    background-color: $fill-base;
     .articleDet {
       font-size: 16px;
-      padding: toRem(20px);
+      padding: toRem(40px) toRem(20px) toRem(20px) toRem(20px);
+      img {
+        width: 100%;
+      }
     }
   }
 </style>

@@ -89,12 +89,13 @@
   .ebook_chapter {
     .ebook_chapter_list {
       padding: 0 toRem(30px);
+      background-color: $fill-base;
     }
     .ebook_chapter_item {
       padding: toRem(20px) 0;
       line-height: toRem(40px);
-      border-bottom: 1px solid $border-color-base;
-      font-size: 14px;
+      border-bottom: 1px solid $border-color-light;
+      font-size: 12px;
     }
   }
 </style>

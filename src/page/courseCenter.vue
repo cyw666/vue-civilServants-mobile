@@ -11,7 +11,7 @@
     </header-fix>
     <nav-slide :show="showSlide" @showChange="showChange">
       <div slot="left" class="category">
-        <tree :data="courseCategory" :on-select="searchCourse"></tree>
+        <tree :data="courseCategory" :on-select="searchCourse" :selected-id="channelId"></tree>
       </div>
       <div slot="right">
         <section v-infinite-scroll="getCourseList"

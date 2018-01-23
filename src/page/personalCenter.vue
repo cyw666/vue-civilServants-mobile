@@ -7,28 +7,37 @@
       <img src="../assets/person_cener_avatar.png" alt="">
       <div class="my_info">
         <h4>{{userInfo.Username}}</h4>
-        <p>规定学分：{{userInfo.NeedCredit}}<span class="shuxian">|</span>已修学分：{{userInfo.TotalCredit}}</p>
+        <p>
+          学分：{{userInfo.NeedCredit}}
+          <span class="shuxian">|</span>
+          等级：{{userInfo.TotalCredit}}
+          <span class="shuxian">|</span>
+          学习币：290.5
+        </p>
       </div>
     </div>
     <div class="cell_list_one">
-      <mt-cell title="我的学分" is-link to="/myCredit">
-        <i slot="icon" class="webapp webapp-flower" style="color: #fde58b;"></i>
+      <mt-cell title="我的收藏" is-link to="/myCollect">
+        <i slot="icon" class="webapp webapp-shoucang" style="color: #e95c2c;"></i>
       </mt-cell>
-      <mt-cell title="我的课程" is-link to="/myCourse">
-        <i slot="icon" class="webapp webapp-kecheng" style="color: #ffb5aa;"></i>
+      <mt-cell title="学习档案" is-link to="/learningPortfolio">
+        <i slot="icon" class="webapp webapp-kecheng" style="color: #00ce6a;"></i>
       </mt-cell>
     </div>
     <div class="cell_list_two">
-      <mt-cell title="我的考试" is-link to="/examCenter">
-        <i slot="icon" class="webapp webapp-exam" style="color: #c0e5a2;"></i>
+      <mt-cell title="站内信息" is-link to="/notice">
+        <i slot="icon" class="webapp webapp-advise" style="color: #a59be7;"></i>
       </mt-cell>
-      <mt-cell title="信息反馈" is-link to="/advise">
-        <i slot="icon" class="webapp webapp-advise" style="color: #cebcf0;"></i>
+      <mt-cell title="我的考试" is-link to="/examHistory">
+        <i slot="icon" class="webapp webapp-exam" style="color: #49e2fe;"></i>
       </mt-cell>
     </div>
     <div class="cell_list_three">
+      <mt-cell title="操作指南" is-link to="/setting">
+        <i slot="icon" class="webapp webapp-book" style="color: #f5c754;"></i>
+      </mt-cell>
       <mt-cell title="设置" is-link to="/setting">
-        <i slot="icon" class="webapp webapp-set" style="color: #ecc1dd;"></i>
+        <i slot="icon" class="webapp webapp-set" style="color: #ec80c6;"></i>
       </mt-cell>
     </div>
     <div class="exit">
@@ -91,7 +100,7 @@
         margin-top: toRem(65px);
       }
       .my_info {
-        padding: 0 toRem(30px);
+        padding-left: toRem(20px);
         color: $color-text-reverse;
         margin-top: toRem(65px);
         h4 {
@@ -103,7 +112,7 @@
           font-size: 14px;
         }
         .shuxian {
-          margin: 0 toRem(30px);
+          margin: 0 toRem(15px);
         }
       }
     }
@@ -118,8 +127,7 @@
     }
 
     .exit {
-      padding-bottom: toRem(110px);
-      margin: toRem(60px) toRem(30px) 0 toRem(40px);
+      padding: toRem(50px) toRem(30px) toRem(10px) toRem(30px);
     }
     .webapp {
       font-size: toRem(32px);
