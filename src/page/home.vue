@@ -1,6 +1,6 @@
 <template>
   <div class="home_index container_both">
-    <header-fix title="合肥终身学习网" fixed>
+    <header-fix title="干部教育培训网" fixed>
       <router-link slot="left" to="/message" class="message">
         <i class="webapp webapp-email"></i>
       </router-link>
@@ -39,25 +39,25 @@
               <p>排行榜</p>
             </router-link>
           </div>
-          <div class="guide_item">
+          <!--<div class="guide_item">
             <router-link to="/resultShow">
               <img src="../assets/result_show_icon.png" alt="成果展示">
               <p>成果展示</p>
             </router-link>
-          </div>
-          <!--<div class="guide_item">
+          </div>-->
+          <div class="guide_item">
             <router-link to="/classGarden">
               <img src="../assets/class_ico.png" alt="班级园地">
               <p>班级园地</p>
             </router-link>
-          </div>-->
+          </div>
           <div class="guide_item">
             <router-link to="/ebook">
               <img src="../assets/ebook_ico.png" alt="电子书">
               <p>电子书</p>
             </router-link>
           </div>
-          <!--<div class="guide_item">
+          <div class="guide_item">
             <router-link to="/communication">
               <img src="../assets/communication_ico.png" alt="交流评论">
               <p>交流评论</p>
@@ -68,7 +68,7 @@
               <img src="../assets/notice_ico.png" alt="通知公告">
               <p>通知公告</p>
             </router-link>
-          </div>-->
+          </div>
         </div>
       </section>
       <div class="boundary"></div>
@@ -294,7 +294,7 @@
       height: toRem(202px);
       .guide_container {
         @extend %clearFix;
-        width: 100%;
+        width: 140%;
         text-align: center;
       }
       .guide_item {

@@ -6,12 +6,12 @@
     <div class="notice_item" v-for="(item,index) in noticeData" :key="item.NoticeId"
          @click.stop="linkTo(item.NoticeId)">
       <div class="title clearFix">
-        <span class="pull-left"><span class="dot"></span>&nbsp;&nbsp;系统消息：{{item.NoticeTitle}}</span>
+        <span class="pull-left">{{item.NoticeTitle}}</span>
         <span class="pull-right"><i class="webapp webapp-more"></i></span>
       </div>
       <div class="desc clearFix">
-        <!--<span class="author pull-left">作者：{{item.NoticeAuthor}}</span>-->
-        <span class="date">发表日期：{{item.NoticeCreatedate | dateFilter('yyyy/MM/dd hh:mm:ss')}}</span>
+        <span class="author pull-left">作者：{{item.NoticeAuthor}}</span>
+        <span class="date pull-right">{{item.NoticeCreatedate | dateFilter('yyyy.MM.dd')}}</span>
       </div>
     </div>
     <div class="noDataBg" v-if="noDataBg"></div>
@@ -79,7 +79,6 @@
       }
       .desc {
         margin-top: toRem(10px);
-        padding-left: toRem(30px);
         color: $color-text-thirdly;
         .pull-right {
           text-align: right;

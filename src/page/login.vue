@@ -1,7 +1,5 @@
 <template>
   <div class="userLogin">
-    <!--头部-->
-    <!--<header-fix title="登陆" fixed></header-fix>-->
     <div class="login_banner">
       <img src="../assets/person_cener_avatar.png">
       <p>LOGIN ON</p>
@@ -43,7 +41,6 @@
   import CryptoJS from 'crypto-js'
   import {mapState, mapActions} from 'vuex'
   import {MessageBox, Toast, Indicator, Checklist, Button} from 'mint-ui'
-  import {headerFix} from '../components'
   import {Login} from '../service/getData'
   import {getStore, setStore, removeStore, getQueryString} from '../plugins/utils'
 
@@ -65,7 +62,6 @@
       }
     },
     components: {
-      headerFix,
     },
     created() {
       this.Code = this.$route.query.code;

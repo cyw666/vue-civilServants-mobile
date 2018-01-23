@@ -7,11 +7,11 @@
     <header-fix :title="title" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
-    <div class="notice_title">系统消息：网上展厅作品(大型纪录片《走四方》</div>
+    <!--<div class="notice_title">系统消息：网上展厅作品(大型纪录片《走四方》</div>
     <div class="notice_desc">
       <span class="send_person">发送人：张某某</span>
       <span class="send_date">发布日期：2017-1-4</span>
-    </div>
+    </div>-->
     <div class="articleDet" v-html="messageContent"></div>
   </div>
 </template>
@@ -26,7 +26,7 @@
     mixins: [goBack],
     data() {
       return {
-        title: '消息详情',
+        title: '公告详情',
         messageContent: '',
         messageId: ''
       }

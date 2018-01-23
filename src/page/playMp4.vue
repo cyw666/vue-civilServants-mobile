@@ -22,8 +22,8 @@
     <div class="course_detail">
       <mt-navbar v-model="selected">
         <mt-tab-item id="introduce">介绍</mt-tab-item>
-        <mt-tab-item id="relatedCourse">相关课程</mt-tab-item>
-        <mt-tab-item id="notes">学习笔记</mt-tab-item>
+        <!--<mt-tab-item id="relatedCourse">相关课程</mt-tab-item>
+        <mt-tab-item id="notes">学习笔记</mt-tab-item>-->
         <mt-tab-item id="evaluate">评价</mt-tab-item>
       </mt-navbar>
       <!-- tab-container -->
@@ -31,7 +31,7 @@
         <mt-tab-container-item id="introduce">
           <course-introduce :course-details="courseDetails"></course-introduce>
         </mt-tab-container-item>
-        <mt-tab-container-item id="relatedCourse">
+        <!--<mt-tab-container-item id="relatedCourse">
           <section v-infinite-scroll="getRelatedCourse"
                    infinite-scroll-immediate-check="immediate"
                    infinite-scroll-disabled="loading"
@@ -47,7 +47,7 @@
               添加笔记
             </mt-button>
           </div>
-        </mt-tab-container-item>
+        </mt-tab-container-item>-->
         <mt-tab-container-item id="evaluate">
           <course-comment :course-id="courseId" :comment-credit="courseDetails.CommentCredit"></course-comment>
         </mt-tab-container-item>

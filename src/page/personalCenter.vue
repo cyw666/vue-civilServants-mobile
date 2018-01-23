@@ -8,34 +8,31 @@
       <div class="my_info">
         <h4>{{userInfo.Username}}</h4>
         <p>
-          学分：{{userInfo.NeedCredit}}
+          规定学分：{{userInfo.NeedCredit}}
           <span class="shuxian">|</span>
-          等级：{{userInfo.TotalCredit}}
-          <span class="shuxian">|</span>
-          学习币：290.5
+          已修学分：{{userInfo.TotalCredit}}
+          <!--<span class="shuxian">|</span>
+          学习币：290.5-->
         </p>
       </div>
     </div>
     <div class="cell_list_one">
-      <mt-cell title="我的收藏" is-link to="/myCollect">
-        <i slot="icon" class="webapp webapp-shoucang" style="color: #e95c2c;"></i>
+      <mt-cell title="我的学分" is-link to="/myCredit">
+        <i slot="icon" class="webapp webapp-flower" style="color: #e95c2c;"></i>
       </mt-cell>
-      <mt-cell title="学习档案" is-link to="/learningPortfolio">
+      <mt-cell title="我的课程" is-link to="/myCourse">
         <i slot="icon" class="webapp webapp-kecheng" style="color: #00ce6a;"></i>
       </mt-cell>
     </div>
     <div class="cell_list_two">
-      <mt-cell title="站内信息" is-link to="/notice">
-        <i slot="icon" class="webapp webapp-advise" style="color: #a59be7;"></i>
-      </mt-cell>
-      <mt-cell title="我的考试" is-link to="/examHistory">
+      <mt-cell title="我的考试" is-link to="/examCenter">
         <i slot="icon" class="webapp webapp-exam" style="color: #49e2fe;"></i>
+      </mt-cell>
+      <mt-cell title="信息反馈" is-link to="/advise">
+        <i slot="icon" class="webapp webapp-advise" style="color: #a59be7;"></i>
       </mt-cell>
     </div>
     <div class="cell_list_three">
-      <mt-cell title="操作指南" is-link to="/setting">
-        <i slot="icon" class="webapp webapp-book" style="color: #f5c754;"></i>
-      </mt-cell>
       <mt-cell title="设置" is-link to="/setting">
         <i slot="icon" class="webapp webapp-set" style="color: #ec80c6;"></i>
       </mt-cell>

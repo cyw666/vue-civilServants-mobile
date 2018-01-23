@@ -3,7 +3,6 @@
     <!--头部-->
     <header-fix :title="examTitle" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
-      <router-link slot="right" to="/examSearch"><i class="webapp webapp-search"></i></router-link>
     </header-fix>
     <div class="exam_header">
       <i class="webapp webapp-time" style="color: #00aeff"></i>

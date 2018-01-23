@@ -23,7 +23,7 @@
       <mt-navbar v-model="selected">
         <mt-tab-item id="introduce">介绍</mt-tab-item>
         <mt-tab-item id="catalogue">目录</mt-tab-item>
-        <mt-tab-item id="relatedCourse">相关课程</mt-tab-item>
+        <!--<mt-tab-item id="relatedCourse">相关课程</mt-tab-item>-->
         <mt-tab-item id="evaluate">评价</mt-tab-item>
       </mt-navbar>
       <!-- tab-container -->
@@ -45,14 +45,14 @@
             </li>
           </ul>
         </mt-tab-container-item>
-        <mt-tab-container-item id="relatedCourse">
+        <!--<mt-tab-container-item id="relatedCourse">
           <section v-infinite-scroll="getRelatedCourse"
                    infinite-scroll-immediate-check="immediate"
                    infinite-scroll-disabled="loading"
                    infinite-scroll-distance="10">
             <course-list :course-data="courseData" :no-data-bg="noDataBg" :no-data="noData"></course-list>
           </section>
-        </mt-tab-container-item>
+        </mt-tab-container-item>-->
         <mt-tab-container-item id="evaluate">
           <course-comment :course-id="courseId" :comment-credit="courseDetails.CommentCredit"></course-comment>
         </mt-tab-container-item>

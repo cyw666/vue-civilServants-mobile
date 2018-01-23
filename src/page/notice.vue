@@ -4,53 +4,15 @@
 <template>
   <div class="notice_center container_top">
     <!--头部-->
-    <header-fix title="站内信" fixed>
+    <header-fix title="通知公告" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
-      <span slot="right" @click.stop="toggleWrite">写信</span>
     </header-fix>
-    <section v-if="tabId=='send'"
-             v-infinite-scroll="getNoticeInfoList"
+    <section v-infinite-scroll="getNoticeInfoList"
              infinite-scroll-immediate-check="immediate"
              infinite-scroll-disabled="loading"
              infinite-scroll-distance="10">
-      send
       <notice-list :notice-data="noticeData" :no-data-bg="noDataBg" :no-data="noData"></notice-list>
     </section>
-    <section v-if="tabId=='accept'"
-             v-infinite-scroll="getNoticeInfoList"
-             infinite-scroll-immediate-check="immediate"
-             infinite-scroll-disabled="loading"
-             infinite-scroll-distance="10">
-      accept
-      <notice-list :notice-data="noticeData" :no-data-bg="noDataBg" :no-data="noData"></notice-list>
-    </section>
-    <div class="notice_bottom">
-      <span class="send" :class="tabId=='send'&&'active'" @click="changeTabId('send')">收件箱(10)</span>
-      <span class="accept" :class="tabId=='accept'&&'active'" @click="changeTabId('accept')">发件箱(20)</span>
-    </div>
-    <!--写信-->
-    <transition name="slide-left">
-      <div class="write_edit container_top" v-if="showWrite">
-        <!--头部-->
-        <header-fix slot="header" title="写信" fixed>
-          <span slot="left" @click="toggleWrite">取消</span>
-          <span slot="right" @click="sendWrite">发送</span>
-        </header-fix>
-        <div class="write_body">
-          <div class="write_item">
-            <span>收件人:</span>
-            <input type="text" v-model="sendInfo.person">
-          </div>
-          <div class="write_item">
-            <span>主&nbsp;&nbsp;&nbsp;&nbsp;题:</span>
-            <input type="text" v-model="sendInfo.theme">
-          </div>
-          <div class="write_item">
-            <textarea v-model="sendInfo.content" placeholder="在此输入消息内容，输入完毕点击发送！"></textarea>
-          </div>
-        </div>
-      </div>
-    </transition>
   </div>
 </template>
 <script>
@@ -65,20 +27,12 @@
     mixins: [goBack],
     data() {
       return {
-        tabId: 'send',
         noticeData: [],
         page: 1,
         loading: false,
         immediate: false,
         noDataBg: false,
         noData: false,
-
-        showWrite: false,
-        sendInfo: {
-          person: '',
-          theme: '',
-          content: '',
-        }
       }
     },
     mounted() {
@@ -111,24 +65,6 @@
           this.page += 1;
         }
       },
-      sendWrite() {
-        if (!this.sendInfo.person) {
-          Toast({message: '收件人不能为空', position: 'bottom'});
-        } else if (!this.sendInfo.theme) {
-          Toast({message: '主题不能为空', position: 'bottom'});
-        } else if (!this.sendInfo.content) {
-          Toast({message: '内容不能为空', position: 'bottom'});
-        } else {
-          this.toggleWrite();
-          console.log('sendInfo', this.sendInfo);
-        }
-      },
-      toggleWrite() {
-        this.showWrite = !this.showWrite;
-      },
-      changeTabId(tabId) {
-        this.tabId = tabId;
-      }
     },
   }
 </script>
