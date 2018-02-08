@@ -66,19 +66,19 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, InfiniteScroll} from 'mint-ui';
-  import {headerFix, footerFix, navSlide, tree, examList} from '../components'
-  import {GetExamType, GetExamList} from '../service/getData'
+  import Vue from 'vue'
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix, footerFix, navSlide, tree, examList } from '../components'
+  import { GetExamType, GetExamList } from '../service/getData'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
-    data() {
+    data () {
       return {
-        examTitle: "考试中心",
+        examTitle: '考试中心',
         showFilter: false, //是否显示筛选
         showSlide: false, //是否显示滑动
-        examType: "All", //筛选type
+        examType: 'All', //筛选type
         examCategory: [],
         typeId: 0, //考试typeId
         examData: [], //考试列表数据
@@ -89,8 +89,8 @@
         noDataBg: false,
       }
     },
-    mounted() {
-      this.getExamCategory();
+    mounted () {
+      this.getExamCategory()
 //      this.getExamList();
     },
     components: {
@@ -101,70 +101,70 @@
       examList,
     },
     methods: {
-      toggleNav() {
-        this.showSlide = !this.showSlide;
-        this.showFilter = false;
+      toggleNav () {
+        this.showSlide = !this.showSlide
+        this.showFilter = false
       },
-      showChange(val) {
-        this.showSlide = val;
-        this.showFilter = false;
+      showChange (val) {
+        this.showSlide = val
+        this.showFilter = false
       },
-      toggleFilter() {
-        this.showFilter = !this.showFilter;
-        this.showSlide = false;
+      toggleFilter () {
+        this.showFilter = !this.showFilter
+        this.showSlide = false
       },
       //考试分类
-      async getExamCategory() {
-        let data = await GetExamType();
+      async getExamCategory () {
+        let data = await GetExamType()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           let category = list.map((item, index) => {
             return {Name: item.TypeName, Id: item.TypeId, ParentId: item.ParentId, Nodes: null}
           })
-          this.examCategory = category;
+          this.examCategory = category
         }
       },
       //考试列表
-      async getExamList() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await GetExamList({ExamType: this.examType, TypeId: this.typeId, Page: this.page});
-        Indicator.close();
+      async getExamList () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await GetExamList({ExamType: this.examType, TypeId: this.typeId, Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.examData = this.examData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.examData = this.examData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
       //点击分类搜索
-      searchExam(data) {
-        this.page = 1;
-        this.typeId = data.Id;
-        this.examTitle = data.Name;
-        this.showSlide = false;
-        this.showFilter = false;
-        this.examData = [];
-        this.getExamList();
+      searchExam (data) {
+        this.page = 1
+        this.typeId = data.Id
+        this.examTitle = data.Name
+        this.showSlide = false
+        this.showFilter = false
+        this.examData = []
+        this.getExamList()
       },
       //点击筛选搜索
-      filterExam(type) {
-        this.page = 1;
-        this.showFilter = false;
-        this.showSlide = false;
-        this.examType = type;
-        this.examData = [];
-        this.getExamList();
+      filterExam (type) {
+        this.page = 1
+        this.showFilter = false
+        this.showSlide = false
+        this.examType = type
+        this.examData = []
+        this.getExamList()
       }
     },
   }

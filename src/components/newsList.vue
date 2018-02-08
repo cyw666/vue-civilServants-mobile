@@ -19,11 +19,11 @@
 <script>
   import noNews from '../assets/latestNews.png'
   import errorImg from '../components/errorImg.vue'
-  import {toPlay} from '../service/mixins'
+  import { toPlay } from '../service/mixins'
 
   export default {
     mixins: [toPlay],
-    data() {
+    data () {
       return {
         noNews
       }
@@ -43,8 +43,8 @@
       errorImg
     },
     methods: {
-      goArticleDetail(id) {
-        this.$router.push({path: 'newsDetails', query: {id}});
+      goArticleDetail (id) {
+        this.$router.push({path: 'newsDetails', query: {id}})
       }
     }
   }

@@ -45,16 +45,15 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {MessageBox, Button} from 'mint-ui';
-  import {goBack} from '../service/mixins'
-  import {headerFix, mbChecklist, mbRadio} from '../components'
-  import {GetExam, UpdateUserExam} from '../service/getData'
-  import {formatTime} from '../plugins/utils'
+  import { MessageBox, Button } from 'mint-ui'
+  import { goBack } from '../service/mixins'
+  import { headerFix, mbChecklist, mbRadio } from '../components'
+  import { GetExam, UpdateUserExam } from '../service/getData'
 
-  Vue.component(Button.name, Button);
+  Vue.component(Button.name, Button)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         exam: [],
         examTitle: '',//标题
@@ -65,15 +64,15 @@
         allItem: 0,
         userInfo: null,
         choosedItem: {},
-        startDate: "",//考试开始时间
+        startDate: '',//考试开始时间
       }
     },
-    created() {
-      this.examId = this.$route.query.id;
-      this.startDate = new Date();
+    created () {
+      this.examId = this.$route.query.id
+      this.startDate = new Date()
     },
-    mounted() {
-      this.getExam();
+    mounted () {
+      this.getExam()
     },
     props: [],
     components: {
@@ -83,99 +82,99 @@
     },
     computed: {},
     methods: {
-      async getExam() {
-        let data = await GetExam({Id: this.examId});
+      async getExam () {
+        let data = await GetExam({Id: this.examId})
         if (data.Type == 1) {
-          let exam = data.Data;
-          this.exam = exam.ThemeInfoList;
-          this.examTitle = exam.ExamTitle;
-          this.timeLimit = exam.TimeLimit * 60;
-          this.allItem = exam.ThemeCount;
-          this.itemData = exam.ThemeInfoList[0];
+          let exam = data.Data
+          this.exam = exam.ThemeInfoList
+          this.examTitle = exam.ExamTitle
+          this.timeLimit = exam.TimeLimit * 60
+          this.allItem = exam.ThemeCount
+          this.itemData = exam.ThemeInfoList[0]
           //初始化choosedItem
           this.exam.forEach((item, index) => {
-            let themeID = item.ThemeId;
-            let examType = item.ThemeType;
+            let themeID = item.ThemeId
+            let examType = item.ThemeType
             if (examType == 2) {
-              this.choosedItem[themeID] = []; //多选model类型为数组
+              this.choosedItem[themeID] = [] //多选model类型为数组
             } else {
-              this.choosedItem[themeID] = '';
+              this.choosedItem[themeID] = ''
             }
-          });
-          this.countDown();
+          })
+          this.countDown()
         }
       },
       //点击下一题
-      nextItem() {
-        let key = this.itemData.ThemeId;
+      nextItem () {
+        let key = this.itemData.ThemeId
         if (this.choosedItem[key]) {
-          this.itemNum++;
+          this.itemNum++
         } else {
-          MessageBox('提示', '请选择选项');
+          MessageBox('提示', '请选择选项')
         }
       },
       //点击上一题
-      preItem() {
+      preItem () {
         if (this.itemNum > 1) {
-          this.itemNum--;
+          this.itemNum--
         } else {
-          this.itemNum = 1;
+          this.itemNum = 1
         }
       },
-      async upDateExam() {
-        let t = this;
-        let params = t.changeSendData(t.choosedItem);
+      async upDateExam () {
+        let t = this
+        let params = t.changeSendData(t.choosedItem)
         UpdateUserExam({ExamId: t.examId, Data: params})
           .then(function (data) {
             if (data.Type == 1) {
-              let endDate = new Date();
-              let usedTime = endDate - t.startDate;
-              let queryData = {...data.Data, ...{usedTime}, ...{examId: t.examId}};
-              t.$router.push({path: "examResult", query: {data: JSON.stringify(queryData)}});
+              let endDate = new Date()
+              let usedTime = endDate - t.startDate
+              let queryData = {...data.Data, ...{usedTime}, ...{examId: t.examId}}
+              t.$router.push({path: 'examResult', query: {data: JSON.stringify(queryData)}})
             } else if (data.Type != 401) {
-              MessageBox('警告', data.Message);
+              MessageBox('警告', data.Message)
             }
           })
       },
       //提交考试
-      submitExam() {
+      submitExam () {
         MessageBox.confirm('确定提交试卷?').then(() => {
-          this.upDateExam();
-        });
+          this.upDateExam()
+        })
       },
-      changeSendData(data) {
+      changeSendData (data) {
         if (data) {
-          let params = [];
+          let params = []
           for (let key in data) {
-            let list = {};
-            list.QuestionId = key;
+            let list = {}
+            list.QuestionId = key
             if (data[key] instanceof Array) {
-              list.Answer = data[key].join();
+              list.Answer = data[key].join()
             } else {
-              list.Answer = data[key];
+              list.Answer = data[key]
             }
-            params.push(list);
+            params.push(list)
           }
-          return params;
+          return params
         }
       },
-      countDown() {
-        let time = parseInt(this.timeLimit);
+      countDown () {
+        let time = parseInt(this.timeLimit)
         let limitTimer = setInterval(() => {
-          time -= 1;
-          this.timeLimit = time;
+          time -= 1
+          this.timeLimit = time
           if (time <= 0) {
-            clearInterval(limitTimer);
+            clearInterval(limitTimer)
             MessageBox.alert('考试时间已到').then(action => {
-              this.upDateExam();
-            });
+              this.upDateExam()
+            })
           }
-        }, 1000);
+        }, 1000)
       }
     },
     watch: {
       itemNum: function (val) {
-        this.itemData = this.exam[val - 1];
+        this.itemData = this.exam[val - 1]
       }
     }
   }
@@ -199,6 +198,8 @@
     .exam_content {
       position: absolute;
       left: 0;
+      right: 0;
+      width: 100%;
       padding: 0 toRem(40px);
       .exam_name {
         padding: toRem(30px) 0 toRem(100px) 0;

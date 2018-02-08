@@ -13,35 +13,35 @@
 <script>
   export default {
     mixins: [],
-    data() {
+    data () {
       return {
-        title:this.notesData.title,
-        content:this.notesData.content
+        title: this.notesData.title,
+        content: this.notesData.content
       }
     },
-    created() {
+    created () {
       
     },
-    mounted() {
+    mounted () {
       
     },
-    props: ["notesData"],
+    props: ['notesData'],
     components: {},
     computed: {
-      sendData(){
+      sendData () {
         return {
-          title:this.title,
-          content:this.content
+          title: this.title,
+          content: this.content
         }
       }
     },
-    updated() {
+    updated () {
       
     },
     methods: {},
     watch: {
-      sendData(val){
-        this.$emit('update:notesData', val);
+      sendData (val) {
+        this.$emit('update:notesData', val)
       }
     }
   }
@@ -49,16 +49,17 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .add_notes{
-    .add_notes_form{
+
+  .add_notes {
+    .add_notes_form {
       padding: toRem(20px) toRem(30px);
     }
-    .notes_title{
+    .notes_title {
       font-size: 15px;
       width: 100%;
       padding: toRem(20px) 0;
     }
-    .notes_content{
+    .notes_content {
       font-size: 12px;
       width: 100%;
       height: toRem(700px);

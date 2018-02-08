@@ -19,15 +19,15 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Indicator,InfiniteScroll} from 'mint-ui';
-  import {headerFix, search, courseList, newsList} from '../components'
-  import {GetArticleInfoList} from '../service/getData'
-  import {goBack} from '../service/mixins'
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix, search, newsList } from '../components'
+  import { GetArticleInfoList } from '../service/getData'
+  import { goBack } from '../service/mixins'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         keyword: '',
         oldKeyword: '',
@@ -40,7 +40,7 @@
         noDataBg: false,
       }
     },
-    mounted() {
+    mounted () {
 
     },
     components: {
@@ -49,34 +49,34 @@
       newsList,
     },
     methods: {
-      async getArticleList() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        this.oldKeyword = this.keyword; //记录搜索keyword
-        Indicator.open();
-        let data = await GetArticleInfoList({Keyword: this.keyword, CategoryId: this.categoryId, Page: this.page});
+      async getArticleList () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        this.oldKeyword = this.keyword //记录搜索keyword
+        Indicator.open()
+        let data = await GetArticleInfoList({Keyword: this.keyword, CategoryId: this.categoryId, Page: this.page})
         if (data.Type == 1) {
-          let list = data.Data.List;
-          Indicator.close();
+          let list = data.Data.List
+          Indicator.close()
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.articleData = this.articleData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.articleData = this.articleData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
-      clickSearch() {
+      clickSearch () {
         if (this.keyword != this.oldKeyword && !!this.keyword) {
-          this.articleData = [];
-          this.page = 1;
-          this.getArticleList();
+          this.articleData = []
+          this.page = 1
+          this.getArticleList()
         }
       }
     },

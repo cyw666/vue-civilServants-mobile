@@ -8,7 +8,7 @@
 </template>
 <script>
   export default {
-    name: "mb-tab",
+    name: 'mb-tab',
     props: {
       fixed: Boolean,
       value: {}

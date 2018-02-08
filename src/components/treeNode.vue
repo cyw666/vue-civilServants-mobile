@@ -25,27 +25,27 @@
 </template>
 <script>
   export default {
-    name: "node",
-    data() {
+    name: 'node',
+    data () {
       return {
         open: false,
       }
     },
-    props: ["dataList", "onSelect", "selectedId"],
+    props: ['dataList', 'onSelect', 'selectedId'],
     computed: {
       hasNodes: function () {
-        return this.dataList.Nodes && this.dataList.Nodes.length;
+        return this.dataList.Nodes && this.dataList.Nodes.length
       }
     },
     methods: {
-      toggle() {
-        this.open = !this.open;
+      toggle () {
+        this.open = !this.open
       },
-      nodeClick(data) {
-        this.$emit("itemClick", data)
+      nodeClick (data) {
+        this.$emit('itemClick', data)
       },
-      selectedNode(data) {
-        this.onSelect(data);
+      selectedNode (data) {
+        this.onSelect(data)
       }
     },
   }

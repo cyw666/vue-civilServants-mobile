@@ -40,26 +40,26 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, InfiniteScroll,Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui';
-  import {headerFix, navSlide, tree,resultShowList} from '../components'
-  import {GetArticleChannelInfoList, GetArticleInfoList} from '../service/getData'
-  import {goBack} from '../service/mixins'
+  import Vue from 'vue'
+  import { Indicator, InfiniteScroll, Navbar, TabItem, TabContainer, TabContainerItem } from 'mint-ui'
+  import { headerFix, navSlide, tree, resultShowList } from '../components'
+  import { GetArticleChannelInfoList, GetArticleInfoList } from '../service/getData'
+  import { goBack } from '../service/mixins'
 
-  Vue.use(InfiniteScroll);
-  Vue.component(Navbar.name, Navbar);
-  Vue.component(TabItem.name, TabItem);
-  Vue.component(TabContainer.name, TabContainer);
-  Vue.component(TabContainerItem.name, TabContainerItem);
+  Vue.use(InfiniteScroll)
+  Vue.component(Navbar.name, Navbar)
+  Vue.component(TabItem.name, TabItem)
+  Vue.component(TabContainer.name, TabContainer)
+  Vue.component(TabContainerItem.name, TabContainerItem)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
-        articleTitle: "成果展示",
+        articleTitle: '成果展示',
         showSlide: false,
         articleCategory: [],
         categoryId: 0,
-        selected: "new",
+        selected: 'new',
         articleData: [],
         loading: false,
         immediate: true,
@@ -68,11 +68,11 @@
         noDataBg: false,
       }
     },
-    created() {
-      this.categoryId = this.$route.query.id;
+    created () {
+      this.categoryId = this.$route.query.id
     },
-    mounted() {
-      this.getArticleCategory();
+    mounted () {
+      this.getArticleCategory()
     },
     components: {
       headerFix,
@@ -81,49 +81,49 @@
       resultShowList,
     },
     methods: {
-      toggleNav() {
-        this.showSlide = !this.showSlide;
+      toggleNav () {
+        this.showSlide = !this.showSlide
       },
-      showChange(val) {
-        this.showSlide = val;
+      showChange (val) {
+        this.showSlide = val
       },
       //文章分类
-      async getArticleCategory() {
-        let data = await GetArticleChannelInfoList();
+      async getArticleCategory () {
+        let data = await GetArticleChannelInfoList()
         if (data.Type == 1) {
-          this.articleCategory = data.Data.ArticleCategoryResult;
+          this.articleCategory = data.Data.ArticleCategoryResult
         }
       },
       //文章列表
-      async getArticleList() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await GetArticleInfoList({CategoryId: this.categoryId, Page: this.page});
-        Indicator.close();
+      async getArticleList () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await GetArticleInfoList({CategoryId: this.categoryId, Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.articleData = this.articleData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.articleData = this.articleData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
-      searchArticle(data) {
-        this.page = 1;
-        this.categoryId = data.Id;
-        this.articleTitle = data.Name;
-        this.showSlide = false;
-        this.articleData = [];
-        this.getArticleList();
+      searchArticle (data) {
+        this.page = 1
+        this.categoryId = data.Id
+        this.articleTitle = data.Name
+        this.showSlide = false
+        this.articleData = []
+        this.getArticleList()
       },
     },
   }
@@ -138,12 +138,12 @@
     .category_icon {
       margin-left: toRem(10px);
     }
-    .mint-navbar{
-      .mint-tab-item{
-        margin:  0 toRem(120px);
+    .mint-navbar {
+      .mint-tab-item {
+        margin: 0 toRem(120px);
       }
     }
-    .tree_title .tran_line{
+    .tree_title .tran_line {
       background-color: $brand-primary;
     }
   }

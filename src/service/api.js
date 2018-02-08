@@ -3,8 +3,8 @@
  */
 // const API_URL = 'http://test10.jy365.net/api';
   // const API_URL = '122.225.101.117:9064/api';
-const API_URL = '/api';
-const Platform = '/wechat';
+const API_URL = '/api'
+const Platform = '/wechat'
 /*
 * 账号：cyw 密码：123123
 * */
@@ -83,17 +83,17 @@ export default {
   //历史记录 Type => All:表示所有， Today:表示今天记录，Earlier:表示更早
   GetHistoryCourse: {
     url: API_URL + Platform + '/GetHistoryCourse',
-    data: {Type: "", Keyword: "", Sort: "sort", Order: "desc", Page: 1, Rows: 20}
+    data: {Type: '', Keyword: '', Sort: 'sort', Order: 'desc', Page: 1, Rows: 20}
   },
   //用户课程列表 Finish => 1：完成课程，0：未完成课程 ,2：表示全部
   GetUserCourseInfoList: {
     url: API_URL + Platform + '/GetUserCourseInfoList',
-    data: {Finish: "2", Keyword: "", Page: 1, Rows: 10}
+    data: {Finish: '2', Keyword: '', Page: 1, Rows: 10}
   },
   //文章频道
   GetArticleChannelInfoList: {
     url: API_URL + Platform + '/GetArticleChannelInfoList',
-    data: {ParentId: "", ParentCode: ""}
+    data: {ParentId: '', ParentCode: ''}
   },
   //文章列表
   GetArticleInfoList: {
@@ -158,17 +158,17 @@ export default {
   //电子书
   GetBookInfoList: {
     url: API_URL + Platform + '/GetBookInfoList',
-    data: {Keyword: "", BookTypeId: "", BookTypeCode: "", Page: '1', Rows: '10'}
+    data: {Keyword: '', BookTypeId: '', BookTypeCode: '', Page: '1', Rows: '10'}
   },
   //电子书章节
   GetBookChapterInfoList: {
     url: API_URL + Platform + '/GetBookChapterInfoList',
-    data: {BookId: "", Page: '1', Rows: '30'}
+    data: {BookId: '', Page: '1', Rows: '30'}
   },
   //电子书章节内容
   GetBookChapterContent: {
     url: API_URL + Platform + '/GetBookChapterContent',
-    data: {Id: ""}
+    data: {Id: ''}
   },
   //留言类型
   CommentType: {
@@ -178,7 +178,7 @@ export default {
   //添加留言
   AddMessage: {
     url: API_URL + Platform + '/AddMessage',
-    data: {MainId: "", ParentId: "", Title: "", Content: '', ClassCode: ''}
+    data: {MainId: '', ParentId: '', Title: '', Content: '', ClassCode: ''}
   },
   //修改用户信息
   /*
@@ -239,50 +239,50 @@ export default {
   Register: {
     url: API_URL + Platform + '/Register',
     data: {
-      Account: "",
-      Password: "",
-      Name: "",
-      GroupId: "",
-      IdCard: "",
-      Grade: "",
-      Mobile: "",
-      SmgCode: "",
+      Account: '',
+      Password: '',
+      Name: '',
+      GroupId: '',
+      IdCard: '',
+      Grade: '',
+      Mobile: '',
+      SmgCode: '',
       PortalId: 1,
     }
   },
   //讨论列表
   DiscussList: {
     url: API_URL + Platform + '/DiscussList',
-    data: {MainId: "0", Sort: "CreateDate", Order: "desc", Page: "1", Rows: "10"}
+    data: {MainId: '0', Sort: 'CreateDate', Order: 'desc', Page: '1', Rows: '10'}
   },
   //添加讨论
   AddDiscuss: {
     url: API_URL + Platform + '/AddDiscuss',
-    data: {MainId: "0", ParentId: "0", Content: ""}
+    data: {MainId: '0', ParentId: '0', Content: ''}
   },
   //课程评论
   getCourseCommentList: {
     url: API_URL + Platform + '/getCourseCommentList',
-    data: {CourseId: "", Keyword: "", Page: "1", Rows: '10'}
+    data: {CourseId: '', Keyword: '', Page: '1', Rows: '10'}
   },
   //添加课程评论
   AddCourseComment: {
     url: API_URL + Platform + '/AddCourseComment',
-    data: {CourseId: "", Content: "", Score: ""}
+    data: {CourseId: '', Content: '', Score: ''}
   },
   //提交精品课程进度
   SyncUserStudyData: {
     url: API_URL + Platform + '/SyncUserStudyData',
-    data: {CourseId: "", Data: {NodeId: '', Time: '', Status: ''}}
+    data: {CourseId: '', Data: {NodeId: '', Time: '', Status: ''}}
   },
   //提交Mp4课程进度
   UploadTimeNode: {
     url: API_URL + Platform + '/UploadTimeNode',
-    data: {CourseId: "", TimeNode: ""}
+    data: {CourseId: '', TimeNode: ''}
   },
   //相关课程
   RelatedCourse: {
     url: API_URL + Platform + '/RelatedCourse',
-    data: {CourseId: "", Page: 1, Rows: 10}
+    data: {CourseId: '', Page: 1, Rows: 10}
   },
-};
+}

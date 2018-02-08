@@ -43,17 +43,17 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Indicator, TabContainer, TabContainerItem, InfiniteScroll} from 'mint-ui'
-  import {headerFix, mbTab, mbTabItem, courseList} from '../components'
-  import {goBack} from '../service/mixins'
-  import {GetUserCourseInfoList} from '../service/getData'
+  import { Indicator, TabContainer, TabContainerItem, InfiniteScroll } from 'mint-ui'
+  import { headerFix, mbTab, mbTabItem, courseList } from '../components'
+  import { goBack } from '../service/mixins'
+  import { GetUserCourseInfoList } from '../service/getData'
 
-  Vue.component(TabContainer.name, TabContainer);
-  Vue.component(TabContainerItem.name, TabContainerItem);
-  Vue.use(InfiniteScroll);
+  Vue.component(TabContainer.name, TabContainer)
+  Vue.component(TabContainerItem.name, TabContainerItem)
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         tabType: '0',
         courseFinishData: [],
@@ -70,27 +70,27 @@
         endX: 0,
       }
     },
-    mounted() {
-      this.getMyFinishCourse();
-      this.getMyUnFinishCourse();
-      var element = this.$el;
+    mounted () {
+      this.getMyFinishCourse()
+      this.getMyUnFinishCourse()
+      var element = this.$el
       element.addEventListener('touchstart', (event) => {
-        if (this.prevent) event.preventDefault();
-        if (this.stopPropagation) event.stopPropagation();
+        if (this.prevent) event.preventDefault()
+        if (this.stopPropagation) event.stopPropagation()
 //        this.doOnTouchStart(event);
-      });
+      })
 
       element.addEventListener('touchmove', (event) => {
-        if (this.prevent) event.preventDefault();
-        if (this.stopPropagation) event.stopPropagation();
+        if (this.prevent) event.preventDefault()
+        if (this.stopPropagation) event.stopPropagation()
 //        this.doOnTouchMove(event);
-      });
+      })
 
       element.addEventListener('touchend', (event) => {
-        if (this.prevent) event.preventDefault();
-        if (this.stopPropagation) event.stopPropagation();
+        if (this.prevent) event.preventDefault()
+        if (this.stopPropagation) event.stopPropagation()
 //        this.doOnTouchEnd(event);
-      });
+      })
     },
     components: {
       headerFix,
@@ -100,77 +100,77 @@
     },
     methods: {
       //已完成课程
-      async getMyFinishCourse() {
-        this.noFData = false;
-        this.noFDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await GetUserCourseInfoList({Finish: "1", Page: this.finishPage});
-        Indicator.close();
+      async getMyFinishCourse () {
+        this.noFData = false
+        this.noFDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await GetUserCourseInfoList({Finish: '1', Page: this.finishPage})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.finishPage > 1) {
-            this.noFData = true;
-            return;
+            this.noFData = true
+            return
           }
           if (list.length == 0 && this.finishPage == 1) {
-            this.noFDataBg = true;
-            return;
+            this.noFDataBg = true
+            return
           }
-          this.courseFinishData = this.courseFinishData.concat(list);
-          this.loading = false;
-          this.finishPage += 1;
+          this.courseFinishData = this.courseFinishData.concat(list)
+          this.loading = false
+          this.finishPage += 1
         }
       },
       //未完成课程
-      async getMyUnFinishCourse() {
-        this.noUfData = false;
-        this.noUfDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await GetUserCourseInfoList({Finish: "0", Page: this.unFinishPage});
-        Indicator.close();
+      async getMyUnFinishCourse () {
+        this.noUfData = false
+        this.noUfDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await GetUserCourseInfoList({Finish: '0', Page: this.unFinishPage})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.unFinishPage > 1) {
-            this.noUfData = true;
-            return;
+            this.noUfData = true
+            return
           }
           if (list.length == 0 && this.unFinishPage == 1) {
-            this.noUfDataBg = true;
-            return;
+            this.noUfDataBg = true
+            return
           }
-          this.courseUnFinishData = this.courseUnFinishData.concat(list);
-          this.loading = false;
-          this.unFinishPage += 1;
+          this.courseUnFinishData = this.courseUnFinishData.concat(list)
+          this.loading = false
+          this.unFinishPage += 1
         }
       },
-      doOnTouchStart(event) {
+      doOnTouchStart (event) {
         /*let touches=event.touches;
         let targetTouches=event.targetTouches;
         let changeTouches=event.changeTouches;*/
-        let pageX = event.targetTouches[0].pageX;
-        let pageY = event.targetTouches[0].pageY;
-        this.startX = pageX;
+        let pageX = event.targetTouches[0].pageX
+//        let pageY = event.targetTouches[0].pageY
+        this.startX = pageX
 //        console.log("TouchStart" + pageX, pageY);
       },
-      doOnTouchMove(event) {
-        let pageX = event.targetTouches[0].pageX;
-        let pageY = event.targetTouches[0].pageY;
+      doOnTouchMove (event) {
+//        let pageX = event.targetTouches[0].pageX
+//        let pageY = event.targetTouches[0].pageY
 //        console.log("TouchMove" + pageX, pageY);
       },
-      doOnTouchEnd(event) {
-        let pageX = event.changedTouches[0].pageX;
-        let pageY = event.changedTouches[0].pageY;
-        this.endX = pageX;
+      doOnTouchEnd (event) {
+        let pageX = event.changedTouches[0].pageX
+//        let pageY = event.changedTouches[0].pageY
+        this.endX = pageX
 //        console.log("TouchEnd" + pageX, pageY);
         //左滑
         if (this.endX < this.startX - 20) {
-          this.tabType = "1";
+          this.tabType = '1'
         }
         //右滑
         if (this.endX > this.startX + 20) {
-          this.tabType = "0";
+          this.tabType = '0'
         }
       },
     },

@@ -18,16 +18,16 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, InfiniteScroll} from 'mint-ui';
-  import {headerFix, search, resultShowList} from '../components'
-  import {GetExamList} from '../service/getData'
-  import {goBack} from '../service/mixins'
+  import Vue from 'vue'
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix, search, resultShowList } from '../components'
+  import { GetExamList } from '../service/getData'
+  import { goBack } from '../service/mixins'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         keyword: '',
         oldKeyword: '',
@@ -48,40 +48,40 @@
     },
     methods: {
       //考试列表
-      async getExamList() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        this.oldKeyword = this.keyword; //记录搜索keyword
-        Indicator.open();
+      async getExamList () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        this.oldKeyword = this.keyword //记录搜索keyword
+        Indicator.open()
         let data = await GetExamList({
           Keyword: this.keyword,
           ExamType: this.examType,
           TypeId: this.typeId,
           Page: this.page
-        });
-        Indicator.close();
+        })
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.examData = this.examData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.examData = this.examData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
 
-      clickSearch() {
+      clickSearch () {
         if (this.keyword != this.oldKeyword && !!this.keyword) {
-          this.examData = [];
-          this.page = 1;
-          this.getExamList();
+          this.examData = []
+          this.page = 1
+          this.getExamList()
         }
       }
     },

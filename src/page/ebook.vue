@@ -17,16 +17,16 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, InfiniteScroll} from 'mint-ui'
-  import {headerFix, ebookList} from '../components'
-  import {GetBookInfoList} from '../service/getData'
-  import {goBack} from '../service/mixins'
+  import Vue from 'vue'
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix, ebookList } from '../components'
+  import { GetBookInfoList } from '../service/getData'
+  import { goBack } from '../service/mixins'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         ebookData: [],
         page: 1,
@@ -36,8 +36,8 @@
         noData: false,
       }
     },
-    mounted() {
-      this.getEbookList();
+    mounted () {
+      this.getEbookList()
     },
     components: {
       headerFix,
@@ -45,26 +45,26 @@
     },
     methods: {
       //图书列表
-      async getEbookList() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await GetBookInfoList({Page: this.page});
-        Indicator.close();
+      async getEbookList () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await GetBookInfoList({Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.ebookData = this.ebookData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.ebookData = this.ebookData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
     },
@@ -73,7 +73,8 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .ebook{
+
+  .ebook {
     background-color: $fill-body;
   }
 </style>

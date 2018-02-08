@@ -18,11 +18,11 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Button} from 'mint-ui';
+  import { Button } from 'mint-ui'
 
-  Vue.component(Button.name, Button);
+  Vue.component(Button.name, Button)
   export default {
-    data() {
+    data () {
       return {
         currentValue: this.value
       }
@@ -35,11 +35,11 @@
       search: Function
     },
     watch: {
-      currentValue(val) {
-        this.$emit('input', val);
+      currentValue (val) {
+        this.$emit('input', val)
       },
-      value(val) {
-        this.currentValue = val;
+      value (val) {
+        this.currentValue = val
       }
     }
   }

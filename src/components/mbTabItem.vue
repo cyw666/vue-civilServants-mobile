@@ -10,7 +10,7 @@
 </template>
 <script>
   export default {
-    name: "mb-tab-item",
+    name: 'mb-tab-item',
     props: ['id'],
   }
 </script>

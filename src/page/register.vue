@@ -81,7 +81,7 @@
             <header-fix :title="groupName">
               <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
-            <div class="cell" v-for="(item,index) in groupList1" :key="item.UserGroupId">
+            <div class="cell" v-for="(item) in groupList1" :key="item.UserGroupId">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
               <i class="webapp webapp-more"></i>
             </div>
@@ -90,7 +90,7 @@
             <header-fix :title="groupName">
               <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
-            <div class="cell" v-for="(item,index) in groupList2" :key="item.UserGroupId">
+            <div class="cell" v-for="(item) in groupList2" :key="item.UserGroupId">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
               <i class="webapp webapp-more"></i>
             </div>
@@ -99,7 +99,7 @@
             <header-fix :title="groupName">
               <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
-            <div class="cell" v-for="(item,index) in groupList3" :key="item.UserGroupId">
+            <div class="cell" v-for="(item) in groupList3" :key="item.UserGroupId">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
               <i class="webapp webapp-more"></i>
             </div>
@@ -108,7 +108,7 @@
             <header-fix :title="groupName">
               <a @click="backGroupList" slot="left"><i class="webapp webapp-back"></i></a>
             </header-fix>
-            <div class="cell" v-for="(item,index) in groupList4"  :key="item.UserGroupId">
+            <div class="cell" v-for="(item) in groupList4" :key="item.UserGroupId">
               <a @click="getChildrenGroup(item.UserGroupId,item.UserGroupName)">{{item.UserGroupName}}</a>
               <i class="webapp webapp-more"></i>
             </div>
@@ -120,44 +120,42 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Toast, MessageBox, Indicator, Button, Popup, Picker} from 'mint-ui'
-  import {headerFix} from '../components'
-  import {goBack} from '../service/mixins'
-  import {formatDate} from '../plugins/utils'
-  import {GetGradeList, GetGroupList, Register} from '../service/getData'
+  import { Toast, MessageBox, Button, Popup, Picker } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { goBack } from '../service/mixins'
+  import { GetGradeList, GetGroupList, Register } from '../service/getData'
 
-  Vue.component(Button.name, Button);
-  Vue.component(Popup.name, Popup);
-  Vue.component(Picker.name, Picker);
+  Vue.component(Button.name, Button)
+  Vue.component(Popup.name, Popup)
+  Vue.component(Picker.name, Picker)
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         groupList1: [], //部门列表
         groupList2: [], //部门列表
         groupList3: [], //部门列表
         groupList4: [], //部门列表
-        groupName: "选择部门",
-        parentId: "1",
+        groupName: '选择部门',
+        parentId: '1',
         infoSend: {
-          Account: "",
-          Password: "",
-          Name: "",
-          GroupId: "",
-          IdCard: "",
-          Grade: "",
-          Mobile: "",
-          SmgCode: "",
+          Account: '',
+          Password: '',
+          Name: '',
+          GroupId: '',
+          IdCard: '',
+          Grade: '',
+          Mobile: '',
+          SmgCode: '',
         },
         confirmPwd: '',  //确认密码,
         isShowGradeList: false,  //是否显示职级选择器
         showGroupIndex: 0,  //是否显示单位选择器
 
         gradeList: [], //职级列表
-        gradeName: "选择职级", //职级名称
+        gradeName: '选择职级', //职级名称
         gradeSelected: {},//被选中职级的数据
-        isShowGradeList: false,  //是否显示职级选择器
         gradeSlots: [ //职级数据
           {
             flex: 1,
@@ -174,127 +172,127 @@
         isPassPwd: true, //密码验证
       }
     },
-    mounted() {
-      this.getGradeList();
+    mounted () {
+      this.getGradeList()
     },
     components: {
       headerFix
     },
     methods: {
       //注册
-      async userRegister() {
-        let data = await Register(this.infoSend);
+      async userRegister () {
+        let data = await Register(this.infoSend)
         if (data.Type == 1) {
-          Toast({message: "注册成功", position: 'bottom'});
-          this.$router.push('/login');
+          Toast({message: '注册成功', position: 'bottom'})
+          this.$router.push('/login')
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
       //部门列表
-      async getGroupList() {
+      async getGroupList () {
 //        Indicator.open();
-        let data = await GetGroupList({ParentId: this.parentId});
+        let data = await GetGroupList({ParentId: this.parentId})
 //        Indicator.close();
         let attr = `groupList${this.showGroupIndex}`
         if (data.Type == 1) {
-          let list = data.Data.GroupInfoList;
+          let list = data.Data.GroupInfoList
           if (list && list.length > 0) {
-            this[attr] = list;
+            this[attr] = list
 //            this.groupList.push({list});
           } else if (list && list.length == 0) {
-            this.infoSend.GroupId = this.parentId;
-            this.showGroupIndex = 0;
+            this.infoSend.GroupId = this.parentId
+            this.showGroupIndex = 0
           }
         }
       },
-      openGroupList() {
-        this.getChildrenGroup("1", "选择部门");
+      openGroupList () {
+        this.getChildrenGroup('1', '选择部门')
       },
-      backGroupList() {
-        this.showGroupIndex -= 1;
+      backGroupList () {
+        this.showGroupIndex -= 1
       },
-      getChildrenGroup(ParentId, title) {
-        this.groupName = title;
-        this.parentId = ParentId;
-        this.showGroupIndex += 1;
-        this.getGroupList();
+      getChildrenGroup (ParentId, title) {
+        this.groupName = title
+        this.parentId = ParentId
+        this.showGroupIndex += 1
+        this.getGroupList()
       },
       //职级列表
-      async getGradeList() {
-        let data = await GetGradeList();
+      async getGradeList () {
+        let data = await GetGradeList()
         if (data.Type == 1) {
-          this.gradeList = data.Data.GroupInfoList;
-          this.gradeSlots[0].values = data.Data.GroupInfoList;
+          this.gradeList = data.Data.GroupInfoList
+          this.gradeSlots[0].values = data.Data.GroupInfoList
         }
       },
       //职级选择器
-      onGradeChange(picker, values) {
-        let selected = values[0];
+      onGradeChange (picker, values) {
+        let selected = values[0]
         if (selected) {
-          this.gradeSelected = selected;
+          this.gradeSelected = selected
         }
       },
-      closeGradeList() {
-        this.isShowGradeList = false;
+      closeGradeList () {
+        this.isShowGradeList = false
       },
-      openGradeList() {
-        this.isShowGradeList = true;
+      openGradeList () {
+        this.isShowGradeList = true
       },
-      confirmGradeList() {
-        this.isShowGradeList = false;
-        this.infoSend.Grade = this.gradeSelected.Id;
-        this.gradeName = this.gradeSelected.Name;
+      confirmGradeList () {
+        this.isShowGradeList = false
+        this.infoSend.Grade = this.gradeSelected.Id
+        this.gradeName = this.gradeSelected.Name
       },
-      verification() {
+      verification () {
         if (!this.infoSend.Account) {
-          Toast({message: "用户名不能为空", position: 'bottom', duration: 2000});
+          Toast({message: '用户名不能为空', position: 'bottom', duration: 2000})
         } else if (!this.infoSend.Password) {
-          Toast({message: "密码不能为空", position: 'bottom', duration: 2000});
+          Toast({message: '密码不能为空', position: 'bottom', duration: 2000})
         } else if (!this.isPassPwd) {
-          Toast({message: "密码长度为6~16位", position: 'bottom', duration: 2000});
+          Toast({message: '密码长度为6~16位', position: 'bottom', duration: 2000})
         } else if (!this.confirmPwd) {
-          Toast({message: "确认密码不能为空", position: 'bottom', duration: 2000});
+          Toast({message: '确认密码不能为空', position: 'bottom', duration: 2000})
         } else if (!this.isPassConfirm) {
-          Toast({message: "两次输入密码不一致", position: 'bottom', duration: 2000});
+          Toast({message: '两次输入密码不一致', position: 'bottom', duration: 2000})
         } else if (!this.infoSend.Name) {
-          Toast({message: "姓名不能为空", position: 'bottom', duration: 2000});
+          Toast({message: '姓名不能为空', position: 'bottom', duration: 2000})
         } else if (!this.infoSend.GroupId) {
-          Toast({message: "请选择部门", position: 'bottom', duration: 2000});
+          Toast({message: '请选择部门', position: 'bottom', duration: 2000})
         } else if (!this.isPassIdCard) {
-          Toast({message: "请输入有效身份证号码", position: 'bottom', duration: 2000});
+          Toast({message: '请输入有效身份证号码', position: 'bottom', duration: 2000})
         } else if (!this.isPassMobile) {
-          Toast({message: "手机号格式不正确", position: 'bottom', duration: 2000});
+          Toast({message: '手机号格式不正确', position: 'bottom', duration: 2000})
         } else {
-          this.userRegister();
+          this.userRegister()
         }
       }
     },
     watch: {
       confirmPwd: function (val) {
         if (val == this.infoSend.Password) {
-          this.isPassConfirm = true;
+          this.isPassConfirm = true
         } else {
-          this.isPassConfirm = false;
+          this.isPassConfirm = false
         }
       },
       'infoSend.IdCard': {
         handler: function (val, oldVal) {
           if (val) {
-            let regIdCard = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
-            this.isPassIdCard = regIdCard.test(val);
+            let regIdCard = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+            this.isPassIdCard = regIdCard.test(val)
           } else {
-            this.isPassIdCard = true;
+            this.isPassIdCard = true
           }
         }
       },
       'infoSend.Mobile': {
         handler: function (val, oldVal) {
           if (val) {
-            let regMobile = /^1[3|4|5|7|8]\d{9}$/;
-            this.isPassMobile = regMobile.test(val);
+            let regMobile = /^1[3|4|5|7|8]\d{9}$/
+            this.isPassMobile = regMobile.test(val)
           } else {
-            this.isPassMobile = true;
+            this.isPassMobile = true
           }
         }
       },
@@ -302,9 +300,9 @@
         handler: function (val, oldVal) {
           if (val) {
             if (val.length < 6 || val.length > 16) {
-              this.isPassPwd = false;
+              this.isPassPwd = false
             } else {
-              this.isPassPwd = true;
+              this.isPassPwd = true
             }
           }
         }

@@ -3,7 +3,7 @@
 */
 <template>
   <div class="notice_list">
-    <div class="notice_item" v-for="(item,index) in noticeData" :key="item.NoticeId"
+    <div class="notice_item" v-for="(item) in noticeData" :key="item.NoticeId"
          @click.stop="linkTo(item.NoticeId)">
       <div class="title clearFix">
         <span class="pull-left">{{item.NoticeTitle}}</span>
@@ -21,13 +21,13 @@
 <script>
   export default {
     mixins: [],
-    data() {
+    data () {
       return {}
     },
-    created() {
+    created () {
       
     },
-    mounted() {
+    mounted () {
       
     },
     props: {
@@ -43,11 +43,11 @@
     },
     components: {},
     computed: {},
-    updated() {
+    updated () {
       
     },
     methods: {
-      linkTo(id) {
+      linkTo (id) {
         this.$router.push({path: '/noticeDetail', query: {id}})
       },
     },

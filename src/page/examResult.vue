@@ -25,12 +25,12 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Button} from 'mint-ui'
-  import {headerFix} from '../components'
+  import { Button } from 'mint-ui'
+  import { headerFix } from '../components'
 
-  Vue.component(Button.name, Button);
+  Vue.component(Button.name, Button)
   export default {
-    data() {
+    data () {
       return {
         result: null
       }
@@ -38,16 +38,16 @@
     components: {
       headerFix
     },
-    created() {
-      this.result = JSON.parse(this.$route.query.data);
+    created () {
+      this.result = JSON.parse(this.$route.query.data)
     },
-    mounted() {
+    mounted () {
     },
     methods: {
-      back() {
-        this.$router.push('/examCenter');
+      back () {
+        this.$router.push('/examCenter')
       },
-      oneMore() {
+      oneMore () {
         this.$router.push({path: 'exam', query: {id: this.result.examId}})
       }
     },
@@ -84,7 +84,7 @@
         @include ht-lineHt(82px);
         border-top: 1px solid $border-color-light;
       }
-      .pull-right{
+      .pull-right {
         color: $color-text-secondary;
       }
     }

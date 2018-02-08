@@ -26,19 +26,19 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, InfiniteScroll} from 'mint-ui';
-  import {headerFix, navSlide, tree, newsList} from '../components'
-  import {GetArticleChannelInfoList, GetArticleInfoList} from '../service/getData'
-  import {goBack} from '../service/mixins'
+  import Vue from 'vue'
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix, navSlide, tree, newsList } from '../components'
+  import { GetArticleChannelInfoList, GetArticleInfoList } from '../service/getData'
+  import { goBack } from '../service/mixins'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
-        articleTitle: "新闻资讯",
+        articleTitle: '新闻资讯',
         showSlide: false,
         articleCategory: [],
         categoryId: 0,
@@ -50,11 +50,11 @@
         noDataBg: false,
       }
     },
-    created() {
-      this.categoryId = this.$route.query.id;
+    created () {
+      this.categoryId = this.$route.query.id
     },
-    mounted() {
-      this.getArticleCategory();
+    mounted () {
+      this.getArticleCategory()
     },
     components: {
       headerFix,
@@ -63,49 +63,49 @@
       newsList,
     },
     methods: {
-      toggleNav() {
-        this.showSlide = !this.showSlide;
+      toggleNav () {
+        this.showSlide = !this.showSlide
       },
-      showChange(val) {
-        this.showSlide = val;
+      showChange (val) {
+        this.showSlide = val
       },
       //文章分类
-      async getArticleCategory() {
-        let data = await GetArticleChannelInfoList();
+      async getArticleCategory () {
+        let data = await GetArticleChannelInfoList()
         if (data.Type == 1) {
-          this.articleCategory = data.Data.ArticleCategoryResult;
+          this.articleCategory = data.Data.ArticleCategoryResult
         }
       },
       //文章列表
-      async getArticleList() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await GetArticleInfoList({CategoryId: this.categoryId, Page: this.page});
-        Indicator.close();
+      async getArticleList () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await GetArticleInfoList({CategoryId: this.categoryId, Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.articleData = this.articleData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.articleData = this.articleData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
-      searchArticle(data) {
-        this.page = 1;
-        this.categoryId = data.Id;
-        this.articleTitle = data.Name;
-        this.showSlide = false;
-        this.articleData = [];
-        this.getArticleList();
+      searchArticle (data) {
+        this.page = 1
+        this.categoryId = data.Id
+        this.articleTitle = data.Name
+        this.showSlide = false
+        this.articleData = []
+        this.getArticleList()
       },
     },
   }

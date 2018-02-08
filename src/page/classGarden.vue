@@ -49,31 +49,31 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, Navbar, TabItem} from 'mint-ui';
-  import {headerFix, classList} from '../components';
-  import {goBack} from '../service/mixins';
-  import {GetRankInfoList, GetTrainingTypeList, GetTrainingClass} from '../service/getData';
+  import Vue from 'vue'
+  import { Indicator, Navbar, TabItem } from 'mint-ui'
+  import { headerFix, classList } from '../components'
+  import { goBack } from '../service/mixins'
+  import { GetTrainingTypeList, GetTrainingClass } from '../service/getData'
 
-  Vue.component(Navbar.name, Navbar);
-  Vue.component(TabItem.name, TabItem);
+  Vue.component(Navbar.name, Navbar)
+  Vue.component(TabItem.name, TabItem)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
-        typeId: "", //培训班类型
+        typeId: '', //培训班类型
         showFilter: false, //是否显示筛选
-        joinStatus: "",//筛选type
+        joinStatus: '',//筛选type
         classCategory: [],
         classGardenData: [],
         noDataBg: false,
       }
     },
-    created() {
+    created () {
 
     },
-    mounted() {
-      this.getClassCategory();
+    mounted () {
+      this.getClassCategory()
     },
     components: {
       headerFix,
@@ -81,46 +81,46 @@
     },
     methods: {
       /*筛选切换*/
-      toggleFilter() {
-        this.showFilter = !this.showFilter;
+      toggleFilter () {
+        this.showFilter = !this.showFilter
       },
       //班级分类
-      async getClassCategory() {
-        let data = await GetTrainingTypeList();
+      async getClassCategory () {
+        let data = await GetTrainingTypeList()
         if (data.Type == 1) {
-          this.typeId = data.Data.TrainClassList[0].TypeId;
-          this.classCategory = data.Data.TrainClassList;
-          this.getClassList();
+          this.typeId = data.Data.TrainClassList[0].TypeId
+          this.classCategory = data.Data.TrainClassList
+          this.getClassList()
         }
       },
       //班级列表
-      async getClassList() {
-        this.noDataBg = false;
-        Indicator.open();
-        let data = await GetTrainingClass({TypeId: this.typeId, JoinStatus: this.joinStatus});
-        Indicator.close();
+      async getClassList () {
+        this.noDataBg = false
+        Indicator.open()
+        let data = await GetTrainingClass({TypeId: this.typeId, JoinStatus: this.joinStatus})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0) {
-            this.noDataBg = true;
+            this.noDataBg = true
           }
-          this.classGardenData = list;
+          this.classGardenData = list
         }
       },
       //点击筛选搜索
-      filterClass(type) {
-        this.showFilter = false;
+      filterClass (type) {
+        this.showFilter = false
         if (type != this.joinStatus) {
-          this.joinStatus = type;
+          this.joinStatus = type
         }
       }
     },
     watch: {
       typeId: function (val) {
-        this.getClassList();
+        this.getClassList()
       },
       joinStatus: function (val) {
-        this.getClassList();
+        this.getClassList()
       }
     }
 
@@ -132,9 +132,9 @@
 
   .class_garden {
     padding-top: toRem(204px);
-    .mint-navbar{
+    .mint-navbar {
       position: fixed;
-      top:toRem(92px);
+      top: toRem(92px);
       width: 100%;
       z-index: 100;
     }

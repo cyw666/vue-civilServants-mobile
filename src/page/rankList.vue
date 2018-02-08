@@ -83,55 +83,55 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
-  import {headerFix} from '../components'
-  import {goBack} from '../service/mixins'
-  import {GetRankInfoList} from '../service/getData'
+  import { Navbar, TabItem, TabContainer, TabContainerItem } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { goBack } from '../service/mixins'
+  import { GetRankInfoList } from '../service/getData'
 
-  Vue.component(Navbar.name, Navbar);
-  Vue.component(TabItem.name, TabItem);
-  Vue.component(TabContainer.name, TabContainer);
-  Vue.component(TabContainerItem.name, TabContainerItem);
+  Vue.component(Navbar.name, Navbar)
+  Vue.component(TabItem.name, TabItem)
+  Vue.component(TabContainer.name, TabContainer)
+  Vue.component(TabContainerItem.name, TabContainerItem)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
-        selected: "1",
+        selected: '1',
         studentData: [],
         courseData: [],
         groupData: [],
-        noDataBg1:false,
-        noDataBg2:false,
-        noDataBg3:false,
+        noDataBg1: false,
+        noDataBg2: false,
+        noDataBg3: false,
       }
     },
-    mounted() {
-      this.getRankList("1");
-      this.getRankList("2");
-      this.getRankList("3");
+    mounted () {
+      this.getRankList('1')
+      this.getRankList('2')
+      this.getRankList('3')
     },
     components: {
       headerFix,
     },
     methods: {
       //排行榜
-      async getRankList(RankType) {
-        let data = await GetRankInfoList({RankType});
+      async getRankList (RankType) {
+        let data = await GetRankInfoList({RankType})
         if (data.Type == 1) {
-          if (RankType == "1") {
-            this.studentData = data.Data.List;
-            if(data.Data.List.length==0){
-              this.noDataBg1 = true;
+          if (RankType == '1') {
+            this.studentData = data.Data.List
+            if (data.Data.List.length == 0) {
+              this.noDataBg1 = true
             }
-          } else if (RankType == "2") {
-            this.courseData = data.Data.List;
-            if(data.Data.List.length==0){
-              this.noDataBg2 = true;
+          } else if (RankType == '2') {
+            this.courseData = data.Data.List
+            if (data.Data.List.length == 0) {
+              this.noDataBg2 = true
             }
-          } else if (RankType == "3") {
-            this.groupData = data.Data.List;
-            if(data.Data.List.length==0){
-              this.noDataBg3 = true;
+          } else if (RankType == '3') {
+            this.groupData = data.Data.List
+            if (data.Data.List.length == 0) {
+              this.noDataBg3 = true
             }
           }
         }

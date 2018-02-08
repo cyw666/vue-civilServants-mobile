@@ -15,32 +15,29 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Toast, MessageBox, InfiniteScroll} from 'mint-ui'
-  import mbModel from './mbModel.vue'
-  import star from './star.vue'
-  import {} from '../service/getData'
+  import { InfiniteScroll } from 'mint-ui'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [],
-    data() {
+    data () {
       return {}
     },
-    created() {
+    created () {
       
     },
-    mounted() {
+    mounted () {
 
     },
     props: ['courseId'],
     components: {},
     computed: {},
-    updated() {
+    updated () {
       
     },
     methods: {
-      goDetail(id){
-        this.$router.push({path:'notesDetail',query:{id}})
+      goDetail (id) {
+        this.$router.push({path: 'notesDetail', query: {id}})
       }
     },
     watch: {}
@@ -50,18 +47,19 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../style/mixin";
-  .course_notes{
-    .notes_item{
+
+  .course_notes {
+    .notes_item {
       padding: toRem(20px) toRem(30px);
       background-color: $fill-base;
       margin-bottom: toRem(10px);
     }
-    .notes_title{
+    .notes_title {
       font-size: 14px;
       line-height: toRem(50px);
 
     }
-    .notes_date{
+    .notes_date {
       color: $color-text-thirdly;
       padding-top: toRem(30px);
     }

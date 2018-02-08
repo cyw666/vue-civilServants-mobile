@@ -43,16 +43,16 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Loadmore} from 'mint-ui';
-  import {headerFix, errorImg} from '../components'
-  import {goBack, toPlay} from '../service/mixins'
+  import { Loadmore } from 'mint-ui'
+  import { headerFix, errorImg } from '../components'
+  import { goBack, toPlay } from '../service/mixins'
   import noCourse from '../assets/noCourse.png'
-  import {GetHistoryCourse} from '../service/getData'
+  import { GetHistoryCourse } from '../service/getData'
 
-  Vue.component(Loadmore.name, Loadmore);
+  Vue.component(Loadmore.name, Loadmore)
   export default {
     mixins: [goBack, toPlay],
-    data() {
+    data () {
       return {
         topStatus: '',
         noCourse,
@@ -60,40 +60,40 @@
         earlyHistory: []
       }
     },
-    created() {
+    created () {
       
     },
-    mounted() {
-      this.getTodayHistory();
-      this.getEarlierHistory();
+    mounted () {
+      this.getTodayHistory()
+      this.getEarlierHistory()
     },
     components: {
       headerFix,
       errorImg,
     },
     methods: {
-      loadTop() {
-        this.getTodayHistory();
-        this.getEarlierHistory();
-        this.$refs.loadmore.onTopLoaded();
+      loadTop () {
+        this.getTodayHistory()
+        this.getEarlierHistory()
+        this.$refs.loadmore.onTopLoaded()
       },
-      handleTopChange(status) {
-        this.topStatus = status;
+      handleTopChange (status) {
+        this.topStatus = status
       },
       //今天历史记录
-      async getTodayHistory() {
-        let data = await GetHistoryCourse({Type: 'Today'});
+      async getTodayHistory () {
+        let data = await GetHistoryCourse({Type: 'Today'})
         if (data.Type == 1) {
-          let list = data.Data.List;
-          this.todayHistory = list;
+          let list = data.Data.List
+          this.todayHistory = list
         }
       },
       //更早历史记录
-      async getEarlierHistory() {
-        let data = await GetHistoryCourse({Type: 'Earlier'});
+      async getEarlierHistory () {
+        let data = await GetHistoryCourse({Type: 'Earlier'})
         if (data.Type == 1) {
-          let list = data.Data.List;
-          this.earlyHistory = list;
+          let list = data.Data.List
+          this.earlyHistory = list
         }
       },
     },

@@ -55,9 +55,9 @@
 <script>
   import Vue from 'vue'
   import wx from 'weixin-js-sdk'
-  import {Toast, MessageBox, Button} from 'mint-ui'
-  import {signList} from '../components'
-  import {goBack} from '../service/mixins'
+  import { Toast, MessageBox, Button } from 'mint-ui'
+  import { signList } from '../components'
+  import { goBack } from '../service/mixins'
   import {
     GetTrainingDetail,
     GetClassUserSignList,
@@ -67,14 +67,14 @@
     TrainingSignIn,
   } from '../service/getData'
 
-  Vue.component(Button.name, Button);
+  Vue.component(Button.name, Button)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
-        classId: "",
+        classId: '',
         todayFlag: true,
-        classDetail: "",
+        classDetail: '',
         signData: [],
         isJoinClass: false,
         url: window.location.href,
@@ -82,25 +82,25 @@
         latitude: '', //纬度
       }
     },
-    created() {
-      this.classId = this.$route.query.Id || "";
+    created () {
+      this.classId = this.$route.query.Id || ''
       /*获取经纬度*/
-      this.getLocation();
+      this.getLocation()
     },
-    mounted() {
-      this.getWechatWxAuthModel();
+    mounted () {
+      this.getWechatWxAuthModel()
       /*班级详情*/
-      this.getClassDetail();
+      this.getClassDetail()
       /*签到列表*/
-      this.getSignList();
+      this.getSignList()
     },
     components: {
       signList
     },
     methods: {
       /*微信签名*/
-      async getWechatWxAuthModel() {
-        let data = await GetWechatWxAuthModel({Url: this.url});
+      async getWechatWxAuthModel () {
+        let data = await GetWechatWxAuthModel({Url: this.url})
         if (data.Type == 1) {
           wx.config({
             debug: false,
@@ -109,43 +109,43 @@
             nonceStr: data.Data.Nonce,// 必填，生成签名的随机串
             signature: data.Data.Signature,// 必填，签名
             jsApiList: ['checkJsApi', 'scanQRCode', 'chooseImage', 'getLocalImgData', 'getLocation']// 必填，需要使用的JS接口列表
-          });
+          })
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
       /*点击签到*/
-      scan(status) {
-        let t = this;
+      scan (status) {
+        let t = this
         if (status == 'UnJoin') {
-          MessageBox('警告', "请先报名");
+          MessageBox('警告', '请先报名')
         } else if (status == 'UnAudit') {
-          MessageBox('警告', "正在审核中");
+          MessageBox('警告', '正在审核中')
         } else {
           wx.scanQRCode({
             needResult: 1,
             scanType: ['qrCode'],
             success: function (res) {
-              t.TrainingSignIn();
+              t.TrainingSignIn()
             }
-          });
+          })
         }
       },
       /*调用签到接口*/
-      async TrainingSignIn() {
+      async TrainingSignIn () {
         let data = await TrainingSignIn({
           TrainingId: this.classId,
           Longitude: this.longitude,
           Latitude: this.latitude
-        });
+        })
         if (data.Type == 1) {
-          Toast({message: data.Message, position: 'bottom'});
+          Toast({message: data.Message, position: 'bottom'})
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
       /*获取位置信息*/
-      getLocation() {
+      getLocation () {
         /*let options = {
           enableHighAccuracy: true,
           timeout: 5000,
@@ -168,51 +168,51 @@
           wx.getLocation({
             type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
             success: function (res) {
-              this.longitude = res.longitude;// 经度，浮点数，范围为180 ~ -180。
-              this.latitude = res.latitude;// 纬度，浮点数，范围为90 ~ -90
+              this.longitude = res.longitude// 经度，浮点数，范围为180 ~ -180。
+              this.latitude = res.latitude// 纬度，浮点数，范围为90 ~ -90
               /*let speed = res.speed; // 速度，以米/每秒计
               let accuracy = res.accuracy; // 位置精度*/
             }
-          });
-        });
+          })
+        })
       },
       //班级详情
-      async getClassDetail() {
-        let data = await GetTrainingDetail({Id: this.classId});
+      async getClassDetail () {
+        let data = await GetTrainingDetail({Id: this.classId})
         if (data.Type == 1) {
-          this.classDetail = data.Data;
-          if (data.Data.Status == "UnJoin") {
-            this.isJoinClass = false;
+          this.classDetail = data.Data
+          if (data.Data.Status == 'UnJoin') {
+            this.isJoinClass = false
           } else {
-            this.isJoinClass = true;
+            this.isJoinClass = true
           }
         }
       },
       //签到列表
-      async getSignList() {
-        let data = await GetClassUserSignList({TodayFlag: this.todayFlag, TrainingId: this.classId});
+      async getSignList () {
+        let data = await GetClassUserSignList({TodayFlag: this.todayFlag, TrainingId: this.classId})
         if (data.Type == 1) {
-          this.signData = data.Data;
+          this.signData = data.Data
         }
       },
       //报名
-      async signInClass() {
-        let data = await UpdateTrainingStudentup({Id: this.classId});
+      async signInClass () {
+        let data = await UpdateTrainingStudentup({Id: this.classId})
         if (data.Type == 1) {
-          this.isJoinClass = true;
-          Toast({message: data.Message, position: 'bottom'});
+          this.isJoinClass = true
+          Toast({message: data.Message, position: 'bottom'})
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
       //取消报名
-      async signOutClass() {
-        let data = await UpdateTrainingStudentdown({Id: this.classId});
+      async signOutClass () {
+        let data = await UpdateTrainingStudentdown({Id: this.classId})
         if (data.Type == 1) {
-          this.isJoinClass = false;
-          Toast({message: data.Message, position: 'bottom'});
+          this.isJoinClass = false
+          Toast({message: data.Message, position: 'bottom'})
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
     },

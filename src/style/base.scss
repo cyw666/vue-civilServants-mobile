@@ -63,11 +63,13 @@ input[type=checkbox], input[type=radio] {
   line-height: normal;
   @include square(30px);
 }
+
 textarea {
   display: block;
   resize: none;
   width: 100%;
 }
+
 *:focus {
   outline: none;
 }
@@ -430,7 +432,7 @@ label {
   margin-right: toRem(20px);
   background-color: $brand-primary;
   position: relative;
-  top:1px;
+  top: 1px;
 }
 
 //搜索
@@ -478,6 +480,7 @@ table {
   background: url(../assets/copper.png) no-repeat center center;
   background-size: toRem(33px), toRem(35px);
 }
+
 /*筛选*/
 .filter_layer {
   position: absolute;
@@ -488,6 +491,7 @@ table {
   background-color: rgba(0, 0, 0, .4);
   z-index: 50;
 }
+
 .filter_list {
   position: absolute;
   max-height: 0;
@@ -503,6 +507,7 @@ table {
     max-height: toRem(430px);
   }
 }
+
 .filter_item {
   @include ht-lineHt(86px);
   padding: 0 toRem(30px);
@@ -525,7 +530,7 @@ table {
       margin-left: toRem(30px);
     }
   }
-  &.active{
+  &.active {
     color: $brand-primary;
   }
 }

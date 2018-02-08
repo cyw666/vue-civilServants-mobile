@@ -12,8 +12,8 @@
              infinite-scroll-disabled="loading"
              infinite-scroll-distance="10">
       <div class="message_list">
-        <div class="message_item" v-for="item in messageData"
-             :key="item.Id"
+        <div class="message_item" v-for="(item,index) in messageData"
+             :key="index"
              @click.stop="linkTo(item.Type,item.Id)">
           <div class="message_title" :class="{'read':item.ReadFlag}">{{item.Title}}</div>
           <div class="message_info clearFix">
@@ -29,16 +29,16 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, InfiniteScroll} from 'mint-ui'
-  import {headerFix} from '../components'
-  import {goBack, toPlay} from '../service/mixins'
-  import {GetMessageCenter, GetCourseDetail} from '../service/getData'
+  import Vue from 'vue'
+  import { MessageBox, Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { goBack, toPlay } from '../service/mixins'
+  import { GetMessageCenter, GetCourseDetail } from '../service/getData'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [goBack, toPlay],
-    data() {
+    data () {
       return {
         keyword: '',
         messageData: [],
@@ -49,49 +49,49 @@
         noDataBg: false,
       }
     },
-    mounted() {
-      this.getMessageList();
+    mounted () {
+      this.getMessageList()
     },
     components: {
       headerFix
     },
     methods: {
       //获取消息列表
-      async getMessageList() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await GetMessageCenter({Keyword: this.keyword, Page: this.page});
-        Indicator.close();
+      async getMessageList () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await GetMessageCenter({Keyword: this.keyword, Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.messageData = this.messageData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.messageData = this.messageData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
-      async getCourseDetail(Id) {
-        let data = await GetCourseDetail({Id});
+      async getCourseDetail (Id) {
+        let data = await GetCourseDetail({Id})
         if (data.Type == 1) {
-          this.toPlay(data.Data.CourseType, Id);
+          this.toPlay(data.Data.CourseType, Id)
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
       linkTo: function (type, id) {
         if (type == 'Notice') {
           this.$router.push({path: '/messageDetail', query: {id, title: '消息详情'}})
         } else {
-          this.getCourseDetail(id);
+          this.getCourseDetail(id)
         }
       },
     },

@@ -16,7 +16,7 @@
 </template>
 <script>
   export default {
-    name: "header-fix",
+    name: 'header-fix',
     props: {
       title: String,
       fixed: Boolean

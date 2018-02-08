@@ -399,6 +399,6 @@ const routes = [
       },
     ]
   },
-  {path: "*", redirect: '/error'},
+  {path: '*', redirect: '/error'},
 ]
 export default routes

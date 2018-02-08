@@ -23,7 +23,7 @@
         <img src="../assets/show_detail3.png" alt="">
       </div>
       <div class="detail_btn">
-        <mt-button size="normal" type="primary"plain>
+        <mt-button size="normal" type="primary" plain>
           <i class="webapp webapp-goodfill"></i>125
         </mt-button>
         <mt-button size="normal" type="primary" plain>
@@ -66,17 +66,15 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, Button} from 'mint-ui';
-  import {headerFix} from '../components'
-  import {GetArticleChannelInfoList, GetArticleInfoList} from '../service/getData'
-  import {goBack} from '../service/mixins'
-  //  import {wordLimit} from '../plugins/utils'
+  import Vue from 'vue'
+  import { Button } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { goBack } from '../service/mixins'
 
-  Vue.component(Button.name, Button);
+  Vue.component(Button.name, Button)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         id: '',
         desc: '2017年全民终身学习活动周全国总开幕式在安徽省合肥市举行从是次大会上获悉，五年来，我国各类成人继续教育学校开展的培训规模超过2亿人次，各类成人继续教育学校开展的培训规模超过2亿人次，各类成人继续教育学校开展的培训规模超过2亿人次。',
@@ -85,24 +83,24 @@
         showAllDesc: false
       }
     },
-    created() {
-      this.id = this.$route.query.id || '';
+    created () {
+      this.id = this.$route.query.id || ''
     },
-    mounted() {
-      this.prevDesc = this.desc.substring(0, 70);
-      this.nextDesc = this.desc.substring(70);
+    mounted () {
+      this.prevDesc = this.desc.substring(0, 70)
+      this.nextDesc = this.desc.substring(70)
     },
     props: [],
     components: {
       headerFix
     },
     computed: {},
-    updated() {
+    updated () {
       
     },
     methods: {
-      toggleDesc() {
-        this.showAllDesc = !this.showAllDesc;
+      toggleDesc () {
+        this.showAllDesc = !this.showAllDesc
       }
     },
     watch: {}

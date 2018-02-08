@@ -8,7 +8,7 @@
         <router-link to="/history" class="history">
           <i class="webapp webapp-time"></i>
         </router-link>
-        <img src="../assets/info_show.png"exam @click="toggleModel" alt="用户信息" class="info_show"/>
+        <img src="../assets/info_show.png" exam @click="toggleModel" alt="用户信息" class="info_show"/>
       </div>
     </header-fix>
     <div class="container">
@@ -107,21 +107,20 @@
 
 </template>
 <script>
-  import Vue from 'vue';
-  import {mapState, mapActions} from 'vuex';
-  import {Indicator, Toast, MessageBox, Swipe, SwipeItem} from 'mint-ui';
-  import {headerFix, errorImg, footerFix, mbModel} from '../components';
-  import {GetCourseInfoList, GetLink, GetCourseDetail, GetUserInfo, Login} from '../service/getData';
-  import {toPlay} from '../service/mixins';
-  import noCourse from '../assets/noCourse.png';
-  import {getStore, setStore, removeStore, getQueryString, userAgent} from '../plugins/utils';
+  import Vue from 'vue'
+  import { mapState, mapActions } from 'vuex'
+  import { Toast, MessageBox, Swipe, SwipeItem } from 'mint-ui'
+  import { headerFix, errorImg, footerFix, mbModel } from '../components'
+  import { GetCourseInfoList, GetLink, GetCourseDetail, GetUserInfo, Login } from '../service/getData'
+  import { toPlay } from '../service/mixins'
+  import noCourse from '../assets/noCourse.png'
 
-  Vue.component(Swipe.name, Swipe);
-  Vue.component(SwipeItem.name, SwipeItem);
+  Vue.component(Swipe.name, Swipe)
+  Vue.component(SwipeItem.name, SwipeItem)
   export default {
     name: 'home',
     mixins: [toPlay],
-    data() {
+    data () {
       return {
         userInfo: {},
         showModel: false,
@@ -137,87 +136,86 @@
       headerFix,
       mbModel,
     },
-    created() {
-      this.code = this.$route.query.code;
-      this.getUserAgent();
+    created () {
+      this.code = this.$route.query.code
+      this.getUserAgent()
     },
-    mounted() {
-      this.getRecommendCourse();
-      this.getSwipeData();
-      let ASPXAUTH = window.localStorage.getItem('ASPXAUTH');
+    mounted () {
+      this.getRecommendCourse()
+      this.getSwipeData()
+      let ASPXAUTH = window.localStorage.getItem('ASPXAUTH')
       if (this.userAgent.weixin) {
         if (ASPXAUTH) {
-          this.getUserInformation();
+          this.getUserInformation()
         } else {
           /*自动登陆*/
-          this.login();
+          this.login()
         }
       } else {
-        this.getUserInformation();
+        this.getUserInformation()
       }
-
     },
     computed: {
       ...mapState(['userAgent', 'weLoginUrl', 'weIndexUrl']),
     },
     methods: {
       ...mapActions(['getUserAgent']),
-      async login() {
-        let res = await Login({Code: this.code});
+      async login () {
+        let res = await Login({Code: this.code})
         if (res.Type == 1) {
           /*登陆成功*/
-          this.getUserInformation();
+          this.getUserInformation()
         } else {
-          Toast({message: '用户掉线,请重新登录', position: 'bottom'});
-          window.location = this.weLoginUrl;
+          Toast({message: '用户掉线,请重新登录', position: 'bottom'})
+          window.location = this.weLoginUrl
         }
       },
-      async getUserInformation() {
-        let data = await GetUserInfo();
+      async getUserInformation () {
+        let data = await GetUserInfo()
         if (data.Type == 1) {
-          this.userInfo = data.Data;
+          this.userInfo = data.Data
         } else if (data.Type != 401) {
-          alert(data.Message);
+          alert(data.Message)
         }
       },
-      async getRecommendCourse() {
-        let data = await GetCourseInfoList({ChannelId: '-3'});
+      async getRecommendCourse () {
+        let data = await GetCourseInfoList({ChannelId: '-3'})
         if (data.Type == 1) {
-          this.recommendCourseData = data.Data.List;
+          this.recommendCourseData = data.Data.List
         }
       },
-      async getSwipeData() {
-        let data = await GetLink();
+      async getSwipeData () {
+        let data = await GetLink()
         if (data.Type == 1) {
-          this.swipeData = data.Data;
+          this.swipeData = data.Data
         }
       },
-      async getCourseDetail(Id) {
-        let data = await GetCourseDetail({Id});
+      async getCourseDetail (Id) {
+        let data = await GetCourseDetail({Id})
         if (data.Type == 1) {
-          this.toPlay(data.Data.CourseType, Id);
+          this.toPlay(data.Data.CourseType, Id)
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
-      toggleModel() {
-        this.showModel = !this.showModel;
+      toggleModel () {
+        this.showModel = !this.showModel
       },
-      judgeUrl(type, id) {
-        let path = "";
+      judgeUrl (type, id) {
+        let path = ''
         switch (type) {
-          case "CourseList":
+          case 'CourseList':
             path = `/courseCenter`
-            break;
-          case "Article":
+            break
+          case 'Article':
             path = `/newsDetails`
-            break;
-          case "Course":
-            this.getCourseDetail(id);
-            break;
-          case "ArticleList":
+            break
+          case 'Course':
+            this.getCourseDetail(id)
+            break
+          case 'ArticleList':
             path = `/newsCenter`
-            break;
+            break
         }
         this.$router.push({path, query: {id}})
       }
@@ -321,9 +319,9 @@
       .recommend_title {
         font-size: 14px;
         line-height: toRem(62px);
-        .primary_line{
+        .primary_line {
           position: relative;
-          top:2px;
+          top: 2px;
         }
       }
       .recommend_course_list {

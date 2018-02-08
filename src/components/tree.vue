@@ -19,14 +19,14 @@
     props: {
       data: Array,
       onSelect: Function,
-      selectedId:[String,Number]
+      selectedId: [String, Number]
     },
     components: {
       treeNode,
     },
     methods: {
-      selectedNode(data) {
-        this.onSelect(data);
+      selectedNode (data) {
+        this.onSelect(data)
       }
     },
   }

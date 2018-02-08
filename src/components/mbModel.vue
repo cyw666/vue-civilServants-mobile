@@ -18,7 +18,7 @@
 </template>
 <script>
   export default {
-    data() {
+    data () {
       return {
         showModel: this.isShow
       }
@@ -30,19 +30,19 @@
       },
     },
     methods: {
-      close() {
-        this.showModel = false;
+      close () {
+        this.showModel = false
       },
-      open() {
-        this.showModel = true;
+      open () {
+        this.showModel = true
       }
     },
     watch: {
       isShow: function (val) {
-        this.showModel = val;
+        this.showModel = val
       },
       showModel: function (val) {
-        this.$emit('update:isShow', val);
+        this.$emit('update:isShow', val)
       }
     }
   }

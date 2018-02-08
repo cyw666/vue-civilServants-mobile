@@ -39,55 +39,54 @@
 <script>
   import Vue from 'vue'
   import CryptoJS from 'crypto-js'
-  import {mapState, mapActions} from 'vuex'
-  import {MessageBox, Toast, Indicator, Checklist, Button} from 'mint-ui'
-  import {Login} from '../service/getData'
-  import {getStore, setStore, removeStore, getQueryString} from '../plugins/utils'
+  import { mapState, mapActions } from 'vuex'
+  import { MessageBox, Toast, Indicator, Button } from 'mint-ui'
+  import { Login } from '../service/getData'
+  import { getStore, setStore } from '../plugins/utils'
 
-  Vue.component(Button.name, Button);
+  Vue.component(Button.name, Button)
 
   export default {
     name: 'login',
-    data() {
+    data () {
       return {
         Account: '',
         Password: '',
         Remember: true,
         Code: '',
         backUrl: '',
-        key: "jy365jy365jy365y",
-        iv: "0392039203920300",
+        key: 'jy365jy365jy365y',
+        iv: '0392039203920300',
         pwError: false,
         acError: false
       }
     },
-    components: {
+    components: {},
+    created () {
+      this.Code = this.$route.query.code
+      this.getUserAgent()
     },
-    created() {
-      this.Code = this.$route.query.code;
-      this.getUserAgent();
-    },
-    mounted() {
-      let backUrl = this.$route.query.currentUrl;
+    mounted () {
+      let backUrl = this.$route.query.currentUrl
       if (backUrl) {
-        this.backUrl = backUrl;
+        this.backUrl = backUrl
       } else {
-        this.backUrl = '/';
+        this.backUrl = '/'
       }
-      this.Account = this.decrypt(localStorage.getItem('a_app'));
-      this.Password = this.decrypt(localStorage.getItem('p_app'));
-      this.Remember = getStore("remember");
+      this.Account = this.decrypt(localStorage.getItem('a_app'))
+      this.Password = this.decrypt(localStorage.getItem('p_app'))
+      this.Remember = getStore('remember')
     },
     computed: {
       ...mapState(['userAgent', 'weLoginUrl', 'weIndexUrl'])
     },
     methods: {
-      ...mapActions(["getUserAgent"]),
+      ...mapActions(['getUserAgent']),
       /*登陆*/
-      async clickLogin() {
+      async clickLogin () {
         if (!this.Account || !this.Password) {
-          Toast({message: '用户名或密码不能为空', position: 'bottom'});
-          return;
+          Toast({message: '用户名或密码不能为空', position: 'bottom'})
+          return
         }
         let loginParams = {
           Account: this.Account,
@@ -95,79 +94,78 @@
           Code: this.Code,
           Mac: this.Account
         }
-        Indicator.open();
-        let res = await Login(loginParams);
-        Indicator.close();
+        Indicator.open()
+        let res = await Login(loginParams)
+        Indicator.close()
         if (res.Type == 1) {
           if (this.Remember) {
-            this.encrypt("a_app", this.Account);
-            this.encrypt("p_app", this.Password);
-            setStore("remember", true);
+            this.encrypt('a_app', this.Account)
+            this.encrypt('p_app', this.Password)
+            setStore('remember', true)
           } else {
-            this.encrypt("a_app", "");
-            this.encrypt("p_app", "");
-            setStore("remember", false);
+            this.encrypt('a_app', '')
+            this.encrypt('p_app', '')
+            setStore('remember', false)
           }
           /*判断 weixin,mobile*/
           if (this.userAgent.weixin) {
-            window.location = this.weIndexUrl;
+            window.location = this.weIndexUrl
           } else {
-            this.$router.replace(this.backUrl);
+            this.$router.replace(this.backUrl)
           }
         } else if (res.Type == 0) {
-          MessageBox('警告', res.Message);
-        }
-        else {
-          MessageBox('警告', "登陆异常");
+          MessageBox('警告', res.Message)
+        } else {
+          MessageBox('警告', '登陆异常')
         }
       },
       /*加密*/
-      encrypt(name, value) {
+      encrypt (name, value) {
         let encryptText = CryptoJS.AES.encrypt(value, CryptoJS.enc.Utf8.parse(this.key), {
           iv: CryptoJS.enc.Utf8.parse(this.iv),
           mode: CryptoJS.mode.ECB,
           padding: CryptoJS.pad.Pkcs7
-        });
-        localStorage.setItem(name, encryptText);
+        })
+        localStorage.setItem(name, encryptText)
       },
       /*解密*/
-      decrypt(value) {
-        let decryptText = CryptoJS.AES.decrypt(value || " ", CryptoJS.enc.Utf8.parse(this.key), {
+      decrypt (value) {
+        let decryptText = CryptoJS.AES.decrypt(value || ' ', CryptoJS.enc.Utf8.parse(this.key), {
           iv: CryptoJS.enc.Utf8.parse(this.iv),
           mode: CryptoJS.mode.ECB,
           padding: CryptoJS.pad.Pkcs7
-        }).toString(CryptoJS.enc.Utf8);
-        return decryptText;
+        }).toString(CryptoJS.enc.Utf8)
+        return decryptText
       },
-      toRegister() {
-        this.$router.push("/register")
+      toRegister () {
+        this.$router.push('/register')
       },
-      showForgetMessage() {
-        MessageBox.alert("如果忘记密码，请联系本单位联络员或客服0571-28990788", "温馨提示");
+      showForgetMessage () {
+        MessageBox.alert('如果忘记密码，请联系本单位联络员或客服0571-28990788', '温馨提示')
       }
     },
     watch: {
-      Password(val) {
-        if (!val) return;
-        let flag = false;
-        let length = val.length;
+      Password (val) {
+        if (!val) return
+        let flag = false
+        let length = val.length
         if (length < 6 || length > 16) {
-          flag = true;
+          flag = true
         }
-        this.pwError = flag;
+        this.pwError = flag
       },
-      Account(val) {
-        if (!val) return;
-        let flag = 0;
-        let reg = /^[\u4e00-\u9fa5]+$/;
-        let arr = val.split('');
+      Account (val) {
+        if (!val) return
+        let flag = 0
+        let reg = /^[\u4e00-\u9fa5]+$/
+        let arr = val.split('')
         for (var i in arr) {
           if (reg.test(arr[i])) {
-            flag = true;
-            break;
+            flag = true
+            break
           }
         }
-        this.acError = flag;
+        this.acError = flag
       },
     }
   }

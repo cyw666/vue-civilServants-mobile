@@ -5,13 +5,13 @@
   import baseErrorSrc from '../assets/notFound.jpg'
 
   export default {
-    data() {
+    data () {
       return {
         imageSrc: this.src,
         imgErrorSrc: this.errorSrc
       }
     },
-    mounted() {
+    mounted () {
       this.$refs.img.onerror = () => {
         this.imageSrc = this.imgErrorSrc || baseErrorSrc
       }

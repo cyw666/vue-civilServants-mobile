@@ -16,7 +16,7 @@
 </template>
 <script>
   export default {
-    data() {
+    data () {
       return {
         showLayer: this.show
       }
@@ -25,14 +25,14 @@
       show: Boolean
     },
     methods: {
-      closeLayer() {
-        this.showLayer = false;
-        this.$emit("showChange", false);
+      closeLayer () {
+        this.showLayer = false
+        this.$emit('showChange', false)
       }
     },
     watch: {
-      show(val) {
-        this.showLayer = val;
+      show (val) {
+        this.showLayer = val
       }
     }
   }

@@ -46,34 +46,34 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {MessageBox, Cell, Button} from 'mint-ui'
-  import {mapState, mapActions} from 'vuex'
-  import {footerFix} from '../components'
-  import {LoginOut} from '../service/getData'
+  import { MessageBox, Cell, Button } from 'mint-ui'
+  import { mapState, mapActions } from 'vuex'
+  import { footerFix } from '../components'
+  import { LoginOut } from '../service/getData'
 
-  Vue.component(Cell.name, Cell);
-  Vue.component(Button.name, Button);
+  Vue.component(Cell.name, Cell)
+  Vue.component(Button.name, Button)
   export default {
-    data() {
+    data () {
       return {}
     },
-    mounted() {
-      this.getUserInformation();
+    mounted () {
+      this.getUserInformation()
     },
     computed: {
-      ...mapState(["userInfo", "userAgent"]),
+      ...mapState(['userInfo', 'userAgent']),
     },
     components: {
       footerFix
     },
     methods: {
-      ...mapActions(["getUserInformation"]),
-      async exit() {
-        let data = await LoginOut();
+      ...mapActions(['getUserInformation']),
+      async exit () {
+        let data = await LoginOut()
         if (data.Type == 1) {
           this.$router.push('/login')
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       }
     },

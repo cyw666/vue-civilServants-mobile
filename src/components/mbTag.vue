@@ -10,7 +10,7 @@
 
 <script>
   export default {
-    name: "mb-tag",
+    name: 'mb-tag',
     props: {
       type: String
     }

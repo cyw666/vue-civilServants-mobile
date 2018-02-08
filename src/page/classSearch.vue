@@ -19,15 +19,16 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Indicator,InfiniteScroll} from 'mint-ui';
-  import {headerFix, search, classList} from '../components'
-  import {GetTrainingClass} from '../service/getData'
-  import {goBack} from '../service/mixins'
-  Vue.use(InfiniteScroll);
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix, search, classList } from '../components'
+  import { GetTrainingClass } from '../service/getData'
+  import { goBack } from '../service/mixins'
+
+  Vue.use(InfiniteScroll)
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         keyword: '',
         oldKeyword: '',
@@ -45,32 +46,32 @@
     },
     methods: {
       /*获取班级列表*/
-      async getClassList() {
-        this.noDataBg = false;
-        this.loading = true;
-        this.oldKeyword = this.keyword; //记录搜索keyword
-        Indicator.open();
+      async getClassList () {
+        this.noDataBg = false
+        this.loading = true
+        this.oldKeyword = this.keyword //记录搜索keyword
+        Indicator.open()
         let data = await GetTrainingClass({
           TrainName: this.keyword,
           Page: this.page
-        });
-        Indicator.close();
+        })
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.classData = this.classData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.classData = this.classData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
-      clickSearch() {
+      clickSearch () {
         if (this.keyword != this.oldKeyword && !!this.keyword) {
-          this.classData = [];
-          this.page = 1;
-          this.getClassList();
+          this.classData = []
+          this.page = 1
+          this.getClassList()
         }
       }
     },

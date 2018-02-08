@@ -31,11 +31,11 @@
 <script>
   import noCourse from '../assets/noCourse.png'
   import errorImg from '../components/errorImg.vue'
-  import {goBack, toPlay} from '../service/mixins'
+  import { toPlay } from '../service/mixins'
 
   export default {
     mixins: [toPlay],
-    data() {
+    data () {
       return {
         noCourse
       }

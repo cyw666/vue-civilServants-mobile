@@ -62,18 +62,18 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Toast, Button, Tabbar, TabItem} from 'mint-ui'
-  import {headerFix} from '../components'
-  import {GetBookChapterContent} from '../service/getData'
-  import {setStore, getStore} from '../plugins/utils'
-  import {goBack} from '../service/mixins'
+  import { Toast, Button, Tabbar, TabItem } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { GetBookChapterContent } from '../service/getData'
+  import { setStore, getStore } from '../plugins/utils'
+  import { goBack } from '../service/mixins'
 
-  Vue.component(Button.name, Button);
-  Vue.component(Tabbar.name, Tabbar);
-  Vue.component(TabItem.name, TabItem);
+  Vue.component(Button.name, Button)
+  Vue.component(Tabbar.name, Tabbar)
+  Vue.component(TabItem.name, TabItem)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         detailId: '',
         bookName: '',
@@ -83,109 +83,109 @@
         showStyleSetting: false,
         isNight: false,//白天夜间
         fontSize: 0.5,//字体大小
-        bgColor: "#fff",//切换背景
-        nextId: "",
-        nextIndex: "",
+        bgColor: '#fff',//切换背景
+        nextId: '',
+        nextIndex: '',
       }
     },
     components: {
       headerFix
     },
-    created() {
+    created () {
       //初始化设置
-      let ebookConfig = getStore("ebookConfig");
+      let ebookConfig = getStore('ebookConfig')
       if (ebookConfig) {
-        this.isNight = ebookConfig.isNight;
-        this.fontSize = ebookConfig.fontSize;
-        this.bgColor = ebookConfig.bgColor;
+        this.isNight = ebookConfig.isNight
+        this.fontSize = ebookConfig.fontSize
+        this.bgColor = ebookConfig.bgColor
       }
-      this.bookName = getStore("bookName") || "";
-      this.detailId = this.$route.query.id || "";
-      this.index = this.$route.query.index || 1;
+      this.bookName = getStore('bookName') || ''
+      this.detailId = this.$route.query.id || ''
+      this.index = this.$route.query.index || 1
     },
-    mounted() {
-      window.scrollTo(0, 0);
-      this.getChapterContent();
+    mounted () {
+      window.scrollTo(0, 0)
+      this.getChapterContent()
     },
     methods: {
       //图书章节
-      async getChapterContent() {
-        let data = await GetBookChapterContent({Id: this.detailId});
+      async getChapterContent () {
+        let data = await GetBookChapterContent({Id: this.detailId})
         if (data.Type == 1) {
-          this.detailData = data.Data;
+          this.detailData = data.Data
         }
       },
       /*返回*/
-      toChapter(path) {
-        this.$router.replace(path);
+      toChapter (path) {
+        this.$router.replace(path)
       },
       /*显示/隐藏 头尾*/
-      toggleShowConfig() {
-        this.showConfig = !this.showConfig;
-        this.showStyleSetting = false;
+      toggleShowConfig () {
+        this.showConfig = !this.showConfig
+        this.showStyleSetting = false
       },
       /*白天/夜间切换*/
-      toggleNight() {
+      toggleNight () {
         if (this.isNight) {
-          this.bgColor = "#f6eee3";
+          this.bgColor = '#f6eee3'
         } else {
-          this.bgColor = "rgba(0, 0, 0, 0.9)";
+          this.bgColor = 'rgba(0, 0, 0, 0.9)'
         }
-        this.isNight = !this.isNight;
+        this.isNight = !this.isNight
       },
       /*显示/隐藏 设置*/
-      toggleStyleSetting() {
-        this.showStyleSetting = !this.showStyleSetting;
+      toggleStyleSetting () {
+        this.showStyleSetting = !this.showStyleSetting
       },
       /*字体大小控制*/
-      changeFontSize(step) {
-        let newFontSize = this.fontSize + step;
+      changeFontSize (step) {
+        let newFontSize = this.fontSize + step
         if (newFontSize < 0.3) {
-          Toast({message: "字体已最小", position: 'bottom'});
+          Toast({message: '字体已最小', position: 'bottom'})
         } else if (newFontSize > 0.7) {
-          Toast({message: "字体已最大", position: 'bottom'});
+          Toast({message: '字体已最大', position: 'bottom'})
         } else {
-          this.fontSize = newFontSize;
+          this.fontSize = newFontSize
         }
       },
       /*默认字体大小*/
-      defaultFontSize() {
-        this.fontSize = 0.5;
+      defaultFontSize () {
+        this.fontSize = 0.5
       },
       /*切换背景*/
-      changeBgColor(color) {
-        this.bgColor = color;
+      changeBgColor (color) {
+        this.bgColor = color
       },
       /*存储个人配置*/
-      storeConfig() {
+      storeConfig () {
         let config = {
           fontSize: this.fontSize,
           isNight: this.isNight,
           bgColor: this.bgColor,
         }
-        setStore("ebookConfig", config);
+        setStore('ebookConfig', config)
       },
       /*下一章*/
-      nextChapter() {
-        this.nextId = parseInt(this.detailId) + 1;
-        this.nextIndex = parseInt(this.index) + 1;
-        this.$router.replace({path: '/ebookDetail', query: {id: this.nextId, index: this.nextIndex}});
-        window.location.reload();
+      nextChapter () {
+        this.nextId = parseInt(this.detailId) + 1
+        this.nextIndex = parseInt(this.index) + 1
+        this.$router.replace({path: '/ebookDetail', query: {id: this.nextId, index: this.nextIndex}})
+        window.location.reload()
       },
       /*上一章*/
-      prevChapter() {
-        this.nextId = parseInt(this.detailId) - 1;
-        this.nextIndex = parseInt(this.index) - 1;
-        this.$router.replace({path: '/ebookDetail', query: {id: this.nextId, index: this.nextIndex}});
-        window.location.reload();
+      prevChapter () {
+        this.nextId = parseInt(this.detailId) - 1
+        this.nextIndex = parseInt(this.index) - 1
+        this.$router.replace({path: '/ebookDetail', query: {id: this.nextId, index: this.nextIndex}})
+        window.location.reload()
       }
     },
     watch: {
       fontSize: function (val) {
-        this.storeConfig();
+        this.storeConfig()
       },
       bgColor: function (val) {
-        this.storeConfig();
+        this.storeConfig()
       },
     }
     

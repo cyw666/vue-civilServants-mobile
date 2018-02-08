@@ -16,7 +16,7 @@
                infinite-scroll-immediate-check="immediate"
                infinite-scroll-disabled="loading"
                infinite-scroll-distance="10">
-        <div class="course_comment_item" v-for="(item,index) in commentList" :key="item.CommentId">
+        <div class="course_comment_item" v-for="(item) in commentList" :key="item.CommentId">
           <div class="left_avatar"><img src="../assets/male.png" alt=""/></div>
           <div class="right_content">
             <p class="name">
@@ -42,14 +42,14 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Toast, MessageBox, InfiniteScroll} from 'mint-ui'
+  import { Toast, MessageBox, InfiniteScroll } from 'mint-ui'
   import mbModel from './mbModel.vue'
   import star from './star.vue'
-  import {getCourseCommentList, AddCourseComment} from '../service/getData'
+  import { getCourseCommentList, AddCourseComment } from '../service/getData'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
-    data() {
+    data () {
       return {
         isShowModel: false,
         noData: false,
@@ -60,54 +60,53 @@
         commentCount: [],
         addCourseData: {
           CourseId: this.courseId,
-          Content: "",
+          Content: '',
           Score: 5,
         }
       }
     },
-    props: ["courseId",'commentCredit'],
+    props: ['courseId', 'commentCredit'],
     components: {
       mbModel,
       star,
     },
-    mounted() {
-      this.getCommentList();
+    mounted () {
+      this.getCommentList()
     },
     methods: {
       //课程评论列表
-      async getCommentList() {
-        this.noData = false;
-        this.loading = true;
-        let data = await getCourseCommentList({CourseId: this.courseId, Page: this.page});
+      async getCommentList () {
+        this.noData = false
+        this.loading = true
+        let data = await getCourseCommentList({CourseId: this.courseId, Page: this.page})
         if (data.Type == 1) {
-          let list = data.Data.List;
-          this.commentCount = data.Data.TotalCount;
+          let list = data.Data.List
+          this.commentCount = data.Data.TotalCount
           if (list.length == 0) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
-          this.commentList = this.commentList.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.commentList = this.commentList.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
       //添加课程评论
-      async addComment() {
+      async addComment () {
         if (this.addCourseData.Content.length > 0 && this.addCourseData.Content.length <= 100) {
-          let data = await AddCourseComment(this.addCourseData);
+          let data = await AddCourseComment(this.addCourseData)
           if (data.Type == 1) {
-            Toast({message: data.Message, position: 'bottom'});
+            Toast({message: data.Message, position: 'bottom'})
           } else if (data.Type != 401) {
-            MessageBox('警告', data.Message);
+            MessageBox('警告', data.Message)
           }
-          this.isShowModel = false;
+          this.isShowModel = false
         } else {
-          Toast({message: "评论内容不能超过100字！", position: 'bottom'});
+          Toast({message: '评论内容不能超过100字！', position: 'bottom'})
         }
-
       },
-      openEvaluateModel() {
-        this.isShowModel = true;
+      openEvaluateModel () {
+        this.isShowModel = true
       }
     },
   }
@@ -166,7 +165,7 @@
         font-size: 14px;
         line-height: toRem(60px);
       }
-      .course_comment_count{
+      .course_comment_count {
         color: $color-text-thirdly;
       }
     }
@@ -195,7 +194,7 @@
           color: $color-text-thirdly;
           padding: toRem(10px) 0;
         }
-        .content{
+        .content {
           color: $color-text-secondary;
         }
       }

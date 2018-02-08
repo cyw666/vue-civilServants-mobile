@@ -7,11 +7,11 @@
   </div>
 </template>
 <script>
-  import {userAgent} from '../plugins/utils'
+  import { userAgent } from '../plugins/utils'
 
   export default {
     mixins: [],
-    data() {
+    data () {
       return {
         title: '',
         content: '',
@@ -20,25 +20,26 @@
         browser: null
       }
     },
-    created() {
-      let {Title,Content,Id,Type} = this.$route.query;
-      this.title = Title;
-      this.content = Content;
-      this.id = Id;
-      this.type = Type;
-      this.browser = userAgent();
+    created () {
+      let {Title, Content, Id, Type} = this.$route.query
+      this.title = Title
+      this.content = Content
+      this.id = Id
+      this.type = Type
+      this.browser = userAgent()
     },
-    mounted() {
-      let link = 'https://afaki8.mlinks.cc/A0BP';
+    mounted () {
+      let link = 'https://afaki8.mlinks.cc/A0BP'
       if (this.title && this.content && this.id && this.type) {
         link += `?Title=${this.title} &Content=${this.content}&Id=${this.id}&Type=${this.type}`
       }
       /*初始化 打开APP*/
+      // eslint-disable-next-line
       new Mlink({
         mlink: link,
-        button: document.querySelector("a#btnOpenApp"),
+        button: document.querySelector('a#btnOpenApp'),
 //        autoLaunchApp:true,
-      });
+      })
 
       if (this.browser.iPhone || this.browser.iPad || this.browser.ios) {
         //window.location.href = "https://dev.sencloud.com.cn/xst";
@@ -48,7 +49,7 @@
         //               }
       }
       if (this.browser.android) {
-        document.getElementById("btnOpenApp").click();
+        document.getElementById('btnOpenApp').click()
       }
     }
   }

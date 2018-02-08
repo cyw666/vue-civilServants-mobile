@@ -19,15 +19,17 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, InfiniteScroll} from 'mint-ui';
-  import {headerFix, examHistoryList} from '../components'
-  import {goBack} from '../service/mixins'
-  import {GetExamList} from '../service/getData'
+  import Vue from 'vue'
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix, examHistoryList } from '../components'
+  import { goBack } from '../service/mixins'
+  import { GetExamList } from '../service/getData'
+
+  Vue.use(InfiniteScroll)
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         typeId: 0, //考试typeId
         examData: [], //考试列表数据
@@ -38,11 +40,11 @@
         noDataBg: false,
       }
     },
-    created() {
+    created () {
       
     },
-    mounted() {
-      this.getExamList();
+    mounted () {
+      this.getExamList()
     },
     props: [],
     components: {
@@ -50,30 +52,30 @@
       examHistoryList,
     },
     computed: {},
-    updated() {
+    updated () {
       
     },
     methods: {
-      async getExamList() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await GetExamList({TypeId: this.typeId, Page: this.page});
-        Indicator.close();
+      async getExamList () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await GetExamList({TypeId: this.typeId, Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.examData = this.examData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.examData = this.examData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
     },

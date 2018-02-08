@@ -21,20 +21,19 @@
     },
     computed: {
       activeNode: function () {
-        let dataList = this.dataList;
-        let node;
+        let dataList = this.dataList
+        let node
         dataList && dataList.forEach((item, index) => {
           if (this.active == item.NodeId) {
-            node = item;
-            return;
+            node = item
           }
         })
-        return node;
+        return node
       }
     },
     watch: {
       activeNode: function (val) {
-        this.$emit('input', val);
+        this.$emit('input', val)
       }
     }
   }

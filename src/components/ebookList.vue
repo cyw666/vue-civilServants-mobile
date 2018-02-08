@@ -16,10 +16,10 @@
 <script>
   import errorImg from './errorImg.vue'
   import errorBook from '../assets/error_book.png'
-  import {setStore} from '../plugins/utils'
+  import { setStore } from '../plugins/utils'
 
   export default {
-    data() {
+    data () {
       return {
         errorBook
       }
@@ -33,8 +33,8 @@
       errorImg
     },
     methods: {
-      goChapterList(id, bookName) {
-        setStore("bookName", bookName);
+      goChapterList (id, bookName) {
+        setStore('bookName', bookName)
         this.$router.push({path: '/ebookChapterList', query: {id}})
       }
     },

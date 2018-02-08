@@ -16,11 +16,14 @@
     <div class="course_detail_list">
       <div class="detail_item">
         <p class="detail_item_left"><span class="label">课程分类：</span>{{courseDetails.ChannelName}}</p>
-        <p class="detail_item_right"><span class="label">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分：</span>{{courseDetails.Credit}}分</p>
+        <p class="detail_item_right"><span
+            class="label">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分：</span>{{courseDetails.Credit}}分</p>
       </div>
       <div class="detail_item">
-        <p class="detail_item_left"><span class="label">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</span>{{courseDetails.Duration}}分钟</p>
-        <p class="detail_item_right"><span class="label">进&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;度：</span>{{courseDetails.BrowseScore}}</p>
+        <p class="detail_item_left"><span
+            class="label">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</span>{{courseDetails.Duration}}分钟</p>
+        <p class="detail_item_right"><span
+            class="label">进&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;度：</span>{{courseDetails.BrowseScore}}</p>
       </div>
     </div>
     <div class="split"></div>
@@ -34,7 +37,7 @@
   import star from './star.vue'
 
   export default {
-    props: ["courseDetails"],
+    props: ['courseDetails'],
     components: {
       star
     },
@@ -70,17 +73,17 @@
         padding: 0 toRem(30px);
         font-size: 14px;
         @extend %clearFix;
-        .label{
+        .label {
           color: $color-text-thirdly;
           margin-right: toRem(20px);
         }
       }
-      .detail_item_left{
+      .detail_item_left {
         @extend %pull-left;
         @extend %ellipsis;
         width: 55%;
       }
-      .detail_item_right{
+      .detail_item_right {
         @extend %pull-left;
         @extend %ellipsis;
         width: 45%;

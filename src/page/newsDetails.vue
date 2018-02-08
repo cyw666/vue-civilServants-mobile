@@ -38,48 +38,48 @@
   </div>
 </template>
 <script>
-  import {MessageBox, Indicator} from 'mint-ui';
+  import { MessageBox } from 'mint-ui'
   import wx from 'weixin-js-sdk'
-  import {headerFix} from '../components'
-  import {goBack} from '../service/mixins'
-  import {ArticleDetail, GetWechatWxAuthModel} from '../service/getData'
+  import { headerFix } from '../components'
+  import { goBack } from '../service/mixins'
+  import { ArticleDetail, GetWechatWxAuthModel } from '../service/getData'
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         articleId: '',
         articleDetails: {},
         content: '',
-        showShare:false,
-        link:window.location.href
+        showShare: false,
+        link: window.location.href
       }
     },
-    created() {
-      this.articleId = this.$route.query.id || "";
+    created () {
+      this.articleId = this.$route.query.id || ''
     },
-    mounted() {
-      this.getArticleDetail();
+    mounted () {
+      this.getArticleDetail()
     },
     components: {
       headerFix
     },
     methods: {
       //文章内容
-      async getArticleDetail() {
-        let data = await ArticleDetail({Id: this.articleId});
+      async getArticleDetail () {
+        let data = await ArticleDetail({Id: this.articleId})
         if (data.Type == 1) {
-          this.articleDetails = data.Data;
-          let content = data.Data.Content;
-          this.content = content;
+          this.articleDetails = data.Data
+          let content = data.Data.Content
+          this.content = content
         }
       },
-      async collectNews(){
+      async collectNews () {
         console.log('收藏')
       },
       /*微信签名*/
-      async getWechatWxAuthModel() {
-        let data = await GetWechatWxAuthModel({Url: this.url});
+      async getWechatWxAuthModel () {
+        let data = await GetWechatWxAuthModel({Url: this.url})
         if (data.Type == 1) {
           wx.config({
             debug: false,
@@ -88,13 +88,13 @@
             nonceStr: data.Data.Nonce,// 必填，生成签名的随机串
             signature: data.Data.Signature,// 必填，签名
             jsApiList: ['checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ']// 必填，需要使用的JS接口列表
-          });
+          })
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
       /*分享朋友圈*/
-      shareTimeline() {
+      shareTimeline () {
         console.log('分享朋友圈')
         wx.onMenuShareTimeline({
           title: this.articleDetails.Name, // 分享标题
@@ -106,10 +106,10 @@
           cancel: function () {
             // 用户取消分享后执行的回调函数
           }
-        });
+        })
       },
       /*分享给朋友*/
-      shareAppMessage() {
+      shareAppMessage () {
         console.log('分享给朋友')
         wx.onMenuShareAppMessage({
           title: this.articleDetails.Name, // 分享标题
@@ -124,10 +124,10 @@
           cancel: function () {
             // 用户取消分享后执行的回调函数
           }
-        });
+        })
       },
       /*分享到QQ*/
-      shareQQ() {
+      shareQQ () {
         console.log('分享到QQ')
         wx.onMenuShareQQ({
           title: this.articleDetails.Name, // 分享标题
@@ -140,10 +140,10 @@
           cancel: function () {
             // 用户取消分享后执行的回调函数
           }
-        });
+        })
       },
-      toggleShowShare(){
-        this.showShare = !this.showShare;
+      toggleShowShare () {
+        this.showShare = !this.showShare
       }
     },
   }
@@ -217,17 +217,18 @@
       margin-right: toRem(5px);
     }
   }
-  .share_list{
+
+  .share_list {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     background-color: $fill-body;
-    img{
+    img {
       width: toRem(108px);
       margin: toRem(10px) 0 toRem(10px) toRem(20px);
     }
-    .cancel_share{
+    .cancel_share {
       background-color: $fill-base;
       text-align: center;
       line-height: toRem(94px);

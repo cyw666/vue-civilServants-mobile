@@ -8,45 +8,43 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Toast, MessageBox, InfiniteScroll} from 'mint-ui'
-  import mbModel from './mbModel.vue'
-  import star from './star.vue'
-  import {RelatedCourse} from '../service/getData'
+  import { InfiniteScroll } from 'mint-ui'
+  import { RelatedCourse } from '../service/getData'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [],
-    data() {
+    data () {
       return {}
     },
-    created() {
+    created () {
 
     },
-    mounted() {
-      this.getCourseNotes();
+    mounted () {
+      this.getCourseNotes()
     },
     props: ['courseId'],
     components: {},
     computed: {},
-    updated() {
+    updated () {
 
     },
     methods: {
       //课程评论列表
-      async getCourseNotes() {
-        this.noData = false;
-        this.loading = true;
-        let data = await RelatedCourse({CourseId: this.courseId, Page: this.page});
+      async getCourseNotes () {
+        this.noData = false
+        this.loading = true
+        let data = await RelatedCourse({CourseId: this.courseId, Page: this.page})
         if (data.Type == 1) {
-          let list = data.Data.List;
-          this.commentCount = data.Data.TotalCount;
+          let list = data.Data.List
+          this.commentCount = data.Data.TotalCount
           if (list.length == 0) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
-          this.commentList = this.commentList.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.commentList = this.commentList.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
     },

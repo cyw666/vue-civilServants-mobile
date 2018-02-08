@@ -34,7 +34,7 @@
     </div>
     <transition name="slide-top-collect">
       <div class="edit_footer" v-if="showEdit">
-        <span class="check_all" @click="toggleCheckedAll">{{checkedAll?'取消':'全选'}}</span>
+        <span class="check_all" @click="toggleCheckedAll">{{checkedAll ? '取消' : '全选'}}</span>
         <span class="del_select" @click="deleteChecked">删除</span>
       </div>
     </transition>
@@ -55,17 +55,16 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, InfiniteScroll} from 'mint-ui';
-  import {headerFix, collectItem, dateTimePicker} from '../components'
-  import {goBack} from '../service/mixins'
-  import {GetChannelInfoList, GetCourseInfoList} from '../service/getData'
-  import {formatDate} from '../plugins/utils'
+  import Vue from 'vue'
+  import { InfiniteScroll } from 'mint-ui'
+  import { headerFix, collectItem, dateTimePicker } from '../components'
+  import { goBack } from '../service/mixins'
+  import { formatDate } from '../plugins/utils'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         showEdit: false, //是否显示编辑
         showTimerPicker: false, //是否显示日期选择
@@ -77,16 +76,16 @@
           {id: '3', title: '《梦想创造辉煌行动改变世界》获得学分2.0个学分', date: '2017-11-5'},
         ],
         selectedTime: {
-          startDate: formatDate(new Date('2018-1-1'),'yyyy-MM-dd'),
-          endDate: formatDate(new Date(),'yyyy-MM-dd'),
+          startDate: formatDate(new Date('2018-1-1'), 'yyyy-MM-dd'),
+          endDate: formatDate(new Date(), 'yyyy-MM-dd'),
         }
       }
     },
-    created() {
+    created () {
       
     },
-    mounted() {
-      this.getCollectList();
+    mounted () {
+      this.getCollectList()
     },
     props: [],
     components: {
@@ -95,49 +94,49 @@
       dateTimePicker,
     },
     computed: {},
-    updated() {
+    updated () {
       
     },
     methods: {
-      getCollectList() {
-        console.log("getCollectList", this.selectedTime)
-        let deleteData = {};
+      getCollectList () {
+        console.log('getCollectList', this.selectedTime)
+        let deleteData = {}
         this.collectData.forEach((item, index) => {
-          deleteData[item.id] = false;
+          deleteData[item.id] = false
         })
-        this.deleteData = deleteData;
+        this.deleteData = deleteData
       },
-      toggleEdit() {
-        this.showEdit = !this.showEdit;
+      toggleEdit () {
+        this.showEdit = !this.showEdit
       },
-      togglePicker() {
-        this.showTimerPicker = !this.showTimerPicker;
+      togglePicker () {
+        this.showTimerPicker = !this.showTimerPicker
       },
-      deleteItem(item) {
-        console.log('deleteItem:', item);
+      deleteItem (item) {
+        console.log('deleteItem:', item)
       },
-      sortNum(num) {
-        let index = parseInt(num);
+      sortNum (num) {
+        let index = parseInt(num)
         if (index < 10) {
           return `0${index}`
         }
         return index
       },
-      pickerComplete() {
-        this.togglePicker();
-        this.getCollectList();
+      pickerComplete () {
+        this.togglePicker()
+        this.getCollectList()
       },
-      toggleCheckedAll(){
-        let checkedAll = !this.checkedAll;
-        this.checkedAll = checkedAll;
-        let deleteData = {};
+      toggleCheckedAll () {
+        let checkedAll = !this.checkedAll
+        this.checkedAll = checkedAll
+        let deleteData = {}
         this.collectData.forEach((item, index) => {
-          deleteData[item.id] = checkedAll;
+          deleteData[item.id] = checkedAll
         })
-        this.deleteData = deleteData;
+        this.deleteData = deleteData
       },
-      deleteChecked(){
-        console.log("删除");
+      deleteChecked () {
+        console.log('删除')
       }
     },
     watch: {}

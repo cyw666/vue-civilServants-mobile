@@ -29,10 +29,10 @@
   </div>
 </template>
 <script>
-  import {MessageBox, Toast} from 'mint-ui';
+  import { MessageBox, Toast } from 'mint-ui'
 
   export default {
-    data() {
+    data () {
       return {
         message: ''
       }
@@ -49,22 +49,22 @@
       },
     },
     methods: {
-      checkAttempt(id, total, current, endTime) {
-        var dateEnd = new Date(endTime).getTime();
-        var dateNow = new Date().getTime();
+      checkAttempt (id, total, current, endTime) {
+        var dateEnd = new Date(endTime).getTime()
+        var dateNow = new Date().getTime()
         if (dateNow < dateEnd) {
           if (current < total) {
-            let count = total - current;
+            let count = total - current
             MessageBox.confirm(`当前考试剩余${count}次考试机会，是否继续考试`).then(action => {
               this.$router.push({path: '/exam', query: {id}})
-            });
+            })
           } else {
-            this.message = "考试次数已用完";
-            Toast({message: this.message, position: 'bottom'});
+            this.message = '考试次数已用完'
+            Toast({message: this.message, position: 'bottom'})
           }
         } else {
-          this.message = "考试截止时间已过";
-          Toast({message: this.message, position: 'bottom'});
+          this.message = '考试截止时间已过'
+          Toast({message: this.message, position: 'bottom'})
         }
       }
     },

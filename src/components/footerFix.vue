@@ -32,10 +32,10 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Tabbar, TabItem} from 'mint-ui';
+  import { Tabbar, TabItem } from 'mint-ui'
 
-  Vue.component(Tabbar.name, Tabbar);
-  Vue.component(TabItem.name, TabItem);
+  Vue.component(Tabbar.name, Tabbar)
+  Vue.component(TabItem.name, TabItem)
   export default {
     name: 'footerFix',
     props: ['selected'],
@@ -62,22 +62,22 @@
       height: toRem(48px);
       margin: 0 auto 0;
       & > {
-        .footer_icon_1{
+        .footer_icon_1 {
           width: toRem(48px);
           height: toRem(41px);
           margin: 0 auto;
         }
-        .footer_icon_2{
+        .footer_icon_2 {
           width: toRem(38px);
           height: toRem(39px);
           margin: 0 auto;
         }
-        .footer_icon_3{
+        .footer_icon_3 {
           width: toRem(42px);
           height: toRem(38px);
           margin: 0 auto;
         }
-        .footer_icon_4{
+        .footer_icon_4 {
           width: toRem(38px);
           height: toRem(39px);
           margin: 0 auto;

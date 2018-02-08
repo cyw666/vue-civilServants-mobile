@@ -21,11 +21,11 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Checklist} from 'mint-ui';
+  import { Checklist } from 'mint-ui'
 
-  Vue.component(Checklist.name, Checklist);
+  Vue.component(Checklist.name, Checklist)
   export default {
-    data() {
+    data () {
       return {
         currentValue: this.value
       }
@@ -38,21 +38,21 @@
     },
     computed: {},
     methods: {
-      isInArray(value) {
+      isInArray (value) {
         for (var i = 0; i < this.currentValue.length; i++) {
           if (value === this.currentValue[i]) {
-            return true;
+            return true
           }
         }
-        return false;
+        return false
       }
     },
     watch: {
-      value(val) {
-        this.currentValue = val;
+      value (val) {
+        this.currentValue = val
       },
-      currentValue(val) {
-        this.$emit('input', val);
+      currentValue (val) {
+        this.$emit('input', val)
       }
     }
   }

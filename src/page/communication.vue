@@ -15,7 +15,7 @@
              infinite-scroll-disabled="loading"
              infinite-scroll-distance="10">
       <ul class="info_content">
-        <li class="info_item" v-for="(item,index) in discussList" :key="item.Id" @click="closeWrite">
+        <li class="info_item" v-for="(item) in discussList" :key="item.Id" @click="closeWrite">
           <div class="left_avatar"><img src="../assets/male.png" alt=""></div>
           <div class="right_content">
             <p class="author_name">{{item.UserName}}</p>
@@ -25,7 +25,7 @@
               <i class="webapp webapp-comments" style="color: #89d4ff;"></i>
             </a>
             <ul class="comment">
-              <li v-for="(item,index) in item.List" :key="item.Id"><span
+              <li v-for="(item) in item.List" :key="item.Id"><span
                   class="name">{{item.UserName}}：</span>{{item.Content}}
               </li>
             </ul>
@@ -45,17 +45,17 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Toast, MessageBox, Indicator, Button, InfiniteScroll} from 'mint-ui'
-  import {headerFix} from '../components'
-  import {goBack} from '../service/mixins'
-  import {DiscussList, AddDiscuss} from '../service/getData'
+  import Vue from 'vue'
+  import { Toast, MessageBox, Indicator, Button, InfiniteScroll } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { goBack } from '../service/mixins'
+  import { DiscussList, AddDiscuss } from '../service/getData'
 
-  Vue.component(Button.name, Button);
-  Vue.use(InfiniteScroll);
+  Vue.component(Button.name, Button)
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         discussList: [],
         isShowWrite: false,
@@ -69,7 +69,7 @@
         noDataBg: false,
       }
     },
-    mounted() {
+    mounted () {
 //      this.getDiscussList();
     },
     components: {
@@ -77,52 +77,52 @@
     },
     methods: {
       //获取讨论列表
-      async getDiscussList() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await DiscussList({Page: this.page});
-        Indicator.close();
+      async getDiscussList () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await DiscussList({Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.discussList = this.discussList.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.discussList = this.discussList.concat(list)
+          this.loading = false
+          this.page += 1
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
       //回复
-      async addDiscuss() {
+      async addDiscuss () {
         if (!this.content) {
-          MessageBox('警告', "请填写评论内容");
+          MessageBox('警告', '请填写评论内容')
         } else {
-          let data = await AddDiscuss({MainId: this.mainId, ParentId: this.parentId, Content: this.content});
+          let data = await AddDiscuss({MainId: this.mainId, ParentId: this.parentId, Content: this.content})
           if (data.Type == 1) {
-            Toast({message: data.Message, position: 'bottom'});
-            this.content = "";
-            this.getDiscussList();
+            Toast({message: data.Message, position: 'bottom'})
+            this.content = ''
+            this.getDiscussList()
           } else if (data.Type != 401) {
-            MessageBox('警告', data.Message);
+            MessageBox('警告', data.Message)
           }
         }
       },
-      openWrite(id) {
-        this.isShowWrite = true;
-        this.mainId = id;
-        this.parentId = id;
+      openWrite (id) {
+        this.isShowWrite = true
+        this.mainId = id
+        this.parentId = id
       },
-      closeWrite() {
-        this.isShowWrite = false;
+      closeWrite () {
+        this.isShowWrite = false
       },
     },
   }

@@ -3,7 +3,7 @@
 */
 <template>
   <div class="portfolio_container">
-    <div class="clearFix collect_content" v-for="(item,index) in learningData">
+    <div class="clearFix collect_content" v-for="(item,index) in learningData" :key="index">
       <div class="left_content">{{sortNum(index + 1)}}.</div>
       <div class="right_content">
         <p class="collect_title">
@@ -23,36 +23,36 @@
 <script>
   export default {
     mixins: [],
-    data() {
+    data () {
       return {}
     },
-    created() {
+    created () {
       
     },
-    mounted() {
+    mounted () {
       
     },
     props: {
-      learningData:{
-        type:Array
+      learningData: {
+        type: Array
       },
-      noDataBg:{
-        type:Boolean,
-        default:false
+      noDataBg: {
+        type: Boolean,
+        default: false
       },
-      noData:{
-        type:Boolean,
-        default:false
+      noData: {
+        type: Boolean,
+        default: false
       }
     },
     components: {},
     computed: {},
-    updated() {
+    updated () {
       
     },
     methods: {
-      sortNum(num) {
-        let index = parseInt(num);
+      sortNum (num) {
+        let index = parseInt(num)
         if (index < 10) {
           return `0${index}`
         }

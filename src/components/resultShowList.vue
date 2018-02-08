@@ -42,23 +42,23 @@
 <script>
   export default {
     mixins: [],
-    data() {
+    data () {
       return {}
     },
-    created() {
+    created () {
       
     },
-    mounted() {
+    mounted () {
       
     },
     props: [],
     components: {},
     computed: {},
-    updated() {
+    updated () {
       
     },
     methods: {
-      goDetail(id) {
+      goDetail (id) {
         this.$router.push({path: 'resultShowDetail', query: {id}})
       }
     },

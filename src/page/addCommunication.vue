@@ -15,16 +15,16 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Toast, MessageBox, Button} from 'mint-ui'
-  import {headerFix} from '../components'
-  import {goBack} from '../service/mixins'
-  import {AddDiscuss} from '../service/getData'
+  import { Toast, MessageBox, Button } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { goBack } from '../service/mixins'
+  import { AddDiscuss } from '../service/getData'
 
-  Vue.component(Button.name, Button);
+  Vue.component(Button.name, Button)
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         content: '',
       }
@@ -33,17 +33,17 @@
       headerFix
     },
     methods: {
-      async addDiscuss() {
+      async addDiscuss () {
         if (!this.content) {
-          MessageBox('警告', "请填写评论内容");
+          MessageBox('警告', '请填写评论内容')
         } else {
-          let data = await AddDiscuss({Content: this.content});
+          let data = await AddDiscuss({Content: this.content})
           if (data.Type == 1) {
-            Toast({message: data.Message, position: 'bottom'});
-            this.content = "";
+            Toast({message: data.Message, position: 'bottom'})
+            this.content = ''
             this.$router.push('/communication')
           } else if (data.Type != 401) {
-            MessageBox('警告', data.Message);
+            MessageBox('警告', data.Message)
           }
         }
       },

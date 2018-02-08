@@ -68,21 +68,21 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {mapMutations} from 'vuex';
+  import { mapMutations } from 'vuex'
   import wx from 'weixin-js-sdk'
-  import {Indicator, Toast, MessageBox, Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
-  import {headerFix, courseIntroduce, courseComment, courseList} from '../components'
-  import {goBack} from '../service/mixins'
-  import {GetCourseDetail, SyncUserStudyData, RelatedCourse, GetWechatWxAuthModel} from '../service/getData'
-  import {getStore} from '../plugins/utils'
+  import { Indicator, Toast, MessageBox, Navbar, TabItem, TabContainer, TabContainerItem } from 'mint-ui'
+  import { headerFix, courseIntroduce, courseComment, courseList } from '../components'
+  import { goBack } from '../service/mixins'
+  import { GetCourseDetail, SyncUserStudyData, RelatedCourse, GetWechatWxAuthModel } from '../service/getData'
+  import { getStore } from '../plugins/utils'
 
-  Vue.component(Navbar.name, Navbar);
-  Vue.component(TabItem.name, TabItem);
-  Vue.component(TabContainer.name, TabContainer);
-  Vue.component(TabContainerItem.name, TabContainerItem);
+  Vue.component(Navbar.name, Navbar)
+  Vue.component(TabItem.name, TabItem)
+  Vue.component(TabContainer.name, TabContainer)
+  Vue.component(TabContainerItem.name, TabContainerItem)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         isWeChat: false, //是否是微信
         isOpen: true, //是否打开app
@@ -90,14 +90,14 @@
         selected: 'introduce', //被选择便签页id
         courseId: '', //课程id
         courseDetails: {//课程详情信息
-          CourseName:'视频播放'
+          CourseName: '视频播放'
         },
         readyState: 0, //视频是否准备就绪
         nodeList: [], //节点数据
         nodeLength: 0, //节点数据
         duration: 0, //视频时长
-        activeNodeIndex: "", //正在播放的索引
-        activeNodeId: "", //正在播放的id
+        activeNodeIndex: '', //正在播放的索引
+        activeNodeId: '', //正在播放的id
         activeNode: { //正在播放的节点数据
           NodeId: '',
           Mp4: '',
@@ -117,27 +117,28 @@
         url: window.location.href,
       }
     },
-    created() {
-      if (getStore("userAgent").weixin) {
-        this.isWeChat = true;
-      } else if (getStore("userAgent").mobile) {
-        this.isWeChat = false;
+    created () {
+      if (getStore('userAgent').weixin) {
+        this.isWeChat = true
+      } else if (getStore('userAgent').mobile) {
+        this.isWeChat = false
       }
-      this.courseId = this.$route.query.id;
-      this.netWorkType();
+      this.courseId = this.$route.query.id
+      this.netWorkType()
     },
-    mounted() {
+    mounted () {
       /*初始化 打开APP*/
+      // eslint-disable-next-line
       new Mlink({
-        mlink: "https://afaki8.mlinks.cc/A0BP?Title=&Content=&Id=" + this.courseId + "&Type=Course&Token=" + localStorage.getItem("ASPXAUTH"),
-        button: document.querySelector("a#btnOpenApp")
-      });
+        mlink: 'https://afaki8.mlinks.cc/A0BP?Title=&Content=&Id=' + this.courseId + '&Type=Course&Token=' + localStorage.getItem('ASPXAUTH'),
+        button: document.querySelector('a#btnOpenApp')
+      })
       /*获取video对象*/
-      this.myVideo = document.getElementById("myVideo");
-      this.getWechatWxAuthModel();
+      this.myVideo = document.getElementById('myVideo')
+      this.getWechatWxAuthModel()
       /*获取课程详情*/
-      this.getCourseDetail();
-      this.getRelatedCourse();
+      this.getCourseDetail()
+      this.getRelatedCourse()
     },
     components: {
       headerFix,
@@ -149,8 +150,8 @@
     methods: {
       ...mapMutations(['GET_NETWORKTYPE']),
       /*微信签名*/
-      async getWechatWxAuthModel() {
-        let data = await GetWechatWxAuthModel({Url: this.url});
+      async getWechatWxAuthModel () {
+        let data = await GetWechatWxAuthModel({Url: this.url})
         if (data.Type == 1) {
           wx.config({
             debug: false,
@@ -159,168 +160,167 @@
             nonceStr: data.Data.Nonce,// 必填，生成签名的随机串
             signature: data.Data.Signature,// 必填，签名
             jsApiList: ['checkJsApi', 'getNetworkType']// 必填，需要使用的JS接口列表
-          });
+          })
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
       /*获取网络环境*/
-      netWorkType() {
-        let t = this;
+      netWorkType () {
+        let t = this
         wx.ready(function () {
           wx.getNetworkType({
             success: function (res) {
-              var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
-              t.GET_NETWORKTYPE(networkType);
+              var networkType = res.networkType // 返回网络类型2g，3g，4g，wifi
+              t.GET_NETWORKTYPE(networkType)
               if (networkType !== 'wifi') {
-                Toast({message: '您正在使用2G/3G/4G网络，建议在WIFI环境观看', position: 'middle'});
+                Toast({message: '您正在使用2G/3G/4G网络，建议在WIFI环境观看', position: 'middle'})
               }
             }
-          });
-        });
+          })
+        })
       },
       //相关课程
-      async getRelatedCourse() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await RelatedCourse({CourseId: this.courseId, Page: this.page});
-        Indicator.close();
+      async getRelatedCourse () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await RelatedCourse({CourseId: this.courseId, Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.courseData = this.courseData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.courseData = this.courseData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
       //课程详情
-      async getCourseDetail() {
-        let data = await GetCourseDetail({Id: this.courseId});
+      async getCourseDetail () {
+        let data = await GetCourseDetail({Id: this.courseId})
         if (data.Type == 1) {
-          this.courseDetails = data.Data;
-          this.nodeList = data.Data.NodeList;
-          this.nodeLength = data.Data.NodeList.length;
-          this.activeNodeId = data.Data.LastNodeId;
+          this.courseDetails = data.Data
+          this.nodeList = data.Data.NodeList
+          this.nodeLength = data.Data.NodeList.length
+          this.activeNodeId = data.Data.LastNodeId
         }
       },
       //提交进度
-      async updateProgress(NodeId, Time, Status) {
+      async updateProgress (NodeId, Time, Status) {
         let data = await SyncUserStudyData({
           CourseId: this.courseId,
           Data: [{NodeId, Time, Status}]
-        });
+        })
         if (data.Type == 1) {
-          this.nodeList = data.Data.NodeList;
+          this.nodeList = data.Data.NodeList
         } else if (data.Type != 401) {
-          Toast({message: data.Message, position: 'bottom'});
+          Toast({message: data.Message, position: 'bottom'})
         }
       },
       /*播放方法*/
-      playFunc() {
-        this.myVideo.load();
+      playFunc () {
+        this.myVideo.load()
         let timer = setInterval(() => {
-          let readyState = this.myVideo.readyState;
-          this.readyState = readyState;
+          let readyState = this.myVideo.readyState
+          this.readyState = readyState
           if (readyState == 4) {
             /*准备好可以播放时清除定时器*/
-            clearInterval(timer);
-            this.duration = this.myVideo.duration; //当前时间
-            this.myVideo.currentTime = this.prevLocation;
+            clearInterval(timer)
+            this.duration = this.myVideo.duration //当前时间
+            this.myVideo.currentTime = this.prevLocation
             /*是否自动播放*/
             if (this.autoPlay) {
-              this.myVideo.play();
+              this.myVideo.play()
             } else {
-              this.myVideo.pause();
+              this.myVideo.pause()
             }
             /*监听视频播放位置*/
             this.myVideo.addEventListener('timeupdate', () => {
-              let currentTime = this.myVideo.currentTime;
+              let currentTime = this.myVideo.currentTime
               if (currentTime > 0) {
                 /*视频播放完成，记录当前位置*/
-                if (this.activeNode.Status == "C") {
-                  this.locationTime = currentTime;
+                if (this.activeNode.Status == 'C') {
+                  this.locationTime = currentTime
                 } else {
                   /*视频未播放完毕 禁止拖拽*/
                   if (currentTime > this.locationTime + 4 || currentTime < this.locationTime - 4) {
-                    this.myVideo.currentTime = this.locationTime;
-                    this.myVideo.play();
-                    Toast({message: "未播放课程禁止拖拽", position: 'bottom'});
+                    this.myVideo.currentTime = this.locationTime
+                    this.myVideo.play()
+                    Toast({message: '未播放课程禁止拖拽', position: 'bottom'})
                   } else {
-                    this.locationTime = currentTime;
+                    this.locationTime = currentTime
                   }
                 }
-
               }
-            });
+            })
             /*监听视频播放结束*/
             this.myVideo.addEventListener('ended', () => {
               /*判断是否是拖拽到结束*/
               if (this.locationTime > this.duration - 2) {
-                this.activeNode.Status = 'C';
-                this.updateProgress(this.activeNode.NodeId, this.myVideo.currentTime, this.activeNode.Status);
-                this.nextNode();
+                this.activeNode.Status = 'C'
+                this.updateProgress(this.activeNode.NodeId, this.myVideo.currentTime, this.activeNode.Status)
+                this.nextNode()
               } else {
-                this.myVideo.play();
+                this.myVideo.play()
               }
-            });
+            })
           }
-        }, 200);
+        }, 200)
       },
       /*播放其他章节*/
-      playNode(index) {
-        this.updateProgress(this.activeNode.NodeId, this.locationTime, this.activeNode.Status);
-        this.activeNodeIndex = index;
+      playNode (index) {
+        this.updateProgress(this.activeNode.NodeId, this.locationTime, this.activeNode.Status)
+        this.activeNodeIndex = index
       },
       /*是否播放下一章节*/
-      nextNode() {
+      nextNode () {
         /*不是最后一个节点播放下一章节*/
         if (this.nodeLength != this.activeNodeIndex + 1) {
           MessageBox.confirm('本章节播放完毕，是否播放下一章节').then(action => {
-            this.autoPlay = true;
+            this.autoPlay = true
             let nextNodeIndex = this.activeNodeIndex + 1
-            this.playNode(nextNodeIndex);
-          }).catch(error => {
-            this.myVideo.pause();
-            this.autoPlay = false;
-          });
+            this.playNode(nextNodeIndex)
+          }).catch(() => {
+            this.myVideo.pause()
+            this.autoPlay = false
+          })
         }
       },
       /*点击节点播放其他章节*/
-      otherNode(index) {
-        this.autoPlay = true;
-        this.playNode(index);
+      otherNode (index) {
+        this.autoPlay = true
+        this.playNode(index)
       }
     },
-    beforeDestroy() {
-      this.updateProgress(this.activeNode.NodeId, this.locationTime, this.activeNode.Status);
+    beforeDestroy () {
+      this.updateProgress(this.activeNode.NodeId, this.locationTime, this.activeNode.Status)
     },
     watch: {
       activeNodeIndex: function (val) {
-        let dataList = this.nodeList;
+        let dataList = this.nodeList
         if (dataList) {
-          let node = dataList[val];
-          this.activeNodeId = node.NodeId;
+          let node = dataList[val]
+          this.activeNodeId = node.NodeId
         }
       },
       activeNodeId: function (val) {
-        if (!val) return;
-        let dataList = this.nodeList;
+        if (!val) return
+        let dataList = this.nodeList
         dataList && dataList.forEach((item, index) => {
           if (val == item.NodeId) {
-            this.activeNode = item;
-            this.activeNodeIndex = index;
-            this.prevLocation = item.Time;
-            this.locationTime = item.Time;
-            this.playFunc();
+            this.activeNode = item
+            this.activeNodeIndex = index
+            this.prevLocation = item.Time
+            this.locationTime = item.Time
+            this.playFunc()
           }
         })
       },
@@ -333,7 +333,7 @@
 
   .play_Jyaicc {
     .header {
-      .header_title{
+      .header_title {
         flex: 6;
       }
     }

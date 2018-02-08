@@ -16,37 +16,36 @@
   </div>
 </template>
 <script>
-  import {Indicator} from 'mint-ui'
-  import {headerFix} from '../components'
-  import {goBack} from '../service/mixins'
-  import noCourse from '../assets/noCourse.png'
-  import {GetNoticeInfoContent} from '../service/getData'
+  import { Indicator } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { goBack } from '../service/mixins'
+  import { GetNoticeInfoContent } from '../service/getData'
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         title: '公告详情',
         messageContent: '',
         messageId: ''
       }
     },
-    created() {
-      this.messageId = this.$route.query.id || '';
+    created () {
+      this.messageId = this.$route.query.id || ''
     },
-    mounted() {
-      this.getMessageContent(this.messageId);
+    mounted () {
+      this.getMessageContent(this.messageId)
     },
     components: {
       headerFix
     },
     methods: {
-      async getMessageContent(Id) {
-        Indicator.open();
-        let data = await GetNoticeInfoContent({Id});
+      async getMessageContent (Id) {
+        Indicator.open()
+        let data = await GetNoticeInfoContent({Id})
 //        Indicator.close();
-        let message = data.toString().split("<body>")[1].split("</body>");
-        this.messageContent = message[0];
+        let message = data.toString().split('<body>')[1].split('</body>')
+        this.messageContent = message[0]
       },
     },
   }

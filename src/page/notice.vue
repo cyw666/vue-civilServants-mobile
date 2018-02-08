@@ -16,16 +16,16 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, InfiniteScroll, Toast} from 'mint-ui'
-  import {headerFix, noticeList} from '../components'
-  import {goBack} from '../service/mixins'
-  import {GetNoticeInfoList} from '../service/getData'
+  import Vue from 'vue'
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix, noticeList } from '../components'
+  import { goBack } from '../service/mixins'
+  import { GetNoticeInfoList } from '../service/getData'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         noticeData: [],
         page: 1,
@@ -35,34 +35,34 @@
         noData: false,
       }
     },
-    mounted() {
-      this.getNoticeInfoList();
+    mounted () {
+      this.getNoticeInfoList()
     },
     components: {
       headerFix,
       noticeList,
     },
     methods: {
-      async getNoticeInfoList() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await GetNoticeInfoList({Page: this.page});
-        Indicator.close();
+      async getNoticeInfoList () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await GetNoticeInfoList({Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.noticeData = this.noticeData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.noticeData = this.noticeData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
     },

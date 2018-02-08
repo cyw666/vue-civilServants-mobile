@@ -22,11 +22,11 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Cell} from 'mint-ui';
-  import {headerFix} from '../components'
-  import {goBack} from '../service/mixins'
+  import { Cell } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { goBack } from '../service/mixins'
 
-  Vue.component(Cell.name, Cell);
+  Vue.component(Cell.name, Cell)
   export default {
     mixins: [goBack],
     components: {

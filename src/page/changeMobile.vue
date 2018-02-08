@@ -26,14 +26,14 @@
   </div>
 </template>
 <script>
-  import {MessageBox, Toast} from 'mint-ui'
-  import {headerFix} from '../components'
-  import {goBack} from '../service/mixins'
-  import {UpdateMobile, GetUserInfo, SendMsg} from '../service/getData'
+  import { MessageBox, Toast } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { goBack } from '../service/mixins'
+  import { UpdateMobile, GetUserInfo, SendMsg } from '../service/getData'
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         userInfo: {},
         sendData: {
@@ -47,78 +47,77 @@
         timePromise: null
       }
     },
-    mounted() {
-      this.getUserInformation();
+    mounted () {
+      this.getUserInformation()
     },
     components: {
       headerFix
     },
     methods: {
-      async getUserInformation() {
-        let data = await GetUserInfo();
+      async getUserInformation () {
+        let data = await GetUserInfo()
         if (data.Type == 1) {
-          this.userInfo = data.Data;
-          this.sendData.OldMobile = data.Data.Mobile;
+          this.userInfo = data.Data
+          this.sendData.OldMobile = data.Data.Mobile
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
-      async sendMsg() {
+      async sendMsg () {
         if (!this.sendData.NewMobile) {
-          Toast({message: "请填写新手机号码", position: 'bottom'});
+          Toast({message: '请填写新手机号码', position: 'bottom'})
         } else if (!this.isPassMobile) {
-          Toast({message: "新手机号码格式有误", position: 'bottom'});
+          Toast({message: '新手机号码格式有误', position: 'bottom'})
         } else {
-          let data = await SendMsg({MobileNo: this.sendData.NewMobile});
+          let data = await SendMsg({MobileNo: this.sendData.NewMobile})
           if (data.Type == 1) {
-            Toast({message: "发送成功", position: 'bottom'});
-            this.countDown();
+            Toast({message: '发送成功', position: 'bottom'})
+            this.countDown()
           } else if (data.Type != 401) {
-            MessageBox('警告', data.Message);
+            MessageBox('警告', data.Message)
           }
         }
       },
-      async updateMobile() {
+      async updateMobile () {
         if (!this.sendData.NewMobile) {
-          Toast({message: "请填写新手机号码", position: 'bottom'});
+          Toast({message: '请填写新手机号码', position: 'bottom'})
         } else if (!this.isPassMobile) {
-          Toast({message: "新手机号码格式有误", position: 'bottom'});
+          Toast({message: '新手机号码格式有误', position: 'bottom'})
         } else if (!this.sendData.SmgCode) {
-          Toast({message: "请填写验证码", position: 'bottom'});
+          Toast({message: '请填写验证码', position: 'bottom'})
         } else {
-          let data = await UpdateMobile(this.sendData);
+          let data = await UpdateMobile(this.sendData)
           if (data.Type == 1) {
-            Toast({message: "修改成功", position: 'bottom', duration: 2000});
+            Toast({message: '修改成功', position: 'bottom', duration: 2000})
           } else if (data.Type != 401) {
-            MessageBox('警告', data.Message);
+            MessageBox('警告', data.Message)
           }
         }
       },
       //倒计时
-      countDown() {
-        let second = 60;
-        let t = this;
+      countDown () {
+        let second = 60
+        let t = this
         t.timePromise = setInterval(function () {
           if (second <= 0) {
-            t.disabledSend = false;
-            clearInterval(t.timePromise);
-            t.timePromise = null;
-            t.messageTitle = "获取验证码";
-            return;
+            t.disabledSend = false
+            clearInterval(t.timePromise)
+            t.timePromise = null
+            t.messageTitle = '获取验证码'
           } else {
-            t.disabledSend = true;
-            t.messageTitle = second + "秒";
-            second--;
+            t.disabledSend = true
+            t.messageTitle = second + '秒'
+            second--
           }
-        }, 1000, 100);
+        }, 1000, 100)
       }
     },
     watch: {
       'sendData.NewMobile': {
         handler: function (val, oldVal) {
           if (val) {
-            let regMobile = /^1[3|4|5|7|8]\d{9}$/;
-            this.isPassMobile = regMobile.test(val);
+            let regMobile = /^1[3|4|5|7|8]\d{9}$/
+            this.isPassMobile = regMobile.test(val)
           }
         }
       },

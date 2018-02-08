@@ -29,62 +29,61 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {DatetimePicker} from 'mint-ui';
+  import Vue from 'vue'
+  import { DatetimePicker } from 'mint-ui'
   import headerFix from './headerFix.vue'
-  import {formatDate} from '../plugins/utils'
+  import { formatDate } from '../plugins/utils'
 
-  Vue.component(DatetimePicker.name, DatetimePicker);
+  Vue.component(DatetimePicker.name, DatetimePicker)
   export default {
     mixins: [],
-    data() {
+    data () {
       return {
         startDate: new Date(),
         endDate: new Date(),
         pickerActive: 'startDate',
       }
     },
-    created() {
+    created () {
       
     },
-    mounted() {
-      this.openStartPicker();
+    mounted () {
+      this.openStartPicker()
     },
-    props: ["selectedTime"],
+    props: ['selectedTime'],
     components: {
       headerFix,
     },
     computed: {
-      dateObj(){
+      dateObj () {
         return {
-          startDate:formatDate(this.startDate,'yyyy-MM-dd'),
-          endDate:formatDate(this.endDate,'yyyy-MM-dd')
+          startDate: formatDate(this.startDate, 'yyyy-MM-dd'),
+          endDate: formatDate(this.endDate, 'yyyy-MM-dd')
         }
       }
     },
-    updated() {
+    updated () {
       
     },
     methods: {
-      openStartPicker() {
-        this.$refs.startPicker.open();
-        this.pickerActive = 'startDate';
-
+      openStartPicker () {
+        this.$refs.startPicker.open()
+        this.pickerActive = 'startDate'
       },
-      closeStartPicker() {
-        this.$refs.startPicker.close();
+      closeStartPicker () {
+        this.$refs.startPicker.close()
       },
-      openEndPicker() {
-        this.$refs.endPicker.open();
-        this.pickerActive = 'endDate';
+      openEndPicker () {
+        this.$refs.endPicker.open()
+        this.pickerActive = 'endDate'
       },
-      closeEndPicker() {
-        this.$refs.endPicker.close();
+      closeEndPicker () {
+        this.$refs.endPicker.close()
       },
     },
     watch: {
-      dateObj(val){
-        this.$emit('update:selectedTime', val);
+      dateObj (val) {
+        this.$emit('update:selectedTime', val)
       }
     }
     

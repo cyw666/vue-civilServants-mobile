@@ -30,17 +30,17 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Indicator, InfiniteScroll} from 'mint-ui';
-  import {headerFix, search, ebookList} from '../components'
-  import {GetBookInfoList} from '../service/getData'
-  import {goBack} from '../service/mixins'
-  import {setStore} from '../plugins/utils'
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix, search, ebookList } from '../components'
+  import { GetBookInfoList } from '../service/getData'
+  import { goBack } from '../service/mixins'
+  import { setStore } from '../plugins/utils'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         keyword: '',
         oldKeyword: '',
@@ -57,33 +57,33 @@
       ebookList,
     },
     methods: {
-      async getEbookList() {
-        this.noDataBg = false;
-        this.loading = true;
-        this.oldKeyword = this.keyword; //记录搜索keyword
-        Indicator.open();
-        let data = await GetBookInfoList({Keyword: this.keyword, Page: this.page});
-        Indicator.close();
+      async getEbookList () {
+        this.noDataBg = false
+        this.loading = true
+        this.oldKeyword = this.keyword //记录搜索keyword
+        Indicator.open()
+        let data = await GetBookInfoList({Keyword: this.keyword, Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.ebookData = this.ebookData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.ebookData = this.ebookData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
-      clickSearch() {
+      clickSearch () {
         if (this.keyword != this.oldKeyword && !!this.keyword) {
-          this.ebookData = [];
-          this.page = 1;
-          this.getEbookList();
+          this.ebookData = []
+          this.page = 1
+          this.getEbookList()
         }
       },
-      goChapterList(id, bookName) {
-        setStore("bookName", bookName);
+      goChapterList (id, bookName) {
+        setStore('bookName', bookName)
         this.$router.push({path: '/ebookChapterList', query: {id}})
       }
     },
@@ -100,14 +100,14 @@
     .pad_top {
       padding-top: toRem(92px);
     }
-    .ebook_search_list{
+    .ebook_search_list {
 
     }
-    .ebook_item{
+    .ebook_item {
       @include ht-lineHt(70px);
       padding: 0 toRem(40px);
       background-color: $fill-base;
-      img{
+      img {
         width: toRem(27px);
         margin-right: toRem(30px);
         vertical-align: middle;

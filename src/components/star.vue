@@ -14,14 +14,14 @@
 </template>
 <script>
   export default {
-    data() {
+    data () {
       return {
         currentValue: parseFloat(this.value),
         itemClasses: [],
       }
     },
-    created() {
-      this.computeClass();
+    created () {
+      this.computeClass()
     },
     props: {
       value: {
@@ -30,7 +30,7 @@
       },
       size: {
         type: String,
-        default: "primary"
+        default: 'primary'
       },
       disabled: {
         type: Boolean,
@@ -46,54 +46,54 @@
       },
       texts: {
         type: Array,
-        default() {
-          return ['极差', '失望', '一般', '满意', '惊喜'];
+        default () {
+          return ['极差', '失望', '一般', '满意', '惊喜']
         }
       },
     },
     computed: {
-      text() {
-        let result = '';
+      text () {
+        let result = ''
         if (this.showScore) {
-          result = this.disabled ? this.value : this.currentValue;
-          result = parseInt(result).toFixed(1);
+          result = this.disabled ? this.value : this.currentValue
+          result = parseInt(result).toFixed(1)
         } else if (this.showText) {
-          result = this.texts[Math.ceil(this.currentValue) - 1];
+          result = this.texts[Math.ceil(this.currentValue) - 1]
         }
-        return result;
+        return result
       },
     },
     methods: {
-      checkStarItem(num) {
+      checkStarItem (num) {
         if (this.disabled) {
-          return;
+          return
         }
-        this.currentValue = parseInt(num) + 1;
+        this.currentValue = parseInt(num) + 1
       },
-      computeClass() {
-        let result = [];
-        let score = Math.floor(this.value * 2) / 2;
-        let hasDecimal = score % 1 !== 0;
-        let integer = Math.floor(score);
+      computeClass () {
+        let result = []
+        let score = Math.floor(this.value * 2) / 2
+        let hasDecimal = score % 1 !== 0
+        let integer = Math.floor(score)
         for (let i = 0; i < integer; i++) {
-          result.push("on");
+          result.push('on')
         }
         if (hasDecimal) {
-          result.push("half");
+          result.push('half')
         }
         while (result.length < 5) {
-          result.push("off");
+          result.push('off')
         }
-        this.itemClasses = result;
+        this.itemClasses = result
       }
     },
     watch: {
-      value(val) {
-        this.currentValue = val;
-        this.computeClass();
+      value (val) {
+        this.currentValue = val
+        this.computeClass()
       },
-      currentValue(val) {
-        this.$emit('input', val);
+      currentValue (val) {
+        this.$emit('input', val)
       }
     }
     

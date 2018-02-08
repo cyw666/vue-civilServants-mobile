@@ -113,21 +113,21 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Toast, MessageBox, Radio, Button, Popup, Picker, DatetimePicker} from 'mint-ui'
-  import {headerFix} from '../components'
-  import {goBack} from '../service/mixins'
-  import {formatDate} from '../plugins/utils'
-  import {GetUserInfo, UpdateUserInfo, GetGradeList, GetDegreeList} from '../service/getData'
+  import { Toast, MessageBox, Radio, Button, Popup, Picker, DatetimePicker } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { goBack } from '../service/mixins'
+  import { formatDate } from '../plugins/utils'
+  import { GetUserInfo, UpdateUserInfo, GetGradeList, GetDegreeList } from '../service/getData'
 
-  Vue.component(Radio.name, Radio);
-  Vue.component(Button.name, Button);
-  Vue.component(Popup.name, Popup);
-  Vue.component(Picker.name, Picker);
-  Vue.component(DatetimePicker.name, DatetimePicker);
+  Vue.component(Radio.name, Radio)
+  Vue.component(Button.name, Button)
+  Vue.component(Popup.name, Popup)
+  Vue.component(Picker.name, Picker)
+  Vue.component(DatetimePicker.name, DatetimePicker)
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         userInfo: {}, //用户信息
         infoSend: {
@@ -176,83 +176,83 @@
           }
         ],
 
-        birthday: "",//出生日期
+        birthday: '',//出生日期
         isPassIdCard: true,//身份证号码验证
         isPassEmail: true,//邮箱验证
 
       }
     },
-    created() {
-      this.getUserInformation();
-      this.getGradeList();
-      this.getDegreeList();
+    created () {
+      this.getUserInformation()
+      this.getGradeList()
+      this.getDegreeList()
     },
-    mounted() {
+    mounted () {
     },
     props: [],
     components: {
       headerFix
     },
     computed: {},
-    updated() {
+    updated () {
       
     },
     methods: {
       //职级选择器
-      onGradeChange(picker, values) {
-        let selected = values[0];
+      onGradeChange (picker, values) {
+        let selected = values[0]
         if (selected) {
-          this.gradeSelected = selected;
+          this.gradeSelected = selected
         }
       },
-      closeGradeList() {
-        this.isShowGradeList = false;
+      closeGradeList () {
+        this.isShowGradeList = false
       },
-      openGradeList() {
-        this.isShowGradeList = true;
+      openGradeList () {
+        this.isShowGradeList = true
       },
-      confirmGradeList() {
-        this.isShowGradeList = false;
-        this.infoSend.Grade = this.gradeSelected.Id;
-        this.userInfo.GradeName = this.gradeSelected.Name;
+      confirmGradeList () {
+        this.isShowGradeList = false
+        this.infoSend.Grade = this.gradeSelected.Id
+        this.userInfo.GradeName = this.gradeSelected.Name
       },
       //学历选择器
-      onDegreeChange(picker, values) {
-        let selected = values[0];
+      onDegreeChange (picker, values) {
+        let selected = values[0]
         if (selected) {
-          this.degreeSelected = selected;
+          this.degreeSelected = selected
         }
       },
-      closeDegreeList() {
-        this.isShowDegreeList = false;
+      closeDegreeList () {
+        this.isShowDegreeList = false
       },
-      openDegreeList() {
-        this.isShowDegreeList = true;
+      openDegreeList () {
+        this.isShowDegreeList = true
       },
-      confirmDegreeList() {
-        this.isShowDegreeList = false;
-        this.infoSend.Degree = this.degreeSelected.Id;
-        this.userInfo.DegreeName = this.degreeSelected.Name;
+      confirmDegreeList () {
+        this.isShowDegreeList = false
+        this.infoSend.Degree = this.degreeSelected.Id
+        this.userInfo.DegreeName = this.degreeSelected.Name
       },
       //生日选择
-      selectedBirthday(time) {
-        let formate = formatDate(time, "yyyy-MM-dd");
-        this.infoSend.Birthday = formate;
-        this.userInfo.Birthday = time;
+      selectedBirthday (time) {
+        let formate = formatDate(time, 'yyyy-MM-dd')
+        this.infoSend.Birthday = formate
+        this.userInfo.Birthday = time
       },
       //打开生日选择器
-      openBirthday() {
-        this.$refs.birthdayPicker.open();
+      openBirthday () {
+        this.$refs.birthdayPicker.open()
       },
       //关闭生日选择器
-      closeBirthday() {
-        this.$refs.birthdayPicker.close();
+      closeBirthday () {
+        this.$refs.birthdayPicker.close()
       },
-      async getUserInformation() {
-        let data = await GetUserInfo();
+      async getUserInformation () {
+        let data = await GetUserInfo()
         if (data.Type == 1) {
-          this.userInfo = data.Data;
-          this.birthday = new Date(data.Data.Birthday);
+          this.userInfo = data.Data
+          this.birthday = new Date(data.Data.Birthday)
           this.infoSend = {
             Account: data.Data.UserAccount,
             Name: data.Data.Username,
@@ -270,39 +270,39 @@
             Tel: data.Data.Tel,
 //            Mobile: data.Data.Mobile,
             SmgCode: ''
-          };
+          }
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
-      async getGradeList() {
-        let data = await GetGradeList();
+      async getGradeList () {
+        let data = await GetGradeList()
         if (data.Type == 1) {
-          this.gradeList = data.Data.GroupInfoList;
-          this.gradeSlots[0].values = data.Data.GroupInfoList;
+          this.gradeList = data.Data.GroupInfoList
+          this.gradeSlots[0].values = data.Data.GroupInfoList
         }
       },
-      async getDegreeList() {
-        let data = await GetDegreeList();
+      async getDegreeList () {
+        let data = await GetDegreeList()
         if (data.Type == 1) {
-          this.degreeList = data.Data.GroupInfoList;
-          this.degreeSlots[0].values = data.Data.GroupInfoList;
+          this.degreeList = data.Data.GroupInfoList
+          this.degreeSlots[0].values = data.Data.GroupInfoList
         }
       },
       //保存修改
-      async updateUserInfo() {
+      async updateUserInfo () {
         if (this.isPassIdCard && this.isPassEmail) {
-          let data = await UpdateUserInfo(this.infoSend);
+          let data = await UpdateUserInfo(this.infoSend)
           if (data.Type == 1) {
-            Toast({message: "修改成功", position: 'bottom'});
-            this.$router.push('setting');
+            Toast({message: '修改成功', position: 'bottom'})
+            this.$router.push('setting')
           } else if (data.Type != 401) {
-            MessageBox('警告', data.Message);
+            MessageBox('警告', data.Message)
           }
         } else if (!this.isPassIdCard) {
-          Toast({message: "请输入18位有效身份证号", position: 'bottom'});
+          Toast({message: '请输入18位有效身份证号', position: 'bottom'})
         } else if (!this.isPassEmail) {
-          Toast({message: "邮箱格式错误", position: 'bottom'});
+          Toast({message: '邮箱格式错误', position: 'bottom'})
         }
       },
 
@@ -311,16 +311,16 @@
       'infoSend.IdCard': {
         handler: function (val, oldVal) {
           if (val) {
-            let regIdCard = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
-            this.isPassIdCard = regIdCard.test(val);
+            let regIdCard = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+            this.isPassIdCard = regIdCard.test(val)
           }
         }
       },
       'infoSend.Email': {
         handler: function (val, oldVal) {
-          let regEmail = /^([\w\.\-]+)\@(\w+)(\.([\w^\_]+)){1,2}$/;
+          let regEmail = /^([\w.-]+)@(\w+)(.([\w^_]+)){1,2}$/
           if (val) {
-            this.isPassEmail = regEmail.test(val);
+            this.isPassEmail = regEmail.test(val)
           }
         }
       },

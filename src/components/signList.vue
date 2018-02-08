@@ -32,13 +32,14 @@
 </template>
 <script>
   import mbTag from './mbTag.vue'
+
   export default {
-    data() {
+    data () {
       return {}
     },
-    created() {
+    created () {
     },
-    mounted() {
+    mounted () {
       
     },
     props: {
@@ -51,7 +52,7 @@
       mbTag
     },
     computed: {},
-    updated() {
+    updated () {
       
     },
     methods: {},
@@ -67,7 +68,7 @@
     ul {
       padding: toRem(20px) 0;
       line-height: toRem(40px);
-      li{
+      li {
         padding: toRem(10px) toRem(20px);
         margin-bottom: toRem(20px);
         background-color: $fill-base;

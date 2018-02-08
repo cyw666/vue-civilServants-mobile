@@ -36,16 +36,16 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Indicator, InfiniteScroll} from 'mint-ui';
-  import {headerFix, search, courseList} from '../components'
-  import {GetCourseInfoList} from '../service/getData'
-  import {goBack} from '../service/mixins'
-  import {getStore, setStore, removeStore, unique} from '../plugins/utils'
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix, search, courseList } from '../components'
+  import { GetCourseInfoList } from '../service/getData'
+  import { goBack } from '../service/mixins'
+  import { getStore, setStore, removeStore, unique } from '../plugins/utils'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         keyword: '',
         oldKeyword: '',
@@ -59,13 +59,13 @@
         searchHistory: []
       }
     },
-    created() {
-      let searchHistory = getStore('searchHistory');
+    created () {
+      let searchHistory = getStore('searchHistory')
       if (searchHistory) {
-        this.searchHistory = unique(searchHistory);
+        this.searchHistory = unique(searchHistory)
       }
     },
-    mounted() {
+    mounted () {
 
     },
     components: {
@@ -74,55 +74,55 @@
       headerFix,
     },
     methods: {
-      async getCourseList() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        this.oldKeyword = this.keyword; //记录搜索keyword
-        Indicator.open();
-        let data = await GetCourseInfoList({Keyword: this.keyword, ChannelId: this.channelId, Page: this.page});
+      async getCourseList () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        this.oldKeyword = this.keyword //记录搜索keyword
+        Indicator.open()
+        let data = await GetCourseInfoList({Keyword: this.keyword, ChannelId: this.channelId, Page: this.page})
         if (data.Type == 1) {
-          let list = data.Data.List;
-          Indicator.close();
+          let list = data.Data.List
+          Indicator.close()
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.courseData = this.courseData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.courseData = this.courseData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
-      clickSearch() {
+      clickSearch () {
         if (this.keyword != this.oldKeyword && !!this.keyword) {
-          this.searchHistory.unshift(this.keyword);
-          let uniqueHistory = unique(this.searchHistory);
+          this.searchHistory.unshift(this.keyword)
+          let uniqueHistory = unique(this.searchHistory)
           if (uniqueHistory.length > 7) {
-            let newHistory = uniqueHistory.slice(0,6);
-            this.searchHistory = newHistory;
-            setStore('searchHistory', newHistory);
-          }else {
-            this.searchHistory = uniqueHistory;
-            setStore('searchHistory', uniqueHistory);
+            let newHistory = uniqueHistory.slice(0, 6)
+            this.searchHistory = newHistory
+            setStore('searchHistory', newHistory)
+          } else {
+            this.searchHistory = uniqueHistory
+            setStore('searchHistory', uniqueHistory)
           }
-          this.courseData = [];
-          this.page = 1;
-          this.getCourseList();
+          this.courseData = []
+          this.page = 1
+          this.getCourseList()
         }
       },
       /*点击关键词搜索*/
-      selectKeyword(key) {
-        this.keyword = key;
-        clickSearch();
+      selectKeyword (key) {
+        this.keyword = key
+        this.clickSearch()
       },
       /*清除关键词*/
-      deleteHistory() {
-        removeStore('searchHistory');
-        this.searchHistory = [];
+      deleteHistory () {
+        removeStore('searchHistory')
+        this.searchHistory = []
       }
     },
   }

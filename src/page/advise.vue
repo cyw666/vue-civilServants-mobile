@@ -8,7 +8,7 @@
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="advise_type">
-      <a v-for="(item,index) in typeData" class="advise_type_item"
+      <a v-for="(item) in typeData" class="advise_type_item"
          :key="item.ClassCode"
          :class="{'active':item.ClassCode == adviseType}"
          @click="changeType(item.ClassCode)">
@@ -28,15 +28,15 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {MessageBox, Toast, Button} from 'mint-ui'
-  import {headerFix} from '../components'
-  import {CommentType, AddMessage} from '../service/getData'
-  import {goBack} from '../service/mixins'
+  import { MessageBox, Toast, Button } from 'mint-ui'
+  import { headerFix } from '../components'
+  import { CommentType, AddMessage } from '../service/getData'
+  import { goBack } from '../service/mixins'
 
-  Vue.component(Button.name, Button);
+  Vue.component(Button.name, Button)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         adviseType: '',
         adviseTitle: '',
@@ -44,45 +44,45 @@
         typeData: []
       }
     },
-    mounted() {
-      this.getAdviseType();
+    mounted () {
+      this.getAdviseType()
     },
     components: {
       headerFix
     },
     methods: {
       //留言类型
-      async getAdviseType() {
-        let data = await CommentType();
+      async getAdviseType () {
+        let data = await CommentType()
         if (data.Type == 1) {
-          this.typeData = data.Data.List;
+          this.typeData = data.Data.List
         }
       },
       //添加留言
-      async addAdvise() {
+      async addAdvise () {
         if (!this.adviseTitle) {
-          Toast({message: "标题不能为空", position: 'bottom'});
-          return;
+          Toast({message: '标题不能为空', position: 'bottom'})
+          return
         }
         if (!this.adviseContent) {
-          Toast({message: "反馈内容不能为空", position: 'bottom'});
-          return;
+          Toast({message: '反馈内容不能为空', position: 'bottom'})
+          return
         }
         if (!this.adviseType) {
-          Toast({message: "请选择反馈类型", position: 'bottom'});
-          return;
+          Toast({message: '请选择反馈类型', position: 'bottom'})
+          return
         }
-        let data = await AddMessage({Title: this.adviseTitle, Content: this.adviseContent, ClassCode: this.adviseType});
+        let data = await AddMessage({Title: this.adviseTitle, Content: this.adviseContent, ClassCode: this.adviseType})
         if (data.Type == 1) {
-          Toast({message: "提交成功", position: 'bottom'});
-          this.$router.push('personalCenter');
+          Toast({message: '提交成功', position: 'bottom'})
+          this.$router.push('personalCenter')
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
       /*反馈类型切换*/
-      changeType(type) {
-        this.adviseType = type;
+      changeType (type) {
+        this.adviseType = type
       }
     },
   }

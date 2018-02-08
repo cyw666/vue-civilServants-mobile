@@ -23,17 +23,17 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, InfiniteScroll} from 'mint-ui'
-  import {GetBookChapterInfoList} from '../service/getData'
-  import {headerFix} from '../components'
-  import {goBack} from '../service/mixins'
-  import {getStore} from '../plugins/utils'
+  import Vue from 'vue'
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { GetBookChapterInfoList } from '../service/getData'
+  import { headerFix } from '../components'
+  import { goBack } from '../service/mixins'
+  import { getStore } from '../plugins/utils'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         bookId: '',
         bookName: '',
@@ -45,38 +45,38 @@
         noData: false,
       }
     },
-    created() {
-      this.bookId = this.$route.query.id;
-      this.bookName = getStore("bookName");
+    created () {
+      this.bookId = this.$route.query.id
+      this.bookName = getStore('bookName')
     },
-    mounted() {
-      this.getChapter();
+    mounted () {
+      this.getChapter()
     },
     components: {
       headerFix
     },
     methods: {
       //图书章节
-      async getChapter() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await GetBookChapterInfoList({Page: this.page, BookId: this.bookId});
-        Indicator.close();
+      async getChapter () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await GetBookChapterInfoList({Page: this.page, BookId: this.bookId})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.bookChapterData = this.bookChapterData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.bookChapterData = this.bookChapterData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
     },

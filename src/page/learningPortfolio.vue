@@ -42,16 +42,16 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-  import {Indicator, InfiniteScroll} from 'mint-ui';
-  import {headerFix, portfolioList} from '../components'
-  import {GetExamType, GetExamList} from '../service/getData'
-  import {goBack} from '../service/mixins'
+  import Vue from 'vue'
+  import { Indicator, InfiniteScroll } from 'mint-ui'
+  import { headerFix, portfolioList } from '../components'
+  import { GetExamList } from '../service/getData'
+  import { goBack } from '../service/mixins'
 
-  Vue.use(InfiniteScroll);
+  Vue.use(InfiniteScroll)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         showFilter: false,
         sort: 'All',
@@ -66,15 +66,14 @@
         noData: false,
         noDataBg: false,
 
-
         examData: []
       }
     },
-    created() {
+    created () {
       
     },
-    mounted() {
-      this.getLearningData();
+    mounted () {
+      this.getLearningData()
     },
     props: [],
     components: {
@@ -82,44 +81,44 @@
       portfolioList,
     },
     computed: {},
-    updated() {
+    updated () {
       
     },
     methods: {
-      async getLearningData() {
-        console.log('getLearningData');
+      async getLearningData () {
+        console.log('getLearningData')
 
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await GetExamList({Page: this.page});
-        Indicator.close();
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await GetExamList({Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.examData = this.examData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.examData = this.examData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
-      toggleFilter() {
-        this.showFilter = !this.showFilter;
+      toggleFilter () {
+        this.showFilter = !this.showFilter
       },
       //点击筛选搜索
-      filterExam(sort) {
-        this.page = 1;
-        this.showFilter = false;
-        this.sort = sort;
+      filterExam (sort) {
+        this.page = 1
+        this.showFilter = false
+        this.sort = sort
 //        this.learningData = [];
-        this.getLearningData();
+        this.getLearningData()
       },
     },
     watch: {}

@@ -77,21 +77,21 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {mapMutations} from 'vuex';
+  import { mapMutations } from 'vuex'
   import wx from 'weixin-js-sdk'
-  import {Toast, Indicator, Navbar, TabItem, TabContainer, TabContainerItem} from 'mint-ui'
-  import {headerFix, courseIntroduce, courseComment, courseNotes, courseList, addNotes} from '../components'
-  import {goBack} from '../service/mixins'
-  import {GetCourseDetail, UploadTimeNode, RelatedCourse, GetWechatWxAuthModel} from '../service/getData'
-  import {timeFormat, getStore} from '../plugins/utils'
+  import { MessageBox, Toast, Indicator, Navbar, TabItem, TabContainer, TabContainerItem } from 'mint-ui'
+  import { headerFix, courseIntroduce, courseComment, courseNotes, courseList, addNotes } from '../components'
+  import { goBack } from '../service/mixins'
+  import { GetCourseDetail, UploadTimeNode, RelatedCourse, GetWechatWxAuthModel } from '../service/getData'
+  import { timeFormat, getStore } from '../plugins/utils'
 
-  Vue.component(Navbar.name, Navbar);
-  Vue.component(TabItem.name, TabItem);
-  Vue.component(TabContainer.name, TabContainer);
-  Vue.component(TabContainerItem.name, TabContainerItem);
+  Vue.component(Navbar.name, Navbar)
+  Vue.component(TabItem.name, TabItem)
+  Vue.component(TabContainer.name, TabContainer)
+  Vue.component(TabContainerItem.name, TabContainerItem)
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         isWeChat: false, //是否是微信
         isOpen: true,
@@ -117,33 +117,34 @@
         url: window.location.href,
 
         showAddNotes: false, //是否显示添加笔记
-        addNotesData:{
-          title:'',
-          content:''
+        addNotesData: {
+          title: '',
+          content: ''
         }
       }
     },
-    created() {
-      if (getStore("userAgent").weixin) {
-        this.isWeChat = true;
-      } else if (getStore("userAgent").mobile) {
-        this.isWeChat = false;
+    created () {
+      if (getStore('userAgent').weixin) {
+        this.isWeChat = true
+      } else if (getStore('userAgent').mobile) {
+        this.isWeChat = false
       }
-      this.courseId = this.$route.query.id;
-      this.netWorkType();
+      this.courseId = this.$route.query.id
+      this.netWorkType()
     },
-    mounted() {
+    mounted () {
       /*初始化 打开APP*/
+      // eslint-disable-next-line
       new Mlink({
-        mlink: "https://afaki8.mlinks.cc/A0BP?Title=&Content=&Id=" + this.courseId + "&Type=Course&Token=" + localStorage.getItem("ASPXAUTH"),
-        button: document.querySelector("a#btnOpenApp")
-      });
+        mlink: 'https://afaki8.mlinks.cc/A0BP?Title=&Content=&Id=' + this.courseId + '&Type=Course&Token=' + localStorage.getItem('ASPXAUTH'),
+        button: document.querySelector('a#btnOpenApp')
+      })
       /*获取video对象*/
-      this.myVideo = document.getElementById("myVideo");
-      this.getWechatWxAuthModel();
+      this.myVideo = document.getElementById('myVideo')
+      this.getWechatWxAuthModel()
       /*获取课程详情*/
-      this.getCourseDetail(this.playFunc);
-      this.getRelatedCourse();
+      this.getCourseDetail(this.playFunc)
+      this.getRelatedCourse()
     },
     components: {
       headerFix,
@@ -157,8 +158,8 @@
     methods: {
       ...mapMutations(['GET_NETWORKTYPE']),
       /*微信签名*/
-      async getWechatWxAuthModel() {
-        let data = await GetWechatWxAuthModel({Url: this.url});
+      async getWechatWxAuthModel () {
+        let data = await GetWechatWxAuthModel({Url: this.url})
         if (data.Type == 1) {
           wx.config({
             debug: false,
@@ -167,132 +168,132 @@
             nonceStr: data.Data.Nonce,// 必填，生成签名的随机串
             signature: data.Data.Signature,// 必填，签名
             jsApiList: ['checkJsApi', 'getNetworkType']// 必填，需要使用的JS接口列表
-          });
+          })
         } else if (data.Type != 401) {
-          MessageBox('警告', data.Message);
+          MessageBox('警告', data.Message)
         }
       },
       /*获取网络环境*/
-      netWorkType() {
-        let t = this;
+      netWorkType () {
+        let t = this
         wx.ready(function () {
           wx.getNetworkType({
             success: function (res) {
-              var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
-              t.GET_NETWORKTYPE(networkType);
+              var networkType = res.networkType // 返回网络类型2g，3g，4g，wifi
+              t.GET_NETWORKTYPE(networkType)
               if (networkType !== 'wifi') {
-                Toast({message: '您正在使用2G/3G/4G网络，建议在WIFI环境观看', position: 'middle'});
+                Toast({message: '您正在使用2G/3G/4G网络，建议在WIFI环境观看', position: 'middle'})
               }
             }
-          });
-        });
+          })
+        })
       },
       //相关课程
-      async getRelatedCourse() {
-        this.noData = false;
-        this.noDataBg = false;
-        this.loading = true;
-        Indicator.open();
-        let data = await RelatedCourse({CourseId: this.courseId, Page: this.page});
-        Indicator.close();
+      async getRelatedCourse () {
+        this.noData = false
+        this.noDataBg = false
+        this.loading = true
+        Indicator.open()
+        let data = await RelatedCourse({CourseId: this.courseId, Page: this.page})
+        Indicator.close()
         if (data.Type == 1) {
-          let list = data.Data.List;
+          let list = data.Data.List
           if (list.length == 0 && this.page > 1) {
-            this.noData = true;
-            return;
+            this.noData = true
+            return
           }
           if (list.length == 0 && this.page == 1) {
-            this.noDataBg = true;
-            return;
+            this.noDataBg = true
+            return
           }
-          this.courseData = this.courseData.concat(list);
-          this.loading = false;
-          this.page += 1;
+          this.courseData = this.courseData.concat(list)
+          this.loading = false
+          this.page += 1
         }
       },
       //课程详情
-      async getCourseDetail(cb) {
-        let data = await GetCourseDetail({Id: this.courseId});
+      async getCourseDetail (cb) {
+        let data = await GetCourseDetail({Id: this.courseId})
         if (data.Type == 1) {
-          this.courseDetails = data.Data;
-          this.lastLocation = data.Data.LastLocation;
-          this.browseScore = data.Data.BrowseScore;
-          if (typeof cb === "function") {
-            cb();
+          this.courseDetails = data.Data
+          this.lastLocation = data.Data.LastLocation
+          this.browseScore = data.Data.BrowseScore
+          if (typeof cb === 'function') {
+            cb()
           }
         }
       },
       //提交进度
-      async updateProgress() {
-        let TimeNode = timeFormat(this.myVideo.currentTime);
-        let data = await UploadTimeNode({CourseId: this.courseId, TimeNode});
+      async updateProgress () {
+        let TimeNode = timeFormat(this.myVideo.currentTime)
+        let data = await UploadTimeNode({CourseId: this.courseId, TimeNode})
         if (data.Type == 1) {
           //提交成功
-          this.getCourseDetail();
+          this.getCourseDetail()
         } else if (data.Type != 401) {
-          Toast({message: data.Message, position: 'bottom'});
+          Toast({message: data.Message, position: 'bottom'})
         }
       },
       /*播放方法*/
-      playFunc() {
-        this.myVideo.load();
+      playFunc () {
+        this.myVideo.load()
         let timer = setInterval(() => {
-          let readyState = this.myVideo.readyState;
-          this.readyState = readyState;
+          let readyState = this.myVideo.readyState
+          this.readyState = readyState
           if (readyState == 4) {
             /*准备好可以播放时清除定时器*/
-            clearInterval(timer);
-            this.duration = (this.myVideo.duration).toFixed(2); //当前时间
-            this.progressTime = this.myVideo.duration * (parseFloat(this.browseScore) / 100);
-            this.myVideo.currentTime = this.lastLocation;
+            clearInterval(timer)
+            this.duration = (this.myVideo.duration).toFixed(2) //当前时间
+            this.progressTime = this.myVideo.duration * (parseFloat(this.browseScore) / 100)
+            this.myVideo.currentTime = this.lastLocation
             /*监听视频播放位置*/
             this.myVideo.addEventListener('timeupdate', () => {
-              let currentTime = this.myVideo.currentTime;
+              let currentTime = this.myVideo.currentTime
               if (currentTime > 0) {
                 /*该视频未播放完成*/
                 if (parseFloat(this.browseScore) < 100) {
                   if (currentTime > this.progressTime - 2 && currentTime < this.progressTime + 1) {
                     //视频播放位置接近时候，视频完成进度位置前进
-                    this.progressTime = currentTime;
+                    this.progressTime = currentTime
                   } else if (currentTime > this.progressTime + 2) {
                     //视频未播放区域 禁止拖拽
-                    this.myVideo.currentTime = this.progressTime;
-                    Toast({message: "未播放区域禁止拖拽", position: 'bottom'});
+                    this.myVideo.currentTime = this.progressTime
+                    Toast({message: '未播放区域禁止拖拽', position: 'bottom'})
                   }
                 } else {
                   /*该视频播放完成*/
                 }
               }
-            });
+            })
             /*监听视频播放结束*/
             this.myVideo.addEventListener('ended', () => {
               /*判断是否是拖拽到结束*/
               if (this.progressTime > this.duration - 2) {
-                this.updateProgress();
-                clearInterval(this.updateTimer);
+                this.updateProgress()
+                clearInterval(this.updateTimer)
               } else {
-                this.myVideo.play();
+                this.myVideo.play()
               }
-            });
+            })
             this.updateTimer = setInterval(() => {
-              this.updateProgress();
-            }, 60000);
+              this.updateProgress()
+            }, 60000)
           }
-        }, 100);
+        }, 100)
       },
       /*显示、隐藏添加笔记*/
-      toggleNotes() {
-        this.showAddNotes = !this.showAddNotes;
+      toggleNotes () {
+        this.showAddNotes = !this.showAddNotes
       },
       /*保存笔记*/
-      saveNotes() {
-        this.toggleNotes();
-        console.log("保存笔记",this.addNotesData)
+      saveNotes () {
+        this.toggleNotes()
+        console.log('保存笔记', this.addNotesData)
       }
     },
-    beforeDestroy() {
-      this.updateProgress();
-      clearInterval(this.updateTimer);
+    beforeDestroy () {
+      this.updateProgress()
+      clearInterval(this.updateTimer)
     },
   }
 </script>

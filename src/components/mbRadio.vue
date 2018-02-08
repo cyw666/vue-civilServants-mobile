@@ -21,11 +21,11 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Radio} from 'mint-ui';
+  import { Radio } from 'mint-ui'
 
-  Vue.component(Radio.name, Radio);
+  Vue.component(Radio.name, Radio)
   export default {
-    data() {
+    data () {
       return {
         currentValue: this.value
       }
@@ -38,11 +38,11 @@
       value: String
     },
     watch: {
-      value(val) {
-        this.currentValue = val;
+      value (val) {
+        this.currentValue = val
       },
-      currentValue(val) {
-        this.$emit('input', val);
+      currentValue (val) {
+        this.$emit('input', val)
       }
     }
   }

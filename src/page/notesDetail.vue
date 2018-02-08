@@ -31,51 +31,50 @@
   </div>
 </template>
 <script>
-  import {Indicator} from 'mint-ui'
-  import {headerFix,addNotes} from '../components'
-  import {goBack} from '../service/mixins'
-  import noCourse from '../assets/noCourse.png'
-  import {GetNoticeInfoContent} from '../service/getData'
+  import { Indicator } from 'mint-ui'
+  import { headerFix, addNotes } from '../components'
+  import { goBack } from '../service/mixins'
+  import { GetNoticeInfoContent } from '../service/getData'
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
         messageContent: '',
         messageId: '',
-        showAddNotes:'',
-        addNotesData:{
-          title:'网上展厅作品(大型纪录片《走四方》',
-          content:'各省、自治区、直辖市党委党校，铁道党校，新疆生产建设兵团党委党校，各副省级城市党委党校科研处'
+        showAddNotes: '',
+        addNotesData: {
+          title: '网上展厅作品(大型纪录片《走四方》',
+          content: '各省、自治区、直辖市党委党校，铁道党校，新疆生产建设兵团党委党校，各副省级城市党委党校科研处'
         }
       }
     },
-    created() {
-      this.messageId = this.$route.query.id || '';
+    created () {
+      this.messageId = this.$route.query.id || ''
     },
-    mounted() {
-      this.getMessageContent(this.messageId);
+    mounted () {
+      this.getMessageContent(this.messageId)
     },
     components: {
       headerFix,
       addNotes,
     },
     methods: {
-      async getMessageContent(Id) {
-        Indicator.open();
-        let data = await GetNoticeInfoContent({Id});
+      async getMessageContent (Id) {
+        Indicator.open()
+        let data = await GetNoticeInfoContent({Id})
 //        Indicator.close();
-        let message = data.toString().split("<body>")[1].split("</body>");
-        this.messageContent = message[0];
+        let message = data.toString().split('<body>')[1].split('</body>')
+        this.messageContent = message[0]
       },
       /*显示、隐藏添加笔记*/
-      toggleNotes() {
-        this.showAddNotes = !this.showAddNotes;
+      toggleNotes () {
+        this.showAddNotes = !this.showAddNotes
       },
       /*保存笔记*/
-      saveNotes() {
-        this.toggleNotes();
-        console.log("保存笔记",this.addNotesData)
+      saveNotes () {
+        this.toggleNotes()
+        console.log('保存笔记', this.addNotesData)
       }
     },
   }

@@ -4,9 +4,6 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/test/unit/coverage/
-/src/designPhoto/
-
 
 # Editor directories and files
 .idea
@@ -15,3 +12,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+/designPhoto/

@@ -11,23 +11,23 @@
   </div>
 </template>
 <script>
-  import {goBack} from '../service/mixins'
-  import {signList, headerFix} from '../components'
-  import {GetClassUserSignList} from '../service/getData'
+  import { goBack } from '../service/mixins'
+  import { signList, headerFix } from '../components'
+  import { GetClassUserSignList } from '../service/getData'
 
   export default {
     mixins: [goBack],
-    data() {
+    data () {
       return {
-        trainingId:'',
-        signData:[]
+        trainingId: '',
+        signData: []
       }
     },
-    created() {
-      this.trainingId = this.$route.query.Id;
+    created () {
+      this.trainingId = this.$route.query.Id
     },
-    mounted() {
-      this.getSignList();
+    mounted () {
+      this.getSignList()
     },
     props: [],
     components: {
@@ -35,15 +35,15 @@
       headerFix,
     },
     computed: {},
-    updated() {
+    updated () {
       
     },
     methods: {
       //签到列表
-      async getSignList() {
-        let data = await GetClassUserSignList({TrainingId: this.trainingId});
+      async getSignList () {
+        let data = await GetClassUserSignList({TrainingId: this.trainingId})
         if (data.Type == 1) {
-          this.signData = data.Data;
+          this.signData = data.Data
         }
       },
     },
