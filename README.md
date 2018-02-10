@@ -39,7 +39,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ### 微信公众号
 
-![](https://github.com/cyw666/vue-civilServants-mobile/blob/master/static/screenshot/weiXinImg.jpg)
+![](https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/weiXinImg.jpg)
 
 # 说明
 
@@ -89,7 +89,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 # 部分截图
 
 ### 登录页  首页
-<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/login.png" width="365" height="660"/><img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/home.jpg" width="371" height="660"/>
+<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/login.png" width="365" height="660"/><img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/home.png" width="371" height="660"/>
 
 
 ### 课程中心  考试中心
