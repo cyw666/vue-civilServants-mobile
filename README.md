@@ -88,32 +88,16 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 # 部分截图
 
-### 登录页
-<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/login.png" width="365" height="619"/>
-
-### 首页
-<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/home.jpg" width="365" height="619"/>
-
-### 课程中心
-
-<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/coursecenter.png" width="365" height="619"/>
-
-### 考试中心
-
-<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/examcenter.jpg" width="365" height="619"/>
-
-### 新闻中心
-
-<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/newscenter.png" width="365" height="619"/>
-
-### 播放页
-
-<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/play.png" width="365" height="619"/>
-
-### 排行榜
-
-<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/ranklist.png" width="365" height="619"/>
+### 登录页  首页
+<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/login.png" width="365" height="660"/><img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/home.jpg" width="371" height="660"/>
 
 
+### 课程中心  考试中心
 
+<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/coursecenter.png" width="371" height="660"/><img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/examcenter.png" width="371" height="660"/>
+
+
+### 新闻中心  播放页
+
+<img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/newscenter.png" width="371" height="660"/><img src="https://github.com/cyw666/vue-civilServants-mobile/blob/master/screenshot/play.png" width="371" height="660"/>
 
